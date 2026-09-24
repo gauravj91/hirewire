@@ -1,0 +1,3209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>HireWire — The Job Wire</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F1E6; --paper2:#EFE8D7; --ink:#17130C; --ink2:#6A6250;
+  --line:#DDD4BF; --line2:#BCB096;
+  --red:#C8371D; --red-dk:#A02B14; --green:#3D6B35; --amber:#96660F;
+  --con-bg:#191510; --con-fg:#EDE4CF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--paper)}
+body{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:13px;line-height:1.45;color:var(--ink);-webkit-font-smoothing:antialiased}
+::selection{background:var(--red);color:var(--paper)}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+button{font-family:inherit;color:inherit}
+.frame{max-width:1300px;margin:0 auto;padding:0 28px}
+.dim{color:var(--ink2)}
+.sep{opacity:.35;margin:0 2px}
+.errbar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--red);color:#fff;padding:8px 16px;font-size:11px;letter-spacing:.08em}
+.btn{font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--ink);background:transparent;padding:9px 14px;cursor:pointer;transition:background .12s,color .12s;display:inline-block}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:active{transform:translateY(1px)}
+.btn.red{background:var(--red);border-color:var(--red);color:var(--paper)}
+.btn.red:hover{background:var(--red-dk);border-color:var(--red-dk)}
+.btn.mini{font-size:8.5px;padding:3px 7px;border-color:var(--line2)}
+.btn.mini:hover{border-color:var(--ink)}
+.input{font-family:inherit;font-size:12px;border:1px solid var(--ink);background:transparent;color:var(--ink);padding:9px 12px;width:100%}
+.input:focus{outline:none;border-color:var(--red)}
+.input.sm{padding:7px 10px;font-size:11.5px;margin-top:8px}
+textarea.input{resize:vertical;min-height:64px;line-height:1.6}
+#cvInput{min-height:96px;margin-bottom:8px}
+#tailorInput{min-height:130px;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;background:transparent}
+button.chip{cursor:pointer}
+button.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip .cnt{opacity:.55}
+.chip .cnt.hot{opacity:1;color:var(--red);font-weight:700}
+.chip.on .cnt.hot{color:var(--paper)}
+.chip .rm{cursor:pointer;opacity:.6;padding:0 1px}
+.chip .rm:hover{opacity:1;color:var(--red)}
+.sdot{width:7px;height:7px;background:var(--line2);flex:none}
+.sdot.ok{background:var(--green)} .sdot.bad{background:var(--red)}
+.mast-top{display:flex;justify-content:space-between;gap:16px;padding:12px 0 10px;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+.mast-top b{font-weight:600}
+.mast-main{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:26px 0 18px;flex-wrap:wrap}
+.mast-name{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(56px,8.2vw,102px);line-height:.9;letter-spacing:-.015em}
+.mast-name .dot{color:var(--red)}
+.mast-side{display:flex;gap:28px;align-items:flex-end;padding-bottom:8px;flex-wrap:wrap}
+.stat label{display:block;font-size:8.5px;letter-spacing:.18em;color:var(--ink2);margin-bottom:4px}
+.stat b{font-size:20px;font-weight:600;letter-spacing:-.02em}
+.rule-double{height:6px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);position:relative}
+.rule-double::after{content:'';position:absolute;left:0;right:0;top:2px;border-top:1px solid var(--ink)}
+.banner{display:flex;align-items:center;gap:14px;background:var(--red);color:var(--paper);padding:9px 16px;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.banner .btn{border-color:var(--paper);color:var(--paper)}
+.banner .btn:hover{background:var(--paper);color:var(--red)}
+.banner[hidden]{display:none}
+.cols{display:grid;grid-template-columns:300px minmax(0,1fr)}
+.side{border-right:1px solid var(--line2);padding:14px 24px 40px 0}
+.content{padding:0 0 60px 26px;min-width:0}
+.panel{padding:20px 0;border-bottom:1px solid var(--line)}
+.panel:first-child{padding-top:18px}
+.plabel{display:flex;align-items:center;gap:8px;font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.plabel::before{content:'';width:7px;height:7px;background:var(--red);flex:none}
+.h3line{display:flex;align-items:center;gap:8px;font-size:9.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin:22px 0 12px}
+.h3line::before{content:'';width:7px;height:7px;background:var(--line2);flex:none}
+.fld{margin-bottom:18px}
+.fld:last-child{margin-bottom:0}
+.fld>label{display:block;font-size:8.5px;letter-spacing:.16em;color:var(--ink2);margin-bottom:8px;text-transform:uppercase}
+.btnrow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.lastrun{font-size:9.5px;letter-spacing:.06em;color:var(--ink2);line-height:1.8;margin-top:4px;text-transform:uppercase}
+details.how{margin-top:12px;font-size:9.5px;letter-spacing:.08em;color:var(--ink2)}
+details.how summary{cursor:pointer;text-transform:uppercase;letter-spacing:.16em;font-weight:600;color:var(--ink)}
+details.how p{margin-top:8px;line-height:1.8}
+.steps{list-style:none;counter-reset:st;margin-bottom:10px}
+.steps li{counter-increment:st;position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);font-size:10.5px;line-height:1.7}
+.steps li::before{content:counter(st,decimal-leading-zero);position:absolute;left:0;top:10px;font-size:9px;letter-spacing:.1em;color:var(--red);font-weight:600}
+.steps b{font-weight:600}
+.stepscode{background:var(--paper2);border:1px solid var(--line2);padding:8px 10px;font-size:10px;line-height:1.7;margin-bottom:10px;word-break:break-word}
+.srcs{list-style:none}
+.srcs li{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.08em}
+.srcs b{font-weight:600}
+.srcs span{margin-left:auto;color:var(--ink2);font-size:9.5px;text-align:right}
+.fine{font-size:8.5px;letter-spacing:.12em;color:var(--ink2);margin-top:14px;line-height:1.9;text-transform:uppercase}
+.tabs{display:flex;border-bottom:1px solid var(--ink)}
+.tab{background:none;border:none;border-right:1px solid var(--line2);padding:12px 20px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:var(--ink2)}
+.tab:hover{color:var(--ink)}
+.tab.on{background:var(--ink);color:var(--paper)}
+.tab span{color:var(--red);margin-left:4px}
+.tab.on span{color:var(--paper)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.toolbar[hidden]{display:none}
+.grow{flex:1;min-width:170px}
+.tog{border:1px solid var(--line2);background:transparent;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
+.tog:hover{border-color:var(--ink)}
+.tog.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tog.dis{opacity:.4;cursor:not-allowed}
+select.tog{padding:7px 8px}
+.count{margin-left:auto;font-size:9.5px;letter-spacing:.14em;color:var(--ink2);text-transform:uppercase}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.tagrow[hidden]{display:none}
+.tlabel{font-size:8.5px;letter-spacing:.18em;color:var(--ink2)}
+.pipeline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.pipeline[hidden]{display:none}
+.pstage{border:1px solid var(--line2);background:transparent;padding:6px 10px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.pstage:hover{border-color:var(--ink)}
+.pstage.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pstage b{margin-left:6px}
+.ghostchip{border:1px solid var(--amber);color:var(--amber);background:transparent;font-size:8px;letter-spacing:.12em;padding:2px 5px;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.ghostchip:hover{background:var(--amber);color:var(--paper)}
+.wire{list-style:none}
+.row{display:grid;grid-template-columns:30px 104px minmax(0,1fr) 118px;gap:14px;align-items:center;padding:14px 8px 14px 0;border-bottom:1px solid var(--line);cursor:pointer;position:relative}
+.row:hover,.row:focus-visible{background:var(--paper2)}
+.idx{font-size:9.5px;color:var(--ink2);text-align:center}
+.scorebox{display:flex;align-items:center;gap:8px}
+.ticks{display:flex;gap:2px}
+.ticks i{width:5px;height:12px;background:var(--line)}
+.ticks i.f{background:var(--ink)}
+.scorebox.hi .ticks i.f{background:var(--red)}
+.scorenum{font-size:10px;color:var(--ink2)}
+.jtitle{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:19px;line-height:1.15}
+.l1{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px}
+.newmark{background:var(--red);color:var(--paper);font-size:8px;letter-spacing:.14em;padding:2px 5px;margin-right:9px;align-self:center;flex:none}
+.l2{margin-top:5px;font-size:9.5px;letter-spacing:.07em;color:var(--ink2);text-transform:uppercase;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.l2 b{color:var(--ink);font-weight:600}
+.badge{border:1px solid currentColor;padding:1px 5px;font-size:8px;letter-spacing:.14em;text-transform:uppercase}
+.badge.remote{color:var(--green)} .badge.onsite{color:var(--ink2)} .badge.hybrid{color:var(--amber)}
+.src{font-size:8.5px;letter-spacing:.14em}
+.l3{margin-top:5px;font-size:10px;color:var(--ink2);letter-spacing:.05em}
+.bnote{margin-top:6px;font-size:10.5px;color:var(--ink2)}
+.bnote b{color:var(--red);font-weight:600;letter-spacing:.1em}
+.pay{text-align:right;font-size:12px;font-weight:600;white-space:nowrap}
+.acts{position:absolute;right:8px;top:50%;transform:translateY(-50%);display:flex;gap:6px;opacity:0;transition:opacity .12s}
+.row:hover .acts,.row:focus-visible .acts{opacity:1}
+.row:hover .row-pay-hide{visibility:hidden}
+.acts .btn{background:var(--paper);padding:6px 10px;font-size:9px}
+.acts .btn:hover{background:var(--ink);color:var(--paper)}
+.bstat{font-family:inherit;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink);background:transparent;padding:6px 6px;width:100%;cursor:pointer}
+.empty{padding:80px 20px;text-align:center;border-bottom:1px solid var(--line)}
+.empty h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px}
+.empty p{color:var(--ink2);margin:10px 0 20px;font-size:11.5px}
+.empty b{color:var(--red)}
+.more{display:block;width:100%;margin-top:18px;padding:12px}
+.sponsor-card{border:1px dashed var(--line2);padding:12px 14px;font-size:10.5px}
+.sponsor-card:hover{border-color:var(--ink)}
+.sponsor-card h4{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:17px;margin:8px 0 4px;line-height:1.2}
+.sponsor-card p{color:var(--ink2);font-size:10.5px;line-height:1.6;margin-bottom:10px}
+.slab{display:inline-block;border:1px solid var(--amber);color:var(--amber);font-size:8px;letter-spacing:.14em;padding:2px 6px;text-transform:uppercase}
+.swire{display:flex;gap:14px;align-items:center;padding:14px 8px;border-top:1px dashed var(--line2);border-bottom:1px dashed var(--line2)}
+.swire .body{flex:1;min-width:0}
+.swire .blurb{color:var(--ink2);font-size:10.5px;margin-top:3px}
+.swire .pay{flex:none}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:22px 0 40px}
+.tpanel{min-width:0}
+.kw{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink);padding:4px 8px;font-size:10px;letter-spacing:.06em;margin:0 6px 6px 0;text-transform:uppercase}
+.kw.gap{border-color:var(--red);color:var(--red)}
+.kw .n{opacity:.65;font-size:9px}
+.barlabel{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;margin-top:10px}
+.bar{height:14px;background:var(--line);position:relative;margin-top:4px}
+.bar i{position:absolute;top:0;bottom:0;left:0;background:var(--ink)}
+.bar.hi i{background:var(--red)}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.bigstat{border:1px solid var(--line);padding:10px 12px}
+.bigstat label{display:block;font-size:8px;letter-spacing:.16em;color:var(--ink2);margin-bottom:4px;text-transform:uppercase}
+.bigstat b{font-size:20px;font-weight:600}
+table.htable{width:100%;border-collapse:collapse;font-size:10.5px;margin-top:8px}
+.htable th,.htable td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;letter-spacing:.06em;text-transform:uppercase}
+.htable th{font-size:8px;letter-spacing:.14em;color:var(--ink2)}
+.htable td b{font-weight:600}
+.nudgeli{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:10.5px;flex-wrap:wrap}
+.nudgeli .grow{flex:1;min-width:140px}
+.alog{list-style:none;font-size:9.5px;color:var(--ink2);line-height:1.9}
+.alog b{color:var(--ink)}
+.star{border:1px solid var(--line2);padding:12px 14px;margin-bottom:10px;cursor:pointer;position:relative}
+.star:hover{border-color:var(--ink)}
+.star h4{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:17px;line-height:1.2;padding-right:20px}
+.star .tags{font-size:9px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-top:3px}
+.star .full{display:none;margin-top:10px;font-size:11px;line-height:1.7}
+.star.open .full{display:block}
+.star .full b{display:block;font-size:8px;letter-spacing:.16em;color:var(--ink2);margin-top:8px;text-transform:uppercase}
+.star .sx{position:absolute;top:8px;right:8px;opacity:0}
+.star:hover .sx{opacity:1}
+.person{border:1px solid var(--line2);padding:10px 12px;margin-bottom:8px;font-size:10.5px}
+.person h4{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:16px}
+.person .meta{font-size:9px;letter-spacing:.1em;color:var(--ink2);text-transform:uppercase;margin:2px 0 8px}
+.d-sec{padding:12px 26px;border-bottom:1px solid var(--line)}
+.d-sec label{display:block;font-size:8.5px;letter-spacing:.16em;color:var(--ink2);margin-bottom:6px;text-transform:uppercase}
+.crow{display:flex;gap:8px;align-items:center;font-size:11px;padding:4px 0}
+.crow .grow{flex:1}
+.crow .rm{cursor:pointer;color:var(--ink2)}
+.crow .rm:hover{color:var(--red)}
+.dform{display:flex;gap:6px;margin-top:8px}
+.dform .input{margin-top:0}
+.d-ghost{padding:10px 26px;font-size:9.5px;letter-spacing:.1em;color:var(--amber);text-transform:uppercase;border-bottom:1px solid var(--line)}
+.d-next{display:flex;gap:6px}
+.d-next .input{margin-top:0}
+.d-comp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.d-comp .input{margin-top:0}
+.foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:18px 0 30px;margin-top:34px;border-top:1px solid var(--ink);font-size:9px;letter-spacing:.16em;color:var(--ink2);text-transform:uppercase}
+.foot b{color:var(--ink)}
+.foot a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.scrim{position:fixed;inset:0;background:rgba(23,19,12,.42);opacity:0;pointer-events:none;transition:opacity .28s;z-index:50}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--paper);border-left:1px solid var(--ink);transform:translateX(103%);transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:60;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.d-head{padding:20px 26px 18px;border-bottom:1px solid var(--ink);position:relative}
+.d-x{position:absolute;top:14px;right:14px;background:none;border:1px solid var(--line2);width:30px;height:30px;font-size:15px;cursor:pointer;line-height:1}
+.d-x:hover{background:var(--ink);color:var(--paper)}
+.d-kick{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.d-title{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:29px;line-height:1.12;padding-right:36px}
+.d-co{margin-top:8px;font-size:12px;display:flex;gap:10px;align-items:center}
+.d-match{display:grid;grid-template-columns:auto 1fr;gap:24px;padding:16px 26px;border-bottom:1px solid var(--line);align-items:center}
+.d-score label{display:block;font-size:8.5px;letter-spacing:.18em;color:var(--ink2)}
+.d-score b{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:46px;line-height:1}
+.d-score span{font-size:10px;color:var(--ink2)}
+.d-meters{display:grid;gap:8px}
+.mrow{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:10px}
+.mrow label{font-size:8.5px;letter-spacing:.16em;color:var(--ink2)}
+.meter{height:6px;background:var(--line);position:relative}
+.meter i{position:absolute;top:0;bottom:0;left:0;background:var(--ink)}
+.meter.hi i{background:var(--red)}
+.d-why{display:flex;flex-wrap:wrap;gap:6px;padding:14px 26px;border-bottom:1px solid var(--line)}
+.d-why span{font-size:9.5px;letter-spacing:.06em;padding:3px 8px;border:1px solid currentColor;text-transform:uppercase}
+.d-why .wp{color:var(--green)} .d-why .wm{color:var(--red)}
+.d-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;padding:16px 26px;border-bottom:1px solid var(--line)}
+.d-meta label{display:block;font-size:8.5px;letter-spacing:.16em;color:var(--ink2);margin-bottom:3px;text-transform:uppercase}
+.d-meta span{font-size:11.5px;font-weight:600}
+.d-notewrap{padding:14px 26px;border-bottom:1px solid var(--line)}
+.d-notewrap label{display:block;font-size:8.5px;letter-spacing:.16em;color:var(--ink2);margin-bottom:7px}
+.d-body{padding:18px 26px;overflow:auto;flex:1;white-space:pre-wrap;font-size:12px;line-height:1.7}
+.d-foot{border-top:1px solid var(--ink);padding:14px 26px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;background:var(--paper)}
+.d-foot .bstat{width:auto}
+.agent{position:fixed;inset:0;z-index:75;display:none;align-items:center;justify-content:center;padding:4vh 4vw;background:rgba(23,19,12,.45)}
+.agent.open{display:flex}
+.agent-card{background:var(--paper);border:1px solid var(--ink);box-shadow:12px 12px 0 rgba(23,19,12,.28);width:min(960px,100%);max-height:90vh;display:flex;flex-direction:column}
+.ag-head{display:flex;justify-content:space-between;gap:16px;padding:22px 26px 16px;border-bottom:1px solid var(--ink)}
+.ag-title{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:30px}
+.ag-title .dot{color:var(--red)}
+.ag-sub{font-size:9.5px;letter-spacing:.14em;color:var(--ink2);margin-top:7px;text-transform:uppercase}
+.ag-body{overflow:auto;padding:0 26px}
+.brief-pre{font-family:inherit;font-size:11.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;padding:18px 26px}
+.ag-row{grid-template-columns:36px 104px minmax(0,1fr) 130px;cursor:pointer}
+.rank{font-family:'Instrument Serif',Georgia,serif;font-size:21px;text-align:center}
+.reasons{margin-top:6px;font-size:9.5px;letter-spacing:.04em;display:flex;flex-wrap:wrap;gap:4px 12px}
+.reasons .p{color:var(--green)} .reasons .m{color:var(--red)}
+.ag-right{text-align:right;display:grid;gap:7px;justify-items:end}
+.ag-foot{display:flex;gap:10px;align-items:center;padding:14px 26px;border-top:1px solid var(--ink);flex-wrap:wrap}
+.ag-hint{margin-left:auto;font-size:8.5px;letter-spacing:.1em;color:var(--ink2);max-width:300px;text-align:right;text-transform:uppercase;line-height:1.7}
+.console{position:fixed;left:0;right:0;bottom:0;height:min(330px,62vh);background:var(--con-bg);color:var(--con-fg);transform:translateY(103%);transition:transform .28s cubic-bezier(.2,.8,.2,1);z-index:80;display:flex;flex-direction:column;border-top:2px solid var(--red);font-size:12.5px}
+.console.open{transform:none}
+.con-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 16px;border-bottom:1px solid rgba(237,228,207,.16);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#9B917C}
+.con-x{background:none;border:1px solid rgba(237,228,207,.3);color:var(--con-fg);width:24px;height:24px;cursor:pointer;font-size:13px;line-height:1}
+.con-x:hover{border-color:#FF5A36;color:#FF5A36}
+.con-out{flex:1;overflow:auto;padding:12px 16px;line-height:1.6}
+.con-out div{white-space:pre-wrap;word-break:break-word}
+.c-cmd{color:#fff;font-weight:600}
+.c-out{color:var(--con-fg)}
+.c-dim{color:#8D8471}
+.c-ok{color:#9CCB7A}
+.c-err{color:#FF6B4A}
+.c-hi{color:#FF5A36;font-weight:600}
+.con-form{display:flex;gap:10px;align-items:center;border-top:1px solid rgba(237,228,207,.16);padding:11px 16px}
+.prompt{color:#FF5A36;font-weight:600}
+#conInput{flex:1;background:none;border:none;color:#fff;font:inherit;caret-color:#FF5A36;outline:none}
+.con-tab{position:fixed;right:0;bottom:26px;z-index:70;background:var(--ink);color:var(--paper);border:none;font-size:10px;letter-spacing:.16em;padding:9px 14px;cursor:pointer}
+.con-tab:hover{background:var(--red)}
+.con-tab b{color:#FF5A36;animation:blink 1.1s steps(1) infinite;font-weight:600}
+body.con-open .con-tab{display:none}
+.toasts{position:fixed;top:16px;right:20px;z-index:95;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.toast{background:var(--ink);color:var(--paper);padding:10px 14px;font-size:10px;letter-spacing:.1em;border-left:3px solid var(--red);max-width:440px;text-transform:uppercase;animation:tin .22s}
+@keyframes tin{from{transform:translateY(8px);opacity:0}}
+@keyframes blink{50%{opacity:0}}
+@media (max-width:940px){
+  .cols{grid-template-columns:1fr}
+  .side{border-right:none;border-bottom:1px solid var(--ink);padding-right:0}
+  .content{padding-left:0}
+  .row{grid-template-columns:24px 104px minmax(0,1fr) 100px}
+  .mast-side{gap:18px}
+  .tgrid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .frame{padding:0 16px}
+  .row{grid-template-columns:24px minmax(0,1fr) 92px}
+  .scorebox{display:none}
+  .pay{font-size:10.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .con-tab b{animation:none}
+}
+@media print{
+  body{background:#fff}
+  .side,.tabs,.toolbar,.tagrow,.pipeline,.con-tab,.console,.toasts,.errbar,.banner,#panelView,#moreBtn,.acts,.foot,.btn,.ghostchip,.swire{display:none!important}
+  .frame{max-width:100%;padding:0}
+  .content{padding:0}
+  .row{grid-template-columns:30px 104px minmax(0,1fr) 118px;break-inside:avoid}
+  .mast-name{font-size:40px}
+}
+</style>
+</head>
+<body>
+<div class="errbar" id="errbar" hidden></div>
+<div class="frame">
+
+  <header>
+    <div class="mast-top">
+      <span>THE JOB WIRE — FOR HUMANS &amp; THEIR AGENTS</span>
+      <span id="utcClock">--:--:-- UTC</span>
+      <span>EDITION <b id="edNo">—</b> · HOURLY CADENCE</span>
+    </div>
+    <div class="mast-main">
+      <h1 class="mast-name">HireWire<span class="dot">.</span></h1>
+      <div class="mast-side">
+        <div class="stat"><label>ON THE WIRE</label><b id="stCount">0</b></div>
+        <div class="stat"><label>SOURCES</label><b id="stSources">—</b></div>
+        <div class="stat"><label>FEEDS</label><b id="stFeeds">—</b></div>
+        <div class="stat"><label>NEXT SYNC</label><b id="stNext">—</b></div>
+        <button class="btn red" id="syncBtn">SYNC NOW</button>
+      </div>
+    </div>
+    <div class="rule-double"></div>
+  </header>
+
+  <div class="banner" id="banner" hidden></div>
+
+  <div class="cols">
+    <aside class="side">
+      <section class="panel">
+        <h2 class="plabel">Subscriber profile</h2>
+        <div class="fld">
+          <label>Your name — used in follow-ups &amp; briefs</label>
+          <input class="input sm" id="nameInput" placeholder="e.g. Alex Kim">
+        </div>
+        <div class="fld">
+          <label>Skills — press Enter to add each one</label>
+          <div class="chips" id="skillChips"></div>
+          <input class="input sm" id="skillInput" placeholder="add skill + Enter — e.g. product manager">
+        </div>
+        <div class="fld">
+          <label>Currency — your salary floor is in this</label>
+          <select class="input sm" id="curSelect">
+            <option value="USD">USD $</option><option value="EUR">EUR €</option><option value="GBP">GBP £</option>
+            <option value="INR">INR ₹</option><option value="CAD">CAD $</option><option value="AUD">AUD $</option>
+            <option value="JPY">JPY ¥</option><option value="BRL">BRL R$</option><option value="PLN">PLN zł</option>
+            <option value="SGD">SGD $</option><option value="ZAR">ZAR R</option><option value="MXN">MXN $</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label>Salary floor (annual)</label>
+          <input class="input sm" id="floorInput" placeholder="e.g. 120k">
+        </div>
+        <div class="fld">
+          <label>Blocked — hidden when mentioned</label>
+          <div class="chips" id="blockChips"></div>
+          <input class="input sm" id="blockInput" placeholder="add blocker + Enter — e.g. crypto">
+        </div>
+        <div class="fld">
+          <label>Blocked locations — hidden when matched</label>
+          <div class="chips" id="locBlockChips"></div>
+          <input class="input sm" id="locBlockInput" placeholder="add location + Enter — e.g. india">
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Profile from CV</h2>
+        <div class="fld">
+          <label>Paste CV text — extraction runs locally</label>
+          <textarea class="input" id="cvInput" placeholder="Paste your résumé / CV here…"></textarea>
+          <button class="btn" id="cvExtract">EXTRACT SKILLS</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Add a source — BYOK</h2>
+        <div class="fld">
+          <label>Adzuna (free key) — app id</label>
+          <input class="input sm" id="byokApp" placeholder="your app_id">
+          <input class="input sm" id="byokKey" placeholder="your app_key">
+          <select class="input sm" id="byokCC">
+            <option value="us">United States</option><option value="gb">United Kingdom</option>
+            <option value="de">Germany</option><option value="fr">France</option><option value="nl">Netherlands</option>
+            <option value="es">Spain</option><option value="it">Italy</option><option value="in">India</option>
+            <option value="ca">Canada</option><option value="au">Australia</option><option value="br">Brazil</option>
+            <option value="pl">Poland</option><option value="sg">Singapore</option>
+          </select>
+          <input class="input sm" id="byokWhat" placeholder="optional keyword — e.g. product manager">
+          <div class="btnrow" style="margin-top:8px">
+            <button class="btn red" id="byokSave">ACTIVATE</button>
+            <button class="btn" id="byokOff">REMOVE</button>
+          </div>
+          <p class="fine" id="byokStat">Get a free key at developer.adzuna.com. Keys never leave this browser.</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Match agent</h2>
+        <div class="btnrow">
+          <button class="btn red" id="runAgentBtn">RUN AGENT</button>
+          <button class="btn" id="viewBriefBtn">VIEW BRIEF</button>
+        </div>
+        <div class="btnrow">
+          <button class="btn" id="copyBriefBtn">COPY BRIEF</button>
+          <button class="btn" data-export="md">.MD</button>
+          <button class="btn" data-export="json">JSON</button>
+          <button class="btn" data-export="csv">CSV</button>
+        </div>
+        <p class="lastrun" id="lastRunLine">NO RUNS YET — THE AGENT SCORES EVERY POSTING AGAINST THIS PROFILE.</p>
+        <details class="how">
+          <summary>How the score works</summary>
+          <p>Base 32 · +13 per profile skill in the title · +7 in tags/description · +12 above your floor (converted via static rough FX), −18 below, −3 if pay unstated · +9/+6/+3 freshness, −8 stale · +4 remote · −28 blocked keyword. ATS descriptions are fetched on first drawer open and cached locally.</p>
+        </details>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Connect your agent</h2>
+        <ol class="steps">
+          <li><b>Set your profile.</b> Skills + floor, or paste your CV and press Extract.</li>
+          <li><b>Run the agent.</b> Run Agent → Copy Brief. You hold a markdown brief: profile + scored shortlist + task.</li>
+          <li><b>Paste into your agent.</b> Claude Code, Cursor, Codex CLI — use the one-liner, then paste the brief.</li>
+          <li><b>Bring results back.</b> My Board → Paste Agent Results. Pin winners, move them through the pipeline.</li>
+        </ol>
+        <div class="stepscode" id="agentPrompt">Here is my HireWire job-search brief. Read my profile at the top, then execute the "Task for the coding agent" section at the end. Do not ask questions — output the table: rank | company | fit | blocker.</div>
+        <button class="btn" id="copyPromptBtn">COPY AGENT PROMPT</button>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Wire sources</h2>
+        <ul class="srcs" id="srcList"></ul>
+        <p class="fine"><span id="feedCount">—</span> · public APIs · no keys of ours · everything runs and stays in your browser.</p>
+      </section>
+
+      <section class="panel">
+        <h2 class="plabel">Data &amp; backup</h2>
+        <div class="btnrow">
+          <button class="btn" id="backupBtn">BACKUP EVERYTHING</button>
+          <button class="btn" id="restoreBtn">RESTORE…</button>
+          <input type="file" id="restoreFile" accept=".json,application/json" hidden>
+        </div>
+        <p class="fine" id="backupAge">—</p>
+        <p class="fine" id="storageInfo">—</p>
+        <p class="fine">Data is mirrored to the browser's database. Drop a backup .json anywhere on this page to restore it. Safari purges site data after 7 days of non-use — a fresh backup is your insurance.</p>
+      </section>
+
+      <section class="panel" id="sponsorPanel" hidden>
+        <h2 class="plabel">Supported by</h2>
+        <div id="sponsorSide"></div>
+        <p class="fine" id="sponsorFine">Slots are hand-sold and tracking-free — HireWire cannot see clicks, sponsors cannot see you.</p>
+      </section>
+    </aside>
+
+    <main class="content">
+      <nav class="tabs">
+        <button class="tab on" id="tabWire">The Wire</button>
+        <button class="tab" id="tabBoard">My Board<span id="boardCount">0</span></button>
+        <button class="tab" id="tabTailor">Tailor</button>
+        <button class="tab" id="tabPeople">People</button>
+        <button class="tab" id="tabInsights">Insights</button>
+      </nav>
+
+      <div id="panelView" hidden></div>
+
+      <div class="tagrow" id="savedBar" hidden></div>
+
+      <div class="toolbar" id="toolbar">
+        <input class="input grow" id="qInput" placeholder='filter the wire — press / to focus'>
+        <button class="tog" id="togRemote">Remote</button>
+        <button class="tog" id="togFloor">≥ Floor</button>
+        <select class="tog" id="selSen">
+          <option value="any">ALL LEVELS</option>
+          <option value="junior">JUNIOR</option>
+          <option value="mid">MID</option>
+          <option value="senior">SENIOR+</option>
+        </select>
+        <select class="tog" id="selSort">
+          <option value="match">SORT: MATCH</option>
+          <option value="newest">SORT: NEWEST</option>
+        </select>
+        <button class="tog" id="saveSearchBtn">+ SAVE</button>
+        <span id="ssWrap" hidden>
+          <input class="input" id="ssName" placeholder="name this search" style="width:170px;padding:7px 10px;font-size:11px">
+          <button class="btn mini" data-act="ssave">SAVE</button>
+          <button class="btn mini" data-act="scancel">×</button>
+        </span>
+        <span class="count" id="countLabel"></span>
+      </div>
+
+      <div class="pipeline" id="pipelineStrip" hidden></div>
+      <div class="tagrow" id="sourceChips"></div>
+      <div class="tagrow" id="locChips"></div>
+      <div class="tagrow" id="tagChips"></div>
+
+      <ol class="wire" id="wire"></ol>
+      <button class="btn more" id="moreBtn" hidden></button>
+    </main>
+  </div>
+
+  <footer class="foot">
+    <span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL.</span>
+    <span id="footSup" hidden><a id="footSupLink" href="#" target="_blank" rel="noopener noreferrer">SUPPORT HIREWIRE</a></span>
+    <span>PRESS <b>/</b> TO SEARCH · <b>`</b> OR <b>CTRL+K</b> FOR CONSOLE</span>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Posting detail"></aside>
+<section class="agent" id="agentModal" role="dialog" aria-modal="true" aria-label="Agent run"></section>
+<section class="agent" id="briefModal" role="dialog" aria-modal="true" aria-label="Viewer"></section>
+
+<section class="console" id="consoleEl">
+  <div class="con-head">
+    <span>HIREWIRE CONSOLE — SAME ENGINE, ZERO CLICKS</span>
+    <span>ENTER `HELP`</span>
+    <button class="con-x" id="conClose" aria-label="Close console">×</button>
+  </div>
+  <div class="con-out" id="conOut"></div>
+  <form class="con-form" id="conForm">
+    <span class="prompt">❯</span>
+    <input id="conInput" autocomplete="off" spellcheck="false" placeholder="type help">
+  </form>
+</section>
+<button class="con-tab" id="conTab">CONSOLE<b>_</b></button>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ============ 0 · ERROR TRAP ============ */
+function showErr(msg){
+  const b = document.getElementById('errbar');
+  if (b){ b.hidden = false; b.textContent = msg; }
+}
+window.addEventListener('error', e => showErr('SCRIPT ERROR — ' + e.message + ' (line ' + e.lineno + ')'));
+
+/* ============ 0b · MONETIZATION — EDIT THIS BLOCK ONLY ============ */
+const SUPPORT_LINK = '';
+const SPONSORS = [
+
+];
+
+/* ============ 1 · UTILITIES ============ */
+const $ = s => document.querySelector(s);
+function B(id, fn){
+  const e = document.getElementById(id);
+  if (e) return fn(e);
+  console.warn('HireWire: missing element #' + id + ' — HTML and script are from different versions; recopy the whole file.');
+  return null;
+}
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const str = v => v == null ? '' : String(v).trim();
+const tr = (s, n) => { s = String(s || ''); return s.length > n ? s.slice(0, n - 1) + '…' : s; };
+function htmlToText(html){
+  if (!html) return '';
+  try {
+    const doc = new DOMParser().parseFromString(String(html), 'text/html');
+    return doc.body.textContent.replace(/\n{3,}/g, '\n\n').replace(/[ \t]+\n/g, '\n').trim();
+  } catch(e){ return String(html).replace(/<[^>]*>/g, ' '); }
+}
+function ago(ts){
+  const m = (Date.now() - ts) / 6e4;
+  if (m < 60) return Math.max(1, m|0) + 'M';
+  const h = m / 60;
+  if (h < 24) return (h|0) + 'H';
+  const d = h / 24;
+  if (d < 7) return (d|0) + 'D';
+  return ((d/7)|0) + 'W';
+}
+const daysSince = ts => Math.max(0, Math.floor((Date.now() - ts) / 864e5));
+const hhmm = ts => { const d = new Date(ts); return String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0'); };
+const fmtMMSS = ms => String(Math.floor(ms/6e4)).padStart(2,'0') + ':' + String(Math.floor(ms/1e3)%60).padStart(2,'0');
+const FX = { USD:1, EUR:1.09, GBP:1.27, INR:0.012, CAD:0.74, AUD:0.66, JPY:0.0067, BRL:0.19, PLN:0.25, SGD:0.74, ZAR:0.055, MXN:0.058 };
+const SYM = { USD:'$', EUR:'€', GBP:'£', INR:'₹', JPY:'¥' };
+const curSym = c => SYM[c] || (c ? c + ' ' : '$');
+function fmtMoney(v){ if(!v) return ''; return '$' + (v % 1000 === 0 ? (v/1000) + 'k' : v.toLocaleString('en-US')); }
+function fmtCur(v, code){ if(!v) return ''; return curSym(code) + (v % 1000 === 0 ? (v/1000) + 'k' : Math.round(v).toLocaleString('en-US')); }
+function floorUsd(){ return state.profile.minSalary ? state.profile.minSalary * (FX[state.profile.currency] || 1) : null; }
+function jobTopUsd(j){ const t = j.salaryMax || j.salaryMin; return t ? t * (FX[j.currency] || 1) : null; }
+function fmtSalary(j){
+  if (j.salaryMin || j.salaryMax){
+    const c = curSym(j.currency);
+    const k = v => { v = Math.round(v/1000); return v >= 1000 ? (v/1000).toFixed(1).replace(/\.0$/,'') + 'm' : v + 'k'; };
+    if (j.salaryMin && j.salaryMax) return c + k(j.salaryMin) + '–' + k(j.salaryMax);
+    if (j.salaryMax) return c + '≤' + k(j.salaryMax);
+    return c + k(j.salaryMin) + '+';
+  }
+  return j.salaryText ? tr(j.salaryText, 20) : '';
+}
+function parseMoney(s){
+  if (!s) return null;
+  if (/^off$/i.test(s)) return null;
+  const m = String(s).toLowerCase().match(/^([\d.]+)\s*(k|m)?$/);
+  if (!m) return null;
+  let v = parseFloat(m[1]);
+  if (m[2] === 'k') v *= 1000;
+  if (m[2] === 'm') v *= 1e6;
+  return (v >= 1000 && v <= 2e8) ? Math.round(v) : null;
+}
+function parseSalary(text){
+  const res = { salaryMin:null, salaryMax:null, currency:'USD' };
+  if (!text) return res;
+  let t = String(text).replace(/(\d)\.(\d{3})\b/g, '$1$2').replace(/,/g, '');
+  const curM = t.match(/[$€£₹]|\bUSD\b|\bEUR\b|\bGBP\b|\bINR\b/i);
+  if (curM){
+    const map = { '$':'USD', '€':'EUR', '£':'GBP', '₹':'INR', usd:'USD', eur:'EUR', gbp:'GBP', inr:'INR' };
+    res.currency = map[curM[0].toLowerCase()] || 'USD';
+  }
+  const found = [];
+  const re = /([$€£₹])\s*(\d+(?:\.\d+)?)\s*(k|K)?|(\d+(?:\.\d+)?)\s*(k|K)/g;
+  let m;
+  while ((m = re.exec(t))){
+    let v = null, hasCur = false, hasK = false;
+    if (m[2] !== undefined){ v = parseFloat(m[2]); hasCur = true; hasK = !!m[3]; }
+    else { v = parseFloat(m[4]); hasK = !!m[5]; }
+    if (hasK) v *= 1000;
+    if (v >= 15000 && v <= 99000000) found.push(v);
+    else if (!hasK && !hasCur && v >= 30000 && v <= 990000 && !(v >= 1900 && v <= 2100)) found.push(v);
+  }
+  if (!found.length) return res;
+  const upTo = /\b(?:up to|max|less than|under)\b/i.test(t);
+  if (found.length >= 2 && !upTo){
+    res.salaryMin = Math.min.apply(null, found.slice(0, 2));
+    res.salaryMax = Math.max.apply(null, found.slice(0, 2));
+  } else if (upTo){
+    res.salaryMax = Math.max.apply(null, found);
+  } else {
+    res.salaryMin = Math.min.apply(null, found);
+    if (found.length > 1) res.salaryMax = Math.max.apply(null, found);
+  }
+  return res;
+}
+function normCode(c){ c = String(c || '').toUpperCase(); return FX[c] ? c : 'USD'; }
+async function copyText(t){
+  if (!t) return false;
+  try { await navigator.clipboard.writeText(t); return true; }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = t; ta.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(_){}
+    ta.remove(); return ok;
+  }
+}
+function download(name, text, type){
+  const b = new Blob([text], { type: type || 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+}
+function toast(msg){
+  const d = document.createElement('div');
+  d.className = 'toast'; d.textContent = msg;
+  const t = document.getElementById('toasts');
+  if (t){ t.appendChild(d); setTimeout(() => d.remove(), 4200); }
+}
+async function fetchJSON(url, ms = 9000){
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms);
+  try {
+    const r = await fetch(url, { signal: c.signal });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } finally { clearTimeout(t); }
+}
+
+/* ============ 1b · STORAGE — localStorage → IndexedDB mirror → memory fallback ============
+   Sandboxed previews (online IDE panes) forbid localStorage by spec. Every access goes
+   through this layer: probe once, degrade gracefully, never crash.                        */
+const STORE = { ls:true, mem:{}, probed:false };
+function storageProbe(){
+  if (STORE.probed) return STORE.ls;
+  STORE.probed = true;
+  try {
+    const t = '__hw_probe__';
+    window.localStorage.setItem(t, '1');
+    window.localStorage.removeItem(t);
+    STORE.ls = true;
+  } catch(e){ STORE.ls = false; }
+  return STORE.ls;
+}
+function sGetRaw(k){
+  storageProbe();
+  if (STORE.ls){
+    try { return window.localStorage.getItem(k); }
+    catch(e){ STORE.ls = false; }
+  }
+  return Object.prototype.hasOwnProperty.call(STORE.mem, k) ? STORE.mem[k] : null;
+}
+function sSetRaw(k, v){
+  storageProbe();
+  if (STORE.ls){
+    try { window.localStorage.setItem(k, v); return true; }
+    catch(e){
+      if (k === LS.cache) return false; // cache is disposable — drop silently
+      try {
+        window.localStorage.removeItem(LS.cache);
+        window.localStorage.setItem(k, v);
+        toast('STORAGE FULL — WIRE CACHE CLEARED TO PROTECT YOUR DATA');
+        return true;
+      } catch(e2){ STORE.ls = false; }
+    }
+  }
+  STORE.mem[k] = v;
+  return true;
+}
+
+const DB = { name:'hirewire-kv', store:'kv', db:null, ready:false, queue:{}, timer:null };
+function idbOpen(){
+  return new Promise(res => {
+    let hasIDB = false;
+    try { hasIDB = ('indexedDB' in window); } catch(e){ hasIDB = false; }
+    if (!hasIDB) return res(null);
+    let req;
+    try { req = indexedDB.open(DB.name, 1); } catch(e){ return res(null); }
+    req.onupgradeneeded = () => { try { req.result.createObjectStore(DB.store); } catch(e){} };
+    req.onsuccess = () => { DB.db = req.result; DB.ready = true; res(DB.db); };
+    req.onerror = () => res(null);
+    req.onblocked = () => res(null);
+    setTimeout(() => { if (!DB.ready) res(null); }, 3000);
+  });
+}
+function idbSet(k, v){
+  if (!DB.ready || !DB.db) return;
+  try {
+    const tx = DB.db.transaction(DB.store, 'readwrite');
+    tx.objectStore(DB.store).put(v, k);
+    tx.onerror = () => {};
+  } catch(e){}
+}
+function idbGetAll(){
+  return new Promise(res => {
+    if (!DB.ready || !DB.db) return res(null);
+    try {
+      const tx = DB.db.transaction(DB.store, 'readonly');
+      const st = tx.objectStore(DB.store);
+      const keysReq = st.getAllKeys(), valReq = st.getAll();
+      let keys = null, vals = null;
+      const done = () => {
+        if (!keys || !vals) return;
+        const out = {};
+        keys.forEach((k, i) => { out[k] = vals[i]; });
+        res(out);
+      };
+      keysReq.onsuccess = () => { keys = keysReq.result || []; done(); };
+      valReq.onsuccess = () => { vals = valReq.result || []; done(); };
+      keysReq.onerror = () => res(null);
+      valReq.onerror = () => res(null);
+      tx.onerror = () => res(null);
+    } catch(e){ res(null); }
+  });
+}
+function scheduleMirror(k){
+  DB.queue[k] = true;
+  if (DB.timer) return;
+  DB.timer = setTimeout(flushMirror, 1500);
+}
+function flushMirror(){
+  if (DB.timer){ clearTimeout(DB.timer); DB.timer = null; }
+  const q = DB.queue; DB.queue = {};
+  Object.keys(q).forEach(k => {
+    const raw = sGetRaw(k);
+    if (raw !== null) idbSet(k, raw);
+  });
+}
+async function recoverFromIDB(){
+  if (!DB.ready) return 0;
+  const all = await idbGetAll();
+  if (!all) return 0;
+  let n = 0;
+  Object.keys(LS).forEach(name => {
+    const k = LS[name];
+    if (sGetRaw(k) == null && all[k] != null){
+      if (sSetRaw(k, all[k])) n++;
+    }
+  });
+  return n;
+}
+function requestPersist(){
+  try {
+    if (!STORE.ls) return;
+    if (!navigator.storage || !navigator.storage.persist) return;
+    const done = granted => {
+      state.persistGranted = !!granted;
+      if (granted) toast('PERSISTENT STORAGE GRANTED — STRONGER EVICTION PROTECTION');
+      renderBackupAge();
+    };
+    if (navigator.storage.persisted){
+      navigator.storage.persisted().then(already => {
+        if (already){ state.persistGranted = true; renderBackupAge(); return; }
+        navigator.storage.persist().then(done).catch(() => {});
+      }).catch(() => {});
+    } else {
+      navigator.storage.persist().then(done).catch(() => {});
+    }
+  } catch(e){}
+}
+document.addEventListener('visibilitychange', () => { if (document.hidden) flushMirror(); });
+window.addEventListener('beforeunload', flushMirror);
+
+/* ============ 2 · SOURCES ============ */
+const JUNK_TAG = /^(full[- ]?time|part[- ]?time|contract|internship|temporary|remote|hybrid|onsite|on[- ]?site|other|any)$/i;
+function normTags(arr){
+  const out = [];
+  for (const t of (arr || [])){
+    if (!t || typeof t !== 'string') continue;
+    const s = t.toLowerCase().trim().replace(/^#/, '');
+    if (s.length < 2 || s.length > 26 || JUNK_TAG.test(s)) continue;
+    if (!out.includes(s)) out.push(s);
+  }
+  return out.slice(0, 8);
+}
+const COMPANY_NAMES = { stripe:'Stripe', figma:'Figma', airbnb:'Airbnb', databricks:'Databricks', cloudflare:'Cloudflare', coinbase:'Coinbase', doordash:'DoorDash', docusign:'Docusign', webflow:'Webflow', dropbox:'Dropbox', openai:'OpenAI', anthropic:'Anthropic', netflix:'Netflix', spotify:'Spotify', palantir:'Palantir', plaid:'Plaid', substack:'Substack', nubank:'Nubank', twitch:'Twitch', linear:'Linear', ramp:'Ramp', deel:'Deel', supabase:'Supabase', elevenlabs:'ElevenLabs', vercel:'Vercel', n26:'N26', pleo:'Pleo', kinsta:'Kinsta', visa:'Visa', bosch:'Bosch', producthunt:'Product Hunt', botify:'Botify' };
+const coName = t => COMPANY_NAMES[t] || t.charAt(0).toUpperCase() + t.slice(1);
+const ADZ_CUR = { us:'USD', gb:'GBP', de:'EUR', fr:'EUR', nl:'EUR', es:'EUR', it:'EUR', ie:'EUR', in:'INR', ca:'CAD', au:'AUD', br:'BRL', pl:'PLN', sg:'SGD' };
+
+const SOURCES = [
+  { id:'remotive', label:'REMOTIVE', home:'remotive.com',
+    feeds(){ return [{ url:'https://remotive.com/api/remote-jobs?limit=80',
+      parse(d){
+        return (Array.isArray(d && d.jobs) ? d.jobs : []).map(j => Object.assign({
+          id:'remotive:' + j.id, source:'remotive',
+          title:str(j.title), company:str(j.company_name),
+          location:str(j.candidate_required_location) || 'Remote', remote:'remote',
+          tags:normTags([].concat(j.tags || [], j.category || [])),
+          salaryText:str(j.salary), url:str(j.url),
+          postedAt:Date.parse(j.publication_date) || Date.now(),
+          description:htmlToText(j.description).slice(0, 8000),
+        }, parseSalary(str(j.salary))));
+      }}]; }},
+  { id:'arbeitnow', label:'ARBEITNOW', home:'arbeitnow.com',
+    feeds(){ return [{ url:'https://www.arbeitnow.com/api/job-board-api',
+      parse(d){
+        return (Array.isArray(d && d.data) ? d.data : []).map(j => ({
+          id:'arbeitnow:' + j.slug, source:'arbeitnow',
+          title:str(j.title), company:str(j.company_name),
+          location:str(j.location) || '—',
+          remote:j.remote ? 'remote' : 'onsite',
+          tags:normTags([].concat(j.tags || [], j.job_types || [])),
+          salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:str(j.url),
+          postedAt:j.created_at ? j.created_at * 1000 : Date.now(),
+          description:htmlToText(j.description).slice(0, 8000),
+        }));
+      }}]; }},
+  { id:'jobicy', label:'JOBICY', home:'jobicy.com',
+    feeds(){ return [{ url:'https://jobicy.com/api/v2/remote-jobs?count=50',
+      parse(d){
+        return (Array.isArray(d && d.jobs) ? d.jobs : []).map(j => ({
+          id:'jobicy:' + j.id, source:'jobicy',
+          title:str(j.jobTitle), company:str(j.companyName),
+          location:str(j.jobGeo) || 'Remote', remote:'remote',
+          tags:normTags([].concat(j.jobTags || [], j.jobLevel || [], Array.isArray(j.jobType) ? j.jobType : [])),
+          salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:str(j.url),
+          postedAt:Date.parse(j.pubDate) || Date.now(),
+          description:htmlToText(j.jobDescription || j.jobExcerpt).slice(0, 8000),
+        }));
+      }}]; }},
+  { id:'remoteok', label:'REMOTEOK', home:'remoteok.com',
+    feeds(){ return [{ url:'https://remoteok.com/api',
+      parse(d){
+        return (Array.isArray(d) ? d : []).filter(j => j && j.position).map(j => ({
+          id:'rok:' + (j.slug || j.id || Math.random()), source:'remoteok',
+          title:str(j.position), company:str(j.company) || '—',
+          location:str(j.location) || 'Remote', remote:'remote',
+          tags:normTags(j.tags),
+          salaryMin:j.salary_min ? +j.salary_min : null,
+          salaryMax:j.salary_max ? +j.salary_max : null,
+          currency:'USD', salaryText:'',
+          url:'https://remoteok.com' + str(j.url),
+          postedAt:Date.parse(j.date) || Date.now(),
+          description:htmlToText(j.description).slice(0, 8000),
+        }));
+      }}]; }},
+  { id:'himalayas', label:'HIMALAYAS', home:'himalayas.app',
+    feeds(){ return [{ url:'https://himalayas.app/jobs/api',
+      parse(d){
+        const arr = Array.isArray(d && d.jobs) ? d.jobs : [];
+        return arr.map((j, i) => {
+          const co = j.companyName || (j.company && (typeof j.company === 'string' ? j.company : j.company.name)) || '—';
+          const loc = Array.isArray(j.locationRestrictions) && j.locationRestrictions.length
+            ? j.locationRestrictions.map(l => (typeof l === 'string' ? l : (l && l.city) || '')).filter(Boolean).join(', ')
+            : (str(j.location) || 'Remote');
+          return {
+            id:'hm:' + (j.guid || j.id || i), source:'himalayas',
+            title:str(j.title), company:co, location:loc, remote:'remote',
+            tags:normTags([].concat(j.tags || [], j.keywords || [])),
+            salaryMin:j.salaryMin ? +j.salaryMin : null,
+            salaryMax:j.salaryMax ? +j.salaryMax : null,
+            currency:normCode(j.currency), salaryText:'',
+            url:str(j.applicationLink || j.guid || j.url),
+            postedAt:Date.parse(j.pubDate || j.publishedAt) || Date.now(),
+            description:htmlToText(j.description || j.excerpt).slice(0, 8000),
+          };
+        });
+      }}]; }},
+  { id:'workingnomads', label:'WORKING NOMADS', home:'workingnomads.com',
+    feeds(){ return [{ url:'https://www.workingnomads.com/api/exposed_jobs/',
+      parse(d){
+        const arr = Array.isArray(d) ? d : (Array.isArray(d && d.jobs) ? d.jobs : []);
+        return arr.map((j, i) => ({
+          id:'wn:' + (j.id || i), source:'workingnomads',
+          title:str(j.title), company:str(j.company_name) || '—',
+          location:str(j.location) || 'Remote', remote:'remote',
+          tags:normTags([j.category_name]),
+          salaryMin:j.sal_min ? +j.sal_min : null,
+          salaryMax:j.sal_max ? +j.sal_max : null,
+          currency:'USD', salaryText:'',
+          url:str(j.url),
+          postedAt:Date.parse(j.published || j.pub_date) || Date.now(),
+          description:htmlToText(j.description).slice(0, 8000),
+        }));
+      }}]; }},
+  { id:'greenhouse', label:'GREENHOUSE', home:'boards.greenhouse.io',
+    companies:['stripe','figma','airbnb','databricks','cloudflare','coinbase','doordash','docusign','webflow','dropbox','openai','anthropic'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://boards-api.greenhouse.io/v1/boards/' + tok + '/jobs?content=false',
+      parse(d){
+        return (Array.isArray(d && d.jobs) ? d.jobs : []).map(j => ({
+          id:'gh:' + tok + ':' + j.id, source:'greenhouse',
+          title:str(j.title), company:coName(tok),
+          location:str(j.location && j.location.name) || '—',
+          remote:/remote/i.test(j.location && j.location.name) ? 'remote' : 'onsite',
+          tags:[], salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:str(j.absolute_url),
+          postedAt:Date.parse(j.updated_at) || Date.now(),
+          description:'',
+        }));
+      }})); }},
+  { id:'lever', label:'LEVER', home:'jobs.lever.co',
+    companies:['netflix','spotify','palantir','plaid','substack','nubank','twitch'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://api.lever.co/v0/postings/' + tok + '?mode=json',
+      parse(d){
+        return (Array.isArray(d) ? d : []).map(j => {
+          const loc = str(j.categories && j.categories.location);
+          return {
+            id:'lv:' + j.id, source:'lever',
+            title:str(j.text), company:coName(tok),
+            location:loc || '—',
+            remote:/remote/i.test(loc) ? 'remote' : 'onsite',
+            tags:normTags([j.categories && j.categories.team, j.categories && j.categories.commitment]),
+            salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+            url:str(j.hostedUrl || j.applyUrl),
+            postedAt:+j.createdAt || Date.now(),
+            description:str(j.descriptionPlain).slice(0, 8000),
+          };
+        });
+      }})); }},
+  { id:'ashby', label:'ASHBY', home:'jobs.ashbyhq.com',
+    companies:['linear','ramp','deel','supabase','elevenlabs','vercel'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://api.ashbyhq.com/posting-api/job-board/' + tok,
+      parse(d){
+        return (Array.isArray(d && d.jobs) ? d.jobs : []).map(j => ({
+          id:'as:' + tok + ':' + j.id, source:'ashby',
+          title:str(j.title), company:coName(tok),
+          location:str(j.location) || '—',
+          remote:(j.isRemote === true || /remote/i.test(j.location)) ? 'remote' : 'onsite',
+          tags:normTags([j.department, j.team]),
+          salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:str(j.jobUrl || j.applyUrl || ('https://jobs.ashbyhq.com/' + tok)),
+          postedAt:Date.parse(j.publishedAt || j.updatedAt) || Date.now(),
+          description:htmlToText(j.descriptionPlain || '').slice(0, 8000),
+        }));
+      }})); }},
+  { id:'workable', label:'WORKABLE', home:'apply.workable.com',
+    companies:['n26','pleo','kinsta'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://apply.workable.com/api/v1/widget/accounts/' + tok + '?details=false',
+      parse(d){
+        return (Array.isArray(d && d.jobs) ? d.jobs : []).map(j => {
+          const L = j.location || {};
+          const loc = [L.city, L.country].filter(Boolean).join(', ');
+          return {
+            id:'wk:' + tok + ':' + (j.id || j.title), source:'workable',
+            title:str(j.title), company:coName(tok),
+            location:loc || '—',
+            remote:(j.remote === true || /remote/i.test(loc)) ? 'remote' : 'onsite',
+            tags:[], salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+            url:str(j.shortlink || j.url),
+            postedAt:Date.parse(j.created_at || j.published_on) || Date.now(),
+            description:'',
+          };
+        });
+      }})); }},
+  { id:'smartrecruiters', label:'SMARTRECRUITERS', home:'jobs.smartrecruiters.com',
+    companies:['Visa','Bosch'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://api.smartrecruiters.com/v1/companies/' + tok + '/postings?limit=100',
+      parse(d){
+        return (Array.isArray(d && d.content) ? d.content : []).map(j => ({
+          id:'sr:' + tok + ':' + j.id, source:'smartrecruiters',
+          title:str(j.name), company:coName(tok.toLowerCase()),
+          location:[j.location && j.location.city, j.location && j.location.country].filter(Boolean).join(', ') || '—',
+          remote:j.remote === true ? 'remote' : 'onsite',
+          tags:normTags([j.department && j.department.label]),
+          salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:'https://jobs.smartrecruiters.com/' + tok + '/' + j.id,
+          postedAt:Date.parse(j.releasedDate) || Date.now(),
+          description:'',
+        }));
+      }})); }},
+  { id:'recruitee', label:'RECRUITEE', home:'recruitee.com',
+    companies:['producthunt','botify'],
+    feeds(){ return this.companies.map(tok => ({
+      url:'https://' + tok + '.recruitee.com/api/offers/',
+      parse(d){
+        return (Array.isArray(d && d.offers) ? d.offers : []).map(j => ({
+          id:'rc:' + tok + ':' + j.id, source:'recruitee',
+          title:str(j.title), company:coName(tok),
+          location:str(j.location) || '—',
+          remote:j.remote === true || /remote/i.test(j.location) ? 'remote' : 'onsite',
+          tags:normTags([j.department]),
+          salaryText:'', salaryMin:null, salaryMax:null, currency:'USD',
+          url:str(j.careers_url || j.url || ('https://' + tok + '.recruitee.com')),
+          postedAt:Date.parse(j.published_at || j.created_at) || Date.now(),
+          description:htmlToText(j.description).slice(0, 8000),
+        }));
+      }})); }},
+];
+const ADZUNA_SRC = { id:'adzuna', label:'ADZUNA (BYOK)', home:'adzuna.com',
+  feeds(){
+    const b = state.byok.adzuna;
+    const q = 'https://api.adzuna.com/v1/api/jobs/' + b.cc + '/search/1?app_id=' + encodeURIComponent(b.appId) +
+      '&app_key=' + encodeURIComponent(b.appKey) + '&results_per_page=50' +
+      (b.what ? '&what=' + encodeURIComponent(b.what) : '');
+    return [{ url:q,
+      parse(d){
+        return ((d && d.results) || []).map(r => {
+          const t = str(r.title); let co = str(r.company && r.company.display_name);
+          if (!co){ const i = t.lastIndexOf(' at '); if (i > 0) co = t.slice(i + 4); }
+          const body = (t + ' ' + str(r.description).slice(0, 600)).toLowerCase();
+          return {
+            id:'adz:' + r.id, source:'adzuna',
+            title:t, company:co || '—',
+            location:str(r.location && r.location.display_name) || '—',
+            remote:/remote|work from home|wfh/.test(body) ? 'remote' : 'onsite',
+            tags:normTags([r.contract_time, r.category && r.category.label]),
+            salaryMin:r.salary_min || null, salaryMax:r.salary_max || null,
+            currency:ADZ_CUR[b.cc] || 'USD', salaryText:'',
+            url:str(r.redirect_url),
+            postedAt:Date.parse(r.created) || Date.now(),
+            description:htmlToText(r.description).slice(0, 8000),
+          };
+        });
+      }}];
+  }};
+function AS(){ return (state.byok.adzuna && state.byok.adzuna.appId) ? SOURCES.concat([ADZUNA_SRC]) : SOURCES; }
+function allFeeds(){
+  const out = [];
+  for (const s of AS()){
+    const fs = s.feeds();
+    for (const f of fs) out.push({ src:s.id, url:f.url, parse:f.parse });
+  }
+  return out;
+}
+
+const OFFLINE_SEED = [
+  ['Staff Rust Engineer','Helios Systems','Remote — EU/US','remote','$170k – $210k',['rust','systems','kubernetes'],1,'Own the market-data ingestion path end to end, from kernel-bypass sockets to matching-engine adapters. Our stack is Rust-first, deployed on bare metal and Kubernetes.'],
+  ['Senior Go Engineer, Payments','Ledgerline','Remote — Global','remote','$140k – $180k',['golang','postgres','api'],2,'Design the ledgers that move eight figures a day. Strong Go, Postgres internals and a taste for boring, auditable systems.'],
+  ['Machine Learning Engineer, Ranking','Ferrostat','Remote — US','remote','$155k – $195k',['python','pytorch','machine-learning'],0,'Improve the ranking models behind our discovery surface. PyTorch, feature stores, and honest offline/online evaluation.'],
+  ['Frontend Engineer, Design Systems','Meshwork','Remote — Global','remote','$110k – $150k',['typescript','react','css'],0,'Build the component system 40 product engineers ship with daily. TypeScript, React, and real care for accessibility.'],
+  ['Site Reliability Engineer','Northbay Data','Hybrid — Austin TX','hybrid','$130k – $165k',['sre','kubernetes','terraform'],2,'Keep a multi-region platform honest: SLOs, error budgets, incident command. Kubernetes and Terraform daily.'],
+  ['Data Platform Engineer','Quanta Freight','Remote — EU','remote','€75.000 – €95.000',['python','airflow','spark'],4,'Model the movement of 30k shipments a day. Airflow orchestration, Spark pipelines, dbt modeling.'],
+  ['Product Engineer, Full-stack','Cassia Health','Remote — Americas','remote','$120k – $150k',['typescript','react','node.js'],6,'Ship patient-facing features weekly across a React + Node stack. Clinical background not required, empathy required.'],
+  ['Senior Product Manager, Platform','Vantage Grid','Remote — Global','remote','$145k – $175k',['product-management','roadmap','b2b'],1,'Own the platform roadmap for our integration surface. You have shipped B2B products end to end and can write a crisp PRD.'],
+  ['Product Manager, Growth','Loopwise','Remote — US','remote','$130k – $160k',['product-management','analytics','ab-testing'],3,'Run the experimentation engine behind onboarding and activation. SQL fluency and a track record of shipped growth wins.'],
+  ['Security Engineer, Detection & Response','Obelisk Bank','Remote — UK','remote','£85k – £110k',['security','python','soc'],8,'Build detections, tune the pipeline, run the on-call. Python scripting and cloud forensics.'],
+  ['iOS Engineer','Trailpost','Remote — US','remote','$135k – $170k',['swift','ios'],9,'Own the mapping experience in our Swift app, from offline tiles to battery-friendly location tracking.'],
+  ['Platform Engineer (Java)','Meridian Logistics','Remote — Global','remote','$115k – $145k',['java','kafka','aws'],10,'Event-driven routing at 5k messages per second. Java, Kafka, and AWS infrastructure you will treat as code.'],
+  ['Staff Engineer, Infrastructure','Voltage Labs','Remote — Global','remote','$200k – $240k',['rust','golang','distributed-systems'],0,'Lead the consensus and storage layers of our distributed key-value engine. Rust and Go, papers to production.'],
+  ['Developer Advocate','Papertrail Cloud','Remote — Global','remote','$105k – $135k',['developer-relations','python','writing'],7,'Write the docs, demos and sample apps developers actually copy. Code plus prose, roughly half and half.'],
+];
+function offlineJobs(){
+  return OFFLINE_SEED.map((r, i) => Object.assign({
+    id:'offline:' + i, source:'offline',
+    title:r[0], company:r[1], location:r[2], remote:r[3],
+    tags:r[5], url:'#',
+    postedAt:Date.now() - r[6] * 864e5,
+    description:r[7] + '\n\n(This is part of the offline snapshot — the live wire was unreachable when this page loaded.)',
+  }, parseSalary(r[4])));
+}
+
+/* ============ 3 · STATE & PERSISTENCE ============ */
+const REFRESH_MS = 60 * 60 * 1000;
+const LS = {
+  cache:'hirewire.cache.v1', profile:'hirewire.profile.v1',
+  board:'hirewire.board.v2', boardOld:'hirewire.board.v1',
+  settings:'hirewire.settings.v1', saved:'hirewire.saved.v1', star:'hirewire.star.v1',
+  people:'hirewire.people.v1', byok:'hirewire.byok.v1', meta:'hirewire.meta.v1',
+};
+const STAGES = ['saved','applied','screen','interview','offer','archived'];
+const state = {
+  jobs: [], sourcesStatus: {}, lastSync: null, nextSyncAt: null, syncing: false,
+  offlineMode: false, newIds: new Set(), view: 'wire', visible: 40,
+  filters: { q:'', tags:new Set(), sources:new Set(), locs:new Set(), remoteOnly:true, floorOnly:true, sort:'match', seniority:'any' },
+  profile: { name:'', skills:[], blacklist:[], locBlocks:[], minSalary:null, currency:'USD' },
+  byok: { adzuna:{ appId:'', appKey:'', cc:'us', what:'' } },
+  board: new Map(), current: [], currentFiltered: [], lastRun: null, pinList: [], drawerId: null,
+  briefText: '', briefName: '', viewerHandler: null,
+  savedSearches: [], starBank: [], people: [], boardStageFilter: null,
+  meta: { lastBackupAt:null }, stickyBanner:false, persistAsked:false, persistGranted:false,
+  sponsorCursor: Math.floor(Math.random() * 997),
+};
+function lsGet(k){
+  const raw = sGetRaw(k);
+  if (raw == null) return null;
+  try { return JSON.parse(raw); } catch(e){ return null; }
+}
+function lsSet(k, v){
+  sSetRaw(k, JSON.stringify(v));
+  scheduleMirror(k);
+}
+function saveMeta(){ lsSet(LS.meta, state.meta); }
+function saveProfile(){ lsSet(LS.profile, state.profile); }
+function saveByok(){ lsSet(LS.byok, state.byok); }
+function savePeople(){ lsSet(LS.people, state.people); }
+function saveBoard(){
+  lsSet(LS.board, Array.from(state.board.values()).map(b => ({
+    id:b.job.id, job:b.job, status:b.status, note:b.note, at:b.at,
+    contacts:b.contacts || [], log:(b.log || []).slice(-50), comp:b.comp || {base:null,bonus:null,equity:null},
+    next:b.next || null, stageTs:b.stageTs || {}, appliedAt:b.appliedAt || null,
+  })));
+}
+function saveSettings(){
+  lsSet(LS.settings, { remoteOnly:state.filters.remoteOnly, floorOnly:state.filters.floorOnly,
+    sort:state.filters.sort, seniority:state.filters.seniority, locs:Array.from(state.filters.locs) });
+}
+function saveSaved(){ lsSet(LS.saved, state.savedSearches); }
+function saveStar(){ lsSet(LS.star, state.starBank); }
+function saveCache(){
+  lsSet(LS.cache, {
+    at:state.lastSync, status:state.sourcesStatus,
+    jobs:state.jobs.map(j => Object.assign({}, j, { description:(j.description || '').slice(0, 4000) })),
+  });
+}
+function loadBoardArray(arr){
+  arr.forEach(e => {
+    if (!e || !e.job) return;
+    if (e.status === 'pinned') e.status = 'saved';
+    e.contacts = e.contacts || []; e.log = e.log || [];
+    e.comp = e.comp || { base:null, bonus:null, equity:null };
+    e.next = e.next || null; e.stageTs = e.stageTs || {};
+    if (e.status && e.status !== 'archived' && !e.stageTs[e.status]) e.stageTs[e.status] = e.at || Date.now();
+    if (e.status === 'applied' && !e.appliedAt) e.appliedAt = e.stageTs.applied || e.at;
+    state.board.set(e.job.id, e);
+  });
+}
+function loadState(){
+  const p = lsGet(LS.profile);
+  if (p) state.profile = { name:str(p.name), skills:p.skills || [], blacklist:p.blacklist || [],
+    locBlocks:p.locBlocks || [], minSalary:p.minSalary || null, currency:normCode(p.currency || 'USD') };
+  let b = lsGet(LS.board);
+  if (!b) b = lsGet(LS.boardOld);
+  if (Array.isArray(b)) loadBoardArray(b);
+  const s = lsGet(LS.settings);
+  if (s){
+    state.filters.remoteOnly = !!s.remoteOnly;
+    state.filters.floorOnly = !!s.floorOnly;
+    state.filters.sort = s.sort === 'newest' ? 'newest' : 'match';
+    state.filters.seniority = ['junior','mid','senior'].includes(s.seniority) ? s.seniority : 'any';
+    state.filters.locs = new Set(Array.isArray(s.locs) ? s.locs : []);
+  }
+  const sv = lsGet(LS.saved); if (Array.isArray(sv)) state.savedSearches = sv;
+  const st = lsGet(LS.star); if (Array.isArray(st)) state.starBank = st;
+  const pp = lsGet(LS.people); if (Array.isArray(pp)) state.people = pp;
+  const bk = lsGet(LS.byok);
+  if (bk && bk.adzuna) state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, bk.adzuna);
+  const m = lsGet(LS.meta);
+  if (m) state.meta = { lastBackupAt:m.lastBackupAt || null };
+  const c = lsGet(LS.cache);
+  if (c && Array.isArray(c.jobs) && c.jobs.length){
+    state.jobs = c.jobs;
+    state.lastSync = c.at || Date.now();
+    state.sourcesStatus = c.status || {};
+  }
+}
+
+/* ============ 4 · SYNC ENGINE ============ */
+function normCompany(c){ return String(c || '').toLowerCase().replace(/\b(inc|llc|ltd|gmbh|corp|corporation|co|company|plc|sa|ag|bv|pty|the)\b/g, '').replace(/[^a-z0-9]/g, ''); }
+function normTitle(t){ return String(t || '').toLowerCase().replace(/\b(senior|sr|junior|jr|staff|principal|lead|ii|iii)\b/g, '').replace(/[^a-z0-9]/g, ''); }
+function dedupe(list){
+  const m = new Map(), seenFuzzy = new Set();
+  for (const j of list){
+    if (!j.title || !j.company) continue;
+    const k = (j.title + '|' + j.company).toLowerCase().replace(/[^a-z0-9|]/g, '');
+    const fk = normTitle(j.title) + '|' + normCompany(j.company);
+    if (m.has(k) || (fk && seenFuzzy.has(fk))) continue;
+    m.set(k, j); if (fk) seenFuzzy.add(fk);
+  }
+  return Array.from(m.values()).sort((a, b) => b.postedAt - a.postedAt).slice(0, 500);
+}
+function scheduleNext(ms){ state.nextSyncAt = Date.now() + ms; }
+function showBanner(html, sticky){
+  const b = document.getElementById('banner');
+  if (b){ b.hidden = false; b.innerHTML = html; state.stickyBanner = !!sticky; }
+}
+function hideBanner(){
+  if (state.stickyBanner) return;
+  const b = document.getElementById('banner');
+  if (b) b.hidden = true;
+}
+let spinInt = null;
+function spinnerStart(){
+  const frames = ['⠋','⠙','⠹','⠸','⠼','⠴','⠦','⠧','⠇','⠏'];
+  let i = 0;
+  const n = document.getElementById('stNext');
+  if (!n) return;
+  n.textContent = 'SYNCING';
+  spinInt = setInterval(() => { n.textContent = frames[i++ % frames.length] + ' SYNCING'; }, 120);
+}
+function spinnerStop(){ if (spinInt) clearInterval(spinInt); spinInt = null; }
+async function sync(via){
+  if (state.syncing) return;
+  state.syncing = true;
+  const sb = document.getElementById('syncBtn');
+  if (sb) sb.disabled = true;
+  spinnerStart();
+  const FEEDS = allFeeds();
+  const results = await Promise.allSettled(FEEDS.map(async f => {
+    const d = await fetchJSON(f.url);
+    const jobs = f.parse(d);
+    if (!jobs.length) throw new Error('empty feed');
+    return jobs;
+  }));
+  let all = [];
+  const fam = {};
+  AS().forEach(s => fam[s.id] = { ok:false, count:0, feeds:0, failed:0 });
+  results.forEach((r, i) => {
+    const F = fam[FEEDS[i].src];
+    F.feeds++;
+    if (r.status === 'fulfilled'){ F.ok = true; F.count += r.value.length; all = all.concat(r.value); }
+    else F.failed++;
+  });
+  state.sourcesStatus = fam;
+  const SRC = AS();
+  const okCount = SRC.filter(s => fam[s.id].ok).length;
+  if (okCount === 0){
+    if (state.jobs.length && !state.offlineMode){
+      if (!state.stickyBanner) showBanner('SYNC FAILED — SHOWING LAST GOOD WIRE (CACHED) <button class="btn mini" data-retry>RETRY SYNC</button>');
+      toast('SYNC FAILED — CACHED WIRE KEPT');
+    } else {
+      state.jobs = offlineJobs();
+      state.offlineMode = true;
+      state.lastSync = Date.now();
+      if (!state.stickyBanner) showBanner('LIVE WIRE UNREACHABLE — OFFLINE SNAPSHOT LOADED <button class="btn mini" data-retry>RETRY SYNC</button>');
+      toast('LIVE WIRE UNREACHABLE — OFFLINE SNAPSHOT LOADED');
+    }
+    scheduleNext(10 * 60 * 1000);
+  } else {
+    state.offlineMode = false;
+    hideBanner();
+    const failedFams = SRC.filter(s => !fam[s.id].ok).map(s => s.id);
+    const retained = state.jobs.filter(j => failedFams.includes(j.source) && Date.now() - j.postedAt < 36e8);
+    const prevIds = new Set(state.jobs.map(j => j.id));
+    state.jobs = dedupe(retained.concat(all));
+    state.newIds = prevIds.size ? new Set(state.jobs.filter(j => !prevIds.has(j.id)).map(j => j.id)) : new Set();
+    state.lastSync = Date.now();
+    saveCache();
+    scheduleNext(REFRESH_MS);
+    toast('WIRE UPDATED — ' + state.jobs.length + ' POSTINGS · ' + okCount + '/' + SRC.length + ' SOURCES');
+    state.sponsorCursor++;
+  }
+  if (via === 'cli'){
+    const ok = okCount > 0;
+    cprint(ok ? 'wire updated — ' + state.jobs.length + ' postings · ' + okCount + ' sources' : 'sync failed — every feed unreachable', ok ? 'ok' : 'err');
+  }
+  state.syncing = false;
+  if (sb) sb.disabled = false;
+  spinnerStop();
+  renderAll();
+}
+
+/* ============ 5 · SCORING ============ */
+function classifyTitle(t){
+  const s = String(t).toLowerCase();
+  if (/\b(intern|internship|graduate|entry|junior|jr)\b/.test(s)) return 'junior';
+  if (/\b(senior|sr|staff|principal|lead|head|director|vp)\b/.test(s)) return 'senior';
+  return 'mid';
+}
+function scoreJob(job){
+  const p = state.profile;
+  const plus = [], minus = [];
+  const title = job.title.toLowerCase();
+  const tags = job.tags.join(' ');
+  const desc = (job.description || '').toLowerCase().slice(0, 2000);
+  const hay = title + ' ' + tags + ' ' + job.company.toLowerCase() + ' ' + desc;
+  let s = 32, skillPts = 0;
+  for (const sk of p.skills){
+    const k = sk.toLowerCase();
+    if (!k) continue;
+    if (title.includes(k)){ s += 13; skillPts += 13; plus.push(k + ' in title'); }
+    else if ((tags + ' ' + desc).includes(k)){ s += 7; skillPts += 7; plus.push(k); }
+  }
+  skillPts = p.skills.length ? Math.min(1, skillPts / (p.skills.length * 13)) : 0;
+  let payPts;
+  const fUsd = floorUsd();
+  if (fUsd){
+    const top = jobTopUsd(job);
+    if (top){
+      if (top >= fUsd){ s += 12; payPts = 1; plus.push('≥ ' + fmtCur(p.minSalary, p.currency) + ' floor'); }
+      else { s -= 18; payPts = 0; minus.push('below floor'); }
+    } else { s -= 3; payPts = .5; minus.push('pay unstated'); }
+  } else payPts = .6;
+  const ageH = (Date.now() - job.postedAt) / 36e5;
+  let freshPts;
+  if (ageH <= 24){ s += 9; freshPts = 1; }
+  else if (ageH <= 72){ s += 6; freshPts = .8; }
+  else if (ageH <= 168){ s += 3; freshPts = .6; }
+  else if (ageH <= 504){ freshPts = .35; }
+  else { s -= 8; freshPts = .1; }
+  if (job.remote === 'remote') s += 4;
+  for (const b of p.blacklist){
+    if (b && hay.includes(b.toLowerCase())){ s -= 28; minus.push('blocked: ' + b); }
+  }
+  return { score:Math.max(0, Math.min(100, Math.round(s))), plus:plus.slice(0, 3), minus:minus.slice(0, 3),
+           parts:{ skill:skillPts, pay:payPts, fresh:freshPts } };
+}
+function rankAll(){
+  return state.jobs.map(j => Object.assign({ job:j }, scoreJob(j)))
+    .sort((a, b) => b.score - a.score || b.job.postedAt - a.job.postedAt);
+}
+function ghostSignals(j){
+  const s = [];
+  if ((Date.now() - j.postedAt) / 864e5 > 60) s.push('60+ days old');
+  if (/^(—|-|confidential|company confidential|n\/?a|unknown)$/i.test((j.company || '').trim())) s.push('company unnamed');
+  return s;
+}
+
+/* ============ 6 · ENRICHMENT ============ */
+const ENRICHERS = {
+  greenhouse:{ url:j => { const p = j.id.split(':'); return 'https://boards-api.greenhouse.io/v1/boards/' + p[1] + '/jobs/' + p[2]; },
+    pick:d => htmlToText(d && d.content || '') },
+  workable:{ url:j => { const p = j.id.split(':'); return 'https://apply.workable.com/api/v1/widget/accounts/' + p[1] + '/jobs/' + p[2]; },
+    pick:d => htmlToText([d && d.description, d && d.requirements].filter(Boolean).join('\n\n')) },
+  smartrecruiters:{ url:j => { const p = j.id.split(':'); return 'https://api.smartrecruiters.com/v1/companies/' + p[1] + '/postings/' + p[2]; },
+    pick(d){
+      if (!d) return '';
+      const ja = d.jobAd || {};
+      if (typeof ja.description === 'string') return htmlToText(ja.description);
+      const secs = ja.sections || {};
+      return Object.keys(secs).map(k => { const s = secs[k] || {}; return (s.title ? s.title + '\n' : '') + (s.text || ''); }).join('\n\n');
+    }},
+};
+async function enrichJob(j){
+  const E = ENRICHERS[j.source];
+  if (!E || j.enriched || j.enrichFailed) return null;
+  try {
+    const d = await fetchJSON(E.url(j), 9000);
+    const t = (E.pick(d) || '').trim();
+    j.enriched = true;
+    if (t){
+      j.description = t.slice(0, 12000);
+      const b = state.board.get(j.id);
+      if (b){ b.job.description = j.description; saveBoard(); }
+      saveCache();
+      return j.description;
+    }
+    return '';
+  } catch(e){
+    j.enrichFailed = true;
+    return null;
+  }
+}
+
+/* ============ 7 · LEXICON ============ */
+const LEXICON = ('javascript typescript python java c++ c# golang rust ruby php swift kotlin scala elixir haskell clojure dart solidity matlab perl lua ' +
+'react react-native next.js vue svelte angular jquery redux graphql apollo tailwindcss bootstrap sass html css webpack vite babel d3 three.js ' +
+'node.js deno express nestjs django flask fastapi spring-boot rails laravel asp.net gin fiber hibernate rabbitmq kafka nats pulsar ' +
+'postgresql mysql sqlite mongodb redis dynamodb cassandra elasticsearch opensearch clickhouse snowflake bigquery redshift spanner cockroachdb supabase firebase prisma sqlalchemy sequelize typeorm ' +
+'aws gcp azure digitalocean cloudflare vercel netlify heroku docker kubernetes k8s terraform pulumi ansible helm istio serverless lambda ec2 s3 eks gke ' +
+'git github gitlab bitbucket jenkins circleci github-actions argocd jira confluence datadog grafana prometheus splunk sentry newrelic pagerduty opentelemetry ' +
+'ci/cd tdd unit-testing jest mocha pytest playwright cypress selenium ' +
+'ai machine-learning deep-learning nlp computer-vision llm pytorch tensorflow keras scikit-learn huggingface pandas numpy scipy jupyter mlops mlflow spark hadoop airflow dbt etl data-engineering data-science analytics statistics ab-testing ' +
+'product-management roadmap prd product-discovery user-research product-strategy go-to-market agile scrum kanban stakeholder-management prioritization okrs kpis ' +
+'ux ui figma sketch adobe-xd wireframing prototyping design-systems accessibility interaction-design visual-design ' +
+'rest api grpc microservices system-design distributed-systems observability devops sre incident-response linux bash shell powershell networking dns performance-optimization ' +
+'fintech payments blockchain web3 security oauth2 jwt sso encryption soc-2 gdpr hipaa').split(/\s+/);
+function termBody(term){ return term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/-/g, '[^a-z0-9]?'); }
+function lexHits(text, max){
+  const t = ' ' + String(text || '').toLowerCase().slice(0, 120000).replace(/[\u2019']/g, '') + ' ';
+  const hits = [];
+  for (const term of LEXICON){
+    const re = new RegExp('(^|[^a-z0-9])' + termBody(term) + '($|[^a-z0-9])', 'g');
+    let n = 0, m;
+    while ((m = re.exec(t))){ n++; re.lastIndex = m.index + m[0].length - 1; }
+    if (n) hits.push({ term:term, n:n });
+  }
+  hits.sort((a, b) => b.n - a.n || a.term.localeCompare(b.term));
+  return hits.slice(0, max || 20);
+}
+function extractSkillsFromCV(text){ return lexHits(text, 14).map(h => h.term); }
+
+/* ============ 8 · FILTERING + WIRE ============ */
+function matchBasic(j, f){
+  if (f.remoteOnly && j.remote !== 'remote') return false;
+  if (f.floorOnly && floorUsd()){
+    const top = jobTopUsd(j);
+    if (!(top && top >= floorUsd())) return false;
+  }
+  if (f.sources && f.sources.size && !f.sources.has(j.source)) return false;
+  if (f.tags && f.tags.size && !j.tags.some(t => f.tags.has(t))) return false;
+  if (f.locs && f.locs.size && !f.locs.has(j.location)) return false;
+  if (f.seniority && f.seniority !== 'any' && classifyTitle(j.title) !== f.seniority) return false;
+  if (state.profile.locBlocks.length){
+    const loc = j.location.toLowerCase();
+    if (state.profile.locBlocks.some(b => loc.includes(b))) return false;
+  }
+  if (f.q){
+    const hay = (j.title + ' ' + j.company + ' ' + j.location + ' ' + j.tags.join(' ')).toLowerCase();
+    if (!hay.includes(f.q.toLowerCase())) return false;
+  }
+  return true;
+}
+function filtered(){
+  const f = state.filters;
+  return state.jobs.filter(j => matchBasic(j, f));
+}
+function ranked(list){
+  const arr = list.map(j => Object.assign({ job:j }, scoreJob(j)));
+  if (state.filters.sort === 'match') arr.sort((a, b) => b.score - a.score || b.job.postedAt - a.job.postedAt);
+  else arr.sort((a, b) => b.job.postedAt - a.job.postedAt);
+  return arr;
+}
+function ticksHTML(score){
+  const n = Math.round(score / 10);
+  let h = '';
+  for (let k = 0; k < 10; k++) h += '<i class="' + (k < n ? 'f' : '') + '"></i>';
+  return h;
+}
+function rowHTML(r, i){
+  const j = r.job, pinned = state.board.has(j.id);
+  const gs = ghostSignals(j);
+  return '<li class="row" data-id="' + esc(j.id) + '" tabindex="0">' +
+    '<span class="idx">' + String(i + 1).padStart(2,'0') + '</span>' +
+    '<div class="scorebox' + (r.score >= 75 ? ' hi' : '') + '"><span class="ticks">' + ticksHTML(r.score) + '</span><span class="scorenum">' + r.score + '</span></div>' +
+    '<div class="body">' +
+      '<div class="l1">' + (state.newIds.has(j.id) ? '<span class="newmark">NEW</span>' : '') + '<span class="jtitle">' + esc(j.title) + '</span></div>' +
+      '<div class="l2"><b>' + esc(j.company) + '</b><span class="sep">·</span><span>' + esc(tr(j.location, 42)) + '</span><span class="sep">·</span><span class="badge ' + j.remote + '">' + j.remote + '</span><span class="sep">·</span><span class="src">' + j.source.toUpperCase() + '</span><span class="sep">·</span><span>' + ago(j.postedAt) + ' AGO</span>' +
+        (gs.length ? '<button class="ghostchip" data-act="ghostinfo" title="' + esc(gs.join(' · ')) + '">GHOST?</button>' : '') + '</div>' +
+      (j.tags.length ? '<div class="l3">' + j.tags.slice(0, 5).map(esc).join(' · ') + (j.tags.length > 5 ? '  +' + (j.tags.length - 5) : '') + '</div>' : '') +
+    '</div>' +
+    '<div class="pay row-pay-hide">' + (fmtSalary(j) ? esc(fmtSalary(j)) : '<span class="dim">PAY N/A</span>') + '</div>' +
+    '<div class="acts"><button class="btn" data-act="pintoggle">' + (pinned ? 'UNPIN' : 'PIN') + '</button><button class="btn" data-act="web">↗</button></div>' +
+  '</li>';
+}
+const boardArr = () => Array.from(state.board.values()).sort((a, b) => b.at - a.at);
+const byId = id => state.jobs.find(j => j.id === id) || (state.board.get(id) && state.board.get(id).job) || null;
+
+/* ============ 9 · PIPELINE ============ */
+const reachedStage = (b, s) => b.status !== 'archived' && STAGES.indexOf(b.status) >= STAGES.indexOf(s);
+function ghostBoard(b){ return (b.status === 'applied' || b.status === 'screen') && daysSince(b.at) >= 14; }
+function daysQuiet(b){ return daysSince(b.at); }
+function logAdd(b, text){
+  b.log = b.log || [];
+  b.log.push({ t:Date.now(), text:text });
+  if (b.log.length > 50) b.log = b.log.slice(-50);
+}
+function setStage(id, s){
+  const b = state.board.get(id);
+  if (!b || b.status === s || STAGES.indexOf(s) < 0) return;
+  logAdd(b, 'stage → ' + s);
+  if (s === 'applied' && !b.appliedAt) b.appliedAt = Date.now();
+  b.stageTs = b.stageTs || {};
+  b.stageTs[s] = Date.now();
+  b.status = s; b.at = Date.now();
+  saveBoard(); renderAll();
+  toast('STAGE — ' + s.toUpperCase());
+}
+function togglePin(id){
+  const j = byId(id); if (!j) return;
+  if (state.board.has(id)){
+    state.board.delete(id);
+    toast('REMOVED — ' + tr(j.title, 34).toUpperCase());
+  } else {
+    const b = { job:j, status:'saved', note:'', at:Date.now(), contacts:[], log:[{t:Date.now(), text:'saved from the wire'}],
+      comp:{base:null,bonus:null,equity:null}, next:null, stageTs:{ saved:Date.now() }, appliedAt:null };
+    state.board.set(id, b);
+    toast('SAVED TO PIPELINE — ' + tr(j.title, 30).toUpperCase());
+  }
+  saveBoard(); renderAll();
+  if (state.board.size === 1 && !state.persistAsked){ state.persistAsked = true; requestPersist(); }
+  if (state.drawerId === id && $('#drawer').classList.contains('open')) openDrawer(id);
+}
+function boardRow(b, i){
+  const j = b.job, m = scoreJob(j), g = ghostBoard(b);
+  const opts = STAGES.map(s => '<option value="' + s + '"' + (b.status === s ? ' selected' : '') + '>' + s.toUpperCase() + '</option>').join('');
+  return '<li class="row" data-id="' + esc(j.id) + '" tabindex="0">' +
+    '<span class="idx">' + String(i + 1).padStart(2,'0') + '</span>' +
+    '<div class="scorebox' + (m.score >= 75 ? ' hi' : '') + '"><span class="ticks">' + ticksHTML(m.score) + '</span><span class="scorenum">' + m.score + '</span></div>' +
+    '<div class="body">' +
+      '<div class="l1"><span class="jtitle">' + esc(j.title) + '</span></div>' +
+      '<div class="l2"><b>' + esc(j.company) + '</b><span class="sep">·</span><span class="src">' + j.source.toUpperCase() + '</span><span class="sep">·</span><span>UPDATED ' + ago(b.at) + ' AGO</span>' +
+        '<button class="btn mini" data-act="web">↗</button><button class="btn mini" data-act="remove">REMOVE</button>' +
+        (g ? '<button class="ghostchip" data-act="nudge" data-id="' + esc(j.id) + '">NUDGE · ' + daysQuiet(b) + 'D QUIET</button>' : '') +
+        (b.next && b.next.date ? '<span>NEXT ' + esc(b.next.date) + (b.next.label ? ' · ' + esc(b.next.label) : '') + '</span>' : '') + '</div>' +
+      (b.note ? '<div class="bnote"><b>NOTE</b> ' + esc(tr(b.note, 110)) + '</div>' : '') +
+    '</div>' +
+    '<div class="pay"><select class="bstat" data-act="stage">' + opts + '</select></div>' +
+  '</li>';
+}
+function renderPipelineStrip(){
+  const el = $('#pipelineStrip');
+  if (!el) return;
+  if (state.view !== 'board'){ el.hidden = true; return; }
+  el.hidden = false;
+  const arr = boardArr();
+  const counts = {}; STAGES.forEach(s => counts[s] = 0);
+  arr.forEach(b => counts[b.status] = (counts[b.status] || 0) + 1);
+  const gn = arr.filter(ghostBoard).length;
+  const cur = state.boardStageFilter;
+  let h = '<button class="pstage' + (cur ? '' : ' on') + '" data-stage="">ALL <b>' + arr.length + '</b></button>';
+  STAGES.forEach(s => { h += '<button class="pstage' + (cur === s ? ' on' : '') + '" data-stage="' + s + '">' + s.toUpperCase() + ' <b>' + counts[s] + '</b></button>'; });
+  h += '<button class="pstage' + (cur === '__ghost' ? ' on' : '') + '" data-stage="__ghost">GHOSTS <b>' + gn + '</b></button>';
+  h += '<span style="flex:1"></span>';
+  h += '<button class="pstage" data-act="pb">PASTE AGENT RESULTS</button>';
+  h += '<button class="pstage" data-act="print">PRINT REPORT</button>';
+  el.innerHTML = h;
+}
+function renderBoardList(){
+  const wire = $('#wire'), more = $('#moreBtn');
+  if (!wire) return;
+  let arr = boardArr();
+  if (state.boardStageFilter === '__ghost') arr = arr.filter(ghostBoard);
+  else if (state.boardStageFilter) arr = arr.filter(b => b.status === state.boardStageFilter);
+  wire.innerHTML = arr.length ? arr.map(boardRow).join('')
+    : '<li class="empty"><h3>' + (state.board.size ? 'Nothing in this slice.' : 'The pipeline is empty.') + '</h3><p>Pin postings from the wire — or type <b>pin 3</b> in the console. Stages: saved → applied → screen → interview → offer.</p></li>';
+  const cl = $('#countLabel');
+  if (cl) cl.textContent = 'PIPELINE — ' + arr.length + (state.boardStageFilter ? ' (FILTERED)' : '');
+  if (more) more.hidden = true;
+}
+
+/* ============ 10 · SAVED SEARCHES ============ */
+function countNewFor(ss){
+  const f = ss.filters;
+  return state.jobs.filter(j => matchBasic(j, {
+    remoteOnly:f.remoteOnly, floorOnly:f.floorOnly,
+    sources:new Set(f.sources || []), tags:new Set(f.tags || []),
+    locs:new Set(f.locs || []), seniority:f.seniority || 'any', q:f.q || '',
+  }) && j.postedAt > ss.lastVisit).length;
+}
+function renderSavedBar(){
+  const el = $('#savedBar');
+  if (!el) return;
+  if (state.view !== 'wire' || !state.savedSearches.length){ el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = '<span class="tlabel">SAVED SEARCHES</span>' + state.savedSearches.map(ss => {
+    const n = countNewFor(ss);
+    return '<button class="chip" data-ss="' + ss.id + '" title="apply + mark visited">' + esc(ss.name) +
+      ' <span class="cnt' + (n > 0 ? ' hot' : '') + '">' + (n > 0 ? '+' + n + ' NEW' : '0') + '</span></button>';
+  }).join('') + state.savedSearches.map(ss =>
+    '<button class="chip" data-ssdel="' + ss.id + '" title="delete saved search"><span class="rm">×</span></button>').join('');
+}
+function applySavedSearch(ss){
+  const f = ss.filters;
+  state.filters.q = f.q || '';
+  state.filters.tags = new Set(f.tags || []);
+  state.filters.sources = new Set(f.sources || []);
+  state.filters.locs = new Set(f.locs || []);
+  state.filters.remoteOnly = !!f.remoteOnly;
+  state.filters.floorOnly = !!f.floorOnly;
+  state.filters.seniority = f.seniority || 'any';
+  state.filters.sort = f.sort === 'newest' ? 'newest' : 'match';
+  const n = countNewFor(ss);
+  ss.lastVisit = Date.now();
+  saveSaved();
+  state.view = 'wire'; state.visible = 40;
+  renderAll();
+  toast('SEARCH APPLIED — ' + ss.name.toUpperCase() + (n ? ' · ' + n + ' NEW' : ' · NOTHING NEW'));
+}
+function saveCurrentSearch(name){
+  const f = state.filters;
+  state.savedSearches.unshift({
+    id:String(Date.now()), name:name, createdAt:Date.now(), lastVisit:Date.now(),
+    filters:{ q:f.q, tags:Array.from(f.tags), sources:Array.from(f.sources), locs:Array.from(f.locs),
+      remoteOnly:f.remoteOnly, floorOnly:f.floorOnly, seniority:f.seniority, sort:f.sort },
+  });
+  saveSaved(); renderSavedBar();
+  toast('SAVED — "' + name.toUpperCase() + '" WILL COUNT NEW MATCHES FROM NOW ON');
+}
+
+/* ============ 11 · TAILOR + STAR ============ */
+const starText = s => (s.title + ' ' + (s.tags || []).join(' ') + ' ' + s.s + ' ' + s.t + ' ' + s.a + ' ' + s.r).toLowerCase();
+function boardTextAll(){ return boardArr().map(b => (b.job.title + ' ' + (b.job.tags || []).join(' ') + ' ' + (b.job.description || '')).toLowerCase()).join('\n'); }
+function backlogGaps(){
+  if (!state.board.size) return [];
+  const prof = new Set(state.profile.skills);
+  return lexHits(boardTextAll(), 40).filter(h => !prof.has(h.term)).slice(0, 10);
+}
+function renderTailor(){
+  const panel = $('#panelView');
+  if (!panel) return;
+  panel.innerHTML =
+  '<div class="tgrid">' +
+    '<section class="tpanel">' +
+      '<h2 class="plabel">Tailor — posting gap analysis</h2>' +
+      '<p class="dim" style="font-size:10.5px;margin-bottom:10px">Paste any job description. Keywords are checked against your profile (' + (state.profile.skills.length ? esc(state.profile.skills.slice(0, 6).join(', ')) : 'no skills set') + ') and your saved pipeline.</p>' +
+      '<textarea class="input" id="tailorInput" placeholder="Paste the full posting text here…"></textarea>' +
+      '<div class="btnrow"><button class="btn red" id="tailorGo">ANALYZE POSTING</button></div>' +
+      '<div id="tailorOut"></div>' +
+      '<div class="h3line">Upskilling backlog — gaps across your saved jobs</div>' +
+      '<div id="backlogOut"></div>' +
+    '</section>' +
+    '<section class="tpanel">' +
+      '<h2 class="plabel">STAR bank</h2>' +
+      '<p class="dim" style="font-size:10.5px;margin-bottom:10px">Reusable interview stories, tagged with skills. The analyzer suggests which to use per posting.</p>' +
+      '<input class="input" id="starSearch" placeholder="filter stories…" style="margin-bottom:10px">' +
+      '<details class="how"><summary>+ Add a story</summary>' +
+        '<input class="input sm" id="starTitle" placeholder="Title — e.g. Scaled checkout to Black Friday">' +
+        '<input class="input sm" id="starTags" placeholder="tags, comma separated">' +
+        '<textarea class="input sm" id="starS" placeholder="Situation — context and stakes"></textarea>' +
+        '<textarea class="input sm" id="starT" placeholder="Task — your specific responsibility"></textarea>' +
+        '<textarea class="input sm" id="starA" placeholder="Action — what you actually did"></textarea>' +
+        '<textarea class="input sm" id="starR" placeholder="Result — numbers if possible"></textarea>' +
+        '<div class="btnrow"><button class="btn" id="starSave">SAVE STORY</button></div>' +
+      '</details>' +
+      '<div id="starList" style="margin-top:12px"></div>' +
+    '</section>' +
+  '</div>';
+  renderBacklog();
+  renderStarList('');
+  B('tailorGo', e => e.onclick = () => {
+    const text = $('#tailorInput').value;
+    if (!text.trim()){ toast('PASTE A POSTING FIRST'); return; }
+    renderTailorOut(text);
+  });
+  B('starSave', e => e.onclick = () => {
+    const title = $('#starTitle').value.trim();
+    if (!title){ toast('GIVE THE STORY A TITLE'); return; }
+    state.starBank.unshift({
+      id:String(Date.now()), title:title,
+      tags:$('#starTags').value.split(',').map(x => x.trim().toLowerCase()).filter(Boolean),
+      s:$('#starS').value.trim(), t:$('#starT').value.trim(), a:$('#starA').value.trim(), r:$('#starR').value.trim(),
+      at:Date.now(),
+    });
+    saveStar(); renderStarList($('#starSearch').value);
+    ['#starTitle','#starTags','#starS','#starT','#starA','#starR'].forEach(sel => { const el = $(sel); if (el) el.value = ''; });
+    toast('STORY SAVED — ' + tr(title, 30).toUpperCase());
+  });
+  B('starSearch', e => e.addEventListener('input', ev => renderStarList(ev.target.value)));
+}
+function renderTailorOut(text){
+  const kws = lexHits(text, 20);
+  const prof = new Set(state.profile.skills);
+  const matched = kws.filter(k => prof.has(k.term));
+  const gap = kws.filter(k => !prof.has(k.term));
+  const bt = boardTextAll();
+  gap.forEach(k => {
+    const re = new RegExp('(^|[^a-z0-9])' + termBody(k.term) + '($|[^a-z0-9])', 'g');
+    const m = bt.match(re);
+    k.saved = m ? m.length : 0;
+  });
+  const stories = state.starBank
+    .map(s => ({ s:s, hits:kws.filter(k => starText(s).indexOf(k.term) >= 0).length }))
+    .filter(x => x.hits >= 1).sort((a, b) => b.hits - a.hits).slice(0, 3).map(x => x.s);
+  let h = '<div class="h3line">Result — ' + matched.length + ' covered · ' + gap.length + ' gaps</div>';
+  h += '<div>' + matched.map(k => '<span class="kw">✓ ' + esc(k.term) + '</span>').join('') + '</div>';
+  h += '<div style="margin-top:6px">' + (gap.length ? gap.map(k =>
+    '<span class="kw gap">' + esc(k.term) + (k.saved ? ' <span class="n">· in ' + k.saved + ' saved job' + (k.saved > 1 ? 's' : '') + '</span>' : '') + '</span>').join('')
+    : '<span class="dim">No keyword gaps found against your profile.</span>') + '</div>';
+  if (stories.length){
+    h += '<div class="h3line">Stories to use in this application</div>' +
+      stories.map(s => '<div class="star" style="cursor:default"><h4>' + esc(s.title) + '</h4><div class="tags">' + esc((s.tags || []).join(' · ')) + '</div></div>').join('');
+  }
+  const out = $('#tailorOut'); if (out) out.innerHTML = h;
+}
+function renderBacklog(){
+  const el = $('#backlogOut'); if (!el) return;
+  const gaps = backlogGaps();
+  el.innerHTML = gaps.length
+    ? gaps.map(k => '<span class="kw gap">' + esc(k.term) + ' <span class="n">×' + k.n + '</span></span>').join('')
+    : '<span class="dim">' + (state.board.size ? 'No recurring gaps — your saved jobs match your profile well.' : 'Save jobs to the pipeline and your personal gap list builds itself here.') + '</span>';
+}
+function renderStarList(q){
+  const el = $('#starList'); if (!el) return;
+  const ql = (q || '').trim().toLowerCase();
+  const arr = state.starBank.filter(s => !ql || starText(s).includes(ql));
+  el.innerHTML = arr.length ? arr.map(s =>
+    '<div class="star" data-star="' + s.id + '">' +
+      '<h4>' + esc(s.title) + '</h4>' +
+      '<div class="tags">' + esc((s.tags || []).join(' · ') || 'no tags') + '</div>' +
+      '<div class="full">' +
+        (s.s ? '<b>Situation</b>' + esc(s.s) : '') +
+        (s.t ? '<b>Task</b>' + esc(s.t) : '') +
+        (s.a ? '<b>Action</b>' + esc(s.a) : '') +
+        (s.r ? '<b>Result</b>' + esc(s.r) : '') +
+      '</div>' +
+      '<button class="btn mini sx" data-act="starDel" data-id="' + s.id + '">×</button>' +
+    '</div>').join('')
+  : '<span class="dim">' + (state.starBank.length ? 'No stories match that filter.' : 'No stories yet — add your first one above. Even 3–4 strong stories cover most interviews.') + '</span>';
+}
+
+/* ============ 12 · PEOPLE LEDGER ============ */
+function personQuiet(p){ return daysSince(p.lastTouch) >= 10; }
+function renderPeople(){
+  const panel = $('#panelView'); if (!panel) return;
+  const arr = state.people;
+  const quiet = arr.filter(personQuiet);
+  panel.innerHTML =
+  '<div class="tgrid">' +
+    '<section class="tpanel"><h2 class="plabel">Add a person</h2>' +
+      '<p class="dim" style="font-size:10.5px;margin-bottom:10px">Referrals convert better than any board. Track who you\u2019ve asked — anyone quiet 10+ days gets a nudge.</p>' +
+      '<input class="input sm" id="pName" placeholder="name *">' +
+      '<input class="input sm" id="pCo" placeholder="their company">' +
+      '<input class="input sm" id="pEmail" placeholder="email or handle">' +
+      '<select class="input sm" id="pKind"><option value="referral">referral contact</option><option value="recruiter">recruiter</option><option value="mentor">mentor / advisor</option><option value="other">other</option></select>' +
+      '<textarea class="input sm" id="pNote" placeholder="context — how you know them, what you asked"></textarea>' +
+      '<div class="btnrow"><button class="btn red" id="pAdd">ADD PERSON</button></div>' +
+      '<div class="h3line">Quiet 10+ days — follow up</div>' +
+      '<div id="pQuiet"></div>' +
+    '</section>' +
+    '<section class="tpanel"><h2 class="plabel">Ledger — ' + arr.length + ' people</h2>' +
+      '<div id="pList"></div>' +
+    '</section>' +
+  '</div>';
+  B('pAdd', e => e.onclick = () => {
+    const name = $('#pName').value.trim();
+    if (!name){ toast('A PERSON NEEDS A NAME'); return; }
+    state.people.unshift({
+      id:String(Date.now()), name:name, company:$('#pCo').value.trim(), email:$('#pEmail').value.trim(),
+      kind:$('#pKind').value, note:$('#pNote').value.trim(), lastTouch:Date.now(),
+    });
+    savePeople(); renderAll();
+    toast('ADDED — ' + name.toUpperCase());
+  });
+  const row = p =>
+    '<div class="person" data-pid="' + p.id + '">' +
+      '<h4>' + esc(p.name) + (personQuiet(p) ? ' <span class="ghostchip" style="cursor:default">QUIET ' + daysSince(p.lastTouch) + 'D</span>' : '') + '</h4>' +
+      '<div class="meta">' + esc(p.kind) + (p.company ? ' · ' + esc(p.company) : '') + (p.email ? ' · ' + esc(p.email) : '') + ' · touched ' + ago(p.lastTouch) + ' ago</div>' +
+      (p.note ? '<div style="font-size:10px;color:var(--ink2);margin-bottom:8px">' + esc(tr(p.note, 140)) + '</div>' : '') +
+      '<div class="btnrow" style="margin-bottom:0"><button class="btn mini" data-pact="ptouch" data-id="' + p.id + '">LOG TOUCH</button>' +
+      '<button class="btn mini" data-pact="pask" data-id="' + p.id + '">COPY REFERRAL ASK</button>' +
+      '<button class="btn mini" data-pact="pdel" data-id="' + p.id + '">×</button></div>' +
+    '</div>';
+  const pq = $('#pQuiet'); if (pq) pq.innerHTML = quiet.length ? quiet.map(row).join('') : '<span class="dim">Nobody has gone quiet. Log touches as you reach out.</span>';
+  const pl = $('#pList'); if (pl) pl.innerHTML = arr.length ? arr.map(row).join('') : '<span class="dim">Empty. Add the first person — a former colleague at a company on your target list is the classic first entry.</span>';
+}
+function personAsk(p){
+  const sig = state.profile.name || '[your name]';
+  return 'Subject: Quick one — referral?\n\nHi ' + p.name + ',\n\n' +
+'I\u2019m in an active job search right now' + (p.company ? ' and ' + p.company + ' is on my target list' : '') + '. Would you be comfortable referring me, or pointing me at the right person on the team? Happy to send a short blurb you can forward as-is.\n\n' +
+'Either way — hope you\u2019re well, and coffee soon.\n\n' + sig;
+}
+
+/* ============ 12b · SPONSORS ============ */
+function sponsorPool(){
+  const act = SPONSORS.filter(s => s && s.active !== false && str(s.name) && str(s.url) && /^https?:\/\//i.test(str(s.url)));
+  const pool = [];
+  act.forEach(s => {
+    const w = Math.max(1, Math.min(10, Math.round(+s.weight || 1)));
+    for (let i = 0; i < w; i++) pool.push(s);
+  });
+  return pool;
+}
+function pickSponsor(){
+  const pool = sponsorPool();
+  if (!pool.length) return null;
+  return pool[state.sponsorCursor % pool.length];
+}
+function sponsorSideHTML(sp){
+  let h = '';
+  if (sp){
+    h += '<div class="sponsor-card">' +
+      '<span class="slab">Sponsored</span>' +
+      '<h4>' + esc(sp.name) + '</h4>' +
+      (sp.blurb ? '<p>' + esc(sp.blurb) + '</p>' : '') +
+      '<a class="btn" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener noreferrer">' + esc(sp.cta || 'LEARN MORE') + '</a>' +
+    '</div>';
+  }
+  if (SUPPORT_LINK){
+    h += '<div style="margin-top:10px"><a class="btn" style="display:block;text-align:center" href="' + esc(SUPPORT_LINK) + '" target="_blank" rel="noopener noreferrer">SUPPORT HIREWIRE</a></div>';
+  }
+  return h;
+}
+function renderSponsorPanel(){
+  const panel = $('#sponsorPanel'), box = $('#sponsorSide');
+  if (panel && box){
+    const sp = pickSponsor();
+    const show = !!sp || !!SUPPORT_LINK;
+    panel.hidden = !show;
+    if (show) box.innerHTML = sponsorSideHTML(sp);
+  }
+  const fs = $('#footSup'), fl = $('#footSupLink');
+  if (fs && fl){
+    fs.hidden = !SUPPORT_LINK;
+    if (SUPPORT_LINK) fl.href = SUPPORT_LINK;
+  }
+}
+function sponsorWireHTML(sp){
+  return '<li class="swire">' +
+    '<span class="idx">AD</span>' +
+    '<span class="slab">Sponsored</span>' +
+    '<div class="body">' +
+      '<div class="l1"><span class="jtitle">' + esc(sp.name) + '</span></div>' +
+      (sp.blurb ? '<div class="blurb">' + esc(sp.blurb) + '</div>' : '') +
+    '</div>' +
+    '<div class="pay"><a class="btn" href="' + esc(sp.url) + '" target="_blank" rel="sponsored noopener noreferrer">' + esc(sp.cta || 'LEARN MORE') + '</a></div>' +
+  '</li>';
+}
+
+/* ============ 13 · INSIGHTS + DIGEST + ICS ============ */
+function nudgeEmail(b){
+  const j = b.job;
+  const when = b.appliedAt ? new Date(b.appliedAt).toISOString().slice(0, 10) : 'recently';
+  const to = (b.contacts && b.contacts[0] && b.contacts[0].name) || 'Hiring team';
+  const sig = state.profile.name || '[your name]';
+  const skill = state.profile.skills[0] || 'my background';
+  return 'Subject: Following up — ' + j.title + ' application\n\n' +
+'Hi ' + to + ',\n\n' +
+'I applied for the ' + j.title + ' position at ' + j.company + ' on ' + when + ' and wanted to reiterate my strong interest in the role. If it is helpful, I am glad to share more detail on my ' + skill + ' work or walk through anything in my background.\n\n' +
+'Is there an update on timing for this search? I remain very interested and available to talk at your convenience.\n\n' +
+'Best regards,\n' + sig;
+}
+function buildICS(){
+  const evs = boardArr().filter(b => b.next && b.next.date);
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HireWire//EN', 'CALSCALE:GREGORIAN'];
+  evs.forEach(b => {
+    const sum = ((b.next.label || 'Event') + ' — ' + b.job.company + ' (' + b.job.title + ')').replace(/([,;\\])/g, '\\$1');
+    lines.push('BEGIN:VEVENT', 'UID:' + b.job.id.replace(/[^a-z0-9]/gi, '-') + '@hirewire', 'DTSTAMP:' + stamp,
+      'DTSTART;VALUE=DATE:' + b.next.date.replace(/-/g, ''), 'SUMMARY:' + sum);
+    if (b.job.url) lines.push('DESCRIPTION:' + b.job.url.replace(/([,;\\])/g, '\\$1'));
+    lines.push('END:VEVENT');
+  });
+  lines.push('END:VCALENDAR');
+  return lines.join('\r\n');
+}
+function exportICS(){
+  const evs = boardArr().filter(b => b.next && b.next.date);
+  if (!evs.length){ toast('SET A NEXT DATE ON A SAVED JOB FIRST (IN ITS DRAWER)'); return; }
+  download('hirewire-calendar.ics', buildICS(), 'text/calendar');
+  toast('ICS DOWNLOADED — ' + evs.length + ' EVENT(S)');
+}
+function offerTotal(c){ return (c.base || 0) + (c.bonus || 0) + (c.equity || 0); }
+function buildDigest(){
+  const now = Date.now(), since = now - 7 * 864e5;
+  const arr = boardArr();
+  const acts = [];
+  arr.forEach(b => (b.log || []).forEach(l => { if (l.t >= since) acts.push({ t:l.t, co:b.job.company, text:l.text }); }));
+  acts.sort((a, b) => a.t - b.t);
+  const stageMoves = acts.filter(a => /stage →/.test(a.text)).length;
+  const fups = acts.filter(a => /follow-up/.test(a.text)).length;
+  const ghosts = arr.filter(ghostBoard).length;
+  const matches = [];
+  state.jobs.forEach(j => { if (j.postedAt >= since){ const s = scoreJob(j); if (s.score >= 55) matches.push(Object.assign({ job:j }, s)); } });
+  matches.sort((a, b) => b.score - a.score);
+  const counts = {}; STAGES.forEach(s => counts[s] = 0);
+  arr.forEach(b => counts[b.status]++);
+  const L = [];
+  L.push('# HireWire — weekly digest');
+  L.push('_' + new Date(since).toISOString().slice(0, 10) + ' → ' + new Date(now).toISOString().slice(0, 10) + '_', '');
+  L.push('## The week in numbers');
+  L.push('- New postings scoring 55+: **' + matches.length + '**');
+  L.push('- Pipeline stage moves: **' + stageMoves + '** · follow-ups sent: **' + fups + '** · open ghosts: **' + ghosts + '**');
+  L.push('- Funnel: saved ' + counts.saved + ' · applied ' + counts.applied + ' · screen ' + counts.screen + ' · interview ' + counts.interview + ' · offer ' + counts.offer, '');
+  if (state.savedSearches.length){
+    L.push('## Saved searches');
+    state.savedSearches.forEach(ss => L.push('- ' + ss.name + ': **+' + countNewFor(ss) + '** new since last visit'));
+    L.push('');
+  }
+  if (matches.length){
+    L.push('## Top new matches');
+    matches.slice(0, 5).forEach((r, i) => L.push((i + 1) + '. **' + r.job.title + '** — ' + r.job.company + ' (' + r.score + '/100)' + (r.job.url && r.job.url !== '#' ? '\n   ' + r.job.url : '')));
+    L.push('');
+  }
+  if (acts.length){
+    L.push('## Activity log');
+    acts.forEach(a => L.push('- ' + new Date(a.t).toISOString().slice(0, 10) + ' · ' + a.co + ' — ' + a.text));
+  }
+  if (!acts.length && !matches.length) L.push('_Quiet week — nothing new. The wire refreshes hourly; your saved searches keep counting._');
+  return L.join('\n');
+}
+function renderInsights(){
+  const panel = $('#panelView'); if (!panel) return;
+  const arr = boardArr();
+  const counts = {}; STAGES.forEach(s => counts[s] = 0);
+  arr.forEach(b => counts[b.status] = (counts[b.status] || 0) + 1);
+  const reached = s => arr.filter(b => reachedStage(b, s)).length;
+  const apN = reached('applied'), scN = reached('screen'), inN = reached('interview'), ofN = reached('offer');
+  const pct = (a, b) => (b ? Math.round(a / b * 100) + '%' : '—');
+  function avgDays(f, t){
+    let n = 0, sum = 0;
+    arr.forEach(b => {
+      const a = b.stageTs && b.stageTs[f], c = b.stageTs && b.stageTs[t];
+      if (a && c && c >= a){ sum += (c - a); n++; }
+    });
+    return n ? (Math.round(sum / n / 864e5 * 10) / 10) + 'd' : '—';
+  }
+  const bySrc = {};
+  arr.forEach(b => {
+    const s = b.job.source;
+    bySrc[s] = bySrc[s] || { n:0, ap:0, sc:0 };
+    bySrc[s].n++;
+    if (reachedStage(b, 'applied')) bySrc[s].ap++;
+    if (reachedStage(b, 'screen')) bySrc[s].sc++;
+  });
+  const nudges = arr.filter(ghostBoard);
+  const offers = arr.filter(b => b.comp && (b.comp.base || b.comp.bonus || b.comp.equity))
+    .sort((a, b) => offerTotal(b.comp) - offerTotal(a.comp));
+  const maxC = Math.max.apply(null, STAGES.map(s => counts[s]).concat([1]));
+  let h = '<div class="tgrid">';
+  h += '<section class="tpanel"><h2 class="plabel">Funnel</h2>';
+  STAGES.forEach(s => {
+    const w = Math.round(counts[s] / maxC * 100);
+    h += '<div class="barlabel"><span>' + s.toUpperCase() + '</span><span>' + counts[s] + '</span></div>' +
+         '<div class="bar' + (s === 'offer' ? ' hi' : '') + '"><i style="width:' + w + '%"></i></div>';
+  });
+  h += '<div class="statgrid">' +
+    '<div class="bigstat"><label>Applied → Screen</label><b>' + pct(scN, apN) + '</b></div>' +
+    '<div class="bigstat"><label>Screen → Interview</label><b>' + pct(inN, scN) + '</b></div>' +
+    '<div class="bigstat"><label>Interview → Offer</label><b>' + pct(ofN, inN) + '</b></div>' +
+    '<div class="bigstat"><label>Avg Applied→Screen</label><b>' + avgDays('applied', 'screen') + '</b></div>' +
+    '<div class="bigstat"><label>Avg Screen→Interview</label><b>' + avgDays('screen', 'interview') + '</b></div>' +
+    '<div class="bigstat"><label>Ghosts (14d+ quiet)</label><b>' + nudges.length + '</b></div>' +
+  '</div>';
+  h += '<div class="btnrow"><button class="btn" data-act="ics">EXPORT CALENDAR (.ICS)</button>' +
+       '<button class="btn red" data-act="digest">WEEKLY DIGEST .MD</button></div>';
+  h += '<p class="fine">Every number comes from your own pipeline. FX comparisons use static rough rates.</p></section>';
+  h += '<section class="tpanel"><h2 class="plabel">Source yield</h2>';
+  const srcKeys = Object.keys(bySrc).sort((a, b) => bySrc[b].ap - bySrc[a].ap);
+  h += srcKeys.length ? '<table class="htable"><tr><th>Source</th><th>Saved</th><th>Applied+</th><th>Screen+</th><th>Yield</th></tr>' +
+    srcKeys.map(s => {
+      const y = bySrc[s].ap ? Math.round(bySrc[s].sc / bySrc[s].ap * 100) + '%' : '—';
+      return '<tr><td><b>' + esc(s.toUpperCase()) + '</b></td><td>' + bySrc[s].n + '</td><td>' + bySrc[s].ap + '</td><td>' + bySrc[s].sc + '</td><td>' + y + '</td></tr>';
+    }).join('') + '</table>'
+    : '<span class="dim">Save jobs and move them to Applied — this table shows which wire sources actually produce screens for you.</span>';
+  h += '</section>';
+  h += '<section class="tpanel"><h2 class="plabel">Ghost nudges</h2>';
+  h += nudges.length
+    ? '<ul style="list-style:none">' + nudges.map(b =>
+        '<li class="nudgeli"><span class="grow"><b>' + esc(b.job.company) + '</b> — ' + esc(tr(b.job.title, 38)) + ' <span class="dim">· ' + daysQuiet(b) + 'd quiet · ' + esc(b.status) + '</span></span>' +
+        '<button class="btn mini" data-act="nudge" data-id="' + esc(b.job.id) + '">FOLLOW UP</button></li>').join('') + '</ul>'
+    : '<span class="dim">No ghosts. Entries go quiet 14 days after their last activity — follow up, then the timer resets.</span>';
+  h += '</section>';
+  h += '<section class="tpanel"><h2 class="plabel">Offer compare</h2>';
+  h += offers.length
+    ? '<table class="htable"><tr><th>Company</th><th>Base</th><th>Bonus</th><th>Equity</th><th>Total</th></tr>' +
+      offers.map(b => '<tr><td><b>' + esc(b.job.company) + '</b></td><td>' + fmtMoney(b.comp.base) + '</td><td>' + fmtMoney(b.comp.bonus) + '</td><td>' + fmtMoney(b.comp.equity) + '</td><td><b>' + fmtMoney(offerTotal(b.comp)) + '</b></td></tr>').join('') + '</table>'
+    : '<span class="dim">Open any saved posting\u2019s drawer, enter base / bonus / equity in "Offer math", and comparisons appear here.</span>';
+  h += '</section>';
+  h += '</div>';
+  panel.innerHTML = h;
+}
+
+/* ============ 14 · PASTE-BACK ============ */
+function parseAgentResults(text){
+  const lines = String(text || '').split('\n').map(l => l.trim())
+    .filter(l => l && !/^\|?[\s\-|:]+\|?$/.test(l) && !/^rank/i.test(l));
+  let matched = 0; const missed = [];
+  lines.forEach(line => {
+    let cells = line.replace(/^\|/, '').replace(/\|$/, '').split('|').map(s => s.trim()).filter(Boolean);
+    if (cells.length < 3) cells = line.split(/\t|\s{2,}| - | — /i).map(s => s.trim()).filter(Boolean);
+    if (cells.length < 2){ missed.push(tr(line, 34)); return; }
+    const company = cells[1] || cells[0];
+    const fit = cells[2] || '';
+    const blocker = cells[3] || '';
+    const nb = normCompany(company);
+    if (!nb){ missed.push(tr(company, 30)); return; }
+    const hit = boardArr().find(b => {
+      const bc = normCompany(b.job.company);
+      return bc === nb || bc.includes(nb) || nb.includes(bc);
+    });
+    if (!hit){ missed.push(tr(company, 30)); return; }
+    logAdd(hit, 'agent fit: ' + (fit || 'n/a') + (blocker ? ' — ' + blocker : ''));
+    hit.at = Date.now();
+    matched++;
+  });
+  if (matched) saveBoard();
+  return { matched:matched, missed:missed };
+}
+function openPasteBack(){
+  const bm = $('#briefModal'); if (!bm) return;
+  state.briefText = ''; state.viewerHandler = null;
+  bm.innerHTML = '<div class="agent-card" role="dialog" aria-modal="true" aria-label="Paste agent results">' +
+    '<div class="ag-head"><div><h2 class="ag-title">Paste agent results</h2>' +
+    '<p class="ag-sub">ONE ROW PER JOB · RANK | COMPANY | FIT | BLOCKER</p></div>' +
+    '<button class="d-x" data-act="bxClose" aria-label="Close">×</button></div>' +
+    '<div class="ag-body"><textarea class="input" id="pbInput" style="min-height:180px;margin:14px 0;width:100%" placeholder="1 | Stripe | strong | needs deeper Rust&#10;2 | Linear | good |"></textarea></div>' +
+    '<div class="ag-foot"><button class="btn red" data-act="pbGo">PARSE &amp; LOG</button>' +
+    '<span class="ag-hint" id="pbOut">Entries are matched to your pipeline by company name and logged as activity.</span></div></div>';
+  bm.classList.add('open');
+}
+
+/* ============ 15 · BRIEF + EXPORTS + BACKUP ============ */
+function doAgentRun(){
+  const list = state.jobs.length ? rankAll().slice(0, 15) : [];
+  openAgent(list);
+  return list.length ? list : null;
+}
+function briefList(){
+  return (state.lastRun && state.lastRun.list && state.lastRun.list.length) ? state.lastRun.list : rankAll().slice(0, 25);
+}
+function buildBrief(list){
+  const p = state.profile, L = [];
+  L.push('# HIREWIRE AGENT BRIEF');
+  L.push('_Generated ' + new Date().toISOString() + ' · edition ' + Math.floor(Date.now()/864e5) + (p.name ? ' · prepared for ' + p.name : '') + '_', '');
+  L.push('## Subscriber profile');
+  L.push('- Name: ' + (p.name || '(not set)'));
+  L.push('- Skills: ' + (p.skills.join(', ') || '(none set)'));
+  L.push('- Salary floor: ' + (p.minSalary ? fmtCur(p.minSalary, p.currency) : 'flexible'));
+  L.push('- Blocked keywords: ' + (p.blacklist.join(', ') || '(none)'));
+  L.push('- Blocked locations: ' + (p.locBlocks.join(', ') || '(none)'));
+  L.push('- Remote only: ' + (state.filters.remoteOnly ? 'yes' : 'no'), '');
+  L.push('## Shortlist — top ' + list.length + ' of ' + state.jobs.length + ' postings (scored by HireWire)');
+  list.forEach((r, i) => {
+    L.push('', '### ' + (i + 1) + '. ' + r.job.title + ' — ' + r.job.company + ' (score ' + r.score + '/100)');
+    L.push('- Apply: ' + (r.job.url && r.job.url !== '#' ? r.job.url : '(no live URL)'));
+    L.push('- Meta: source ' + r.job.source + ' · posted ' + ago(r.job.postedAt) + ' ago · ' + (fmtSalary(r.job) || 'salary n/a') + ' · ' + r.job.location);
+    if (r.plus.length) L.push('- Matches: ' + r.plus.join('; '));
+    if (r.minus.length) L.push('- Watch: ' + r.minus.join('; '));
+    L.push('- Summary: ' + tr((r.job.description || '').replace(/\s+/g, ' '), 240));
+  });
+  L.push('', '## Task for the coding agent');
+  L.push('For each posting above, in order: fetch the posting page, extract the hard requirements, compare them against the subscriber profile, then draft a tailored 150-word application intro. Skip anything that fails the salary floor or hits a blocked keyword. Report back as a table: rank | company | fit | blocker.');
+  return L.join('\n');
+}
+function openViewer(title, sub, text, buttons, handler, fname){
+  state.briefText = text || '';
+  state.viewerHandler = handler || null;
+  state.briefName = fname || ('hirewire-' + new Date().toISOString().slice(0,16).replace(/[:T]/g,'-') + '.md');
+  const bm = $('#briefModal'); if (!bm) return;
+  bm.innerHTML = '<div class="agent-card" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
+    '<div class="ag-head"><div><h2 class="ag-title">' + esc(title) + '</h2>' +
+    '<p class="ag-sub">' + esc(sub || '') + '</p></div>' +
+    '<button class="d-x" data-act="bxClose" aria-label="Close">×</button></div>' +
+    '<div class="ag-body"><pre class="brief-pre">' + esc(text || '') + '</pre></div>' +
+    '<div class="ag-foot">' + buttons.map(b =>
+      '<button class="btn ' + (b.cls || '') + '" data-act="' + b.act + '">' + esc(b.label) + '</button>').join('') +
+    '</div></div>';
+  bm.classList.add('open');
+}
+function closeViewer(){ const bm = $('#briefModal'); if (bm) bm.classList.remove('open'); state.viewerHandler = null; }
+function openBriefViewer(){
+  const list = briefList();
+  const text = list.length ? buildBrief(list) : '# HIREWIRE BRIEF\n\nThe wire is empty — press SYNC NOW, then try again.';
+  openViewer('Agent brief', (list.length ? list.length + ' ENTRIES · MARKDOWN' : 'EMPTY — SYNC FIRST'), text,
+    [{ act:'copy', label:'COPY TEXT', cls:'red' }, { act:'dl', label:'DOWNLOAD .MD' }], null,
+    'hirewire-brief-' + new Date().toISOString().slice(0,16).replace(/[:T]/g,'-') + '.md');
+}
+async function copyBrief(){
+  const list = briefList();
+  if (!list.length){ openBriefViewer(); toast('WIRE EMPTY — SYNC FIRST'); return; }
+  const ok = await copyText(buildBrief(list));
+  if (ok) toast('BRIEF COPIED — PASTE INTO YOUR AGENT');
+  else { openBriefViewer(); toast('CLIPBOARD BLOCKED — COPY FROM THE VIEWER'); }
+}
+function doExport(fmt, target){
+  if (fmt !== 'md' && fmt !== 'json' && fmt !== 'csv'){ toast('FORMAT MUST BE MD, JSON OR CSV'); return; }
+  let items, name;
+  if (target === 'pipeline'){
+    items = boardArr().map(b => Object.assign({ job:b.job }, scoreJob(b.job), { status:b.status, note:b.note }));
+    name = 'pipeline';
+  } else {
+    items = briefList(); name = 'shortlist';
+  }
+  if (!items.length){ openBriefViewer(); toast('NOTHING TO EXPORT YET'); return; }
+  const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
+  let fname;
+  if (fmt === 'md'){
+    fname = 'hirewire-' + name + '-' + stamp + '.md';
+    download(fname, buildBrief(items), 'text/markdown');
+  } else if (fmt === 'json'){
+    fname = 'hirewire-' + name + '-' + stamp + '.json';
+    const out = {
+      generatedAt:new Date().toISOString(), target:name, product:'HireWire', profile:state.profile,
+      items:items.map(r => ({ title:r.job.title, company:r.job.company, source:r.job.source, url:r.job.url,
+        postedAt:new Date(r.job.postedAt).toISOString(), salary:fmtSalary(r.job) || null,
+        score:r.score, matches:r.plus, watch:r.minus, status:r.status || undefined, note:r.note || undefined })),
+    };
+    download(fname, JSON.stringify(out, null, 2), 'application/json');
+  } else {
+    fname = 'hirewire-' + name + '-' + stamp + '.csv';
+    const cell = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+    const rows = [['title','company','source','remote','location','posted','salary','score','status','note','url'].join(',')];
+    items.forEach(r => rows.push([r.job.title, r.job.company, r.job.source, r.job.remote, r.job.location,
+      new Date(r.job.postedAt).toISOString(), fmtSalary(r.job), r.score, r.status || '', r.note || '', r.job.url].map(cell).join(',')));
+    download(fname, rows.join('\n'), 'text/csv');
+  }
+  toast('DOWNLOADED ' + fname + ' — CHECK YOUR DOWNLOADS FOLDER');
+}
+function doBackup(){
+  const payload = {
+    app:'HireWire', version:2, exportedAt:new Date().toISOString(),
+    profile:state.profile, byok:state.byok,
+    board:boardArr().map(b => ({ id:b.job.id, job:b.job, status:b.status, note:b.note, at:b.at,
+      contacts:b.contacts, log:b.log, comp:b.comp, next:b.next, stageTs:b.stageTs, appliedAt:b.appliedAt })),
+    savedSearches:state.savedSearches, starBank:state.starBank, people:state.people,
+    settings:{ remoteOnly:state.filters.remoteOnly, floorOnly:state.filters.floorOnly,
+      sort:state.filters.sort, seniority:state.filters.seniority, locs:Array.from(state.filters.locs) },
+  };
+  download('hirewire-backup-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(payload, null, 2), 'application/json');
+  state.meta.lastBackupAt = Date.now();
+  state.stickyBanner = false;
+  saveMeta(); hideBanner(); renderBackupAge();
+  toast('BACKUP DOWNLOADED — PROFILE, PIPELINE, PEOPLE, KEYS');
+}
+function restoreBackup(json){
+  const d = JSON.parse(json);
+  if (!d || d.app !== 'HireWire') throw new Error('not a HireWire backup');
+  if (d.profile) state.profile = Object.assign({ name:'', skills:[], blacklist:[], locBlocks:[], minSalary:null, currency:'USD' }, d.profile);
+  state.profile.currency = normCode(state.profile.currency);
+  if (Array.isArray(d.board)){ state.board = new Map(); loadBoardArray(d.board); }
+  if (Array.isArray(d.savedSearches)) state.savedSearches = d.savedSearches;
+  if (Array.isArray(d.starBank)) state.starBank = d.starBank;
+  if (Array.isArray(d.people)) state.people = d.people;
+  if (d.byok && d.byok.adzuna) state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, d.byok.adzuna);
+  if (d.settings){
+    state.filters.remoteOnly = !!d.settings.remoteOnly;
+    state.filters.floorOnly = !!d.settings.floorOnly;
+    state.filters.sort = d.settings.sort === 'newest' ? 'newest' : 'match';
+    state.filters.seniority = ['junior','mid','senior'].includes(d.settings.seniority) ? d.settings.seniority : 'any';
+    state.filters.locs = new Set(Array.isArray(d.settings.locs) ? d.settings.locs : []);
+  }
+  state.meta.lastBackupAt = Date.now();
+  saveProfile(); saveBoard(); saveSaved(); saveStar(); savePeople(); saveByok(); saveSettings(); saveMeta();
+  renderAll();
+}
+function buildPrep(id){
+  const b = state.board.get(id);
+  if (!b) return null;
+  const j = b.job;
+  const kws = lexHits(j.description || '', 12);
+  const prof = new Set(state.profile.skills);
+  const gaps = kws.filter(k => !prof.has(k.term)).slice(0, 6);
+  const stories = state.starBank
+    .map(s => ({ s:s, hits:kws.filter(k => starText(s).indexOf(k.term) >= 0).length }))
+    .filter(x => x.hits >= 1).sort((a, b2) => b2.hits - a.hits).slice(0, 3).map(x => x.s);
+  const L = [];
+  L.push('# INTERVIEW PREP — ' + j.title + ' @ ' + j.company);
+  L.push('_Generated by HireWire · ' + new Date().toISOString().slice(0, 10) + '_', '');
+  if (kws.length) L.push('## Likely topics (from the posting)', kws.map(k => k.term).join(' · '), '');
+  if (gaps.length) L.push('## Be ready to address these gaps', gaps.map(k => '- ' + k.term).join('\n'), '');
+  if (stories.length){
+    L.push('## Your stories to steer toward');
+    stories.forEach(s => L.push('- ' + s.title + ((s.tags || []).length ? ' (' + s.tags.join(', ') + ')' : '')));
+    L.push('');
+  }
+  L.push('## Questions to expect');
+  ['Tell me about yourself (90 seconds, end on why this role).',
+   'Why this company specifically?',
+   'Walk me through your hardest relevant project.',
+   'A conflict with a teammate — what you did.',
+   'A failure and what changed afterwards.',
+   'A metric you moved, with the before/after.',
+   'Questions for us (prepare two using the topics above).',
+   'Timeline and next steps.'].forEach((q, i) => L.push((i + 1) + '. ' + q));
+  if (!j.description) L.push('', '_This posting\u2019s full text wasn\u2019t available — paste it into the Tailor tab for a sharper topic list._');
+  return L.join('\n');
+}
+
+/* ============ 16 · DRAWER ============ */
+function openDrawer(id){
+  const j = byId(id); if (!j) return;
+  const b = state.board.get(id);
+  state.drawerId = id;
+  const m = scoreJob(j), pinned = !!b;
+  const gs = ghostSignals(j);
+  const pct = x => Math.round(x * 100);
+  const why = m.plus.map(p => '<span class="wp">+ ' + esc(p) + '</span>').join('') +
+              m.minus.map(x => '<span class="wm">− ' + esc(x) + '</span>').join('');
+  const stageOpts = STAGES.map(s => '<option value="' + s + '"' + (b && b.status === s ? ' selected' : '') + '>' + s.toUpperCase() + '</option>').join('');
+  const needsEnrich = !j.description && ENRICHERS[j.source] && !j.enrichFailed;
+  const drawer = $('#drawer'); if (!drawer) return;
+  drawer.innerHTML =
+    '<div class="d-head">' +
+      '<button class="d-x" data-act="close" aria-label="Close">×</button>' +
+      '<div class="d-kick"><span class="src">' + j.source.toUpperCase() + '</span><span class="sep">·</span><span>POSTED ' + ago(j.postedAt) + ' AGO</span><span class="sep">·</span><span>' + esc(tr(j.location, 46)) + '</span></div>' +
+      '<h2 class="d-title">' + esc(j.title) + '</h2>' +
+      '<div class="d-co"><b>' + esc(j.company) + '</b><span class="badge ' + j.remote + '">' + j.remote + '</span></div>' +
+    '</div>' +
+    '<div class="d-match">' +
+      '<div class="d-score"><label>MATCH</label><b>' + m.score + '</b><span>/100</span></div>' +
+      '<div class="d-meters">' +
+        '<div class="mrow"><label>SKILLS</label><div class="meter' + (m.parts.skill >= .6 ? ' hi' : '') + '"><i style="width:' + pct(m.parts.skill) + '%"></i></div></div>' +
+        '<div class="mrow"><label>PAY</label><div class="meter' + (m.parts.pay >= .6 ? ' hi' : '') + '"><i style="width:' + pct(m.parts.pay) + '%"></i></div></div>' +
+        '<div class="mrow"><label>FRESH</label><div class="meter' + (m.parts.fresh >= .6 ? ' hi' : '') + '"><i style="width:' + pct(m.parts.fresh) + '%"></i></div></div>' +
+      '</div>' +
+    '</div>' +
+    (why ? '<div class="d-why">' + why + '</div>' : '') +
+    (gs.length ? '<div class="d-ghost">Ghost signals — ' + esc(gs.join(' · ')) + '</div>' : '') +
+    '<div class="d-meta">' +
+      '<div><label>SALARY</label><span>' + esc(fmtSalary(j) || 'NOT DISCLOSED') + '</span></div>' +
+      '<div><label>POSTED</label><span>' + new Date(j.postedAt).toISOString().slice(0, 10) + '</span></div>' +
+      '<div><label>SOURCE</label><span>' + j.source.toUpperCase() + '</span></div>' +
+      '<div><label>REMOTE</label><span>' + j.remote.toUpperCase() + '</span></div>' +
+    '</div>' +
+    (pinned ?
+      '<div class="d-sec"><label>Contacts</label><div id="dContacts">' +
+        b.contacts.map((c, i) => '<div class="crow"><span class="grow"><b>' + esc(c.name) + '</b>' + (c.email ? ' · ' + esc(c.email) : '') + '</span><span class="rm" data-crm="' + i + '">× REMOVE</span></div>').join('') +
+        (b.contacts.length ? '' : '<span class="dim">No contacts yet — add your recruiter / referrer.</span>') +
+      '</div><div class="dform"><input class="input" id="cName" placeholder="name" style="flex:1"><input class="input" id="cEmail" placeholder="email or role" style="flex:1"><button class="btn mini" data-act="addc">ADD</button></div></div>' +
+      '<div class="d-sec"><label>Next event — feeds the ICS calendar</label><div class="d-next">' +
+        '<input class="input" type="date" id="dNextDate" value="' + (b.next && b.next.date ? esc(b.next.date) : '') + '" style="flex:1">' +
+        '<input class="input" id="dNextLabel" placeholder="label — e.g. interview w/ team" value="' + (b.next && b.next.label ? esc(b.next.label) : '') + '" style="flex:1.4">' +
+      '</div></div>' +
+      '<div class="d-sec"><label>Offer math — annual (for compare)</label><div class="d-comp">' +
+        '<input class="input" id="cBase" type="number" placeholder="base" value="' + (b.comp.base || '') + '">' +
+        '<input class="input" id="cBonus" type="number" placeholder="bonus" value="' + (b.comp.bonus || '') + '">' +
+        '<input class="input" id="cEquity" type="number" placeholder="equity/yr" value="' + (b.comp.equity || '') + '">' +
+      '</div></div>' +
+      '<div class="d-sec"><label>Activity</label><ul class="alog">' +
+        ((b.log || []).slice(-5).reverse().map(l => '<li><b>' + hhmm(l.t) + '</b> · ' + ago(l.t) + ' AGO — ' + esc(l.text) + '</li>').join('') || '<li>—</li>') +
+      '</ul></div>' : '') +
+    '<div class="d-notewrap"><label>Subscriber note</label>' +
+      '<textarea class="input" id="dNote"' + (pinned ? '' : ' disabled') + ' placeholder="' + (pinned ? 'only visible to you' : 'save this posting to annotate it') + '">' + esc(b ? b.note : '') + '</textarea></div>' +
+    '<div class="d-body">' + (j.description ? esc(j.description.slice(0, 12000)) :
+      (needsEnrich ? '<span class="dim">FETCHING FULL DESCRIPTION…</span>' : '<span class="dim">No description provided by this source — open the posting for the full text.</span>')) + '</div>' +
+    '<div class="d-foot">' +
+      (pinned
+        ? '<button class="btn" data-act="pintoggle">REMOVE</button><select class="bstat" id="dStage">' + stageOpts + '</select>' +
+          '<button class="btn" data-act="prep">PREP SHEET</button>'
+        : '<button class="btn red" data-act="pintoggle">SAVE TO PIPELINE</button>') +
+      '<button class="btn" data-act="web">OPEN POSTING ↗</button>' +
+      '<button class="btn" data-act="copy">COPY LINK</button>' +
+    '</div>';
+  const q = s => drawer.querySelector(s);
+  const x = q('[data-act=close]'); if (x) x.onclick = closeDrawer;
+  const pt = q('[data-act=pintoggle]'); if (pt) pt.onclick = () => togglePin(id);
+  const wb = q('[data-act=web]'); if (wb) wb.onclick = () => openWeb(j);
+  const cp = q('[data-act=copy]'); if (cp) cp.onclick = async () => {
+    const ok = j.url && j.url !== '#' && await copyText(j.url);
+    toast(ok ? 'LINK COPIED' : 'NO LIVE URL AVAILABLE');
+  };
+  const prepBtn = q('[data-act=prep]');
+  if (prepBtn) prepBtn.onclick = () => {
+    const text = buildPrep(id);
+    if (text) openViewer('Interview prep', j.company.toUpperCase() + ' · ' + tr(j.title, 40).toUpperCase(), text,
+      [{ act:'copy', label:'COPY PREP SHEET', cls:'red' }], null,
+      'hirewire-prep-' + normCompany(j.company).slice(0, 14) + '.md');
+  };
+  if (needsEnrich){
+    enrichJob(j).then(txt => {
+      if (txt && state.drawerId === j.id && drawer.classList.contains('open')){
+        openDrawer(j.id);
+        toast('DESCRIPTION FETCHED — SCORE UPDATED');
+      } else if (txt === '' && state.drawerId === j.id){
+        const db = drawer.querySelector('.d-body');
+        if (db) db.innerHTML = '<span class="dim">No description text available from this source.</span>';
+      }
+    });
+  }
+  const st = q('#dStage');
+  if (st) st.onchange = e => setStage(id, e.target.value);
+  const nt = q('#dNote');
+  if (nt){
+    nt.oninput = () => { if (state.board.has(id)){ state.board.get(id).note = nt.value; saveBoard(); } };
+    nt.onchange = () => { if (state.board.has(id)){ logAdd(state.board.get(id), 'note updated'); saveBoard(); } };
+  }
+  const addBtn = q('[data-act=addc]');
+  if (addBtn) addBtn.onclick = () => {
+    const name = q('#cName').value.trim(), email = q('#cEmail').value.trim();
+    if (!name){ toast('CONTACT NEEDS A NAME'); return; }
+    b.contacts.push({ name:name, email:email });
+    logAdd(b, 'contact added — ' + name);
+    b.at = Date.now();
+    saveBoard(); openDrawer(id);
+    toast('CONTACT ADDED');
+  };
+  drawer.addEventListener('click', e => {
+    const rm = e.target.closest('[data-crm]');
+    if (rm){
+      b.contacts.splice(parseInt(rm.dataset.crm), 1);
+      logAdd(b, 'contact removed');
+      saveBoard(); openDrawer(id);
+    }
+  });
+  const nd = q('#dNextDate'), nl = q('#dNextLabel');
+  if (nd){
+    const setNext = () => {
+      b.next = nd.value ? { date:nd.value, label:(nl && nl.value.trim()) || 'Event' } : null;
+      logAdd(b, b.next ? 'next event — ' + b.next.date + ' ' + b.next.label : 'next event cleared');
+      b.at = Date.now();
+      saveBoard(); renderAll();
+      toast(b.next ? 'CALENDAR EVENT SET — EXPORT VIA INSIGHTS' : 'EVENT CLEARED');
+    };
+    nd.onchange = setNext; if (nl) nl.onchange = setNext;
+  }
+  [['cBase','base'],['cBonus','bonus'],['cEquity','equity']].forEach(pair => {
+    const el = q('#' + pair[0]);
+    if (el) el.onchange = () => {
+      b.comp[pair[1]] = parseFloat(el.value) || null;
+      logAdd(b, 'offer math updated');
+      saveBoard();
+    };
+  });
+  drawer.classList.add('open');
+  const sc = $('#scrim'); if (sc) sc.classList.add('on');
+}
+function closeDrawer(){
+  const d = $('#drawer'), s = $('#scrim');
+  if (d) d.classList.remove('open');
+  if (s) s.classList.remove('on');
+  state.drawerId = null;
+}
+function openWeb(j){
+  if (!j || !j.url || j.url === '#'){ toast('OFFLINE SNAPSHOT — NO LIVE URL'); return; }
+  window.open(j.url, '_blank', 'noopener');
+}
+function resetFilters(){
+  state.filters = { q:'', tags:new Set(), sources:new Set(), locs:new Set(), remoteOnly:true, floorOnly:!!state.profile.minSalary, sort:'match', seniority:'any' };
+  state.view = 'wire'; state.visible = 40;
+  syncToolbarFromState(); renderAll();
+}
+
+/* ============ 17 · AGENT MODAL ============ */
+function openAgent(list){
+  if (list.length){
+    state.lastRun = { at:Date.now(), list };
+    const lr = $('#lastRunLine');
+    if (lr) lr.textContent = 'LAST RUN ' + hhmm(Date.now()) + ' — ' + list.length + ' SHOWN · TOP SCORE ' + list[0].score;
+  }
+  const p = state.profile;
+  const sub = 'SCORED ' + state.jobs.length + ' POSTINGS · SKILLS: ' + (p.skills.join(', ') || 'NONE SET') + ' · FLOOR ' + (p.minSalary ? fmtCur(p.minSalary, p.currency) : 'FLEXIBLE');
+  const body = list.length
+    ? '<ol class="wire">' + list.map((r, i) =>
+        '<li class="row ag-row" data-act="agrow" data-id="' + esc(r.job.id) + '">' +
+          '<span class="rank">' + String(i + 1).padStart(2,'0') + '</span>' +
+          '<div class="scorebox' + (r.score >= 75 ? ' hi' : '') + '"><span class="ticks">' + ticksHTML(r.score) + '</span><span class="scorenum">' + r.score + '</span></div>' +
+          '<div class="body">' +
+            '<div class="l1"><span class="jtitle">' + esc(r.job.title) + '</span></div>' +
+            '<div class="l2"><b>' + esc(r.job.company) + '</b><span class="sep">·</span><span class="src">' + r.job.source.toUpperCase() + '</span><span class="sep">·</span><span>' + ago(r.job.postedAt) + ' AGO</span></div>' +
+            '<div class="reasons">' + r.plus.map(x => '<span class="p">+ ' + esc(x) + '</span>').join('') + r.minus.map(x => '<span class="m">− ' + esc(x) + '</span>').join('') + '</div>' +
+          '</div>' +
+          '<div class="ag-right">' +
+            '<span class="pay">' + (fmtSalary(r.job) ? esc(fmtSalary(r.job)) : '<span class="dim">PAY N/A</span>') + '</span>' +
+            '<span><button class="btn mini" data-act="pintoggle" data-id="' + esc(r.job.id) + '">' + (state.board.has(r.job.id) ? 'UNPIN' : 'PIN') + '</button>' +
+            '<button class="btn mini" data-act="web" data-id="' + esc(r.job.id) + '">↗</button></span>' +
+          '</div>' +
+        '</li>').join('') + '</ol>'
+    : '<div class="empty"><h3>Nothing to score yet.</h3><p>The wire has no postings. Press sync — if every source is unreachable, an offline snapshot will load.</p><button class="btn red" data-act="agSync">SYNC NOW</button></div>';
+  const am = $('#agentModal'); if (!am) return;
+  am.innerHTML = '<div class="agent-card" role="dialog" aria-modal="true" aria-label="Agent run">' +
+    '<div class="ag-head"><div>' +
+      '<h2 class="ag-title">Agent run <span class="dot">№' + (Math.floor(Date.now()/1000) % 100000) + '</span></h2>' +
+      '<p class="ag-sub">' + esc(sub) + '</p>' +
+    '</div><button class="d-x" data-act="agClose" aria-label="Close">×</button></div>' +
+    '<div class="ag-body">' + body + '</div>' +
+    '<div class="ag-foot">' +
+      '<button class="btn red" data-act="agBrief">COPY AGENT BRIEF</button>' +
+      '<button class="btn" data-act="agView">VIEW BRIEF</button>' +
+      '<button class="btn" data-act="agMd">EXPORT .MD</button>' +
+      '<span class="ag-hint">Brief = profile + shortlist + instructions. Results come back via My Board → Paste Agent Results.</span>' +
+    '</div></div>';
+  am.classList.add('open');
+}
+function closeAgent(){ const am = $('#agentModal'); if (am) am.classList.remove('open'); }
+
+/* ============ 18 · CONSOLE ============ */
+const conOut = $('#conOut'), conInput = $('#conInput');
+let greeted = false, hist = [], hi = 0;
+function cprint(text, cls){
+  if (!conOut) return;
+  const d = document.createElement('div');
+  d.className = cls ? 'c-' + cls : 'c-out';
+  d.textContent = text;
+  conOut.appendChild(d);
+  conOut.scrollTop = conOut.scrollHeight;
+}
+function echo(raw){
+  if (!conOut) return;
+  const d = document.createElement('div');
+  d.className = 'c-cmd'; d.textContent = '❯ ' + raw;
+  conOut.appendChild(d);
+}
+function tokenize(s){
+  const out = []; const re = /"([^"]*)"|'([^']*)'|(\S+)/g; let m;
+  while ((m = re.exec(s))) out.push(m[1] != null ? m[1] : (m[2] != null ? m[2] : m[3]));
+  return out;
+}
+function parseFlags(args){
+  const flags = {}, rest = [];
+  for (const a of args){
+    if (a.startsWith('--')){
+      const kv = a.slice(2), i = kv.indexOf('=');
+      if (i >= 0) flags[kv.slice(0, i)] = kv.slice(i + 1); else flags[kv] = true;
+    } else rest.push(a);
+  }
+  return { flags:flags, q:rest.join(' ') };
+}
+function printRows(items){
+  items.forEach((r, i) => {
+    const reasons = r.plus.map(p => '+ ' + p).concat(r.minus.map(m => '− ' + m)).slice(0, 3).join(' · ');
+    cprint(String(i + 1).padStart(2,'0') + '  ' + String(r.score).padStart(3) + '  ' + tr(r.job.title, 40).padEnd(42) + '  ' + tr(r.job.company, 18).padEnd(20) + '  ' + (fmtSalary(r.job) || '—').padEnd(11) + '  ' + reasons, 'out');
+  });
+}
+function chipCmd(args, key, label){
+  const a = args[0] || '', list = state.profile[key];
+  if (!a){ cprint(label + ': ' + (list.join(', ') || '(none)'), 'out'); return; }
+  const v = a.slice(1).trim().toLowerCase();
+  if (a[0] === '+'){ if (v && !list.includes(v)){ list.push(v); cprint(label + ' added: ' + v, 'ok'); } }
+  else if (a[0] === '-'){ const ix = list.indexOf(v); if (ix >= 0){ list.splice(ix, 1); cprint(label + ' removed: ' + v, 'ok'); } else cprint('not found: ' + v, 'err'); }
+  else cprint('usage: ' + (key === 'skills' ? 'skill' : key === 'locBlocks' ? 'locblock' : 'block') + ' +term | -term', 'err');
+  saveProfile(); renderAll();
+}
+function rowByNumber(n){
+  if (!n || isNaN(n)) return null;
+  return state.current[n - 1] || null;
+}
+const COMMANDS = {
+  help:{ usage:'help', desc:'list commands', run(){
+    Object.keys(COMMANDS).forEach(k => cprint('  ' + COMMANDS[k].usage.padEnd(58) + COMMANDS[k].desc, 'out'));
+  }},
+  search:{ usage:'search <q> [--min=120k] [--tag=a,b] [--source=x] [--sen=junior|mid|senior] [--remote|--all]', desc:'filter the wire (UI follows)',
+    run(args){
+      const pf = parseFlags(args);
+      state.filters.q = pf.q || '';
+      if (pf.flags.tag) state.filters.tags = new Set(String(pf.flags.tag).toLowerCase().split(',').filter(Boolean));
+      if (pf.flags.source) state.filters.sources = new Set(String(pf.flags.source).toLowerCase().split(',').filter(Boolean));
+      if (pf.flags.remote) state.filters.remoteOnly = true;
+      if (pf.flags.all) state.filters.remoteOnly = false;
+      if (pf.flags.sen && ['junior','mid','senior'].includes(pf.flags.sen)) state.filters.seniority = pf.flags.sen;
+      if (pf.flags.min !== undefined){
+        const v = parseMoney(pf.flags.min);
+        if (v){ state.profile.minSalary = v; state.filters.floorOnly = true; saveProfile(); }
+      }
+      if (pf.flags.sort) state.filters.sort = pf.flags.sort === 'newest' ? 'newest' : 'match';
+      state.view = 'wire'; state.visible = 40;
+      renderAll();
+      const n = state.currentFiltered.length;
+      cprint('filters applied — ' + n + ' postings on the wire', 'ok');
+      printRows(state.current.slice(0, 10));
+      if (n > 10) cprint('… ' + (n - 10) + ' more — use open <n>, or read the UI', 'dim');
+    }},
+  reset:{ usage:'reset', desc:'clear all filters', run(){ resetFilters(); cprint('filters cleared — full wire restored', 'ok'); }},
+  open:{ usage:'open <n> [--web]', desc:'open row n (drawer, or posting in browser)',
+    run(args){
+      const pf = parseFlags(args);
+      const r = rowByNumber(parseInt(args[0]));
+      if (!r) return cprint('no such row — numbers refer to the current wire order', 'err');
+      if (pf.flags.web){ openWeb(r.job); cprint('opened in browser: ' + r.job.url, 'ok'); }
+      else { closeAgent(); openDrawer(r.job.id); cprint('opened: ' + r.job.title, 'ok'); }
+    }},
+  pin:{ usage:'pin <n>', desc:'save row n to the pipeline',
+    run(args){
+      const r = rowByNumber(parseInt(args[0]));
+      if (!r) return cprint('no such row', 'err');
+      togglePin(r.job.id); cprint('saved: ' + r.job.title, 'ok');
+    }},
+  unpin:{ usage:'unpin <n>', desc:'remove entry n (numbers from `pins`)',
+    run(args){
+      const id = state.pinList[parseInt(args[0]) - 1];
+      if (!id) return cprint('no such entry — run `pins` first', 'err');
+      togglePin(id); cprint('removed', 'ok');
+    }},
+  pins:{ usage:'pins', desc:'show the pipeline',
+    run(){
+      const arr = boardArr();
+      state.pinList = arr.map(b => b.job.id);
+      if (!arr.length) return cprint('pipeline is empty — save from the wire with `pin <n>`', 'dim');
+      arr.forEach((b, i) => cprint(String(i + 1).padStart(2,'0') + '  [' + b.status.toUpperCase().padEnd(9) + ']  ' + tr(b.job.title, 40).padEnd(42) + '  ' + tr(b.job.company, 16) + (ghostBoard(b) ? '  · GHOST ' + daysQuiet(b) + 'd' : ''), 'out'));
+    }},
+  stage:{ usage:'stage <n> <saved|applied|screen|interview|offer|archived>', desc:'move pinned entry n (see `pins`)',
+    run(args){
+      const id = state.pinList[parseInt(args[0]) - 1];
+      const s = (args[1] || '').toLowerCase();
+      if (!id || STAGES.indexOf(s) < 0) return cprint('usage: stage <n> <stage> — run `pins` first', 'err');
+      setStage(id, s); cprint('stage → ' + s, 'ok');
+    }},
+  nudges:{ usage:'nudges [n]', desc:'ghost list — `nudges <n>` copies follow-up',
+    run(args){
+      const ns = boardArr().filter(ghostBoard);
+      if (!ns.length) return cprint('no ghosts — nothing has gone quiet 14+ days', 'ok');
+      const i = parseInt(args[0]);
+      if (i){
+        const b = ns[i - 1];
+        if (!b) return cprint('no such nudge', 'err');
+        copyText(nudgeEmail(b)).then(ok => {
+          if (ok){ logAdd(b, 'follow-up sent'); b.at = Date.now(); saveBoard(); renderAll(); cprint('follow-up logged — ghost timer reset', 'ok'); }
+          else cprint('clipboard blocked — use the UI nudge button', 'err');
+        });
+        return;
+      }
+      ns.forEach((b, k) => cprint(String(k + 1).padStart(2,'0') + '  quiet ' + daysQuiet(b) + 'd  ' + tr(b.job.company, 16).padEnd(18) + tr(b.job.title, 40), 'err'));
+      cprint('nudge <n> copies the follow-up email and resets the timer', 'dim');
+    }},
+  searches:{ usage:'searches [n]', desc:'saved searches — n applies it',
+    run(args){
+      if (!state.savedSearches.length) return cprint('no saved searches — set filters in the UI and press + SAVE', 'dim');
+      const i = parseInt(args[0]);
+      if (i){
+        const ss = state.savedSearches[i - 1];
+        if (!ss) return cprint('no such search', 'err');
+        applySavedSearch(ss); cprint('applied: ' + ss.name, 'ok');
+        return;
+      }
+      state.savedSearches.forEach((ss, k) => cprint(String(k + 1).padStart(2,'0') + '  ' + ss.name.padEnd(24) + ' +' + countNewFor(ss) + ' new', 'out'));
+    }},
+  people:{ usage:'people', desc:'people ledger + quiet list',
+    run(){
+      if (!state.people.length) return cprint('no people yet — the People tab is the place to start', 'dim');
+      state.people.forEach((p, i) => cprint(String(i + 1).padStart(2,'0') + '  ' + p.name.padEnd(20) + ' ' + (p.company || '—').padEnd(18) + ' touched ' + ago(p.lastTouch) + ' ago' + (personQuiet(p) ? '  · QUIET' : ''), personQuiet(p) ? 'err' : 'out'));
+      cprint('touch <n> logs contact · ask <n> copies a referral ask', 'dim');
+    }},
+  touch:{ usage:'touch <n>', desc:'log contact with person n (see `people`)',
+    run(args){
+      const p = state.people[parseInt(args[0]) - 1];
+      if (!p) return cprint('no such person — run `people`', 'err');
+      p.lastTouch = Date.now(); savePeople(); renderAll();
+      cprint('touch logged — ' + p.name, 'ok');
+    }},
+  ask:{ usage:'ask <n>', desc:'copy referral ask for person n',
+    run(args){
+      const p = state.people[parseInt(args[0]) - 1];
+      if (!p) return cprint('no such person — run `people`', 'err');
+      copyText(personAsk(p)).then(ok => cprint(ok ? 'referral ask copied for ' + p.name : 'clipboard blocked', ok ? 'ok' : 'err'));
+    }},
+  digest:{ usage:'digest', desc:'build the weekly digest (opens viewer)', run(){
+    openViewer('Weekly digest', 'THE LAST 7 DAYS', buildDigest(),
+      [{ act:'copy', label:'COPY TEXT', cls:'red' }, { act:'dl', label:'DOWNLOAD .MD' }], null,
+      'hirewire-digest-' + new Date().toISOString().slice(0, 10) + '.md');
+  }},
+  ics:{ usage:'ics', desc:'download calendar of next events', run(){ exportICS(); }},
+  backup:{ usage:'backup', desc:'download full-state backup', run(){ doBackup(); }},
+  skill:{ usage:'skill +rust | skill -rust', desc:'edit profile skills', run(args){ chipCmd(args, 'skills', 'skills'); }},
+  block:{ usage:'block +crypto | block -crypto', desc:'edit blocked keywords', run(args){ chipCmd(args, 'blacklist', 'blocked'); }},
+  locblock:{ usage:'locblock +india | locblock -india', desc:'edit blocked locations', run(args){ chipCmd(args, 'locBlocks', 'blocked locations'); }},
+  floor:{ usage:'floor <120k|off>', desc:'set or clear salary floor',
+    run(args){
+      const v = parseMoney(args[0]);
+      state.profile.minSalary = v;
+      state.filters.floorOnly = !!v;
+      saveProfile(); saveSettings(); renderAll();
+      cprint(v ? 'salary floor set: ' + fmtCur(v, state.profile.currency) : 'salary floor cleared', 'ok');
+    }},
+  currency:{ usage:'currency <USD|EUR|GBP|…>', desc:'set profile currency',
+    run(args){
+      const c = String(args[0] || '').toUpperCase();
+      if (!FX[c]) return cprint('unknown currency — try: ' + Object.keys(FX).join(' '), 'err');
+      state.profile.currency = c; saveProfile(); renderAll();
+      cprint('currency → ' + c + ' (floor comparisons use static rough FX)', 'ok');
+    }},
+  sort:{ usage:'sort <match|newest>', desc:'sort the wire',
+    run(args){
+      state.filters.sort = args[0] === 'newest' ? 'newest' : 'match';
+      saveSettings(); renderAll();
+      cprint('sorted by ' + state.filters.sort, 'ok');
+    }},
+  agent:{ usage:'agent run | agent brief', desc:'score the wire / copy brief to clipboard',
+    run(args){
+      const sub = (args[0] || 'run').toLowerCase();
+      if (sub === 'brief'){
+        const list = briefList();
+        if (!list.length) return cprint('wire is empty — run `refresh`', 'err');
+        copyText(buildBrief(list)).then(ok => cprint(ok ? 'brief copied — ' + list.length + ' entries, markdown' : 'clipboard blocked — use `export md`', ok ? 'ok' : 'err'));
+        return;
+      }
+      if (sub !== 'run') return cprint('usage: agent run | agent brief', 'err');
+      const list = doAgentRun();
+      if (!list) return cprint('wire is empty — run `refresh`', 'err');
+      const p = state.profile;
+      cprint('AGENT RUN — scored ' + state.jobs.length + ' postings', 'hi');
+      cprint('profile: ' + (p.skills.join(', ') || 'no skills') + ' · floor ' + (p.minSalary ? fmtCur(p.minSalary, p.currency) : 'flexible') + ' · remote-only ' + (state.filters.remoteOnly ? 'on' : 'off'), 'dim');
+      printRows(list);
+      cprint('full breakdown opened in the UI — bring results back with My Board → Paste Agent Results', 'dim');
+    }},
+  export:{ usage:'export <md|json|csv> [shortlist|pipeline]', desc:'download a file',
+    run(args){
+      const fmt = (args[0] || 'md').toLowerCase();
+      const target = (args[1] || 'shortlist').toLowerCase();
+      if (fmt !== 'md' && fmt !== 'json' && fmt !== 'csv') return cprint('format must be md, json or csv', 'err');
+      doExport(fmt, target === 'pipeline' ? 'pipeline' : 'shortlist');
+    }},
+  refresh:{ usage:'refresh', desc:'force a wire sync', run(){ cprint('syncing wire…', 'dim'); sync('cli'); }},
+  sources:{ usage:'sources', desc:'per-source status',
+    run(){
+      AS().forEach(s => {
+        const st = state.sourcesStatus[s.id] || {};
+        cprint(s.label.padEnd(16) + ' ' + (st.ok ? String(st.count).padStart(4) + ' jobs' + (st.failed ? ' (' + st.failed + ' feeds down)' : '')
+               : st.feeds ? 'all feeds failed' : 'pending') + '   ' + s.home, st.ok ? 'ok' : st.feeds ? 'err' : 'dim');
+      });
+      if (state.offlineMode) cprint('OFFLINE SNAPSHOT active — live wire unreachable', 'err');
+    }},
+  clear:{ usage:'clear', desc:'clear this screen', run(){ if (conOut) conOut.innerHTML = ''; }},
+  about:{ usage:'about', desc:'what is this',
+    run(){
+      cprint('HireWire — every posting, one wire, one pipeline, refreshed hourly.', 'out');
+      cprint('Key-less: Remotive · Arbeitnow · Jobicy · RemoteOK · Himalayas · Working Nomads', 'dim');
+      cprint('+ ATS boards: Greenhouse · Lever · Ashby · Workable · SmartRecruiters · Recruitee', 'dim');
+      cprint('BYOK: Adzuna (your free key, stored only in this browser).', 'dim');
+      cprint('Storage: local + mirrored browser DB + memory fallback for sandboxes.', 'dim');
+      cprint('Funding: labeled sponsor slots + support link. No ad networks, no tracking, no data sold.', 'dim');
+    }},
+};
+function runCommand(raw){
+  const parts = tokenize(raw);
+  if (!parts.length) return;
+  const name = parts[0].toLowerCase(), rest = parts.slice(1);
+  echo(raw);
+  const cmd = COMMANDS[name];
+  if (!cmd){ cprint('command not found: ' + name + ' — try `help`', 'err'); return; }
+  try { cmd.run(rest, raw); } catch(e){ cprint('error: ' + e.message, 'err'); }
+}
+function toggleConsole(force){
+  const el = $('#consoleEl'); if (!el) return;
+  const open = force !== undefined ? force : !el.classList.contains('open');
+  el.classList.toggle('open', open);
+  document.body.classList.toggle('con-open', open);
+  if (open && !greeted){
+    greeted = true;
+    cprint('HIREWIRE CONSOLE — the whole wire, zero clicks.', 'hi');
+    cprint("type `help` for the command list. try: search product manager --remote", 'dim');
+  }
+  if (open && conInput) setTimeout(() => conInput.focus(), 90);
+}
+
+/* ============ 19 · RENDER DISPATCH ============ */
+function setTabs(){
+  B('tabWire', e => e.classList.toggle('on', state.view === 'wire'));
+  B('tabBoard', e => e.classList.toggle('on', state.view === 'board'));
+  B('tabTailor', e => e.classList.toggle('on', state.view === 'tailor'));
+  B('tabPeople', e => e.classList.toggle('on', state.view === 'people'));
+  B('tabInsights', e => e.classList.toggle('on', state.view === 'insights'));
+}
+function renderBackupAge(){
+  const age = $('#backupAge'), info = $('#storageInfo');
+  const d = state.meta.lastBackupAt ? daysSince(state.meta.lastBackupAt) : null;
+  if (age){
+    const txt = d == null ? 'LAST BACKUP: NEVER' : 'LAST BACKUP: ' + (d === 0 ? 'TODAY' : d + ' DAY' + (d === 1 ? '' : 'S') + ' AGO');
+    const stale = d == null ? state.board.size >= 3 : d >= 14;
+    age.textContent = txt + (stale && STORE.ls ? ' — BACK UP NOW' : (stale ? ' — BACK UP NOW (MEMORY MODE!)' : ''));
+    age.style.color = stale ? 'var(--red)' : 'var(--green)';
+  }
+  if (info){
+    info.textContent = !STORE.ls
+      ? 'STORAGE: MEMORY-ONLY — THIS PREVIEW BLOCKS PERSISTENCE'
+      : 'STORAGE: LOCAL' + (DB.ready ? ' + BROWSER DB (MIRRORED)' : ' ONLY') + (state.persistGranted ? ' · PERSISTENT' : '');
+  }
+}
+function checkBackupAge(){
+  const d = state.meta.lastBackupAt ? daysSince(state.meta.lastBackupAt) : null;
+  const stale = d == null ? state.board.size >= 3 : d >= 21;
+  if (stale) showBanner('YOUR SEARCH DATA HAS NO RECENT BACKUP — ONE FILE PROTECTS EVERYTHING <button class="btn mini" data-bkbackup>BACKUP NOW</button>', true);
+}
+function renderViews(){
+  const panel = $('#panelView'), wire = $('#wire'), more = $('#moreBtn');
+  const toolbar = $('#toolbar'), savedBar = $('#savedBar'), strip = $('#pipelineStrip');
+  const srcRow = $('#sourceChips'), locRow = $('#locChips'), tagRow = $('#tagChips');
+  if (state.view === 'tailor' || state.view === 'people' || state.view === 'insights'){
+    [toolbar, savedBar, strip, srcRow, locRow, tagRow].forEach(el => { if (el) el.hidden = true; });
+    if (wire){ wire.innerHTML = ''; wire.hidden = true; }
+    if (more) more.hidden = true;
+    if (panel){
+      panel.hidden = false;
+      if (state.view === 'tailor') renderTailor();
+      else if (state.view === 'people') renderPeople();
+      else renderInsights();
+    }
+    return;
+  }
+  if (panel){ panel.hidden = true; panel.innerHTML = ''; }
+  if (wire) wire.hidden = false;
+  if (state.view === 'board'){
+    [toolbar, savedBar, srcRow, locRow, tagRow].forEach(el => { if (el) el.hidden = true; });
+    renderPipelineStrip(); renderBoardList();
+  } else {
+    if (toolbar) toolbar.hidden = false;
+    if (strip) strip.hidden = true;
+    renderSavedBar(); renderSourcesRow(); renderLocChips(); renderTagChips();
+    const list = filtered(), arr = ranked(list);
+    state.current = arr; state.currentFiltered = list;
+    const slice = arr.slice(0, state.visible);
+    const rowHtmls = slice.map(rowHTML);
+    if (slice.length >= 8){
+      const sp = pickSponsor();
+      if (sp) rowHtmls.splice(Math.min(10, rowHtmls.length), 0, sponsorWireHTML(sp));
+    }
+    if (wire) wire.innerHTML = rowHtmls.length ? rowHtmls.join('')
+      : '<li class="empty"><h3>Nothing on the wire.</h3><p>No postings match the current filter set.</p><button class="btn" data-act="reset">RESET FILTERS</button></li>';
+    const remaining = arr.length - slice.length;
+    if (more){
+      more.hidden = remaining <= 0;
+      more.textContent = 'SHOW 40 MORE — ' + remaining + ' REMAINING';
+    }
+    const cl = $('#countLabel');
+    if (cl) cl.textContent = list.length + ' / ' + state.jobs.length + ' ON THE WIRE';
+  }
+}
+function renderStats(){
+  const SRC = AS();
+  B('stCount', e => e.textContent = state.jobs.length.toLocaleString('en-US'));
+  const ok = SRC.filter(s => state.sourcesStatus[s.id] && state.sourcesStatus[s.id].ok).length;
+  B('stSources', e => e.textContent = state.offlineMode ? 'OFFLINE' : ok + '/' + SRC.length);
+  B('stFeeds', e => e.textContent = allFeeds().length);
+  B('feedCount', e => e.textContent = allFeeds().length + ' FEEDS · ' + SRC.length + ' SOURCE FAMILIES');
+  B('edNo', e => e.textContent = '№' + Math.floor(Date.now() / 864e5));
+}
+function renderSourcesRow(){
+  const el = $('#sourceChips');
+  if (!el) return;
+  if (state.view !== 'wire' || !state.jobs.length){ el.hidden = true; return; }
+  el.hidden = false;
+  const SRC = AS();
+  const counts = {};
+  state.jobs.forEach(j => counts[j.source] = (counts[j.source] || 0) + 1);
+  el.innerHTML = '<span class="tlabel">SOURCES</span>' + SRC.map(s => {
+    const st = state.sourcesStatus[s.id] || {};
+    const dot = st.ok ? 'ok' : (st.feeds ? 'bad' : '');
+    return '<button class="chip ' + (state.filters.sources.has(s.id) ? 'on' : '') + '" data-src="' + s.id + '"><i class="sdot ' + dot + '"></i>' + s.label + ' <span class="cnt">' + (counts[s.id] || 0) + '</span></button>';
+  }).join('') + (state.offlineMode ? '<span class="chip"><i class="sdot bad"></i>OFFLINE SNAPSHOT</span>' : '');
+}
+function renderLocChips(){
+  const el = $('#locChips');
+  if (!el) return;
+  if (state.view !== 'wire' || !state.jobs.length){ el.hidden = true; return; }
+  el.hidden = false;
+  const f = {};
+  state.jobs.forEach(j => { const L = tr(j.location, 30); f[L] = (f[L] || 0) + 1; });
+  const top = Object.entries(f).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  el.innerHTML = '<span class="tlabel">LOCATIONS</span>' + top.map(x =>
+    '<button class="chip ' + (state.filters.locs.has(x[0]) ? 'on' : '') + '" data-loc="' + esc(x[0]) + '">' + esc(x[0]) + ' <span class="cnt">' + x[1] + '</span></button>'
+  ).join('');
+}
+function topTags(){
+  const f = {};
+  state.jobs.forEach(j => j.tags.forEach(t => f[t] = (f[t] || 0) + 1));
+  return Object.entries(f).filter(x => x[0].length > 2)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 12);
+}
+function renderTagChips(){
+  const el = $('#tagChips');
+  if (!el) return;
+  if (state.view !== 'wire' || !state.jobs.length){ el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = '<span class="tlabel">TAGS</span>' + topTags().map(x =>
+    '<button class="chip ' + (state.filters.tags.has(x[0]) ? 'on' : '') + '" data-tag="' + esc(x[0]) + '">' + esc(x[0]) + ' <span class="cnt">' + x[1] + '</span></button>'
+  ).join('');
+}
+function renderSideSources(){
+  const el = $('#srcList'); if (!el) return;
+  const SRC = AS();
+  el.innerHTML = SRC.map(s => {
+    const st = state.sourcesStatus[s.id] || {};
+    const dot = st.ok ? 'ok' : (st.feeds ? 'bad' : '');
+    const txt = st.ok ? (st.count + ' JOBS' + (st.failed ? ' · ' + st.failed + ' DOWN' : ''))
+              : st.feeds ? 'FEEDS FAILED' : 'PENDING';
+    return '<li><i class="sdot ' + dot + '"></i><b>' + s.label + '</b><span>' + txt + '</span></li>';
+  }).join('') + (state.offlineMode ? '<li><i class="sdot bad"></i><b>OFFLINE SNAPSHOT</b><span>LIVE WIRE DOWN</span></li>' : '');
+}
+function renderByok(){
+  const b = state.byok.adzuna;
+  const a = $('#byokApp'), k = $('#byokKey'), c = $('#byokCC'), w = $('#byokWhat'), s = $('#byokStat');
+  if (!a || !k) return;
+  a.value = b.appId || ''; k.value = b.appKey || '';
+  if (c) c.value = b.cc || 'us';
+  if (w) w.value = b.what || '';
+  if (s) s.textContent = (b.appId && b.appKey)
+    ? 'ACTIVE — ADZUNA · ' + String(b.cc).toUpperCase() + (b.what ? ' · "' + b.what + '"' : '') + ' · feeds on next sync'
+    : 'Get a free key at developer.adzuna.com. Keys never leave this browser.';
+}
+function renderProfile(){
+  const sc = $('#skillChips');
+  if (sc) sc.innerHTML = state.profile.skills.map(s =>
+    '<span class="chip">' + esc(s) + '<span class="rm" data-k="skills" data-v="' + esc(s) + '">×</span></span>').join('');
+  const bc = $('#blockChips');
+  if (bc) bc.innerHTML = state.profile.blacklist.map(s =>
+    '<span class="chip">' + esc(s) + '<span class="rm" data-k="blacklist" data-v="' + esc(s) + '">×</span></span>').join('');
+  const lc = $('#locBlockChips');
+  if (lc) lc.innerHTML = state.profile.locBlocks.map(s =>
+    '<span class="chip">' + esc(s) + '<span class="rm" data-k="locBlocks" data-v="' + esc(s) + '">×</span></span>').join('');
+  const ni = $('#nameInput'); if (ni) ni.value = state.profile.name || '';
+  const cs = $('#curSelect'); if (cs) cs.value = state.profile.currency;
+  const v = state.profile.minSalary;
+  const fi = $('#floorInput'); if (fi) fi.value = v ? (v % 1000 ? v : (v/1000) + 'k') : '';
+  const tf = $('#togFloor'); if (tf) tf.classList.toggle('dis', !v);
+}
+function syncToolbarFromState(){
+  const f = state.filters;
+  const qi = $('#qInput'); if (qi) qi.value = f.q;
+  const trEl = $('#togRemote'); if (trEl) trEl.classList.toggle('on', f.remoteOnly);
+  const tf = $('#togFloor'); if (tf){ tf.classList.toggle('on', f.floorOnly); tf.classList.toggle('dis', !state.profile.minSalary); }
+  const ss = $('#selSort'); if (ss) ss.value = f.sort;
+  const sn = $('#selSen'); if (sn) sn.value = f.seniority;
+}
+function renderAll(){
+  renderStats(); renderSourcesRow(); renderLocChips(); renderTagChips(); renderViews();
+  renderProfile(); renderByok(); syncToolbarFromState(); renderSideSources();
+  renderSponsorPanel();
+  B('boardCount', e => e.textContent = state.board.size);
+  renderBackupAge();
+  setTabs();
+}
+
+/* ============ 20 · EVENTS ============ */
+function bindEvents(){
+  B('syncBtn', e => e.onclick = () => sync());
+  B('tabWire', e => e.onclick = () => { state.view = 'wire'; renderAll(); });
+  B('tabBoard', e => e.onclick = () => { state.view = 'board'; renderAll(); });
+  B('tabTailor', e => e.onclick = () => { state.view = 'tailor'; renderAll(); });
+  B('tabPeople', e => e.onclick = () => { state.view = 'people'; renderAll(); });
+  B('tabInsights', e => e.onclick = () => { state.view = 'insights'; renderAll(); });
+  B('moreBtn', e => e.onclick = () => { state.visible += 40; renderViews(); });
+
+  let qT;
+  B('qInput', e => e.addEventListener('input', ev => {
+    clearTimeout(qT);
+    qT = setTimeout(() => { state.filters.q = ev.target.value; state.visible = 40; renderViews(); }, 120);
+  }));
+  B('togRemote', e => e.onclick = () => {
+    state.filters.remoteOnly = !state.filters.remoteOnly;
+    saveSettings(); syncToolbarFromState(); renderViews();
+  });
+  B('togFloor', e => e.onclick = () => {
+    if (!state.profile.minSalary){ toast('SET A SALARY FLOOR FIRST'); return; }
+    state.filters.floorOnly = !state.filters.floorOnly;
+    saveSettings(); syncToolbarFromState(); renderViews();
+  });
+  B('selSen', e => e.onchange = ev => {
+    state.filters.seniority = ev.target.value;
+    saveSettings(); renderViews();
+  });
+  B('selSort', e => e.onchange = ev => {
+    state.filters.sort = ev.target.value;
+    saveSettings(); renderViews();
+  });
+  B('saveSearchBtn', e => e.onclick = () => {
+    const w = $('#ssWrap');
+    if (!w) return;
+    w.hidden = !w.hidden;
+    if (!w.hidden){ const n = $('#ssName'); if (n) n.focus(); }
+  });
+  B('ssName', e => e.addEventListener('keydown', ev => {
+    if (ev.key === 'Enter'){ ev.preventDefault(); doSaveSearch(); }
+    if (ev.key === 'Escape'){ const w = $('#ssWrap'); if (w) w.hidden = true; }
+  }));
+  B('toolbar', e => e.addEventListener('click', ev => {
+    const act = ev.target.closest('[data-act]');
+    if (!act) return;
+    if (act.dataset.act === 'ssave') doSaveSearch();
+    if (act.dataset.act === 'scancel'){ const w = $('#ssWrap'); if (w) w.hidden = true; }
+  }));
+  function doSaveSearch(){
+    const n = $('#ssName');
+    if (!n) return;
+    const name = n.value.trim();
+    if (!name){ toast('GIVE THE SEARCH A NAME'); return; }
+    saveCurrentSearch(name);
+    n.value = '';
+    const w = $('#ssWrap'); if (w) w.hidden = true;
+  }
+
+  B('savedBar', e => e.addEventListener('click', ev => {
+    const del = ev.target.closest('[data-ssdel]');
+    if (del){
+      state.savedSearches = state.savedSearches.filter(s => s.id !== del.dataset.ssdel);
+      saveSaved(); renderSavedBar();
+      toast('SEARCH DELETED');
+      return;
+    }
+    const c = ev.target.closest('[data-ss]');
+    if (c){
+      const ss = state.savedSearches.find(s => s.id === c.dataset.ss);
+      if (ss) applySavedSearch(ss);
+    }
+  }));
+  B('pipelineStrip', e => e.addEventListener('click', ev => {
+    const st = ev.target.closest('[data-stage]');
+    if (st){
+      const v = st.dataset.stage;
+      state.boardStageFilter = v === '' ? null : v;
+      renderViews();
+      return;
+    }
+    const act = ev.target.closest('[data-act]');
+    if (!act) return;
+    if (act.dataset.act === 'pb') openPasteBack();
+    else if (act.dataset.act === 'print') window.print();
+  }));
+
+  B('sourceChips', e => e.addEventListener('click', ev => {
+    const c = ev.target.closest('[data-src]'); if (!c) return;
+    const id = c.dataset.src;
+    if (state.filters.sources.has(id)) state.filters.sources.delete(id); else state.filters.sources.add(id);
+    state.visible = 40; renderSourcesRow(); renderViews();
+  }));
+  B('locChips', e => e.addEventListener('click', ev => {
+    const c = ev.target.closest('[data-loc]'); if (!c) return;
+    const l = c.dataset.loc;
+    if (state.filters.locs.has(l)) state.filters.locs.delete(l); else state.filters.locs.add(l);
+    state.visible = 40; renderLocChips(); renderViews();
+  }));
+  B('tagChips', e => e.addEventListener('click', ev => {
+    const c = ev.target.closest('[data-tag]'); if (!c) return;
+    const t = c.dataset.tag;
+    if (state.filters.tags.has(t)) state.filters.tags.delete(t); else state.filters.tags.add(t);
+    state.visible = 40; renderTagChips(); renderViews();
+  }));
+
+  const addFromInput = (inputId, key) => {
+    B(inputId, e => e.addEventListener('keydown', ev => {
+      if (ev.key !== 'Enter') return;
+      const v = ev.target.value.trim().toLowerCase();
+      if (v && !state.profile[key].includes(v)) state.profile[key].push(v);
+      ev.target.value = '';
+      saveProfile(); renderAll();
+    }));
+  };
+  addFromInput('skillInput', 'skills');
+  addFromInput('blockInput', 'blacklist');
+  addFromInput('locBlockInput', 'locBlocks');
+  B('nameInput', e => e.addEventListener('change', ev => {
+    state.profile.name = ev.target.value.trim();
+    saveProfile();
+    toast(state.profile.name ? 'NAME SAVED — USED IN FOLLOW-UPS' : 'NAME CLEARED');
+  }));
+  B('curSelect', e => e.addEventListener('change', ev => {
+    state.profile.currency = normCode(ev.target.value);
+    saveProfile(); renderAll();
+    toast('CURRENCY — ' + state.profile.currency + ' · ROUGH STATIC FX APPLIED');
+  }));
+  const side = document.querySelector('.side');
+  if (side) side.addEventListener('click', e => {
+    const rm = e.target.closest('.rm'); if (!rm || !rm.dataset.k) return;
+    const k = rm.dataset.k, v = rm.dataset.v;
+    const ix = state.profile[k].indexOf(v);
+    if (ix >= 0) state.profile[k].splice(ix, 1);
+    saveProfile(); renderAll();
+  });
+  B('floorInput', e => e.addEventListener('change', ev => {
+    const v = parseMoney(ev.target.value);
+    state.profile.minSalary = v;
+    if (v) state.filters.floorOnly = true;
+    saveProfile(); saveSettings(); renderAll();
+    toast(v ? 'FLOOR SET — ' + fmtCur(v, state.profile.currency) : 'FLOOR CLEARED');
+  }));
+
+  B('cvExtract', e => e.onclick = () => {
+    const cv = $('#cvInput'); if (!cv) return;
+    const text = cv.value;
+    if (!text.trim()){ toast('PASTE YOUR CV TEXT FIRST'); return; }
+    const found = extractSkillsFromCV(text);
+    if (!found.length){ toast('NO KNOWN SKILLS FOUND — ADD MANUALLY'); return; }
+    state.profile.skills = Array.from(new Set(found.concat(state.profile.skills))).slice(0, 16);
+    cv.value = '';
+    saveProfile(); renderAll();
+    toast('PROFILE UPDATED — ' + found.length + ' SKILLS: ' + found.slice(0, 5).join(', '));
+  });
+
+  B('byokSave', e => e.onclick = () => {
+    const appId = $('#byokApp').value.trim(), appKey = $('#byokKey').value.trim();
+    if (!appId || !appKey){ toast('ADZUNA NEEDS BOTH APP ID AND KEY'); return; }
+    const cc = $('#byokCC'), what = $('#byokWhat');
+    state.byok.adzuna = { appId:appId, appKey:appKey, cc:cc ? cc.value : 'us', what:what ? what.value.trim() : '' };
+    saveByok(); renderAll();
+    toast('ADZUNA ACTIVATED — SYNCING WITH YOUR KEY');
+    sync();
+  });
+  B('byokOff', e => e.onclick = () => {
+    state.byok.adzuna = { appId:'', appKey:'', cc:'us', what:'' };
+    saveByok(); renderAll();
+    toast('ADZUNA REMOVED — TAKES EFFECT ON NEXT SYNC');
+  });
+
+  B('backupBtn', e => e.onclick = () => doBackup());
+  B('restoreBtn', e => e.onclick = () => { const f = $('#restoreFile'); if (f) f.click(); });
+  B('restoreFile', e => e.addEventListener('change', ev => {
+    const f = ev.target.files[0];
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        restoreBackup(r.result);
+        toast('RESTORED — PROFILE, PIPELINE, PEOPLE AND KEYS ARE BACK');
+      } catch(err){
+        toast('RESTORE FAILED — ' + String(err.message || 'invalid file').toUpperCase());
+      }
+    };
+    r.readAsText(f);
+    ev.target.value = '';
+  }));
+
+  B('copyPromptBtn', e => e.onclick = async () => {
+    const p = $('#agentPrompt');
+    const ok = await copyText(p ? p.textContent.trim() : '');
+    toast(ok ? 'PROMPT COPIED — PASTE IT, THEN PASTE THE BRIEF' : 'CLIPBOARD BLOCKED — SELECT THE TEXT MANUALLY');
+  });
+
+  B('runAgentBtn', e => e.onclick = () => doAgentRun());
+  B('viewBriefBtn', e => e.onclick = () => openBriefViewer());
+  B('copyBriefBtn', e => e.onclick = () => copyBrief());
+  document.querySelectorAll('[data-export]').forEach(btn => btn.onclick = () => doExport(btn.dataset.export, 'shortlist'));
+
+  B('wire', e => {
+    e.addEventListener('click', ev => {
+      const act = ev.target.closest('[data-act]');
+      const row = ev.target.closest('.row');
+      if (act){
+        const a = act.dataset.act, id = act.dataset.id || (row && row.dataset.id);
+        if (a === 'pintoggle' && id) togglePin(id);
+        else if (a === 'web' && id) openWeb(byId(id));
+        else if (a === 'remove' && id){ state.board.delete(id); saveBoard(); renderAll(); toast('REMOVED FROM PIPELINE'); }
+        else if (a === 'reset') resetFilters();
+        else if (a === 'ghostinfo') toast('GHOST SIGNALS — ' + (act.title || '').toUpperCase());
+        else if (a === 'nudge' && id) openNudge(id);
+        return;
+      }
+      if (row && row.dataset.id) openDrawer(row.dataset.id);
+    });
+    e.addEventListener('keydown', ev => {
+      if (ev.key !== 'Enter' && ev.key !== ' ') return;
+      const row = ev.target.closest('.row');
+      if (row && row.dataset.id && document.activeElement === row){
+        ev.preventDefault();
+        openDrawer(row.dataset.id);
+      }
+    });
+    e.addEventListener('change', ev => {
+      const sel = ev.target.closest('.bstat'); if (!sel) return;
+      const id = sel.closest('.row').dataset.id;
+      setStage(id, sel.value);
+    });
+  });
+
+  B('panelView', e => e.addEventListener('click', ev => {
+    const pact = ev.target.closest('[data-pact]');
+    if (pact){
+      const id = pact.dataset.id;
+      const p = state.people.find(x => x.id === id);
+      if (!p) return;
+      if (pact.dataset.pact === 'ptouch'){
+        p.lastTouch = Date.now(); savePeople(); renderAll();
+        toast('TOUCH LOGGED — ' + p.name.toUpperCase());
+      } else if (pact.dataset.pact === 'pask'){
+        copyText(personAsk(p)).then(ok => toast(ok ? 'REFERRAL ASK COPIED — ' + p.name.toUpperCase() : 'CLIPBOARD BLOCKED'));
+      } else if (pact.dataset.pact === 'pdel'){
+        state.people = state.people.filter(x => x.id !== id);
+        savePeople(); renderAll();
+        toast('REMOVED — ' + p.name.toUpperCase());
+      }
+      return;
+    }
+    const act = ev.target.closest('[data-act]');
+    if (act){
+      const a = act.dataset.act, id = act.dataset.id;
+      if (a === 'nudge' && id) openNudge(id);
+      else if (a === 'ics') exportICS();
+      else if (a === 'digest'){
+        openViewer('Weekly digest', 'THE LAST 7 DAYS', buildDigest(),
+          [{ act:'copy', label:'COPY TEXT', cls:'red' }, { act:'dl', label:'DOWNLOAD .MD' }], null,
+          'hirewire-digest-' + new Date().toISOString().slice(0, 10) + '.md');
+      }
+      else if (a === 'starDel' && id){
+        state.starBank = state.starBank.filter(s => s.id !== id);
+        saveStar();
+        const sf = $('#starSearch');
+        renderStarList(sf ? sf.value : '');
+        toast('STORY DELETED');
+      }
+      return;
+    }
+    const star = ev.target.closest('[data-star]');
+    if (star && !ev.target.closest('.sx')) star.classList.toggle('open');
+  }));
+
+  B('scrim', e => e.onclick = () => { closeDrawer(); });
+  B('agentModal', e => e.addEventListener('click', ev => {
+    const act = ev.target.closest('[data-act]');
+    if (!act){ if (ev.target === e) closeAgent(); return; }
+    const a = act.dataset.act, id = act.dataset.id;
+    if (a === 'agClose') closeAgent();
+    else if (a === 'agSync'){ closeAgent(); sync(); }
+    else if (a === 'agBrief') copyBrief();
+    else if (a === 'agView') openBriefViewer();
+    else if (a === 'agMd') doExport('md', 'shortlist');
+    else if (a === 'pintoggle' && id) togglePin(id);
+    else if (a === 'web' && id) openWeb(byId(id));
+    else if (a === 'agrow' && id){ closeAgent(); openDrawer(id); }
+  }));
+  B('briefModal', e => e.addEventListener('click', ev => {
+    const act = ev.target.closest('[data-act]');
+    if (!act){ if (ev.target === e) closeViewer(); return; }
+    const a = act.dataset.act;
+    if (a === 'bxClose') closeViewer();
+    else if (a === 'copy') copyText(state.briefText || '').then(ok => toast(ok ? 'COPIED' : 'CLIPBOARD BLOCKED — SELECT THE TEXT AND COPY MANUALLY'));
+    else if (a === 'dl') download(state.briefName || 'hirewire.md', state.briefText || '', 'text/markdown');
+    else if (a === 'pbGo'){
+      const inp = $('#pbInput');
+      const out = parseAgentResults(inp ? inp.value : '');
+      const el = $('#pbOut');
+      if (el) el.textContent = 'MATCHED ' + out.matched + ' ENTRIES' +
+        (out.missed.length ? ' · NOT IN PIPELINE: ' + out.missed.slice(0, 4).join(', ').toUpperCase() : ' · ALL MATCHED');
+      if (out.matched) toast('LOGGED ' + out.matched + ' AGENT RESULTS ONTO YOUR PIPELINE');
+    }
+    else if (state.viewerHandler) state.viewerHandler(a);
+  }));
+
+  B('conTab', e => e.onclick = () => toggleConsole());
+  B('conClose', e => e.onclick = () => toggleConsole(false));
+  B('conForm', e => e.addEventListener('submit', ev => {
+    ev.preventDefault();
+    if (!conInput) return;
+    const raw = conInput.value;
+    conInput.value = '';
+    if (raw.trim()){ hist.push(raw); hi = hist.length; runCommand(raw); }
+  }));
+  if (conInput) conInput.addEventListener('keydown', e => {
+    if (e.key === 'ArrowUp'){ e.preventDefault(); if (hi > 0){ hi--; conInput.value = hist[hi] || ''; } }
+    if (e.key === 'ArrowDown'){ e.preventDefault(); if (hi < hist.length){ hi++; conInput.value = hist[hi] || ''; } }
+  });
+  B('banner', e => e.addEventListener('click', ev => {
+    if (ev.target.closest('[data-retry]')) sync();
+    if (ev.target.closest('[data-bkbackup]')){
+      doBackup();
+      state.stickyBanner = false;
+      hideBanner();
+    }
+    if (ev.target.closest('[data-bkdismiss]')){
+      state.stickyBanner = false;
+      hideBanner();
+    }
+  }));
+
+  ['dragover', 'dragenter'].forEach(ev => window.addEventListener(ev, e => e.preventDefault()));
+  window.addEventListener('drop', e => {
+    e.preventDefault();
+    const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (!f) return;
+    if (!/\.json$/i.test(f.name) && f.type !== 'application/json'){ toast('DROP A HIREWIRE BACKUP .JSON FILE'); return; }
+    const r = new FileReader();
+    r.onload = () => {
+      let d;
+      try { d = JSON.parse(r.result); } catch(err){ toast('NOT A VALID BACKUP FILE'); return; }
+      if (!d || d.app !== 'HireWire'){ toast('NOT A HIREWIRE BACKUP'); return; }
+      let okToGo = true;
+      try { okToGo = confirm('Restore HireWire backup from ' + String(d.exportedAt || '').slice(0, 10) + '?\n\nThis replaces the data currently in this browser.'); }
+      catch(err){ okToGo = true; } // sandboxed previews may block confirm() — proceed
+      if (okToGo){
+        try { restoreBackup(r.result); toast('RESTORED FROM DROPPED BACKUP'); }
+        catch(err){ toast('RESTORE FAILED — ' + String(err.message || '').toUpperCase()); }
+      }
+    };
+    r.readAsText(f);
+  });
+
+  document.addEventListener('keydown', e => {
+    const tag = document.activeElement && document.activeElement.tagName;
+    const typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+    if (e.key === '/' && !typing){ e.preventDefault(); const q = $('#qInput'); if (q) q.focus(); }
+    else if (e.key === '`' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')){
+      e.preventDefault(); toggleConsole();
+    }
+    else if (e.key === 'Escape'){
+      if ($('#consoleEl') && $('#consoleEl').classList.contains('open')) toggleConsole(false);
+      else if ($('#agentModal') && $('#agentModal').classList.contains('open')) closeAgent();
+      else if ($('#briefModal') && $('#briefModal').classList.contains('open')) closeViewer();
+      else if ($('#drawer') && $('#drawer').classList.contains('open')) closeDrawer();
+    }
+  });
+}
+function openNudge(id){
+  const b = state.board.get(id);
+  if (!b) return;
+  openViewer('Ghost nudge', b.job.company.toUpperCase() + ' · ' + daysQuiet(b) + ' DAYS QUIET', nudgeEmail(b),
+    [{ act:'copy', label:'COPY TEXT', cls:'red' }, { act:'nudgelog', label:'LOG FOLLOW-UP — RESET TIMER' }],
+    act => {
+      if (act === 'nudgelog'){
+        logAdd(b, 'follow-up sent');
+        b.at = Date.now();
+        saveBoard(); renderAll(); closeViewer();
+        toast('FOLLOW-UP LOGGED — GHOST TIMER RESET');
+      }
+    },
+    'hirewire-followup-' + normCompany(b.job.company).slice(0, 14) + '.md');
+}
+
+/* ============ 21 · CLOCK, SCHEDULER & BOOT ============ */
+function tickClock(){
+  const c = document.getElementById('utcClock');
+  if (c) c.textContent = new Date().toISOString().slice(11, 19) + ' UTC';
+  if (state.nextSyncAt && !state.syncing){
+    const left = state.nextSyncAt - Date.now();
+    const n = document.getElementById('stNext');
+    if (n) n.textContent = left > 0 ? fmtMMSS(left) : 'DUE';
+    if (left <= 0) sync();
+  }
+}
+setInterval(() => { try { tickClock(); } catch(e){} }, 1000);
+
+async function boot(){
+  try {
+    bindEvents();
+    storageProbe();            // decide storage strategy before anything touches state
+    await idbOpen();           // open the mirror database (best effort)
+    const rec = await recoverFromIDB();  // if local storage was wiped, restore from the mirror
+    loadState();
+    renderAll();
+    tickClock();
+    if (state.board.size > 0 && !state.persistAsked){ state.persistAsked = true; requestPersist(); }
+    sync();
+    if (rec) toast('RECOVERED ' + rec + ' DATA STORE(S) FROM THE BROWSER DATABASE');
+    if (!STORE.ls){
+      showBanner('THIS PREVIEW BLOCKS BROWSER STORAGE — RUNNING IN MEMORY-ONLY MODE. DATA LIVES UNTIL THIS TAB CLOSES; USE “BACKUP EVERYTHING” TO KEEP IT <button class="btn mini" data-bkbackup>BACKUP NOW</button> <button class="btn mini" data-bkdismiss>UNDERSTOOD</button>', true);
+    } else {
+      checkBackupAge();
+    }
+  } catch(e){
+    showErr('BOOT FAILED — ' + e.message);
+  }
+}
+boot();
+</script>
+</body>
+</html>
