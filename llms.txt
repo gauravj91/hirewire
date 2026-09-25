@@ -1,0 +1,9 @@
+# HireWire
+> Free, privacy-first job-search tool that aggregates 38+ public job feeds,
+> scores postings against the user's own profile, and tracks the application
+> pipeline. Runs entirely in the browser — no account, no server-side data,
+> CV never uploaded anywhere.
+
+## Pages
+- [Guide & FAQ](https://yourdomain.com/guide.html): how it works, who it's for, comparison vs spreadsheets, privacy model
+- [App](https://yourdomain.com/): the tool itself (requires JavaScript)
