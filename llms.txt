@@ -5,5 +5,5 @@
 > CV never uploaded anywhere.
 
 ## Pages
-- [Guide & FAQ](https://yourdomain.com/guide.html): how it works, who it's for, comparison vs spreadsheets, privacy model
-- [App](https://yourdomain.com/): the tool itself (requires JavaScript)
+- [Guide & FAQ](https://hirewire.fyi/guide.html): how it works, who it's for, comparison vs spreadsheets, privacy model
+- [App](https://hirewire.fyi/): the tool itself (requires JavaScript)
