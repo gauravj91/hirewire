@@ -8,4 +8,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://hirewire.fyi/sitemap.xml
