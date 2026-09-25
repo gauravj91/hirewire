@@ -4,7 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>HireWire — The Job Wire</title>
+
+<!-- ===== SEO / AEO — EDIT yourdomain.com (3 places in this head) ===== -->
+<title>HireWire — Free Private Job Application Tracker &amp; Job Feed Aggregator</title>
+<meta name="description" content="HireWire pulls 38+ live job feeds onto one wire, scores every posting against your skills and salary floor, and tracks your pipeline from saved to offer. Free, no account, and your CV never leaves your browser.">
+<link rel="canonical" href="https://yourdomain.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HireWire">
+<meta property="og:title" content="HireWire — The Job Wire">
+<meta property="og:description" content="Every posting, one wire, one pipeline. Free and private — your CV never leaves your browser.">
+<meta property="og:url" content="https://yourdomain.com/">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "HireWire",
+  "url": "https://yourdomain.com/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any modern browser",
+  "description": "Free, private job-search tool: aggregates 38+ job feeds, scores postings against your profile, and tracks your application pipeline — entirely in your browser, with no account.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": "Job feed aggregation, Match scoring, Application pipeline tracker, Ghost-job detection, Agent briefs for AI coding assistants, Local-only data storage"
+}
+</script>
+<!-- ===== end SEO / AEO ===== -->
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -398,6 +423,16 @@ body.con-open .con-tab{display:none}
             <button class="btn" id="byokOff">REMOVE</button>
           </div>
           <p class="fine" id="byokStat">Get a free key at developer.adzuna.com. Keys never leave this browser.</p>
+          <div style="border-top:1px solid var(--line2);margin:14px 0 10px"></div>
+          <label>Jooble (free key) — api key</label>
+          <input class="input sm" id="joobleKey" placeholder="your jooble api key">
+          <input class="input sm" id="joobleWhat" placeholder="keywords — e.g. product manager">
+          <input class="input sm" id="joobleWhere" placeholder="location — e.g. Berlin">
+          <div class="btnrow" style="margin-top:8px">
+            <button class="btn red" id="joobleSave">ACTIVATE</button>
+            <button class="btn" id="joobleOff">REMOVE</button>
+          </div>
+          <p class="fine" id="joobleStat">Free partner key at jooble.org/api — arrives by email.</p>
         </div>
       </section>
 
@@ -659,19 +694,23 @@ function toast(msg){
   const t = document.getElementById('toasts');
   if (t){ t.appendChild(d); setTimeout(() => d.remove(), 4200); }
 }
-async function fetchJSON(url, ms = 9000){
+async function fetchJSON(url, ms = 9000, method, body){
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
   try {
-    const r = await fetch(url, { signal: c.signal });
+    const opt = { signal: c.signal };
+    if (method === 'POST' && body){
+      opt.method = 'POST';
+      opt.headers = { 'Content-Type': 'application/json' };
+      opt.body = JSON.stringify(body);
+    }
+    const r = await fetch(url, opt);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     return await r.json();
   } finally { clearTimeout(t); }
 }
 
-/* ============ 1b · STORAGE — localStorage → IndexedDB mirror → memory fallback ============
-   Sandboxed previews (online IDE panes) forbid localStorage by spec. Every access goes
-   through this layer: probe once, degrade gracefully, never crash.                        */
+/* ============ 1b · STORAGE — localStorage → IndexedDB mirror → memory fallback ============ */
 const STORE = { ls:true, mem:{}, probed:false };
 function storageProbe(){
   if (STORE.probed) return STORE.ls;
@@ -697,7 +736,7 @@ function sSetRaw(k, v){
   if (STORE.ls){
     try { window.localStorage.setItem(k, v); return true; }
     catch(e){
-      if (k === LS.cache) return false; // cache is disposable — drop silently
+      if (k === LS.cache) return false;
       try {
         window.localStorage.removeItem(LS.cache);
         window.localStorage.setItem(k, v);
@@ -1052,12 +1091,40 @@ const ADZUNA_SRC = { id:'adzuna', label:'ADZUNA (BYOK)', home:'adzuna.com',
         });
       }}];
   }};
-function AS(){ return (state.byok.adzuna && state.byok.adzuna.appId) ? SOURCES.concat([ADZUNA_SRC]) : SOURCES; }
+/* Jooble — POST-based partner API. CORS is NOT guaranteed: if the browser
+   blocks the call, the sidebar shows BROWSER-BLOCKED (CORS) honestly. */
+const JOOBLE_SRC = { id:'jooble', label:'JOOBLE (BYOK)', home:'jooble.org',
+  feeds(){
+    const b = state.byok.jooble;
+    return [{ method:'POST',
+      url:'https://jooble.org/api/' + encodeURIComponent(b.key),
+      body:{ keywords:b.what || '', location:b.where || '', page:1 },
+      parse(d){
+        if (!d || d.error) throw new Error(d && d.error ? String(d.error) : 'bad response');
+        return (Array.isArray(d.jobs) ? d.jobs : []).map(j => Object.assign({
+          id:'jb:' + (j.id || Math.random()), source:'jooble',
+          title:str(j.title), company:str(j.company) || '—',
+          location:str(j.location) || '—',
+          remote:/remote|work from home|wfh/i.test(str(j.title) + ' ' + str(j.location) + ' ' + str(j.snippet)) ? 'remote' : 'onsite',
+          tags:normTags([j.type, j.source]),
+          salaryText:str(j.salary),
+          url:str(j.link),
+          postedAt:Date.parse(j.updated) || Date.now(),
+          description:htmlToText(j.snippet).slice(0, 4000),
+        }, parseSalary(str(j.salary))));
+      }}];
+  }};
+function AS(){
+  const extra = [];
+  if (state.byok.adzuna && state.byok.adzuna.appId) extra.push(ADZUNA_SRC);
+  if (state.byok.jooble && state.byok.jooble.key) extra.push(JOOBLE_SRC);
+  return extra.length ? SOURCES.concat(extra) : SOURCES;
+}
 function allFeeds(){
   const out = [];
   for (const s of AS()){
     const fs = s.feeds();
-    for (const f of fs) out.push({ src:s.id, url:f.url, parse:f.parse });
+    for (const f of fs) out.push({ src:s.id, url:f.url, parse:f.parse, method:f.method, body:f.body });
   }
   return out;
 }
@@ -1102,7 +1169,7 @@ const state = {
   offlineMode: false, newIds: new Set(), view: 'wire', visible: 40,
   filters: { q:'', tags:new Set(), sources:new Set(), locs:new Set(), remoteOnly:true, floorOnly:true, sort:'match', seniority:'any' },
   profile: { name:'', skills:[], blacklist:[], locBlocks:[], minSalary:null, currency:'USD' },
-  byok: { adzuna:{ appId:'', appKey:'', cc:'us', what:'' } },
+  byok: { adzuna:{ appId:'', appKey:'', cc:'us', what:'' }, jooble:{ key:'', what:'', where:'' } },
   board: new Map(), current: [], currentFiltered: [], lastRun: null, pinList: [], drawerId: null,
   briefText: '', briefName: '', viewerHandler: null,
   savedSearches: [], starBank: [], people: [], boardStageFilter: null,
@@ -1172,7 +1239,10 @@ function loadState(){
   const st = lsGet(LS.star); if (Array.isArray(st)) state.starBank = st;
   const pp = lsGet(LS.people); if (Array.isArray(pp)) state.people = pp;
   const bk = lsGet(LS.byok);
-  if (bk && bk.adzuna) state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, bk.adzuna);
+  if (bk){
+    if (bk.adzuna) state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, bk.adzuna);
+    if (bk.jooble) state.byok.jooble = Object.assign({ key:'', what:'', where:'' }, bk.jooble);
+  }
   const m = lsGet(LS.meta);
   if (m) state.meta = { lastBackupAt:m.lastBackupAt || null };
   const c = lsGet(LS.cache);
@@ -1225,19 +1295,19 @@ async function sync(via){
   spinnerStart();
   const FEEDS = allFeeds();
   const results = await Promise.allSettled(FEEDS.map(async f => {
-    const d = await fetchJSON(f.url);
+    const d = await fetchJSON(f.url, 9000, f.method, f.body);
     const jobs = f.parse(d);
     if (!jobs.length) throw new Error('empty feed');
     return jobs;
   }));
   let all = [];
   const fam = {};
-  AS().forEach(s => fam[s.id] = { ok:false, count:0, feeds:0, failed:0 });
+  AS().forEach(s => fam[s.id] = { ok:false, count:0, feeds:0, failed:0, err:'' });
   results.forEach((r, i) => {
     const F = fam[FEEDS[i].src];
     F.feeds++;
     if (r.status === 'fulfilled'){ F.ok = true; F.count += r.value.length; all = all.concat(r.value); }
-    else F.failed++;
+    else { F.failed++; F.err = String((r.reason && r.reason.message) || 'failed'); }
   });
   state.sourcesStatus = fam;
   const SRC = AS();
@@ -2110,7 +2180,10 @@ function restoreBackup(json){
   if (Array.isArray(d.savedSearches)) state.savedSearches = d.savedSearches;
   if (Array.isArray(d.starBank)) state.starBank = d.starBank;
   if (Array.isArray(d.people)) state.people = d.people;
-  if (d.byok && d.byok.adzuna) state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, d.byok.adzuna);
+  if (d.byok){
+    state.byok.adzuna = Object.assign({ appId:'', appKey:'', cc:'us', what:'' }, d.byok.adzuna || {});
+    state.byok.jooble = Object.assign({ key:'', what:'', where:'' }, d.byok.jooble || {});
+  }
   if (d.settings){
     state.filters.remoteOnly = !!d.settings.remoteOnly;
     state.filters.floorOnly = !!d.settings.floorOnly;
@@ -2572,8 +2645,11 @@ const COMMANDS = {
     run(){
       AS().forEach(s => {
         const st = state.sourcesStatus[s.id] || {};
+        const failTxt = st.feeds && !st.ok
+          ? (st.err && /failed to fetch|networkerror|load failed/i.test(st.err) ? 'browser-blocked (CORS?)' : 'all feeds failed')
+          : 'pending';
         cprint(s.label.padEnd(16) + ' ' + (st.ok ? String(st.count).padStart(4) + ' jobs' + (st.failed ? ' (' + st.failed + ' feeds down)' : '')
-               : st.feeds ? 'all feeds failed' : 'pending') + '   ' + s.home, st.ok ? 'ok' : st.feeds ? 'err' : 'dim');
+               : failTxt) + '   ' + s.home, st.ok ? 'ok' : st.feeds ? 'err' : 'dim');
       });
       if (state.offlineMode) cprint('OFFLINE SNAPSHOT active — live wire unreachable', 'err');
     }},
@@ -2583,9 +2659,9 @@ const COMMANDS = {
       cprint('HireWire — every posting, one wire, one pipeline, refreshed hourly.', 'out');
       cprint('Key-less: Remotive · Arbeitnow · Jobicy · RemoteOK · Himalayas · Working Nomads', 'dim');
       cprint('+ ATS boards: Greenhouse · Lever · Ashby · Workable · SmartRecruiters · Recruitee', 'dim');
-      cprint('BYOK: Adzuna (your free key, stored only in this browser).', 'dim');
+      cprint('BYOK: Adzuna · Jooble (your free keys, stored only in this browser).', 'dim');
+      cprint('Note: Jooble\u2019s API may block direct browser calls (CORS) — status is shown honestly.', 'dim');
       cprint('Storage: local + mirrored browser DB + memory fallback for sandboxes.', 'dim');
-      cprint('Funding: labeled sponsor slots + support link. No ad networks, no tracking, no data sold.', 'dim');
     }},
 };
 function runCommand(raw){
@@ -2738,21 +2814,32 @@ function renderSideSources(){
   el.innerHTML = SRC.map(s => {
     const st = state.sourcesStatus[s.id] || {};
     const dot = st.ok ? 'ok' : (st.feeds ? 'bad' : '');
+    const corsFail = st.err && /failed to fetch|networkerror|load failed/i.test(st.err);
     const txt = st.ok ? (st.count + ' JOBS' + (st.failed ? ' · ' + st.failed + ' DOWN' : ''))
-              : st.feeds ? 'FEEDS FAILED' : 'PENDING';
+              : st.feeds ? (corsFail ? 'BROWSER-BLOCKED (CORS)' : 'FEEDS FAILED') : 'PENDING';
     return '<li><i class="sdot ' + dot + '"></i><b>' + s.label + '</b><span>' + txt + '</span></li>';
   }).join('') + (state.offlineMode ? '<li><i class="sdot bad"></i><b>OFFLINE SNAPSHOT</b><span>LIVE WIRE DOWN</span></li>' : '');
 }
 function renderByok(){
-  const b = state.byok.adzuna;
-  const a = $('#byokApp'), k = $('#byokKey'), c = $('#byokCC'), w = $('#byokWhat'), s = $('#byokStat');
-  if (!a || !k) return;
-  a.value = b.appId || ''; k.value = b.appKey || '';
-  if (c) c.value = b.cc || 'us';
-  if (w) w.value = b.what || '';
-  if (s) s.textContent = (b.appId && b.appKey)
-    ? 'ACTIVE — ADZUNA · ' + String(b.cc).toUpperCase() + (b.what ? ' · "' + b.what + '"' : '') + ' · feeds on next sync'
-    : 'Get a free key at developer.adzuna.com. Keys never leave this browser.';
+  const a = state.byok.adzuna, j = state.byok.jooble;
+  const A = $('#byokApp'), K = $('#byokKey'), C = $('#byokCC'), W = $('#byokWhat'), S = $('#byokStat');
+  if (A && K){
+    A.value = a.appId || ''; K.value = a.appKey || '';
+    if (C) C.value = a.cc || 'us';
+    if (W) W.value = a.what || '';
+    if (S) S.textContent = (a.appId && a.appKey)
+      ? 'ACTIVE — ADZUNA · ' + String(a.cc).toUpperCase() + (a.what ? ' · "' + a.what + '"' : '') + ' · feeds on next sync'
+      : 'Get a free key at developer.adzuna.com. Keys never leave this browser.';
+  }
+  const JK = $('#joobleKey'), JW = $('#joobleWhat'), JR = $('#joobleWhere'), JS = $('#joobleStat');
+  if (JK){
+    JK.value = j.key || '';
+    if (JW) JW.value = j.what || '';
+    if (JR) JR.value = j.where || '';
+    if (JS) JS.textContent = (j.key)
+      ? 'ACTIVE — JOOBLE · ' + ((j.what || 'all roles') + (j.where ? ' in ' + j.where : '')) + ' · feeds on next sync'
+      : 'Free partner key at jooble.org/api. If the wire shows BROWSER-BLOCKED (CORS), Jooble needs a small personal proxy.';
+  }
 }
 function renderProfile(){
   const sc = $('#skillChips');
@@ -2956,6 +3043,20 @@ function bindEvents(){
     saveByok(); renderAll();
     toast('ADZUNA REMOVED — TAKES EFFECT ON NEXT SYNC');
   });
+  B('joobleSave', e => e.onclick = () => {
+    const key = $('#joobleKey').value.trim();
+    if (!key){ toast('JOOBLE NEEDS AN API KEY'); return; }
+    const what = $('#joobleWhat'), where = $('#joobleWhere');
+    state.byok.jooble = { key:key, what:what ? what.value.trim() : '', where:where ? where.value.trim() : '' };
+    saveByok(); renderAll();
+    toast('JOOBLE ACTIVATED — SYNCING WITH YOUR KEY');
+    sync();
+  });
+  B('joobleOff', e => e.onclick = () => {
+    state.byok.jooble = { key:'', what:'', where:'' };
+    saveByok(); renderAll();
+    toast('JOOBLE REMOVED — TAKES EFFECT ON NEXT SYNC');
+  });
 
   B('backupBtn', e => e.onclick = () => doBackup());
   B('restoreBtn', e => e.onclick = () => { const f = $('#restoreFile'); if (f) f.click(); });
@@ -3129,7 +3230,7 @@ function bindEvents(){
       if (!d || d.app !== 'HireWire'){ toast('NOT A HIREWIRE BACKUP'); return; }
       let okToGo = true;
       try { okToGo = confirm('Restore HireWire backup from ' + String(d.exportedAt || '').slice(0, 10) + '?\n\nThis replaces the data currently in this browser.'); }
-      catch(err){ okToGo = true; } // sandboxed previews may block confirm() — proceed
+      catch(err){ okToGo = true; }
       if (okToGo){
         try { restoreBackup(r.result); toast('RESTORED FROM DROPPED BACKUP'); }
         catch(err){ toast('RESTORE FAILED — ' + String(err.message || '').toUpperCase()); }
@@ -3185,9 +3286,9 @@ setInterval(() => { try { tickClock(); } catch(e){} }, 1000);
 async function boot(){
   try {
     bindEvents();
-    storageProbe();            // decide storage strategy before anything touches state
-    await idbOpen();           // open the mirror database (best effort)
-    const rec = await recoverFromIDB();  // if local storage was wiped, restore from the mirror
+    storageProbe();
+    await idbOpen();
+    const rec = await recoverFromIDB();
     loadState();
     renderAll();
     tickClock();
@@ -3204,6 +3305,260 @@ async function boot(){
   }
 }
 boot();
+</script>
+
+<script>
+/* ============ CONTACT ME — self-contained add-on ============ */
+(function(){
+  'use strict';
+  /* ---------- EDIT THIS ---------- */
+  const CFG = {
+    user:  'contact',
+    domain:'yourdomain.com',
+    name:  'Alex',
+    web3formsKey: ''
+  };
+  /* -------------------------------- */
+  const EMAIL = CFG.user + '@' + CFG.domain;
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g,
+    c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const SUBJECTS = ['Feedback','Bug report','Feature idea','Sponsor the Wire'];
+  const PRE = '[HireWire] ';
+  function counts(){
+    const c = { jobs:0, saved:0 };
+    try {
+      const cache = JSON.parse(localStorage.getItem('hirewire.cache.v1'));
+      if (cache && Array.isArray(cache.jobs)) c.jobs = cache.jobs.length;
+      const board = JSON.parse(localStorage.getItem('hirewire.board.v2'));
+      if (Array.isArray(board)) c.saved = board.length;
+    } catch(e){}
+    return c;
+  }
+  let subj = SUBJECTS[0];
+  function toast(t){
+    const d = document.createElement('div');
+    d.textContent = t;
+    d.style.cssText = 'position:fixed;top:16px;right:20px;z-index:130;background:#17130C;color:#F6F1E6;padding:10px 14px;font-size:10px;letter-spacing:.1em;border-left:3px solid #C8371D;max-width:440px;text-transform:uppercase;font-family:inherit';
+    document.body.appendChild(d); setTimeout(() => d.remove(), 4000);
+  }
+  function openModal(){
+    if (document.getElementById('hwContact')) return;
+    const o = document.createElement('div');
+    o.id = 'hwContact';
+    o.style.cssText = 'position:fixed;inset:0;z-index:120;background:rgba(23,19,12,.45);display:flex;align-items:center;justify-content:center;padding:4vh 4vw';
+    const c = counts();
+    o.innerHTML =
+      '<div role="dialog" aria-modal="true" aria-label="Contact" style="background:#F6F1E6;border:1px solid #17130C;box-shadow:12px 12px 0 rgba(23,19,12,.28);width:min(560px,100%);max-height:90vh;overflow:auto;font-family:inherit;color:#17130C;font-size:13px;line-height:1.45">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #17130C">' +
+          '<div style="font-family:Georgia,serif;font-size:24px">Contact ' + esc(CFG.name) + '</div>' +
+          '<button data-x aria-label="Close" style="border:1px solid #BCB096;background:none;width:28px;height:28px;font-size:15px;cursor:pointer">×</button>' +
+        '</div>' +
+        '<div style="padding:16px 20px">' +
+          '<div style="font-size:8.5px;letter-spacing:.16em;color:#6A6250;text-transform:uppercase;margin-bottom:8px">Subject</div>' +
+          '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px">' +
+            SUBJECTS.map((s,i) => '<button data-s="' + i + '" style="border:1px solid #BCB096;background:none;font:inherit;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;cursor:pointer' + (i===0?';background:#17130C;color:#F6F1E6;border-color:#17130C':'') + '">' + esc(s) + '</button>').join('') +
+          '</div>' +
+          '<textarea id="hwMsg" rows="7" placeholder="Type your message…" style="width:100%;border:1px solid #17130C;background:none;font:inherit;font-size:12px;padding:10px;resize:vertical"></textarea>' +
+          '<label style="display:flex;gap:8px;align-items:flex-start;font-size:10px;color:#6A6250;margin-top:10px;cursor:pointer">' +
+            '<input type="checkbox" id="hwDiag" checked style="margin-top:2px">' +
+            '<span>Attach non-personal diagnostics — counts only (' + c.jobs + ' cached postings · ' + c.saved + ' saved jobs). Never your notes, contacts or CV.</span>' +
+          '</label>' +
+          '<div id="hwStat" style="font-size:10px;letter-spacing:.1em;margin-top:12px;color:#6A6250;min-height:14px"></div>' +
+          '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
+            (CFG.web3formsKey ? '<button data-send style="border:1px solid #C8371D;background:#C8371D;color:#F6F1E6;font:inherit;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;cursor:pointer">SEND MESSAGE</button>' : '') +
+            '<button data-mail style="border:1px solid #17130C;background:none;font:inherit;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;cursor:pointer">OPEN EMAIL APP</button>' +
+            '<button data-copy style="border:1px solid #17130C;background:none;font:inherit;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;cursor:pointer">COPY TEXT</button>' +
+          '</div>' +
+          '<p style="font-size:8.5px;letter-spacing:.1em;color:#6A6250;text-transform:uppercase;margin-top:14px;line-height:1.8">No tracking, no account. Your message goes only to ' + esc(CFG.name) + '.</p>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(o);
+    const close = () => o.remove();
+    o.addEventListener('click', e => { if (e.target === o) close(); });
+    o.querySelector('[data-x]').onclick = close;
+    o.querySelectorAll('[data-s]').forEach(b => b.onclick = () => {
+      subj = SUBJECTS[+b.dataset.s];
+      o.querySelectorAll('[data-s]').forEach(x => { x.style.background='none'; x.style.color='#17130C'; x.style.borderColor='#BCB096'; });
+      b.style.background = '#17130C'; b.style.color = '#F6F1E6'; b.style.borderColor = '#17130C';
+    });
+    function compose(){
+      const msg = o.querySelector('#hwMsg').value.trim() || '(empty message)';
+      let body = msg;
+      if (o.querySelector('#hwDiag').checked){
+        const d = counts();
+        body += '\n\n---\nDiagnostics (counts only): cached postings ' + d.jobs + ' · saved jobs ' + d.saved;
+      }
+      return body;
+    }
+    function stat(t, bad){ const s = o.querySelector('#hwStat'); s.textContent = t; s.style.color = bad ? '#C8371D' : '#3D6B35'; }
+    const sendBtn = o.querySelector('[data-send]');
+    if (sendBtn) sendBtn.onclick = async () => {
+      stat('SENDING…');
+      try {
+        const ctrl = new AbortController(); const t = setTimeout(() => ctrl.abort(), 10000);
+        const r = await fetch('https://api.web3forms.com/submit', {
+          method:'POST', headers:{ 'Content-Type':'application/json', Accept:'application/json' },
+          body: JSON.stringify({ access_key: CFG.web3formsKey, subject: PRE + subj, from_name: 'HireWire Contact', message: compose() }),
+          signal: ctrl.signal
+        });
+        clearTimeout(t);
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j.success !== false){ stat('SENT — THANK YOU!'); toast('MESSAGE SENT'); o.querySelector('#hwMsg').value = ''; }
+        else stat('SEND FAILED — USE “OPEN EMAIL APP” INSTEAD', true);
+      } catch(e){ stat('SEND FAILED — USE “OPEN EMAIL APP” INSTEAD', true); }
+    };
+    o.querySelector('[data-mail]').onclick = () => {
+      try {
+        window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(PRE + subj) + '&body=' + encodeURIComponent(compose());
+        stat('OPENING YOUR EMAIL APP…');
+      } catch(e){ stat('EMAIL BLOCKED HERE — USE “COPY TEXT”', true); }
+    };
+    o.querySelector('[data-copy]').onclick = async () => {
+      const text = 'To: ' + EMAIL + '\nSubject: ' + PRE + subj + '\n\n' + compose();
+      let ok = false;
+      try { await navigator.clipboard.writeText(text); ok = true; }
+      catch(e){
+        const ta = document.createElement('textarea'); ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+        try { ok = document.execCommand('copy'); } catch(_){}
+        ta.remove();
+      }
+      stat(ok ? 'COPIED — PASTE INTO ANY EMAIL OR DM' : 'COPY BLOCKED — WRITE TO ' + EMAIL.toUpperCase(), !ok);
+      if (ok) toast('MESSAGE COPIED');
+    };
+  }
+  function addButton(){
+    const b = document.createElement('button');
+    b.className = 'btn';
+    b.id = 'hwContactBtn';
+    b.textContent = 'CONTACT ME';
+    b.onclick = openModal;
+    const foot = document.querySelector('.foot');
+    if (foot){ const s = document.createElement('span'); s.appendChild(b); foot.appendChild(s); }
+    else { b.style.cssText = 'position:fixed;left:20px;bottom:20px;z-index:70'; document.body.appendChild(b); }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addButton);
+  else addButton();
+  window.HireWireContact = openModal;
+  document.addEventListener('keydown', e => {
+    const m = document.getElementById('hwContact');
+    if (m && e.key === 'Escape'){ e.stopPropagation(); m.remove(); }
+  }, true);
+})();
+</script>
+
+<script>
+/* ============ HIREWIRE ANALYTICS — privacy-first PostHog add-on ============
+   Named feature events only. No autocapture, no recordings, no cookies.
+   Safe by default: until you paste a real PostHog key below, this block
+   loads nothing and sends nothing.                                          */
+(function(){
+  'use strict';
+
+  /* ---------- EDIT THIS ---------- */
+  const CFG = {
+    enabled : true,
+    key     : 'phc_YOUR_KEY_HERE',
+    host    : 'https://eu.i.posthog.com',
+    onlyHosts: []
+  };
+  /* -------------------------------- */
+
+  if (!CFG.enabled) return;
+  if (location.protocol === 'file:') return;
+  if (CFG.onlyHosts.length && !CFG.onlyHosts.includes(location.hostname)) return;
+  if (navigator.doNotTrack == '1' || window.doNotTrack == '1') return;
+  if (!CFG.key || /YOUR_KEY/i.test(CFG.key)){
+    console.info('HireWire analytics: paste your PostHog key in the ANALYTICS block to enable it.');
+    return;
+  }
+
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=s;void 0!==a?e[a]=u:e.people=u;for(var c=["capture","identify","people.set","people.set_once","register","register_once","unregister","alias","reset"],l=0;l<c.length;l++)g(e,c[l]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+
+  posthog.init(CFG.key, {
+    api_host: CFG.host,
+    autocapture: false,
+    capture_pageview: false,
+    disable_session_recording: true,
+    disable_surveys: true,
+    capture_performance: false,
+    persistence: 'localStorage'
+  });
+
+  function mode(){
+    try { localStorage.setItem('__hw_p','1'); localStorage.removeItem('__hw_p'); return 'local'; }
+    catch(e){ return 'memory'; }
+  }
+  posthog.register({ hw_edition: 1 });
+  posthog.capture('page_load', { storage_mode: mode() });
+
+  function fire(name, props){ try { posthog.capture(name, props || {}); } catch(e){} }
+
+  const ACT = { pintoggle:'pin_toggle', web:'open_posting', remove:'pipeline_remove',
+    reset:'filters_reset', ghostinfo:'ghost_info', nudge:'nudge_open',
+    ssave:'search_save', scancel:'search_cancel', pb:'paste_back_open',
+    print:'print_report', ics:'ics_export', digest:'digest_open',
+    addc:'contact_add', prep:'prep_open' };
+  const BTN = { syncBtn:'sync', runAgentBtn:'agent_run', copyBriefBtn:'brief_copy',
+    viewBriefBtn:'brief_view', backupBtn:'backup', restoreBtn:'restore_click',
+    cvExtract:'cv_extract', byokSave:'byok_activate', byokOff:'byok_remove',
+    joobleSave:'jooble_activate', joobleOff:'jooble_remove',
+    copyPromptBtn:'agent_prompt_copy', saveSearchBtn:'search_save_open',
+    conTab:'console_open', hwContactBtn:'contact_open' };
+
+  document.addEventListener('click', function(e){
+    const t = e.target;
+    const tab = t.closest('.tab');
+    if (tab && tab.id){ fire('tab_view', { tab: tab.id.replace('tab','').toLowerCase() }); return; }
+    for (const id in BTN){
+      if (t.closest('#' + id)){ fire(BTN[id]); return; }
+    }
+    const a = t.closest('[data-act]');
+    if (a && ACT[a.dataset.act]){ fire(ACT[a.dataset.act]); return; }
+    const ex = t.closest('[data-export]');
+    if (ex){ fire('export', { format: ex.dataset.export }); return; }
+    if (t.closest('[data-ss]')){ fire('saved_search_apply'); return; }
+  }, true);
+
+  document.addEventListener('change', function(e){
+    if (e.target && e.target.classList && e.target.classList.contains('bstat') && e.target.value){
+      fire('stage_change', { stage: e.target.value });
+    }
+  }, true);
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === '`' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) fire('console_open_kb');
+    if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) fire('search_focus_kb');
+  }, true);
+
+  document.addEventListener('click', function(e){
+    if (e.target.closest('#hwContact [data-send]')) fire('contact_send');
+    if (e.target.closest('#hwContact [data-mail]')) fire('contact_mailto');
+    if (e.target.closest('#hwContact [data-copy]')) fire('contact_copy');
+  }, true);
+
+  function disclosure(){
+    const foot = document.querySelector('.foot');
+    if (!foot || document.getElementById('hwPrivLink')) return;
+    const s = document.createElement('span');
+    s.innerHTML = '<a href="#" id="hwPrivLink" style="color:inherit;text-decoration:underline;text-underline-offset:2px">USAGE: ANONYMOUS ANALYTICS</a>';
+    foot.appendChild(s);
+    s.querySelector('a').onclick = function(ev){
+      ev.preventDefault();
+      alert('What HireWire counts (anonymous, cookieless, per-device random ID):\n' +
+            '• Which pages and tabs are opened\n' +
+            '• Which features are used (sync, pin, agent run, exports…)\n' +
+            '• Funnel stages — the stage name only\n\n' +
+            'What is NEVER collected:\n' +
+            '• Job titles, companies, searches, skills\n' +
+            '• Your CV, notes, contacts, or salary floor\n' +
+            '• Sponsor card clicks\n\n' +
+            'No cookies. No session recording. No data sold — ever.');
+    };
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', disclosure);
+  else disclosure();
+})();
 </script>
 </body>
 </html>
