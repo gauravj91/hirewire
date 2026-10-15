@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>How to Filter Jobs by Minimum Salary (Across Currencies) — HireWire Guide</title>
+<meta name="description" content="How HireWire’s salary floor works: set a minimum annual pay in one of 12 currencies, how postings in other currencies are converted, why the top of a pay range is compared, what happens to jobs with unstated pay, and hourly or monthly rates.">
+<link rel="canonical" href="https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="HireWire">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Filter jobs by minimum pay">
+<meta property="og:description" content="How HireWire’s salary floor works: set a minimum annual pay in one of 12 currencies, how postings in other currencies are converted, why the top of a pay range is compared, what happens to jobs with unstated pay, and hourly or monthly rates.">
+<meta property="og:url" content="https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html">
+<meta property="article:modified_time" content="2026-10-14">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Filter jobs by minimum pay">
+<meta name="twitter:description" content="How HireWire’s salary floor works: set a minimum annual pay in one of 12 currencies, how postings in other currencies are converted, why the top of a pay range is compared, what happens to jobs with unstated pay, and hourly or monthly rates.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How to filter jobs by minimum pay",
+ "description": "How HireWire’s salary floor works: set a minimum annual pay in one of 12 currencies, how postings in other currencies are converted, why the top of a pay range is compared, what happens to jobs with unstated pay, and hourly or monthly rates.",
+ "url": "https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html",
+ "mainEntityOfPage": "https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html",
+ "datePublished": "2026-10-14",
+ "dateModified": "2026-10-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "about": {
+  "@type": "WebApplication",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any modern browser",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  }
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "HireWire",
+   "item": "https://hirewire.fyi/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guide & FAQ",
+   "item": "https://hirewire.fyi/guide.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Filter jobs by minimum pay",
+   "item": "https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Does HireWire hide jobs that don’t list a salary?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only while the ≥ Floor toggle is on and you have set a floor. Turn the toggle off to see them. They lose 3 points in the match score."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which number in a salary range is compared to my floor?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The top of the range (the maximum), converted to USD alongside your floor. If only one figure is listed, that figure is used."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are exchange rates live?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. HireWire uses fixed approximate rates built into the app, so treat borderline results as approximate."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I set an hourly minimum?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. The floor is annual and pay periods aren’t converted. Hourly and most monthly figures are treated as unstated pay."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame">
+<header>
+  <div class="mast-top"><span>THE JOB WIRE — GUIDES &amp; FAQ</span> <span class="mast-links"><a href="/de/" hreflang="de" lang="de" title="Diese Seiten auf Deutsch">DEUTSCH</a> <a href="/">← BACK TO THE APP</a></span></div>
+  <div class="mast-main">
+    <a class="mast-name" href="/" aria-label="HireWire — open the app">HireWire<span class="dot">.</span></a>
+    <nav class="mast-nav" aria-label="Pages">
+<a href="/guide.html">Guide</a>
+<a href="/ghost-job-checker.html">Ghost check</a>
+<a href="/salary-checker.html">Salary check</a>
+<a href="/privacy.html">Privacy</a>
+<a href="/best-browser-job-tracker.html">Compare</a>
+<a class="btn red" href="/">Open HireWire</a>
+    </nav>
+  </div>
+  <div class="rule-double"></div>
+</header>
+<div class="page">
+<article id="main">
+<div class="kicker">Guide</div>
+<h1>How to filter jobs by minimum pay</h1>
+<p class="dek">Set one number, your salary floor, and HireWire filters and scores every posting against it, even when the posting is in a different currency. Here is exactly how it decides.</p>
+<p class="byline">HireWire · last reviewed 2026-10-14</p>
+
+<h2>Set your floor</h2>
+<ol>
+<li>In <b>Subscriber profile</b>, pick the <b>currency</b> your floor is in: USD, EUR, GBP, INR, CAD, AUD, JPY, BRL, PLN, SGD, ZAR or MXN.</li>
+<li>Enter your <b>salary floor (annual)</b>, for example <code>120k</code>, <code>95000</code> or <code>1.2m</code>.</li>
+<li>The <b>≥ Floor</b> toggle in the wire toolbar switches on. Postings that don’t clear the floor disappear from the list.</li>
+</ol>
+<p>In the console (press <b>`</b> or <b>Ctrl+K</b>) the same thing is <code>currency EUR</code> and <code>floor 85k</code>. Type <code>floor off</code> to clear it. <code>search rust --min=150k</code> searches and sets the floor in one step. Note that it also updates your saved floor.</p>
+
+<h2>How a posting is compared</h2>
+<p>HireWire compares the <b>top of the posting’s pay range</b> (its maximum, or its minimum if only one figure is given) with your floor. Both are converted to US dollars first.</p>
+<ul>
+<li>A role listed at <b>$90k–$130k</b> clears a <b>$120k</b> floor, because $130k ≥ $120k. The range shows the employer can reach your number. Whether they will is a negotiation.</li>
+<li>A role listed at <b>up to $110k</b> doesn’t clear it.</li>
+</ul>
+<p>In the match score, clearing the floor adds 12 points. Falling below it subtracts 18. The posting’s “Matches” or “Watch” notes say which applied.</p>
+
+<h2>Currency conversion</h2>
+<p>Conversion uses <b>fixed, rough exchange rates</b> built into the app (for example 1 EUR ≈ 1.09 USD and 1 GBP ≈ 1.27 USD), not live rates. That is fine for a floor, but don’t rely on it for borderline cases. If a role is within a few percent of your number, open it and check.</p>
+<p>A posting’s currency comes from its source:</p>
+<ul>
+<li><b>Adzuna</b> (with your key): the currency of the country you picked, such as GBP for the UK or EUR for Germany.</li>
+<li><b>Remotive, Jooble and HN “Who is hiring?”</b>: read from the salary text. $, €, £ and ₹ (or USD, EUR, GBP, INR) are recognised. A bare “$” is treated as US dollars, so a CAD or AUD salary written with “$” is read as USD.</li>
+<li><b>RemoteOK</b>: treated as USD.</li>
+</ul>
+<p>European formats such as <code>€75.000 – €95.000</code> are read correctly.</p>
+
+<h2>Postings with no stated pay</h2>
+<p>Many sources don’t publish pay in their feeds. That includes most company career boards (Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Personio, Recruitee) as well as Arbeitnow, Jobicy and We Work Remotely. These show <b>PAY N/A</b>.</p>
+<ul>
+<li>With <b>≥ Floor on</b>, postings with no stated pay are <b>hidden</b>, because HireWire can’t confirm they clear your floor.</li>
+<li>With <b>≥ Floor off</b>, they are shown and lose 3 points, with “pay unstated” in the Watch notes. Postings below your floor are shown too, minus 18.</li>
+</ul>
+<p class="note">Tip: if your list looks thin after setting a floor, switch ≥ Floor off. The floor still shapes the ranking, and good unpriced roles at companies you like stay visible.</p>
+
+<h2>Hourly, daily and monthly rates</h2>
+<p>The floor is <b>annual</b>, and HireWire doesn’t convert pay periods. When it reads pay from text, it ignores figures below 15,000 to avoid picking up hourly rates and stray numbers. So <code>$45/hour</code> or <code>€5,000/month</code> counts as <b>unstated</b>. A large monthly figure written with a “k” (for example <code>$20k/month</code>) could be read as an annual $20k. For contract work, turn ≥ Floor off and judge the rate yourself.</p>
+
+<h2>Related filters</h2>
+<ul>
+<li><b>Blocked locations</b> hide postings whose location matches, for example a country you can’t work from.</li>
+<li><b>Blocked keywords</b> push postings down 28 points each.</li>
+<li><b>Remote</b> limits the wire to remote roles. It is on by default.</li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>Does HireWire hide jobs that don’t list a salary?</summary><div><p>Only while the ≥ Floor toggle is on and you have set a floor. Turn the toggle off to see them. They lose 3 points in the match score.</p></div></details>
+<details><summary>Which number in a salary range is compared to my floor?</summary><div><p>The top of the range (the maximum), converted to USD alongside your floor. If only one figure is listed, that figure is used.</p></div></details>
+<details><summary>Are exchange rates live?</summary><div><p>No. HireWire uses fixed approximate rates built into the app, so treat borderline results as approximate.</p></div></details>
+<details><summary>Can I set an hourly minimum?</summary><div><p>No. The floor is annual and pay periods aren’t converted. Hourly and most monthly figures are treated as unstated pay.</p></div></details>
+</div>
+<div class="cta"><p><b>Open HireWire</b>Free, no account. Your profile, CV text and pipeline stay in this browser.</p><a class="btn red" href="/">Open HireWire →</a></div>
+<h2>Related</h2>
+<ul>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
+</ul>
+</article>
+<aside class="side" aria-label="More from HireWire">
+<a class="btn red" href="/">Open HireWire</a>
+<h2>Free tools</h2>
+<ul>
+<li><a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a></li>
+<li><a href="/salary-checker.html">Salary checker (free tool)</a></li>
+</ul>
+<h2>Guides</h2>
+<ul>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+<li><a href="/privacy.html">Privacy, in plain language</a></li>
+<li><a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><span aria-current="page"><b>Filter jobs by minimum pay</b></span></li>
+<li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
+<li><a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a></li>
+</ul>
+<h2>Comparisons</h2>
+<ul>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+<li><a href="/teal-alternative.html">Teal alternative</a></li>
+<li><a href="/jobscan-alternative.html">Jobscan alternative</a></li>
+<li><a href="/huntr-free-alternative.html">Free Huntr alternative</a></li>
+<li><a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a></li>
+<li><a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a></li>
+<li><a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a></li>
+</ul>
+<h2>Auf Deutsch</h2>
+<ul>
+<li><a href="/de/">HireWire auf Deutsch</a></li>
+<li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
+<li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
+</ul>
+</aside>
+</div>
+<footer class="foot">
+<nav aria-label="All pages">
+<a href="/">The app</a>
+<span class="fg">Free tools</span>
+<a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a>
+<a href="/salary-checker.html">Salary checker (free tool)</a>
+<span class="fg">Guides</span>
+<a href="/guide.html">Guide &amp; FAQ</a>
+<a href="/privacy.html">Privacy, in plain language</a>
+<a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a>
+<a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a>
+<a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a>
+<a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
+<a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
+<span class="fg">Comparisons</span>
+<a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
+<a href="/teal-alternative.html">Teal alternative</a>
+<a href="/jobscan-alternative.html">Jobscan alternative</a>
+<a href="/huntr-free-alternative.html">Free Huntr alternative</a>
+<a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a>
+<a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a>
+<a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a>
+<span class="fg">Deutsch</span>
+<a href="/de/" lang="de">HireWire auf Deutsch</a>
+<a href="/de/ghost-jobs-erkennen.html" lang="de">Ghost Jobs erkennen (Prüf-Tool)</a>
+<a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
+<a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
+<a href="/de/lebenslauf-ats-tipps.html" lang="de">Lebenslauf ATS-freundlich schreiben</a>
+<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a>
+<a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
+</nav>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-14; corrections welcome via the contact button in the app.</span>
+</footer>
+</div>
+</body>
+</html>
