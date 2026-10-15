@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>How to Move from JobsTracker to HireWire (Honest Migration Guide)</title>
+<meta name="description" content="Moving from JobsTracker (jobstracker.org) to HireWire: what JobsTracker’s JSON export contains, why HireWire can’t import it directly, how to keep your history in a CSV, and the advanced option of building a HireWire backup file.">
+<link rel="canonical" href="https://hirewire.fyi/guides/migrate-from-jobstracker.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="HireWire">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Move from JobsTracker to HireWire">
+<meta property="og:description" content="Moving from JobsTracker (jobstracker.org) to HireWire: what JobsTracker’s JSON export contains, why HireWire can’t import it directly, how to keep your history in a CSV, and the advanced option of building a HireWire backup file.">
+<meta property="og:url" content="https://hirewire.fyi/guides/migrate-from-jobstracker.html">
+<meta property="article:modified_time" content="2026-10-14">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Move from JobsTracker to HireWire">
+<meta name="twitter:description" content="Moving from JobsTracker (jobstracker.org) to HireWire: what JobsTracker’s JSON export contains, why HireWire can’t import it directly, how to keep your history in a CSV, and the advanced option of building a HireWire backup file.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How to move from JobsTracker to HireWire",
+ "description": "Moving from JobsTracker (jobstracker.org) to HireWire: what JobsTracker’s JSON export contains, why HireWire can’t import it directly, how to keep your history in a CSV, and the advanced option of building a HireWire backup file.",
+ "url": "https://hirewire.fyi/guides/migrate-from-jobstracker.html",
+ "mainEntityOfPage": "https://hirewire.fyi/guides/migrate-from-jobstracker.html",
+ "datePublished": "2026-10-14",
+ "dateModified": "2026-10-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "about": {
+  "@type": "WebApplication",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any modern browser",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  }
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "HireWire",
+   "item": "https://hirewire.fyi/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guide & FAQ",
+   "item": "https://hirewire.fyi/guide.html"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Move from JobsTracker to HireWire",
+   "item": "https://hirewire.fyi/guides/migrate-from-jobstracker.html"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Can HireWire import a JobsTracker backup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. HireWire’s Restore only accepts HireWire backup files, and HireWire has no import for other trackers. Keep your history as a CSV, or build a HireWire-format backup as described above."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Will restoring a backup merge with my existing HireWire data?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Restore replaces the pipeline, and the profile, people and saved searches if the file includes them. Back up first."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does HireWire keep my résumé like JobsTracker does?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. HireWire extracts skill keywords from pasted CV text and stores only the keywords."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame">
+<header>
+  <div class="mast-top"><span>THE JOB WIRE — GUIDES &amp; FAQ</span><span class="mast-links"><a href="/de/" hreflang="de" lang="de" title="Diese Seiten auf Deutsch">DEUTSCH</a><a href="/">← BACK TO THE APP</a></span></div>
+  <div class="mast-main">
+    <a class="mast-name" href="/" aria-label="HireWire — open the app">HireWire<span class="dot">.</span></a>
+    <nav class="mast-nav" aria-label="Pages">
+<a href="/guide.html">Guide</a>
+<a href="/ghost-job-checker.html">Ghost check</a>
+<a href="/salary-checker.html">Salary check</a>
+<a href="/privacy.html">Privacy</a>
+<a href="/best-browser-job-tracker.html">Compare</a>
+<a class="btn red" href="/">Open HireWire</a>
+    </nav>
+  </div>
+  <div class="rule-double"></div>
+</header>
+<div class="page">
+<article id="main">
+<div class="kicker">Guide</div>
+<h1>How to move from JobsTracker to HireWire</h1>
+<p class="dek">The honest version. There is no one-click import, because the two apps store different things. Here are the options that work, from simplest to most technical.</p>
+<p class="byline">HireWire · last reviewed 2026-10-14</p>
+
+<div class="tldr"><h2>Short answer</h2><ul>
+<li>Export your JobsTracker data first (<b>Export</b> gives a JSON backup).</li>
+<li>HireWire can’t import JobsTracker files. Its <b>Restore</b> only accepts HireWire backups, and it replaces your pipeline rather than merging.</li>
+<li>Recommended: keep your JobsTracker history as a <b>CSV</b>, and use HireWire for new roles from its feeds.</li>
+</ul></div>
+
+<h2>What each app stores</h2>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>JobsTracker export (<code>jobstracker-backup-*.json</code>)</th><th>HireWire backup (<code>hirewire-backup-*.json</code>)</th></tr></thead>
+<tbody>
+<tr><th>Top level</th><td><code>version</code>, <code>exportedAt</code>, <code>jobs</code>, <code>resume</code></td><td><code>app: "HireWire"</code>, <code>version: 2</code>, <code>exportedAt</code>, <code>profile</code>, <code>byok</code>, <code>board</code>, <code>savedSearches</code>, <code>starBank</code>, <code>people</code>, <code>settings</code></td></tr>
+<tr><th>Per application</th><td><code>company</code>, <code>link</code>, <code>dateAdded</code>, <code>status</code>, <code>notes</code>, <code>jdText</code>, <code>emailText</code>, fit data</td><td><code>job</code> (title, company, location, remote, tags, url, postedAt, description, salary fields, source), <code>status</code>, <code>note</code>, <code>at</code>, <code>contacts</code>, <code>log</code>, <code>comp</code>, <code>next</code>, <code>stageTs</code>, <code>appliedAt</code></td></tr>
+<tr><th>Job title</th><td>No separate field</td><td>Required</td></tr>
+<tr><th>Statuses</th><td>—, Applied, Interviewing, Offer, Respond, Closed, Ghosted</td><td>saved, applied, screen, interview, offer, archived</td></tr>
+</tbody></table></div>
+<p>Two things block a direct import. HireWire only restores files marked <code>"app": "HireWire"</code>. And HireWire normally only tracks postings from its own feeds, so it has no form for entering an outside application.</p>
+
+<h2>Option 1 (recommended): keep your history as a CSV</h2>
+<ol>
+<li>In JobsTracker, click <b>Export</b> to download the JSON backup. Keep it, since it is your full record.</li>
+<li>Convert it to a CSV you can open in any spreadsheet. With Python installed, save this as <code>jt2csv.py</code> and run <code>python3 jt2csv.py jobstracker-backup.json</code>:</li>
+</ol>
+<pre><code>import csv, json, sys
+data = json.load(open(sys.argv[1]))
+with open("jobstracker-history.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["Date added", "Company", "Status", "Link", "Notes"])
+    for j in data.get("jobs", []):
+        w.writerow([j.get("dateAdded", ""), j.get("company", ""),
+                    j.get("status", ""), j.get("link", ""), j.get("notes", "")])
+print("wrote jobstracker-history.csv")</code></pre>
+<ol start="3">
+<li>Open the CSV in Google Sheets, Excel or Numbers. Add a <b>Role</b> column (JobsTracker doesn’t store titles separately) and the columns from our <a href="/guides/bulk-import-recruiter-job-posts.html">recruiter posts guide</a> if you want follow-up dates.</li>
+<li>Open <a href="/">HireWire</a>, set your skills and salary floor, and pin new roles from the wire. If an active application of yours is on the wire (for example, it is posted on a Greenhouse or Lever board HireWire reads), pin it and set its stage. That carries it over properly.</li>
+</ol>
+
+<h2>Option 2 (advanced): build a HireWire backup file</h2>
+<p>Technically, a HireWire backup is plain JSON. A file shaped like the one below will restore, and its entries will appear on <b>My Board</b>. This is <b>not an official import</b>, so be aware of the limits:</p>
+<ul>
+<li><b>Restore replaces</b> your existing HireWire pipeline (and profile, people and saved searches, if those keys are present). Back up HireWire first, or merge entries into your existing backup’s <code>board</code> array.</li>
+<li>Imported entries have no feed source, so they won’t refresh and some features (full-description fetch, source yield) won’t do anything useful for them.</li>
+<li>Entries in <i>applied</i> or <i>screen</i> whose <code>at</code> date is more than 14 days old will show as “quiet” straight away.</li>
+</ul>
+<pre><code>{
+  "app": "HireWire",
+  "version": 2,
+  "board": [
+    {
+      "id": "import:jt:1",
+      "status": "applied",
+      "note": "Imported from JobsTracker",
+      "at": 1767225600000,
+      "job": {
+        "id": "import:jt:1", "source": "import",
+        "title": "Backend Engineer", "company": "Acme Corp",
+        "location": "—", "remote": "onsite", "tags": [],
+        "url": "https://example.com/job", "postedAt": 1767225600000,
+        "description": "", "salaryMin": null, "salaryMax": null,
+        "currency": "USD", "salaryText": ""
+      },
+      "contacts": [], "log": [], "next": null,
+      "stageTs": { "applied": 1767225600000 }, "appliedAt": 1767225600000
+    }
+  ]
+}</code></pre>
+<p>Dates are milliseconds since 1970 (UTC). Status mapping that fits most cases: Applied → <code>applied</code>, Interviewing → <code>interview</code>, Offer → <code>offer</code>, Respond → <code>screen</code>, Closed or Ghosted → <code>archived</code>, “—” → <code>saved</code>. A <code>title</code> and <code>company</code> are required on every <code>job</code>.</p>
+<p>Restore the file with <b>Restore…</b> in the sidebar, or by dropping it on the page.</p>
+
+<h2>Before you delete JobsTracker data</h2>
+<p>Keep the original JobsTracker JSON. It holds pasted job descriptions, recruiter emails and your résumé text, none of which HireWire can store per application. JobsTracker exports are unencrypted even if you used its passphrase feature, so store the file somewhere private.</p>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>Can HireWire import a JobsTracker backup?</summary><div><p>No. HireWire’s Restore only accepts HireWire backup files, and HireWire has no import for other trackers. Keep your history as a CSV, or build a HireWire-format backup as described above.</p></div></details>
+<details><summary>Will restoring a backup merge with my existing HireWire data?</summary><div><p>No. Restore replaces the pipeline, and the profile, people and saved searches if the file includes them. Back up first.</p></div></details>
+<details><summary>Does HireWire keep my résumé like JobsTracker does?</summary><div><p>No. HireWire extracts skill keywords from pasted CV text and stores only the keywords.</p></div></details>
+</div>
+<div class="cta"><p><b>Open HireWire</b>Free, no account. Your profile, CV text and pipeline stay in this browser.</p><a class="btn red" href="/">Open HireWire →</a></div>
+<h2>Related</h2>
+<ul>
+<li><a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/privacy.html">Privacy, in plain language</a></li>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+</ul>
+</article>
+<aside class="side" aria-label="More from HireWire">
+<a class="btn red" href="/">Open HireWire</a>
+<h2>Free tools</h2>
+<ul>
+<li><a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a></li>
+<li><a href="/salary-checker.html">Salary checker (free tool)</a></li>
+</ul>
+<h2>Guides</h2>
+<ul>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+<li><a href="/privacy.html">Privacy, in plain language</a></li>
+<li><a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a></li>
+<li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
+<li><span aria-current="page"><b>Move from JobsTracker to HireWire</b></span></li>
+</ul>
+<h2>Comparisons</h2>
+<ul>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+<li><a href="/teal-alternative.html">Teal alternative</a></li>
+<li><a href="/jobscan-alternative.html">Jobscan alternative</a></li>
+<li><a href="/huntr-free-alternative.html">Free Huntr alternative</a></li>
+<li><a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a></li>
+<li><a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a></li>
+<li><a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a></li>
+</ul>
+<h2>Auf Deutsch</h2>
+<ul>
+<li><a href="/de/">HireWire auf Deutsch</a></li>
+<li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
+<li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
+</ul>
+</aside>
+</div>
+<footer class="foot">
+<nav aria-label="All pages">
+<a href="/">The app</a>
+<span class="fg">Free tools</span>
+<a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a>
+<a href="/salary-checker.html">Salary checker (free tool)</a>
+<span class="fg">Guides</span>
+<a href="/guide.html">Guide &amp; FAQ</a>
+<a href="/privacy.html">Privacy, in plain language</a>
+<a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a>
+<a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a>
+<a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a>
+<a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
+<a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
+<span class="fg">Comparisons</span>
+<a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
+<a href="/teal-alternative.html">Teal alternative</a>
+<a href="/jobscan-alternative.html">Jobscan alternative</a>
+<a href="/huntr-free-alternative.html">Free Huntr alternative</a>
+<a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a>
+<a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a>
+<a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a>
+<span class="fg">Deutsch</span>
+<a href="/de/" lang="de">HireWire auf Deutsch</a>
+<a href="/de/ghost-jobs-erkennen.html" lang="de">Ghost Jobs erkennen (Prüf-Tool)</a>
+<a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
+<a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
+<a href="/de/lebenslauf-ats-tipps.html" lang="de">Lebenslauf ATS-freundlich schreiben</a>
+<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a>
+<a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
+</nav>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-14; corrections welcome via the contact button in the app.</span>
+</footer>
+</div>
+</body>
+</html>
