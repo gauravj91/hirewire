@@ -1,9 +1,53 @@
 # HireWire
-> Free, privacy-first job-search tool that aggregates 38+ public job feeds,
-> scores postings against the user's own profile, and tracks the application
-> pipeline. Runs entirely in the browser — no account, no server-side data,
-> CV never uploaded anywhere.
+> Free, privacy-first job-search tool at https://hirewire.fyi. It aggregates 55 public job feeds,
+> scores postings against the user's own profile, and tracks the application pipeline.
+> Runs entirely in the browser: no account, no server-side user data, CV text stays in the browser unless the user asks for an optional AI feature (fit score or AI writing).
+
+## Key facts
+- Price: free. No account or sign-up. Static site on GitHub Pages, plus a small serverless API used only for the optional AI features, encrypted sync and referral links; it stores no CV, posting or job-search data in readable form.
+- Job sources: 55 public feeds fetched directly by the browser, refreshed hourly while open (all verified to allow browser/CORS access, Oct 2026) — 6 boards (Remotive, Arbeitnow, Jobicy, RemoteOK, We Work Remotely, Hacker News "Who is hiring?") + 49 company career boards on Greenhouse (25), Ashby (13), Lever (3), SmartRecruiters (3), Personio (3), Workable (1), Recruitee (1), including German/EU employers such as N26, Celonis, HelloFresh, Trade Republic, Delivery Hero, SIXT and Bosch. Optional bring-your-own-key Adzuna (13 countries) and Jooble.
+- Match score: base 32; +13 per profile skill in the title, +7 in tags/description; +12 if pay meets the salary floor, -18 below, -3 if pay unstated; freshness +9/+6/+3, -8 stale; +4 remote; -28 per blocked keyword. Blocked locations are hidden.
+- Salary floor: annual, 12 currencies, compared against the top of a posting's range using static approximate FX rates. With the "≥ Floor" toggle on, postings without stated pay are hidden. Hourly/monthly rates are not converted.
+- CV: pasted text, skills extracted in-browser from a ~210-term lexicon; the text itself is not stored.
+- Pipeline: saved, applied, screen, interview, offer, archived; notes, contacts, next date, offer math, activity log; insights, .ics export, weekly digest; People (referral) ledger; Tailor gap analysis.
+- Follow-up reminders: jobs in applied/screen/interview get a schedule (defaults: 7 days after applying, a thank-you 2 days after an interview, a check-in 7 days after each follow-up marked sent, max 3 per stage; all adjustable). Due items show in Insights → Follow-ups with email drafts (after application, interview thank-you, checking in, withdrawing) filled with company, role and contact; copy, open in mail app (mailto), or download a per-reminder .ics. Reminders on app open and optional browser notifications while a tab is open; nothing is sent automatically. Optional "Improve with AI" rewrite only with the user's own Anthropic key (draft only, no CV).
+- Ghost-job risk: each posting gets a Low/Medium/High heuristic risk with reasons (age 30/45/60+ days, reposted or re-dated, same title in many locations, talent-pool/evergreen wording, very short or vague text, no salary, company unnamed, ATS says closed). A "Hide ghosts" filter hides High. Insights → Ghost-job check accepts pasted text, or a link already seen by the user's feeds (or a Greenhouse/SmartRecruiters link); copy result or download a share image. It is a risk signal, not proof.
+- Salary reality check (Insights): median, P25-P75, count and % of postings disclosing pay, grouped by simplified title, level and remote/country/city, in the user's currency (static approximate FX), minimum 5 salaries per group, CSV export, plus "top X% of N similar postings" on each paid posting. Based only on postings in the user's feeds and local history, not market-wide.
+- Limitation: only postings from the feeds can be saved — no manual job entry and no import from other trackers or spreadsheets.
+- Agent brief: Markdown/JSON/CSV export of profile + scored shortlist for Claude Code, Cursor or Codex CLI; paste-back of results. Optional AI fit score: Claude rates the CV against a posting 0-10 with ranked fixes; 3 free, then a one-time Job Search Pass (EUR 9 for 7 days, EUR 19 for 30 days) or free with the user's own Anthropic key. CV processed per request, not stored.
+- Storage: browser localStorage mirrored to IndexedDB ("hirewire-kv"), including a compact local history of seen postings (max 2,000, 180-day expiry) used for repost detection and salary history. One-file JSON backup/restore (restore replaces data). Safari may purge site data after 7 days without a visit — keep backups.
+- Optional paid features (one-time passes via Stripe, no subscription, no account): Pass Plus (EUR 29 for 30 days) adds "Write with AI" per posting — cover letter, interview prep, tailored CV draft, negotiation script; .docx/PDF export made in the browser; also free with the user's own Anthropic key; CV + posting sent only on click, not stored. Encrypted sync is included with any pass: data encrypted on the device with AES-256-GCM under a 256-bit recovery code only the user holds; the server stores only ciphertext, a hash-derived sync ID, revision and timestamp, deleted 180 days after the last upload or on request.
+- Referral links (hirewire.fyi/?ref=…): a friend gets 3 free AI fit scores, the referrer 3 per friend (up to 10); code derived from a random device ID, server keeps counts only.
+- Installable web app (PWA): app files cached for offline use; opt-in notifications generated by the browser itself (no push server). Also: onboarding, a daily "New for you" card, weekly goal and report, offer comparison, negotiation helper and Career mode after an offer is accepted.
+- Free tool pages (no analytics, nothing uploaded): Ghost job checker (/ghost-job-checker.html; German: /de/ghost-jobs-erkennen.html) runs the app's own text heuristics in the page on pasted posting text, plus an optional "posted N days ago"; result as text or a 1200x630 share PNG. Salary checker (/salary-checker.html) fetches live public remote postings from Remotive and RemoteOK in the browser and shows median / P25-P75 by simplified role and level (minimum 5 salaries); a snapshot of postings, not market-wide pay.
+- Chrome extension "HireWire — Score this job" for LinkedIn, Indeed and StepStone (AI fit score + save to the tracker): built, not yet published in the Chrome Web Store.
+- Analytics (app page only): PostHog, cookieless, autocapture/pageviews/session recording off, named feature events only (no job titles, searches, skills, CV, notes or salary); skipped when Do Not Track is on. Guide, tool and German pages load no analytics.
+- Sponsors: hand-sold, plain links, no click tracking.
 
 ## Pages
-- [Guide & FAQ](https://hirewire.fyi/guide.html): how it works, who it's for, comparison vs spreadsheets, privacy model
 - [App](https://hirewire.fyi/): the tool itself (requires JavaScript)
+- [Guide & FAQ](https://hirewire.fyi/guide.html): how it works, who it's for, comparison vs spreadsheets, privacy model
+- [Privacy](https://hirewire.fyi/privacy.html): plain-language answer to "is this browser job tracker private" — what stays local, every third party contacted, exactly what analytics collects, backups
+- [Best free browser-based job tracker](https://hirewire.fyi/best-browser-job-tracker.html): criteria and an honest comparison of HireWire, JobsTracker, Huntr, Teal and spreadsheets
+- [Are free job trackers safe?](https://hirewire.fyi/are-free-job-trackers-safe.html): 10-point privacy checklist for any job tracker
+- [Job tracker vs spreadsheet](https://hirewire.fyi/job-tracker-vs-spreadsheet.html): when a local app beats a spreadsheet, and when to use both
+- [HireWire vs JobsTracker (jobstracker.org)](https://hirewire.fyi/hirewire-vs-jobstracker.html): two local-first, no-account trackers compared
+- [HireWire vs JobsTracker (jobstracker.app)](https://hirewire.fyi/hirewire-vs-jobstracker-app.html): the AI-powered JobsTracker from Product Hunt; what is and isn't verifiable
+- [HireWire vs Huntr](https://hirewire.fyi/hirewire-vs-huntr.html): privacy-focused, no-account Huntr alternative; pricing, account and data compared
+- [Ghost job checker](https://hirewire.fyi/ghost-job-checker.html): free tool, paste a posting and get a Low/Medium/High ghost-job risk with reasons; runs in the browser
+- [Salary checker](https://hirewire.fyi/salary-checker.html): free tool, advertised pay in live public remote postings (Remotive, RemoteOK) by role and level; not market-wide
+- [Teal alternative](https://hirewire.fyi/teal-alternative.html): HireWire vs Teal (pricing, account, data location, features), checked 2026-10-15
+- [Jobscan alternative](https://hirewire.fyi/jobscan-alternative.html): one-time AI fit score vs Jobscan's subscription résumé scanner, checked 2026-10-15
+- [Free Huntr alternative](https://hirewire.fyi/huntr-free-alternative.html): no 100-job limit, no account; what you lose vs Huntr, checked 2026-10-15
+- [Filter jobs by minimum pay](https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html): how the salary floor, currency conversion and unstated pay work
+- [Bulk-organise recruiter job posts](https://hirewire.fyi/guides/bulk-import-recruiter-job-posts.html): one-row-per-role spreadsheet template, de-duplication, when to bulk import
+- [Move from JobsTracker to HireWire](https://hirewire.fyi/guides/migrate-from-jobstracker.html): honest migration path — CSV history, or an advanced HireWire-format backup file
+
+## Deutsch (German section)
+- [HireWire auf Deutsch](https://hirewire.fyi/de/): "Jobsuche ohne Datenkrake" — what HireWire does and doesn't do, in German (the app UI itself is English)
+- [Ghost Jobs erkennen](https://hirewire.fyi/de/ghost-jobs-erkennen.html): German ghost-job checker (same heuristics; reasons shown in German)
+- [Bewerbungstracker kostenlos](https://hirewire.fyi/de/bewerbungstracker-kostenlos.html): free application-tracker options compared (spreadsheet, HireWire, Huntr, Teal)
+- [Bewerbungen verwalten: Excel-Vorlage](https://hirewire.fyi/de/bewerbungen-verwalten-excel-vorlage.html): free XLSX/CSV application-tracker template (no macros, no sign-up)
+- [Jobs auf StepStone, Indeed & LinkedIn bewerten](https://hirewire.fyi/de/stepstone-indeed-linkedin-jobs-bewerten.html): checklist for judging a posting; the browser extension (coming soon)
+- [Lebenslauf ATS-freundlich schreiben](https://hirewire.fyi/de/lebenslauf-ats-tipps.html): 12 practical ATS tips for German CVs, no invented statistics
+- [Datenschutz (Kurzfassung)](https://hirewire.fyi/de/datenschutz.html): German privacy summary; the English privacy page governs

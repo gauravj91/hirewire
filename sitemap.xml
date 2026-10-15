@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://hirewire.fyi/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://hirewire.fyi/guide.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://hirewire.fyi/</loc><lastmod>2026-10-15</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hirewire.fyi/guide.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hirewire.fyi/privacy.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/privacy.html"/>
+  </url>
+  <url><loc>https://hirewire.fyi/ghost-job-checker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/ghost-job-checker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/ghost-jobs-erkennen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/ghost-job-checker.html"/>
+  </url>
+  <url><loc>https://hirewire.fyi/salary-checker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hirewire.fyi/best-browser-job-tracker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hirewire.fyi/are-free-job-trackers-safe.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/job-tracker-vs-spreadsheet.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/hirewire-vs-jobstracker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/hirewire-vs-jobstracker-app.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/hirewire-vs-huntr.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/huntr-free-alternative.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/teal-alternative.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/jobscan-alternative.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hirewire.fyi/guides/bulk-import-recruiter-job-posts.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hirewire.fyi/guides/migrate-from-jobstracker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hirewire.fyi/de/</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hirewire.fyi/de/bewerbungstracker-kostenlos.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/de/bewerbungen-verwalten-excel-vorlage.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/de/ghost-jobs-erkennen.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/ghost-job-checker.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/ghost-jobs-erkennen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/ghost-job-checker.html"/>
+  </url>
+  <url><loc>https://hirewire.fyi/de/stepstone-indeed-linkedin-jobs-bewerten.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/de/lebenslauf-ats-tipps.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hirewire.fyi/de/datenschutz.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/datenschutz.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/privacy.html"/>
+  </url>
 </urlset>

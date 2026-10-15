@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Is HireWire Private? What Stays in Your Browser and What Doesn’t</title>
+<meta name="description" content="Plain-language privacy for HireWire, the browser-based job tracker: no account, your data stays in local browser storage, exactly what the optional cookieless analytics counts, which third parties your browser contacts, and how to back up before Safari’s 7-day purge.">
+<link rel="canonical" href="https://hirewire.fyi/privacy.html">
+<link rel="alternate" hreflang="en" href="https://hirewire.fyi/privacy.html">
+<link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/datenschutz.html">
+<link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="HireWire">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="HireWire privacy, in plain language">
+<meta property="og:description" content="Plain-language privacy for HireWire, the browser-based job tracker: no account, your data stays in local browser storage, exactly what the optional cookieless analytics counts, which third parties your browser contacts, and how to back up before Safari’s 7-day purge.">
+<meta property="og:url" content="https://hirewire.fyi/privacy.html">
+<meta property="article:modified_time" content="2026-10-15">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HireWire privacy, in plain language">
+<meta name="twitter:description" content="Plain-language privacy for HireWire, the browser-based job tracker: no account, your data stays in local browser storage, exactly what the optional cookieless analytics counts, which third parties your browser contacts, and how to back up before Safari’s 7-day purge.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Is this browser job tracker private?",
+ "description": "Plain-language privacy for HireWire, the browser-based job tracker: no account, your data stays in local browser storage, exactly what the optional cookieless analytics counts, which third parties your browser contacts, and how to back up before Safari’s 7-day purge.",
+ "url": "https://hirewire.fyi/privacy.html",
+ "mainEntityOfPage": "https://hirewire.fyi/privacy.html",
+ "datePublished": "2026-10-15",
+ "dateModified": "2026-10-15",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "about": {
+  "@type": "WebApplication",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any modern browser",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  }
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "HireWire",
+   "item": "https://hirewire.fyi/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Privacy, in plain language",
+   "item": "https://hirewire.fyi/privacy.html"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is HireWire private?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Your job-search data stays in your browser. The exceptions are the optional AI features: when you press Score, your CV text and that posting are sent for that one request and are not stored, and if you use your own Anthropic key, Improve with AI sends a follow-up email draft straight to Anthropic. The app page also sends cookieless feature-usage events to PostHog unless your browser sends Do Not Track, and your browser contacts the public job feeds directly."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does HireWire use cookies?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. HireWire sets no cookies. Analytics uses a random ID stored in localStorage."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can the HireWire developer see my applications?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Applications, notes and contacts are stored only in your browser. They are never sent anywhere unless you put them in a backup file or a brief yourself and share it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do I turn analytics off?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Enable Do Not Track in your browser settings. The analytics code checks it and doesn’t load. A content blocker that blocks PostHog works too."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is my CV sent to an AI?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only if you press “Score with AI” on a posting. Then your CV text and that one posting are sent over HTTPS to HireWire’s scoring function and on to Anthropic’s Claude API for that request. HireWire does not store or log them. If you add your own Anthropic key, they go straight from your browser to Anthropic instead. Skill extraction is still keyword matching inside the page."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame">
+<header>
+  <div class="mast-top"><span>THE JOB WIRE — GUIDES &amp; FAQ</span><span class="mast-links"><a href="/de/datenschutz.html" hreflang="de" lang="de" title="Diese Seiten auf Deutsch">DEUTSCH</a><a href="/">← BACK TO THE APP</a></span></div>
+  <div class="mast-main">
+    <a class="mast-name" href="/" aria-label="HireWire — open the app">HireWire<span class="dot">.</span></a>
+    <nav class="mast-nav" aria-label="Pages">
+<a href="/guide.html">Guide</a>
+<a href="/ghost-job-checker.html">Ghost check</a>
+<a href="/salary-checker.html">Salary check</a>
+<a href="/privacy.html" aria-current="page">Privacy</a>
+<a href="/best-browser-job-tracker.html">Compare</a>
+<a class="btn red" href="/">Open HireWire</a>
+    </nav>
+  </div>
+  <div class="rule-double"></div>
+</header>
+<div class="page">
+<article id="main">
+<div class="kicker">Privacy</div>
+<h1>Is this browser job tracker private?</h1>
+<p class="dek">Mostly, yes, and here is exactly where it isn’t. This page describes what the code at hirewire.fyi does, not marketing promises.</p>
+<p class="byline">HireWire · last reviewed 2026-10-15</p>
+
+<div class="tldr"><h2>The short answer</h2><ul>
+<li><b>No account.</b> HireWire has no sign-up, no login and no user database.</li>
+<li><b>Your job search stays on your device.</b> Profile, skills, salary floor, pipeline, notes, contacts and API keys are kept in this browser’s storage.</li>
+<li><b>Your CV is only sent if you ask for an AI fit score.</b> Skill extraction runs inside the page and the pasted text isn’t saved. The optional <a href="#ai-fit-score">AI fit score</a> sends your CV and one posting to Anthropic’s Claude for that single request; HireWire doesn’t store or log them.</li>
+<li><b>Paid passes go through Stripe.</b> HireWire never sees your card and keeps no customer database: your pass lives in your browser.</li>
+<li><b>There is optional usage analytics</b> on the app page (PostHog). It is cookieless, counts which features are used, and is switched off if your browser sends Do Not Track.</li>
+<li><b>Back up.</b> Clearing site data, or Safari’s 7-day rule, can wipe your local data. One JSON file restores everything.</li>
+<li><b>The free tools</b> (ghost-job checker, salary checker) run in the page. The Chrome extension reads a job page only when you click its button.</li>
+<li><b>Optional extras:</b> AI writing (Pass Plus) sends your CV only when you press Generate. Encrypted sync uploads only data encrypted on your device with a key HireWire never sees.</li>
+</ul></div>
+
+<h2>What stays on your device</h2>
+<p>The app saves its state under <code>hirewire.*</code> keys in <b>localStorage</b> and mirrors them to an <b>IndexedDB</b> database named <code>hirewire-kv</code>. If localStorage is wiped, the app restores from that mirror. After you save your first job, it also asks the browser for persistent storage, which gives some protection against automatic clean-up. Stored on this device:</p>
+<ul>
+<li>your name (used only in drafted emails and briefs), skills, salary floor and currency, and blocked keywords and locations</li>
+<li>your pipeline: saved postings, stages, notes, contacts, next dates, offer figures and the activity log</li>
+<li>the People ledger, saved searches and STAR stories</li>
+<li>your weekly goal, which days you opened HireWire (for the streak), your target role and city from onboarding, career-mode and offer-comparison settings, and a random device ID used only for referral links</li>
+<li>Adzuna and Jooble API keys, if you add them</li>
+<li>a cache of the latest wire, so the page opens instantly</li>
+<li>a compact history of postings your feeds have shown (company, title, location, dates, pay and link; at most 2,000, each dropped after 180 days unseen). It powers the ghost-job risk and the salary reality check, and you can clear it in Insights → Ghost-job check</li>
+<li>follow-up dates, your follow-up schedule settings, and whether you turned on follow-up notifications (those are shown by your own browser; nothing is sent anywhere)</li>
+<li>for the AI fit score: how many free scores you have used, your Job Search Pass (a signed token and its pass ID), your own Anthropic API key if you add one, the scores you received, and your CV text <i>only</i> if you tick “keep my CV” (the sidebar has a “forget it” link)</li>
+</ul>
+<p>None of this is sent to HireWire. The app is static files on GitHub Pages. The one exception is the optional <a href="#ai-fit-score">AI fit score</a>, which uses a small scoring function and only receives what is listed below.</p>
+<p>Three newer optional features also talk to HireWire’s API, only when you use them: <a href="#pass-plus">Pass Plus AI writing</a> (your CV and one posting, not stored), <a href="#sync">encrypted sync</a> (data encrypted on your device, which HireWire can’t read) and <a href="#referrals">referral links</a> (counts only).</p>
+
+<h2>Who your browser does talk to</h2>
+<p>“Local-first” doesn’t mean “no network”. Here is every third party the app page contacts:</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Who</th><th>When</th><th>What they receive</th></tr></thead>
+<tbody>
+<tr><th>Job feeds (Remotive, Arbeitnow, Jobicy, RemoteOK, We Work Remotely, the Hacker News search API, and the Greenhouse, Lever, Ashby, Workable, SmartRecruiters, Personio and Recruitee APIs)</th><td>On load and hourly</td><td>A normal request for their public job list: your IP address and browser details. No profile data.</td></tr>
+<tr><th>Greenhouse, Workable, SmartRecruiters</th><td>When you open a posting from them, or paste a Greenhouse or SmartRecruiters link into the Ghost-job check</td><td>A request for that posting’s full description</td></tr>
+<tr><th>Adzuna / Jooble (only if you add a key)</th><td>On sync</td><td>Your API key and the search keywords (and, for Jooble, the location) you entered</td></tr>
+<tr><th>Google Fonts</th><td>On load</td><td>The font request (IP address, browser)</td></tr>
+<tr><th>PostHog (analytics, US host)</th><td>See below</td><td>Named feature events</td></tr>
+<tr><th>HireWire scoring function (hosted on Vercel)</th><td>Only when you press Score with AI, buy or restore a pass (not used in own-key mode)</td><td>Your CV text, the posting’s title, company and description, your pass token if you have one, and your IP address. Processed and passed on, never stored or logged</td></tr>
+<tr><th>Anthropic (Claude API)</th><td>When you press Score with AI, or Improve with AI on a follow-up email (own key only)</td><td>Your CV text and the posting, forwarded by the scoring function, or sent directly from your browser if you use your own key. Improve with AI sends only that email draft (no CV), directly from your browser with your own key</td></tr>
+<tr><th>Stripe</th><td>Only if you buy a pass</td><td>What you enter on Stripe’s checkout page (card, email). HireWire only gets back the payment status and which pass you bought</td></tr>
+<tr><th>Web3Forms</th><td>Only if you press Send in the Contact dialog</td><td>Your message, plus optional counts (cached postings, saved jobs)</td></tr>
+</tbody></table></div>
+<p>The page sets <code>referrer</code> to <code>no-referrer</code>, so the job sites you click through to aren’t told you came from HireWire.</p>
+
+<h2>Exactly what the analytics collects</h2>
+<p>The app page includes a PostHog snippet configured with autocapture off, automatic pageviews off, session recording off, surveys off and performance capture off. It stores a random per-device ID in localStorage, not in a cookie. It doesn’t run at all if your browser sends <b>Do Not Track</b>, or if the page is opened from a local file.</p>
+<p><b>Events it sends:</b> a <code>page_load</code> event (with whether storage is available), which tab you open, which named buttons you use (sync, pin, run agent, copy brief, export with its format, backup, restore, extract skills, add or remove a key, open the console, and similar), the <i>name</i> of a pipeline stage when you change one, whether you used the contact dialog, AI fit score button names (score, rescore, copy a rewrite, open passes, start checkout, restore a pass, add or remove your own key), and button names for the ghost-job check, salary CSV and follow-ups (for example “check”, “copy”, “mark sent”, which Insights section you open). Never the job, the salary figures or the email text.</p>
+<p><b>Never sent to the analytics by HireWire’s code:</b> job titles, companies, search text, skills, CV text, fit scores or fix text, notes, contacts, salary floor, API keys, pass IDs, or sponsor clicks.</p>
+<p>Newer features add more event <i>names</i> of the same kind, for example onboarding step, install, notifications on, sync on or restored, referral shared or claimed, AI writing used, career mode on, and paywall shown. Page addresses are stripped of query strings and <code>#</code> fragments before they are sent, so referral codes, payment session IDs and jobs saved from the extension never reach the analytics.</p>
+<p class="note">To be precise: like any web request, PostHog sees your IP address, and its library attaches standard metadata such as browser, operating system, screen size and the page URL. PostHog can estimate a rough location from the IP. If you don’t want any of this, turn on Do Not Track in your browser or use a content blocker. The app works the same either way.</p>
+<p>These guide pages (everything outside the app) load no analytics at all.</p>
+
+<h2 id="ai-fit-score">The optional AI fit score</h2>
+<p>Inside any posting you can press <b>Score with AI</b>. Claude (Anthropic’s model) rates your CV against that posting from 0 to 10 and lists the fixes that would raise the score. Nothing is sent until you press the button. This is what happens to your data when you do:</p>
+<ol>
+<li>Your browser sends your CV text and the posting’s title, company and description over HTTPS to HireWire’s scoring function (a serverless function on Vercel). A free score sends nothing else; with a pass it also sends your pass token.</li>
+<li>The function checks the size limits and your pass or free allowance, forwards the CV and posting to Anthropic’s Claude API, checks the answer, and returns it. It does not write your CV or the posting to a database, a file or its logs. Its own log lines only hold error codes such as “upstream busy”. Like any web host, Vercel records that a request happened (time, path, status code, IP address), not what was in it.</li>
+<li>Your browser shows the result and keeps it in this browser, so reopening the posting costs nothing.</li>
+</ol>
+<p><b>Counters, not content.</b> To enforce the free allowance (5 a day per network on the server, on top of 3 per browser) and a fair-use limit on passes, the function may count requests per day in a small Redis store. The key is a keyed hash of your IP address or the end of your pass ID, never the raw IP, and it expires after 2 days.</p>
+<p><b>Anthropic.</b> Anthropic processes the request under its commercial API terms. Its <a href="https://docs.anthropic.com/en/docs/manage-claude/api-and-data-retention" rel="noopener">API data-retention documentation</a> says API data isn’t used to train models without permission and that prompts and outputs aren’t retained by default for the model HireWire uses. Content flagged by its safety systems, or held for legal reasons, can be kept longer (up to 2 years).</p>
+<p><b>Your own key.</b> If you paste your own Anthropic API key, scores go straight from your browser to Anthropic and HireWire’s function isn’t involved. The key is stored in this browser’s localStorage, so anyone with access to this browser profile could read it. Use a key with a spending limit and remove it from shared computers.</p>
+<p><b>Payments.</b> Job Search Passes (7 or 30 days, one-time) are paid on Stripe’s checkout page. HireWire has no accounts. After payment it checks with Stripe that the session is paid and gives your browser a signed pass token. The pass ID shown after purchase lets you restore the pass on another device, so treat it like a licence key.</p>
+<p class="note">The AI can be wrong. Its suggested rewrites only re-word what your CV already says and mark numbers you must fill in, but always check that a rewrite is true for you before you use it.</p>
+<h2>Sponsors</h2>
+<p>Sponsor slots are hand-sold plain links (<code>rel="sponsored noopener noreferrer"</code>). Clicks aren’t counted, and the sponsor learns nothing about you.</p>
+
+<h2 id="free-tools">The free tool pages</h2>
+<p><b>Ghost-job checker</b> (<a href="/ghost-job-checker.html">English</a>, <a href="/de/ghost-jobs-erkennen.html" lang="de">Deutsch</a>): the posting text you paste is checked by JavaScript inside the page. It isn’t sent anywhere or saved. Copy result and the share image are made in your browser.</p>
+<p><b>Salary checker</b> (<a href="/salary-checker.html">/salary-checker.html</a>): when you press the button, your browser requests the public job lists of Remotive (with the role you typed as a search term) and RemoteOK. They see your IP address and browser details, like any website. Nothing is sent to HireWire and nothing is stored.</p>
+<p><b>Spreadsheet template</b> (<a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">German page</a>): a static file download. No email address or sign-up.</p>
+<p>Like all pages outside the app, these load no analytics. They do load fonts from Google Fonts.</p>
+
+<h2 id="browser-extension">The HireWire Chrome extension</h2>
+<p class="note"><span class="soon">Not yet published</span> The extension is built but not yet in the Chrome Web Store. This section describes exactly what it does once it is.</p>
+<p>The optional extension <b>“HireWire — Score this job”</b> adds a small <i>Score on HireWire</i> button to job postings on LinkedIn, Indeed and StepStone. It does two things, and only when you click: it gives that posting an AI fit score against your CV, and it can save the posting to your HireWire tracker.</p>
+<p><b>What it reads from job sites.</b> Nothing until you click the button. Then it reads only the posting you are looking at: its title, company, location, salary (if shown), description and web address. It doesn’t read other pages, your profile, messages or search history, doesn’t run in the background, and makes no requests to LinkedIn, Indeed or StepStone.</p>
+<p><b>Where your CV goes.</b> You paste your CV in the extension’s own settings page, never into the job site. By default it is kept only until you close the browser (<code>chrome.storage.session</code>). If you tick <i>Remember my CV</i>, it is saved in your browser’s extension storage on this device (<code>chrome.storage.local</code>) until you press <i>Forget CV</i> or remove the extension. Your CV is sent only when you press <i>Score</i>: together with the posting’s title, company and description it goes over HTTPS to HireWire’s scoring function and on to Anthropic (Claude) for that one request, exactly as described in <a href="#ai-fit-score">The optional AI fit score</a>. It is not stored on any server. If you add your own Anthropic API key, the CV and posting go straight from your browser to Anthropic and HireWire’s function isn’t involved.</p>
+<p><b>What the extension stores on your device</b> (browser extension storage, never synced to HireWire):</p>
+<ul>
+<li>the number of free scores used (3 are free),</li>
+<li>your Job Search Pass token, plan, expiry and pass ID, if you bought or restored one,</li>
+<li>your Anthropic API key, if you added one (anyone with access to this browser profile could read it; use a key with a spending limit),</li>
+<li>your CV, only if you ticked <i>Remember</i> (otherwise only until the browser closes),</li>
+<li>the last 50 scores (score, verdict and fixes, the job’s web address; not your CV).</li>
+</ul>
+<p>Removing the extension deletes all of it.</p>
+<p><b>Saving a posting.</b> <i>Save to HireWire</i> opens hirewire.fyi with the posting (title, company, location, salary, web address, the first 8,000 characters of the description, the site name and the time) packed into the part of the link after <code>#</code>. Browsers never send that part to any server; the HireWire app reads it in your browser and adds the job to your tracker there, like every other job in HireWire.</p>
+<p><b>Payments.</b> <i>Buy pass</i> opens Stripe’s checkout page in a new tab; the extension never sees your card. After paying you return to hirewire.fyi, which shows your pass ID. Paste it into the extension under <i>Restore pass</i>; the extension then asks HireWire’s function to confirm the payment with Stripe and stores the signed pass on your device. See <a href="#ai-fit-score">Payments</a>.</p>
+<p><b>What the extension doesn’t do.</b> No analytics, no tracking, no ads, no remote code, no account. HireWire doesn’t sell or share data from the extension, and doesn’t use it for anything except scoring and saving the postings you choose. The extension requests only the <code>storage</code> permission and access to HireWire’s scoring function; it runs on job pages of LinkedIn, Indeed and StepStone only.</p>
+<p><b>The AI can be wrong.</b> Only use a suggested rewrite if it is true for you. The extension marks quotes from your CV that it can’t find word for word.</p>
+<p>Because HireWire stores nothing about you on its servers, there is nothing to delete there; removing the extension deletes everything it kept. Questions: see <a href="#contact">Contact</a>.</p>
+
+<h2 id="pass-plus">Pass Plus: AI writing</h2>
+<p>Pass Plus is an optional paid pass (€29 for 30 days, one-time, via Stripe) that adds <b>Write with AI</b> on a posting: a cover letter, interview preparation, a tailored CV draft and a negotiation script. It is also free if you add your own Anthropic API key. Nothing is sent until you press <i>Generate</i>. Then:</p>
+<ul>
+<li><b>What is sent:</b> your CV text, the posting’s title, company, location, description and stated pay, and the options you chose (tone, language, your notes). For a negotiation script it also sends the offer figures you entered (base, bonus, equity) and, if there are enough postings, the salary benchmark from your own feeds.</li>
+<li><b>Where it goes:</b> with Pass Plus, over HTTPS to HireWire’s API (the same Vercel function as the fit score, with your pass token) and on to Anthropic’s Claude API for that one request. With your own key, straight from your browser to Anthropic. The API doesn’t write your CV, the posting or the draft to a database, a file or its logs; Anthropic’s API terms described <a href="#ai-fit-score">above</a> apply.</li>
+<li><b>Fair-use counter:</b> the API counts generations per pass per day, keyed by the end of your pass ID. Those counters expire after 2 days.</li>
+<li><b>The drafts</b> are kept only in this browser (the last 60 jobs), and are left out of backups and sync. Word (.docx) export is built in your browser; PDF uses your browser’s print dialog.</li>
+</ul>
+
+<h2 id="sync">Encrypted sync</h2>
+<p>Sync is optional and comes with any pass (restoring on another device works without one). It copies your HireWire data between your devices without HireWire being able to read it:</p>
+<ul>
+<li>When you turn it on, your browser creates a random 256-bit key and shows it once as a <b>recovery code</b>. The key never leaves your devices; you type the code on your other device. If you lose it, HireWire can’t recover your data.</li>
+<li>Your data (profile, pipeline, saved searches, STAR stories, People, follow-up settings and any job-board API keys) is <b>encrypted on your device with AES-256-GCM</b> before upload. AI-written drafts and the sync key itself are never included.</li>
+<li>HireWire’s API stores only the <b>encrypted blob</b>, a sync ID (a SHA-256 hash derived from your key, so it says nothing about you), a revision number and the time of the last upload. It can’t decrypt any of it.</li>
+<li>The stored copy is <b>deleted automatically 180 days after your last upload</b>. <i>Turn off &amp; delete copy</i> in the app deletes it at once, even after your pass has expired.</li>
+<li>To prevent abuse, the API counts uploads per pass per day and downloads per network per hour (a keyed hash of your IP address, never the raw IP). These counters expire within 2 days.</li>
+</ul>
+
+<h2 id="referrals">Referral codes</h2>
+<p>You can share a referral link (<code>hirewire.fyi/?ref=…</code>) that gives a friend 3 free AI fit scores and earns you 3 for each friend who uses it. To make that work without accounts:</p>
+<ul>
+<li>Your browser creates a <b>random device ID</b> and keeps it locally. It is sent only when you create your link or claim a friend’s code. Your referral code is derived from it, so it says nothing about who you are.</li>
+<li>HireWire’s API stores <b>counts only</b>: how many friends claimed your code and how many rewards you have redeemed. To stop one device claiming twice, it stores a keyed hash of the claiming device’s ID with the code. These entries expire after 400 days.</li>
+<li>Claims are limited per network per day using a keyed hash of the IP address, which expires after 2 days.</li>
+<li>Free-score rewards are signed tokens kept in your browser and expire after 90 days.</li>
+</ul>
+<p>No names, email addresses or contact lists are involved. Whom you share the link with is up to you. The <code>?ref=</code> code is removed from page addresses before anything reaches the analytics.</p>
+
+<h2 id="offline">Installable app and offline cache</h2>
+<p>HireWire can be installed to your home screen or desktop. A service worker then keeps a copy of <b>HireWire’s own files</b> (the app page and other hirewire.fyi pages you open, styles, icons and the manifest) on your device so they open without a connection. It never intercepts or caches job feeds, HireWire’s API, Anthropic, Stripe, fonts or analytics. That cache holds no personal data: your profile and pipeline stay in the same browser storage described above. Clearing the site’s data or uninstalling the app removes the cache too.</p>
+<p><b>Notifications</b> are opt-in and come from your own browser, not from a push server: HireWire has no way to message your device. If you allow them, the app can show at most one notification a day for strong new matches while it is open, and, where the browser supports periodic background sync, a reminder about follow-ups that are due. For that, the browser keeps a tiny schedule on your device with only the due dates of your follow-ups (no job titles or companies).</p>
+
+<h2>Safari’s 7-day purge, and backups</h2>
+<p>Safari (and other WebKit browsers on iPhone and iPad) may delete a website’s stored data if you haven’t visited it for 7 days. Every browser also deletes it when you clear site data. HireWire can’t prevent that, so:</p>
+<ol>
+<li>Click <b>Backup everything</b> in the sidebar. It downloads <code>hirewire-backup-YYYY-MM-DD.json</code>.</li>
+<li>Keep it somewhere you control. The app shows a reminder banner when you have data and no recent backup.</li>
+<li>To restore, click <b>Restore…</b> or drop the file anywhere on the page.</li>
+</ol>
+<p class="note">The backup file is plain JSON. It contains your notes, contacts and any Adzuna or Jooble API keys. Treat it like any personal document.</p>
+
+<h2 id="contact">Contact</h2>
+<p>Questions or requests about privacy: <a href="mailto:hey@hirewire.fyi">hey@hirewire.fyi</a>, or the Contact button in the app.</p>
+<p>A German summary of this page is at <a href="/de/datenschutz.html" lang="de">/de/datenschutz.html</a>; this English page is the authoritative version.</p>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>Is HireWire private?</summary><div><p>Your job-search data stays in your browser. The exceptions are the optional AI features: when you press Score, your CV text and that posting are sent for that one request and are not stored, and if you use your own Anthropic key, Improve with AI sends a follow-up email draft straight to Anthropic. The app page also sends cookieless feature-usage events to PostHog unless your browser sends Do Not Track, and your browser contacts the public job feeds directly.</p></div></details>
+<details><summary>Does HireWire use cookies?</summary><div><p>No. HireWire sets no cookies. Analytics uses a random ID stored in localStorage.</p></div></details>
+<details><summary>Can the HireWire developer see my applications?</summary><div><p>No. Applications, notes and contacts are stored only in your browser. They are never sent anywhere unless you put them in a backup file or a brief yourself and share it.</p></div></details>
+<details><summary>How do I turn analytics off?</summary><div><p>Enable Do Not Track in your browser settings. The analytics code checks it and doesn’t load. A content blocker that blocks PostHog works too.</p></div></details>
+<details><summary>Is my CV sent to an AI?</summary><div><p>Only if you press “Score with AI” on a posting. Then your CV text and that one posting are sent over HTTPS to HireWire’s scoring function and on to Anthropic’s Claude API for that request. HireWire does not store or log them. If you add your own Anthropic key, they go straight from your browser to Anthropic instead. Skill extraction is still keyword matching inside the page. If you paste an agent brief into Claude Code, Cursor or another tool, that tool’s own privacy terms apply.</p></div></details>
+</div>
+<div class="cta"><p><b>Open HireWire</b>Free, no account. Your profile, CV text and pipeline stay in this browser unless you ask for an AI fit score.</p><a class="btn red" href="/">Open HireWire →</a></div>
+<h2>Related</h2>
+<ul>
+<li><a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a></li>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+</ul>
+</article>
+<aside class="side" aria-label="More from HireWire">
+<a class="btn red" href="/">Open HireWire</a>
+<h2>Free tools</h2>
+<ul>
+<li><a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a></li>
+<li><a href="/salary-checker.html">Salary checker (free tool)</a></li>
+</ul>
+<h2>Guides</h2>
+<ul>
+<li><a href="/guide.html">Guide &amp; FAQ</a></li>
+<li><span aria-current="page"><b>Privacy, in plain language</b></span></li>
+<li><a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a></li>
+<li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
+<li><a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a></li>
+</ul>
+<h2>Comparisons</h2>
+<ul>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+<li><a href="/teal-alternative.html">Teal alternative</a></li>
+<li><a href="/jobscan-alternative.html">Jobscan alternative</a></li>
+<li><a href="/huntr-free-alternative.html">Free Huntr alternative</a></li>
+<li><a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a></li>
+<li><a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a></li>
+<li><a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a></li>
+</ul>
+<h2>Auf Deutsch</h2>
+<ul>
+<li><a href="/de/">HireWire auf Deutsch</a></li>
+<li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
+<li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
+</ul>
+</aside>
+</div>
+<footer class="foot">
+<nav aria-label="All pages">
+<a href="/">The app</a>
+<span class="fg">Free tools</span>
+<a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a>
+<a href="/salary-checker.html">Salary checker (free tool)</a>
+<span class="fg">Guides</span>
+<a href="/guide.html">Guide &amp; FAQ</a>
+<a href="/privacy.html">Privacy, in plain language</a>
+<a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a>
+<a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a>
+<a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a>
+<a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
+<a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
+<span class="fg">Comparisons</span>
+<a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
+<a href="/teal-alternative.html">Teal alternative</a>
+<a href="/jobscan-alternative.html">Jobscan alternative</a>
+<a href="/huntr-free-alternative.html">Free Huntr alternative</a>
+<a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a>
+<a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a>
+<a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a>
+<span class="fg">Deutsch</span>
+<a href="/de/" lang="de">HireWire auf Deutsch</a>
+<a href="/de/ghost-jobs-erkennen.html" lang="de">Ghost Jobs erkennen (Prüf-Tool)</a>
+<a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
+<a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
+<a href="/de/lebenslauf-ats-tipps.html" lang="de">Lebenslauf ATS-freundlich schreiben</a>
+<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a>
+<a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
+</nav>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-15; corrections welcome via the contact button in the app.</span>
+</footer>
+</div>
+</body>
+</html>

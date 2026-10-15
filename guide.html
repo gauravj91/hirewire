@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>HireWire Guide &amp; FAQ — How the Free, Local-First Job Tracker Works</title>
+<meta name="description" content="How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.">
+<link rel="canonical" href="https://hirewire.fyi/guide.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="HireWire">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="HireWire Guide &amp; FAQ">
+<meta property="og:description" content="How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.">
+<meta property="og:url" content="https://hirewire.fyi/guide.html">
+<meta property="article:modified_time" content="2026-10-15">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HireWire Guide &amp; FAQ">
+<meta name="twitter:description" content="How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How HireWire works",
+ "description": "How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.",
+ "url": "https://hirewire.fyi/guide.html",
+ "mainEntityOfPage": "https://hirewire.fyi/guide.html",
+ "datePublished": "2026-10-15",
+ "dateModified": "2026-10-15",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/"
+ },
+ "about": {
+  "@type": "WebApplication",
+  "name": "HireWire",
+  "url": "https://hirewire.fyi/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any modern browser",
+  "offers": {
+   "@type": "Offer",
+   "price": "0",
+   "priceCurrency": "USD"
+  }
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "HireWire",
+   "item": "https://hirewire.fyi/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Guide & FAQ",
+   "item": "https://hirewire.fyi/guide.html"
+  }
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is HireWire free?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, the job feed, scoring, board and exports are free, with no account. The optional AI fit score gives 3 free scores, then costs a one-time Job Search Pass (€9 for 7 days or €19 for 30 days), or is free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where is my data stored?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In your browser’s localStorage, mirrored to IndexedDB so it can be recovered if localStorage is cleared. If storage is blocked, the app runs in memory-only mode and tells you so."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I use it on two devices?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, two ways. Encrypted sync comes with any pass: your data is encrypted on your device with a recovery code only you hold, and HireWire stores only the encrypted copy (deleted 180 days after the last upload, or when you turn sync off and delete it). Restoring on another device works without a pass. Or, free: use Backup everything on one device and Restore (or drop the .json on the page) on the other. A restore replaces the profile, pipeline and people on the device you restore to. How sync handles your data ."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why did my data disappear in Safari?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Safari can delete a site’s stored data after 7 days without a visit. Keep a fresh backup file. The app reminds you when your backup is out of date."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does the ghost-job risk mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It is a Low / Medium / High warning based on signals HireWire can see: how long the posting has been up, whether it has been reposted or re-dated, vague or “talent pool” wording, missing salary, and whether the employer’s system says it is closed. It is a heuristic risk signal, not proof that a job is fake. Use it to decide where to spend your time, and check with the company if a role matters to you."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How accurate is the salary reality check?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It only uses salaries published in the postings your feeds have shown, so it reflects those postings, not the whole market. Each posting counts once at the midpoint of its range, currencies are converted with approximate fixed rates, and groups with fewer than 5 salaries show nothing. Treat it as a sense check, not a salary survey."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do follow-up reminders work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "HireWire schedules a follow-up 7 days after you apply, a thank-you note 2 days after an interview, and a check-in 7 days after each follow-up you mark as sent (up to 3 per stage, all adjustable). It shows what is due when you open the app, can show a daily browser notification while it is open, and gives you a calendar file for each reminder. It drafts the emails, but you send them yourself."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I install HireWire as an app?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Use your browser’s Install app or Add to Home Screen . The app’s own files are then cached on your device so it opens offline; your data stays in the same browser storage. If you allow notifications, your browser can show a daily alert for strong new matches while HireWire is open and, where it supports background sync, a reminder when follow-ups are due. There is no push server. Details ."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is Pass Plus?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "An optional one-time pass (€29 for 30 days) that adds Write with AI to a posting: a cover letter, interview prep, a tailored CV draft and a negotiation script, exportable as Word or PDF. It includes everything in the Job Search Pass. Your CV and the posting are sent only when you press Generate and are not stored. With your own Anthropic API key the writing tools are free. Always check a draft is true for you before using it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do referral links work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Share your link from the app: a friend who opens it gets 3 free AI fit scores, and you get 3 for each friend who uses it (up to 10 friends). No names or emails are involved; HireWire only counts claims against a code derived from a random device ID. Details ."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What happens when I get an offer or get hired?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Mark a job as offer and HireWire helps you compare offers (base, bonus, equity, remote, commute and vacation, weighted the way you choose) and prepare a negotiation using the salary data in your feeds. When you accept, Career mode archives your search board (nothing is deleted) and gives you one weekly look at roles that pay clearly more than your new salary, by default 15% more."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can I add jobs from LinkedIn or a recruiter email?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not currently. You can only save postings that appear on the wire. For off-wire roles, keep a spreadsheet alongside. The recruiter posts guide sets one up."
+   }
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="frame">
+<header>
+  <div class="mast-top"><span>THE JOB WIRE — GUIDES &amp; FAQ</span><span class="mast-links"><a href="/de/" hreflang="de" lang="de" title="Diese Seiten auf Deutsch">DEUTSCH</a><a href="/">← BACK TO THE APP</a></span></div>
+  <div class="mast-main">
+    <a class="mast-name" href="/" aria-label="HireWire — open the app">HireWire<span class="dot">.</span></a>
+    <nav class="mast-nav" aria-label="Pages">
+<a href="/guide.html" aria-current="page">Guide</a>
+<a href="/ghost-job-checker.html">Ghost check</a>
+<a href="/salary-checker.html">Salary check</a>
+<a href="/privacy.html">Privacy</a>
+<a href="/best-browser-job-tracker.html">Compare</a>
+<a class="btn red" href="/">Open HireWire</a>
+    </nav>
+  </div>
+  <div class="rule-double"></div>
+</header>
+<div class="page">
+<article id="main">
+<div class="kicker">Guide &amp; FAQ</div>
+<h1>How HireWire works</h1>
+<p class="dek">A free job feed aggregator and application tracker that runs in your browser. No account, no server-side copy of your search.</p>
+<p class="byline">HireWire · last reviewed 2026-10-15</p>
+
+<div class="tldr"><h2>In short</h2><ul>
+<li>HireWire pulls <b>55 public job feeds</b> into one list (“the wire”), refreshing hourly while the tab is open.</li>
+<li>It scores every posting against <b>your skills, salary floor and blocked keywords</b>, with the formula shown in the app.</li>
+<li>You save postings to a <b>pipeline</b> (saved → applied → screen → interview → offer → archived) with notes, contacts and next dates.</li>
+<li>Everything is stored <b>in your browser</b> (localStorage, mirrored to IndexedDB). One JSON file backs it all up.</li>
+</ul></div>
+
+<h2>1. The wire: where postings come from</h2>
+<p>When the page loads, your browser requests public job APIs directly. There is no HireWire server in between. The 55 feeds are:</p>
+<ul>
+<li><b>Six job boards</b>: Remotive, Arbeitnow, Jobicy, RemoteOK, We Work Remotely and Hacker News “Who is hiring?”.</li>
+<li><b>49 company career boards</b> on applicant-tracking systems: Greenhouse (25 companies, e.g. Stripe, Anthropic, N26, Celonis, HelloFresh, Trade Republic), Ashby (13, e.g. OpenAI, Notion, DeepL, n8n), Lever (3), SmartRecruiters (3: Bosch, Delivery Hero, SIXT), Personio (3: 1KOMMA5°, Thermondo, Chrono24), Workable (1) and Recruitee (1).</li>
+<li>Every feed is checked to answer a browser directly (CORS); if one is down, the source list says how many are unavailable and the rest still load.</li>
+</ul>
+<p>Duplicates are merged and the newest 500 postings kept. You can add two <b>bring-your-own-key</b> sources: Adzuna (free developer key, 13 country options) and Jooble (free partner key). Your keys stay in the browser. Jooble’s API does not always allow browser requests; when it blocks one, the source list shows <i>browser-blocked (CORS)</i> rather than failing silently.</p>
+
+<h2>2. Your profile and the match score</h2>
+<p>You set skills, a salary floor in one of 12 currencies, blocked keywords and blocked locations. You can also paste CV text and press <b>Extract skills</b>. Extraction runs in the page against a fixed list of about 210 technical and product terms. The CV text is not uploaded or saved, and the box is cleared afterwards.</p>
+<p>The score starts at 32. It adds 13 per skill found in the title, or 7 if the skill only appears in tags or the description. It adds 12 if the pay meets your floor, subtracts 18 if the pay is below it, and subtracts 3 if no pay is listed. Postings get up to 9 points for freshness and lose 8 when stale, get 4 for remote, and lose 28 for each blocked keyword. Blocked locations are hidden from the wire entirely. Each posting also gets a <a href="#ghost-jobs">ghost-job risk</a> badge when warning signs pile up.</p>
+
+<h2>3. The pipeline</h2>
+<p>Pin a posting and it moves to <b>My Board</b>. Each saved job keeps private notes, contacts, a next date with a label, offer figures (base, bonus, equity) and an activity log. Jobs in <i>applied</i>, <i>screen</i> or <i>interview</i> get a <a href="#follow-ups">follow-up schedule</a> with ready-to-send email drafts, and applications quiet for 14 days are flagged. Other tabs cover <b>Tailor</b> (keyword gap analysis for a pasted job description, plus a STAR story bank), <b>People</b> (referral contacts, nudged after 10 quiet days) and <b>Insights</b> (stage conversion, average days between stages, source yield, offer comparison, a calendar export, a weekly digest, follow-ups due, a <a href="#salary-check">salary reality check</a> and a ghost-job check).</p>
+<p class="note">HireWire tracks postings that came through the wire. There is no form for adding a job by hand, so a role a recruiter emails you directly cannot be added unless it also appears on one of the feeds.</p>
+
+<h2>4. Working with AI agents</h2>
+<p><b>Run agent</b> scores the wire and builds a Markdown brief: your profile, the top-scored shortlist with links, and a task for a coding agent such as Claude Code, Cursor or Codex CLI. You can copy it, or download the shortlist or pipeline as <code>.md</code>, <code>.json</code> or <code>.csv</code>. Results pasted back as <code>rank | company | fit | blocker</code> rows are matched to your pipeline by company name and logged. HireWire doesn’t send the brief to any AI service; you choose where it goes. (The optional AI fit score and AI writing are separate, and only run when you press their buttons.)</p>
+
+<h2 id="ghost-jobs">5. Ghost-job risk</h2>
+<p>Some postings stay up long after the role is filled, or were never a real opening (“talent pool” ads, endless reposts). HireWire gives every posting a <b>ghost-job risk</b> of Low, Medium or High, with the reasons listed in the posting’s detail view. It is a <b>heuristic risk signal, not proof</b>: real jobs can trip it and ghost jobs can pass it.</p>
+<ul>
+<li><b>Age</b>: posted, or still listed, more than 30, 45 or 60 days.</li>
+<li><b>Reposts</b>: the same company, title and location showing up under a new listing ID, or with a refreshed date. The same title posted in many cities at once also counts.</li>
+<li><b>The text</b>: “talent pool”, “future opportunities” or “general application” wording; a very short description; buzzwords with no responsibilities or requirements.</li>
+<li><b>Other signs</b>: no salary, no company name, or the company’s applicant-tracking system saying the posting no longer exists.</li>
+</ul>
+<p>Repost checks need history, so your browser keeps a compact list of postings its feeds have shown (company, title, location, dates, pay and link). It holds at most 2,000 entries, drops anything unseen for 180 days, and never leaves the browser. <b>Hide ghosts</b> on the wire hides High-risk postings. <b>Insights → Ghost-job check</b> takes a pasted link or posting text. A link can only be matched against postings your feeds have seen (or fetched from Greenhouse and SmartRecruiters, which the app already reads). HireWire has no server to look anything else up. Results can be copied as text or saved as a share image.</p>
+
+<h2 id="salary-check">6. Salary reality check</h2>
+<p><b>Insights → Salary check</b> groups the pay in postings by simplified job title, level (junior, senior, staff and so on) and location (remote, country or city). It shows the median, the middle 50% (P25–P75), how many postings had pay, and what share disclosed it, converted to your currency with static, approximate exchange rates. Groups with fewer than 5 salaries show no figures. It is <b>based only on the postings in your feeds and your browser’s history, not the whole market</b>, and many company career boards publish no pay at all. Postings with a salary also say where they sit, for example “in the top 20% of 14 similar postings”. You can export the table as CSV.</p>
+
+<h2 id="follow-ups">7. Follow-up reminders</h2>
+<p>When you move a job to <i>applied</i>, a follow-up is scheduled 7 days later. Moving it to <i>screen</i> or <i>interview</i> schedules a thank-you note 2 days later, and each follow-up you mark as sent schedules a check-in 7 days after it, up to 3 per stage. All four numbers can be changed. Due follow-ups appear in <b>Insights → Follow-ups</b>, on the board and as a count on the Insights tab. Each one comes with a short email draft (after applying, interview thank-you, checking in, or withdrawing) filled in with the company, role and contact. You can copy it, open it in your mail app, or download a calendar reminder (.ics). HireWire reminds you when you open it, and can show one browser notification a day while a HireWire tab is open if you allow it. If you install it as an app, browsers that support periodic background sync can also remind you about due follow-ups while it is closed; elsewhere, that is what the calendar file is for. Nothing is sent for you.</p>
+
+<h2>Who it’s for</h2>
+<ul>
+<li>People searching for <b>remote or tech roles</b>. Most feeds are remote boards and tech-company career pages.</li>
+<li>Anyone who wants a tracker <b>without creating an account</b> or handing their CV to a server.</li>
+<li>Developers who already use a coding agent and want a structured shortlist to hand it.</li>
+</ul>
+<p>It suits you less if you mainly apply to local or non-tech roles, or want to log applications by hand.</p>
+
+<h2>HireWire vs a spreadsheet</h2>
+<p>A spreadsheet is more flexible. HireWire finds and ranks postings, dates every stage and flags what has gone quiet. Many people use both. See <a href="/job-tracker-vs-spreadsheet.html">job tracker vs spreadsheet</a> for a side-by-side comparison.</p>
+
+<h2>Privacy model</h2>
+<p>Your profile, CV-derived skills, pipeline, notes, contacts and API keys live in your browser’s storage on this device. HireWire has no accounts and no database of users. The app page includes optional, cookieless usage analytics that count feature use (never job titles, searches, skills or notes) and switches off if your browser sends Do Not Track. Ghost-job history, salary figures and follow-up dates are worked out and kept in your browser too. The full, honest list is on the <a href="/privacy.html">privacy page</a>.</p>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>Is HireWire free?</summary><div><p>Yes, the job feed, scoring, board and exports are free, with no account. The optional AI fit score gives 3 free scores, then costs a one-time Job Search Pass (€9 for 7 days or €19 for 30 days), or is free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking.</p></div></details>
+<details><summary>Where is my data stored?</summary><div><p>In your browser’s localStorage, mirrored to IndexedDB so it can be recovered if localStorage is cleared. If storage is blocked, the app runs in memory-only mode and tells you so.</p></div></details>
+<details><summary>Can I use it on two devices?</summary><div><p>Yes, two ways. <b>Encrypted sync</b> comes with any pass: your data is encrypted on your device with a recovery code only you hold, and HireWire stores only the encrypted copy (deleted 180 days after the last upload, or when you turn sync off and delete it). Restoring on another device works without a pass. Or, free: use <b>Backup everything</b> on one device and <b>Restore</b> (or drop the .json on the page) on the other. A restore replaces the profile, pipeline and people on the device you restore to. <a href="/privacy.html#sync">How sync handles your data</a>.</p></div></details>
+<details><summary>Why did my data disappear in Safari?</summary><div><p>Safari can delete a site’s stored data after 7 days without a visit. Keep a fresh backup file. The app reminds you when your backup is out of date.</p></div></details>
+<details><summary>What does the ghost-job risk mean?</summary><div><p>It is a Low / Medium / High warning based on signals HireWire can see: how long the posting has been up, whether it has been reposted or re-dated, vague or “talent pool” wording, missing salary, and whether the employer’s system says it is closed. It is a heuristic risk signal, not proof that a job is fake. Use it to decide where to spend your time, and check with the company if a role matters to you.</p></div></details>
+<details><summary>How accurate is the salary reality check?</summary><div><p>It only uses salaries published in the postings your feeds have shown, so it reflects those postings, not the whole market. Each posting counts once at the midpoint of its range, currencies are converted with approximate fixed rates, and groups with fewer than 5 salaries show nothing. Treat it as a sense check, not a salary survey.</p></div></details>
+<details><summary>How do follow-up reminders work?</summary><div><p>HireWire schedules a follow-up 7 days after you apply, a thank-you note 2 days after an interview, and a check-in 7 days after each follow-up you mark as sent (up to 3 per stage, all adjustable). It shows what is due when you open the app, can show a daily browser notification while it is open, and gives you a calendar file for each reminder. It drafts the emails, but you send them yourself.</p></div></details>
+<details><summary>Can I install HireWire as an app?</summary><div><p>Yes. Use your browser’s <i>Install app</i> or <i>Add to Home Screen</i>. The app’s own files are then cached on your device so it opens offline; your data stays in the same browser storage. If you allow notifications, your browser can show a daily alert for strong new matches while HireWire is open and, where it supports background sync, a reminder when follow-ups are due. There is no push server. <a href="/privacy.html#offline">Details</a>.</p></div></details>
+<details><summary>What is Pass Plus?</summary><div><p>An optional one-time pass (€29 for 30 days) that adds <b>Write with AI</b> to a posting: a cover letter, interview prep, a tailored CV draft and a negotiation script, exportable as Word or PDF. It includes everything in the Job Search Pass. Your CV and the posting are sent only when you press Generate and are not stored. With your own Anthropic API key the writing tools are free. Always check a draft is true for you before using it.</p></div></details>
+<details><summary>How do referral links work?</summary><div><p>Share your link from the app: a friend who opens it gets 3 free AI fit scores, and you get 3 for each friend who uses it (up to 10 friends). No names or emails are involved; HireWire only counts claims against a code derived from a random device ID. <a href="/privacy.html#referrals">Details</a>.</p></div></details>
+<details><summary>What happens when I get an offer or get hired?</summary><div><p>Mark a job as <i>offer</i> and HireWire helps you compare offers (base, bonus, equity, remote, commute and vacation, weighted the way you choose) and prepare a negotiation using the salary data in your feeds. When you accept, <b>Career mode</b> archives your search board (nothing is deleted) and gives you one weekly look at roles that pay clearly more than your new salary, by default 15% more.</p></div></details>
+<details><summary>Can I add jobs from LinkedIn or a recruiter email?</summary><div><p>Not currently. You can only save postings that appear on the wire. For off-wire roles, keep a spreadsheet alongside. The <a href="/guides/bulk-import-recruiter-job-posts.html">recruiter posts guide</a> sets one up.</p></div></details>
+</div>
+<div class="cta"><p><b>Open HireWire</b>Free, no account. Your profile, CV text and pipeline stay in this browser.</p><a class="btn red" href="/">Open HireWire →</a></div>
+<h2>Related</h2>
+<ul>
+<li><a href="/privacy.html">Privacy, in plain language</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a></li>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+</ul>
+</article>
+<aside class="side" aria-label="More from HireWire">
+<a class="btn red" href="/">Open HireWire</a>
+<h2>Free tools</h2>
+<ul>
+<li><a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a></li>
+<li><a href="/salary-checker.html">Salary checker (free tool)</a></li>
+</ul>
+<h2>Guides</h2>
+<ul>
+<li><span aria-current="page"><b>Guide &amp; FAQ</b></span></li>
+<li><a href="/privacy.html">Privacy, in plain language</a></li>
+<li><a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a></li>
+<li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a></li>
+<li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
+<li><a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a></li>
+</ul>
+<h2>Comparisons</h2>
+<ul>
+<li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
+<li><a href="/teal-alternative.html">Teal alternative</a></li>
+<li><a href="/jobscan-alternative.html">Jobscan alternative</a></li>
+<li><a href="/huntr-free-alternative.html">Free Huntr alternative</a></li>
+<li><a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a></li>
+<li><a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a></li>
+<li><a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a></li>
+</ul>
+<h2>Auf Deutsch</h2>
+<ul>
+<li><a href="/de/">HireWire auf Deutsch</a></li>
+<li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
+<li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
+</ul>
+</aside>
+</div>
+<footer class="foot">
+<nav aria-label="All pages">
+<a href="/">The app</a>
+<span class="fg">Free tools</span>
+<a href="/ghost-job-checker.html">Ghost-job checker (free tool)</a>
+<a href="/salary-checker.html">Salary checker (free tool)</a>
+<span class="fg">Guides</span>
+<a href="/guide.html">Guide &amp; FAQ</a>
+<a href="/privacy.html">Privacy, in plain language</a>
+<a href="/are-free-job-trackers-safe.html">Are free job trackers safe?</a>
+<a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a>
+<a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a>
+<a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
+<a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
+<span class="fg">Comparisons</span>
+<a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
+<a href="/teal-alternative.html">Teal alternative</a>
+<a href="/jobscan-alternative.html">Jobscan alternative</a>
+<a href="/huntr-free-alternative.html">Free Huntr alternative</a>
+<a href="/hirewire-vs-huntr.html">HireWire vs Huntr</a>
+<a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker (jobstracker.org)</a>
+<a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (jobstracker.app)</a>
+<span class="fg">Deutsch</span>
+<a href="/de/" lang="de">HireWire auf Deutsch</a>
+<a href="/de/ghost-jobs-erkennen.html" lang="de">Ghost Jobs erkennen (Prüf-Tool)</a>
+<a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
+<a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
+<a href="/de/lebenslauf-ats-tipps.html" lang="de">Lebenslauf ATS-freundlich schreiben</a>
+<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a>
+<a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
+</nav>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-15; corrections welcome via the contact button in the app.</span>
+</footer>
+</div>
+</body>
+</html>
