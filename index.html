@@ -595,6 +595,117 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 /* small screens: the wire (hero, today card, postings) comes before the long sidebar */
 @media (max-width:940px){ .cols{display:flex;flex-direction:column} .content{order:-1;padding-bottom:30px;border-bottom:1px solid var(--ink)} .side{border-bottom:none} }
 @media print{ .hero,.todaycard,.updbar,#growthModal,#aiwModal,#syncPanel,#appPanel,.bulkbar,.careerbar,.bsel{display:none!important} }
+/* ===== UX (section 23): compact sidebar · row actions column · phone card rows · chip scroll rows · first-run hint ===== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#uxGloss{display:none}
+/* sidebar: one card first, the rest behind Settings */
+.uxstart .ux-lede{font-size:11px;line-height:1.65;color:var(--ink2);margin:-4px 0 14px}
+.uxstart #uxCv{min-height:84px;margin-bottom:8px}
+.ux-or{display:flex;align-items:center;gap:10px;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);margin:-4px 0 14px}
+.ux-or::before,.ux-or::after{content:'';flex:1;border-top:1px solid var(--line)}
+.ux-tog{width:100%;text-align:left;margin-top:4px;border-color:var(--line2)}
+.ux-tog:hover{border-color:var(--ink)}
+.ux-name{font-family:'Instrument Serif',Georgia,serif;font-size:22px;line-height:1.1;margin:-6px 0 10px}
+.ux-small{font-size:8.5px;letter-spacing:.12em;color:var(--ink2);text-transform:uppercase;line-height:1.8;margin-top:8px}
+.ux-need{color:var(--red)}
+.ux-sumbtns{margin:12px 0 0}
+.ux-sumbtns:empty{display:none}
+.uxmore[hidden]{display:none}
+.uxmore>.panel:first-child{padding-top:20px}
+/* header stats: explain on hover */
+.stat[title]{cursor:help}
+/* row actions: their own column on desktop, compact labelled icon buttons */
+#wire .row{grid-template-columns:30px 104px minmax(0,1fr) 118px auto}
+#wire .row::after{content:none!important;display:none!important}
+#wire .row .acts{position:static;transform:none;opacity:1;display:flex;gap:4px;justify-self:end;justify-content:flex-end;align-items:center;flex-wrap:nowrap;grid-column:auto;grid-row:auto}
+#wire .row:hover .row-pay-hide{visibility:visible}
+.acts .btn.ib{min-width:30px;height:30px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;gap:4px;font-size:11px;letter-spacing:.04em;border-color:var(--line2);background:transparent;white-space:nowrap}
+.acts .btn.ib[data-act=fsrow]{font-size:9px;letter-spacing:.1em;font-weight:600}
+.acts .btn.ib:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.acts .btn.ib.on{color:var(--red);border-color:var(--red)}
+.acts .btn.ib.applied{font-size:8.5px;letter-spacing:.1em;color:var(--green);border-color:var(--green);cursor:default}
+.acts .btn.ib.applied:hover{background:transparent;color:var(--green)}
+@media (hover:hover) and (pointer:fine) and (min-width:761px){
+  .acts .btn.ib:not(.applied):not(.on){opacity:.55;transition:opacity .12s}
+  #wire .row:hover .acts .btn.ib,#wire .row:focus-within .acts .btn.ib,#wire .row:focus-visible .acts .btn.ib{opacity:1}
+}
+.scorebox.unscored .scorenum{font-size:13px;color:var(--ink2)}
+.scorebox.unscored .ticks i{background:var(--line)}
+.d-score.unscored b{color:var(--ink2)}
+.d-score.unscored span{font-size:8px;letter-spacing:.12em;display:block;max-width:12em;line-height:1.5}
+.chip.uxempty{border-style:dashed;color:var(--ink2);cursor:pointer}
+.chip.uxempty:hover{border-color:var(--ink);color:var(--ink)}
+.chip.empty .cnt{opacity:.4}
+#uxProfileJump{display:none}
+/* first-run hint: three steps, inline, dismissible */
+.uxhint{position:relative;padding:14px 40px 14px 0;border-bottom:1px solid var(--line)}
+.uxhint[hidden]{display:none}
+.uxhint ol{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.uxhint li{display:flex;gap:10px;align-items:flex-start;font-size:10.5px;line-height:1.55}
+.uxhint li>b{flex:none;width:20px;height:20px;border:1px solid var(--red);color:var(--red);display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+.uxhint li.done>b{background:var(--green);border-color:var(--green);color:var(--paper)}
+.uxhint li.done strong{text-decoration:line-through;text-decoration-color:var(--line2)}
+.uxhint strong{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:2px}
+.uxhint li span{color:var(--ink2)}
+.ux-hbtns{display:flex!important;gap:6px;flex-wrap:wrap;margin-top:6px}
+.uxhint .hero-x{top:10px;right:0}
+/* touch, any width: actions always fully visible and thumb-sized */
+@media (hover:none), (pointer:coarse){
+  .acts .btn.ib{min-width:36px;height:36px;font-size:13px}
+  .acts .btn.ib[data-act=fsrow]{font-size:10px}
+}
+/* tablets / small laptops */
+@media (max-width:940px){
+  #wire .row{grid-template-columns:24px 104px minmax(0,1fr) 100px auto}
+  #uxProfileJump{display:inline-block}
+}
+/* phones + narrow windows: rows become a 2-line card, chip rows scroll in one line, compact masthead */
+@media (max-width:760px){
+  #wire .row{grid-template-columns:auto auto minmax(0,1fr) auto;grid-template-areas:"body body body body" "idx score pay acts";gap:8px 10px;padding:12px 0;align-items:center}
+  #wire .row .body{grid-area:body;min-width:0}
+  #wire .row .idx{grid-area:idx;text-align:left}
+  #wire .row .idx:not(:has(.bsel)){display:none}
+  #wire .row .scorebox{grid-area:score;display:flex;gap:0}
+  #wire .row .scorebox .ticks{display:none}
+  #wire .row .scorebox .scorenum{border:1px solid var(--line2);padding:3px 6px;font-size:10px;color:var(--ink);min-width:30px;text-align:center}
+  #wire .row .scorebox.hi .scorenum{border-color:var(--red);color:var(--red)}
+  #wire .row .scorebox.unscored .scorenum{color:var(--ink2)}
+  #wire .row .pay{grid-area:pay;text-align:left;font-size:10.5px;white-space:normal;min-width:0}
+  #wire .row .pay .bstat{max-width:150px}
+  #wire .row .acts{grid-area:acts}
+  #wire .row .jtitle{font-size:17px}
+  #wire .row .l2{gap:5px;margin-top:4px}
+  #wire .row .l2 .src,#wire .row .l2 .sep:has(+ .src){display:none}
+  #wire .row .l3{display:none}
+  .toolbar{gap:6px;padding:10px 0}
+  .toolbar .grow{flex:1 1 100%;min-width:0}
+  .toolbar .tog{padding:7px 9px;font-size:9px;letter-spacing:.1em}
+  .toolbar .count{flex:1 1 100%;margin-left:0;text-align:right}
+  #ssWrap{display:flex;gap:6px;flex:1 1 100%}
+  #ssWrap[hidden]{display:none}
+  #ssWrap #ssName{flex:1;width:auto!important;min-width:0}
+  #sourceChips,#locChips,#tagChips{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:10px 0;gap:6px}
+  #sourceChips::-webkit-scrollbar,#locChips::-webkit-scrollbar,#tagChips::-webkit-scrollbar{display:none}
+  #sourceChips>*,#locChips>*,#tagChips>*{flex:none;white-space:nowrap}
+  .uxhint{padding-right:36px}
+  .uxhint ol{grid-template-columns:1fr;gap:10px}
+  .mast-top{font-size:8.5px;letter-spacing:.12em;padding:10px 0 8px}
+  .mast-top>span:not(:first-child){display:none}
+  .mast-main{padding:14px 0 12px;gap:12px}
+  .mast-name{font-size:46px}
+  .mast-side{gap:14px;padding-bottom:0;width:100%;align-items:center}
+  .stat b{font-size:15px}
+  .stat label{font-size:7.5px;letter-spacing:.14em}
+  #syncBtn{margin-left:auto;padding:8px 10px}
+  .hero{padding:18px 0 18px}
+  .hero-h{font-size:30px;margin:8px 0 10px}
+  .hero-sub{font-size:11.5px;line-height:1.6}
+  .hero-cta{margin:14px 0 10px;gap:8px}
+  .hero-cta .btn{padding:10px 12px;font-size:10px}
+  .tabs .tab{padding:11px 13px;font-size:9.5px;letter-spacing:.12em}
+  .con-tab{bottom:12px;padding:7px 10px;font-size:9px}
+}
+@media print{ .uxhint,#uxStart,.ux-tog{display:none!important} }
 </style>
 </head>
 <body>
@@ -605,15 +716,15 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <div class="mast-top">
       <span>THE JOB WIRE — FOR HUMANS &amp; THEIR AGENTS</span>
       <span id="utcClock">--:--:-- UTC</span>
-      <span>EDITION <b id="edNo">—</b> · HOURLY CADENCE</span>
+      <span id="edLine">EDITION <b id="edNo">—</b> · HOURLY CADENCE</span>
     </div>
     <div class="mast-main">
       <h1 class="mast-name">HireWire<span class="dot">.</span></h1>
       <div class="mast-side">
-        <div class="stat"><label>ON THE WIRE</label><b id="stCount">0</b></div>
-        <div class="stat"><label>SOURCES</label><b id="stSources">—</b></div>
-        <div class="stat"><label>FEEDS</label><b id="stFeeds">—</b></div>
-        <div class="stat"><label>NEXT SYNC</label><b id="stNext">—</b></div>
+        <div class="stat" id="stCountStat"><label>ON THE WIRE</label><b id="stCount">0</b></div>
+        <div class="stat" id="stFeedsStat"><label>FEEDS UP</label><b id="stFeeds">—</b></div>
+        <div class="stat" id="stSourcesStat"><label>SOURCES UP</label><b id="stSources">—</b></div>
+        <div class="stat" id="stNextStat"><label>NEXT SYNC</label><b id="stNext">—</b></div>
         <button class="btn red" id="syncBtn">SYNC NOW</button>
       </div>
     </div>
@@ -624,6 +735,9 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 
   <div class="cols">
     <aside class="side">
+      <!-- 23: compact first card ("Get matched" or a profile summary) + Settings toggle. Everything below lives in #uxMore. -->
+      <section class="panel uxstart" id="uxStart" aria-label="Your profile"></section>
+      <div class="uxmore" id="uxMore" hidden>
       <section class="panel">
         <h2 class="plabel">Subscriber profile</h2>
         <div class="fld">
@@ -788,6 +902,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
         <p class="fine">Data is mirrored to the browser's database. Drop a backup .json anywhere on this page to restore it. Safari purges site data after 7 days of non-use — a fresh backup is your insurance.</p>
       </section>
 
+      </div><!-- /#uxMore -->
       <section class="panel" id="sponsorPanel" hidden>
         <h2 class="plabel">Supported by</h2>
         <div id="sponsorSide"></div>
@@ -808,6 +923,8 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 
       <!-- Daily "New for you" card (section 22.5) -->
       <section class="todaycard" id="todayCard" hidden aria-label="New for you"></section>
+      <!-- 23: three-step first-run hint (inline, dismissible, shown once) -->
+      <section class="uxhint" id="uxHint" hidden aria-label="Getting started"></section>
 
       <div id="panelView" hidden></div>
 
@@ -830,6 +947,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
         </select>
         <button class="tog" id="saveSearchBtn">+ SAVE</button>
         <button class="tog" id="bulkTog" title="Select several postings (x)">SELECT</button>
+        <button class="tog" id="uxProfileJump" title="Jump to your profile and settings">PROFILE</button>
         <span id="ssWrap" hidden>
           <input class="input" id="ssName" placeholder="name this search" style="width:170px;padding:7px 10px;font-size:11px">
           <button class="btn mini" data-act="ssave">SAVE</button>
@@ -881,6 +999,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 <section class="agent" id="growthModal" role="dialog" aria-modal="true" aria-label="HireWire"></section>
 <section class="agent" id="aiwModal" role="dialog" aria-modal="true" aria-label="Write with AI"></section>
 <div class="updbar" id="updBar" role="status" hidden></div>
+<div id="uxGloss" hidden></div>
 
 <section class="console" id="consoleEl">
   <div class="con-head">
@@ -1607,7 +1726,7 @@ function renderSampleBar(){
   const el = $('#sampleBar');
   if (!el) return;
   const active = state.jobs.some(isSampleJob) || Array.from(state.board.values()).some(b => isSampleJob(b.job));
-  const firstRun = !active && profileIsEmpty(state.profile) && state.board.size === 0 && !state.meta.sampleHintDismissed && !heroVisible();   // the hero offers samples on a first run
+  const firstRun = !active && profileIsEmpty(state.profile) && state.board.size === 0 && !state.meta.sampleHintDismissed && !heroVisible() && !uxHintVisible();   // the hero (or the 23 first-run hint) offers samples on a first run
   if (state.view !== 'wire' || !(active || firstRun)){ el.hidden = true; el.innerHTML = ''; return; }
   el.hidden = false;
   el.innerHTML = active
@@ -1671,10 +1790,10 @@ function saveSettings(){
 function saveSaved(){ lsSet(LS.saved, state.savedSearches); }
 function saveStar(){ lsSet(LS.star, state.starBank); }
 function saveCache(){
-  lsSet(LS.cache, {
-    at:state.lastSync, status:state.sourcesStatus,
-    jobs:state.jobs.filter(j => !isSampleJob(j)).map(j => Object.assign({}, j, { description:(j.description || '').slice(0, 4000) })),   // sample jobs are never cached
-  });
+  const mk = n => JSON.stringify({ at:state.lastSync, status:state.sourcesStatus,
+    jobs:state.jobs.filter(j => !isSampleJob(j)).map(j => Object.assign({}, j, { description:(j.description || '').slice(0, n) })) });   // sample jobs are never cached
+  for (const n of [4000, 1500, 500]){ if (sSetRaw(LS.cache, mk(n))) break; }   // 23: bigger wire → trim cached descriptions before giving up on the cache
+  scheduleMirror(LS.cache);
 }
 function loadBoardArray(arr){
   arr.forEach(e => {
@@ -1726,6 +1845,7 @@ function loadState(){
   loadAi();   // AI fit score access + cached results (15b)
   loadFu();   // follow-up settings (13b)
   loadGrowth();   // 22: visits, goal, career mode, referral bonus, sync key, AI drafts
+  loadUx();   // 23: sidebar open/closed, first-run hint, sort picked, empty sources shown
 }
 
 /* ============ 4 · SYNC ENGINE ============ */
@@ -1740,7 +1860,7 @@ function dedupe(list){
     if (m.has(k) || (fk && seenFuzzy.has(fk))) continue;
     m.set(k, j); if (fk) seenFuzzy.add(fk);
   }
-  return Array.from(m.values()).sort((a, b) => b.postedAt - a.postedAt).slice(0, 500);
+  return uxFairCap(Array.from(m.values()));   // 23: up to WIRE_CAP, fair share per source family (was: newest 500 overall)
 }
 function scheduleNext(ms){ state.nextSyncAt = Date.now() + ms; }
 function showBanner(html, sticky){
@@ -1985,7 +2105,7 @@ function filtered(){
 }
 function ranked(list){
   const arr = list.map(j => Object.assign({ job:j }, scoreJob(j)));
-  if (state.filters.sort === 'match') arr.sort((a, b) => b.score - a.score || b.job.postedAt - a.job.postedAt);
+  if (uxSortKey() === 'match') arr.sort((a, b) => b.score - a.score || b.job.postedAt - a.job.postedAt);   // 23: no profile → newest first
   else arr.sort((a, b) => b.job.postedAt - a.job.postedAt);
   return arr;
 }
@@ -2000,18 +2120,16 @@ function rowHTML(r, i){
   const gr = ghostRisk(j);
   return '<li class="row" data-id="' + esc(j.id) + '" tabindex="0">' +
     '<span class="idx">' + (grSelBox(j.id) || String(i + 1).padStart(2,'0')) + '</span>' +
-    '<div class="scorebox' + (r.score >= 75 ? ' hi' : '') + '"><span class="ticks">' + ticksHTML(r.score) + '</span><span class="scorenum">' + r.score + '</span></div>' +
+    uxScoreBoxHTML(r.score) +
     '<div class="body">' +
       '<div class="l1">' + (state.newIds.has(j.id) ? '<span class="newmark">NEW</span>' : '') + '<span class="jtitle">' + esc(j.title) + '</span></div>' +
       '<div class="l2"><b>' + esc(j.company) + '</b><span class="sep">·</span><span>' + esc(tr(j.location, 42)) + '</span><span class="sep">·</span><span class="badge ' + j.remote + '">' + j.remote + '</span><span class="sep">·</span><span class="src">' + j.source.toUpperCase() + '</span><span class="sep">·</span><span>' + ago(j.postedAt) + ' AGO</span>' +
-        (gr.level !== 'low' ? '<button class="ghostchip g-' + gr.level + '" data-act="ghostinfo" title="' + esc('Ghost-job risk (heuristic): ' + gr.reasons.filter(x => x.w > 0).map(x => x.t).join(' · ')) + '">GHOST RISK · ' + (gr.level === 'high' ? 'HIGH' : 'MED') + '</button>' : '') +
+        (gr.level !== 'low' ? '<button class="ghostchip g-' + gr.level + '" data-act="ghostinfo" title="' + esc('Ghost-job risk: how likely this posting is stale, reposted or not really hiring (a heuristic, not proof). Signals: ' + gr.reasons.filter(x => x.w > 0).map(x => x.t).join(' · ')) + '">GHOST RISK · ' + (gr.level === 'high' ? 'HIGH' : 'MED') + '</button>' : '') +
         (state.fit[j.id] ? '<span class="fsbadge" title="AI fit score for your CV">AI ' + state.fit[j.id].result.score + '/10</span>' : '') + '</div>' +
       (j.tags.length ? '<div class="l3">' + j.tags.slice(0, 5).map(esc).join(' · ') + (j.tags.length > 5 ? '  +' + (j.tags.length - 5) : '') + '</div>' : '') +
     '</div>' +
-    '<div class="pay row-pay-hide">' + (fmtSalary(j) ? esc(fmtSalary(j)) : '<span class="dim">PAY N/A</span>') + '</div>' +
-    '<div class="acts"><button class="btn" data-act="fsrow" title="Score this posting against your CV with AI">AI FIT</button>' +
-      (pinned && state.board.get(j.id).status !== 'saved' ? '<button class="btn applied" disabled>' + esc(state.board.get(j.id).status.toUpperCase()) + '</button>' : '<button class="btn" data-act="markapplied" title="Mark applied (a) — schedules a follow-up">APPLIED</button>') +
-      '<button class="btn" data-act="pintoggle">' + (pinned ? 'UNPIN' : 'PIN') + '</button><button class="btn" data-act="web">↗</button></div>' +
+    '<div class="pay">' + (fmtSalary(j) ? esc(fmtSalary(j)) : '<span class="dim" title="Pay not listed in the posting">PAY NOT LISTED</span>') + '</div>' +
+    uxActsHTML(j, pinned) +   // 23: AI fit · applied · pin · open posting
   '</li>';
 }
 const boardArr = () => Array.from(state.board.values()).sort((a, b) => b.at - a.at);
@@ -2058,7 +2176,7 @@ function boardRow(b, i){
   const opts = STAGES.map(s => '<option value="' + s + '"' + (b.status === s ? ' selected' : '') + '>' + s.toUpperCase() + '</option>').join('');
   return '<li class="row" data-id="' + esc(j.id) + '" tabindex="0">' +
     '<span class="idx">' + (grSelBox(j.id) || String(i + 1).padStart(2,'0')) + '</span>' +
-    '<div class="scorebox' + (m.score >= 75 ? ' hi' : '') + '"><span class="ticks">' + ticksHTML(m.score) + '</span><span class="scorenum">' + m.score + '</span></div>' +
+    uxScoreBoxHTML(m.score) +
     '<div class="body">' +
       '<div class="l1"><span class="jtitle">' + esc(j.title) + '</span></div>' +
       '<div class="l2"><b>' + esc(j.company) + '</b><span class="sep">·</span><span class="src">' + j.source.toUpperCase() + '</span><span class="sep">·</span><span>UPDATED ' + ago(b.at) + ' AGO</span>' +
@@ -4542,7 +4660,7 @@ function fsInCv(ev, cv){
 function fsModeChip(mode){
   if (mode === 'byok') return '<span class="fs-mode">USING YOUR ANTHROPIC KEY</span>';
   if (mode === 'pass') return '<span class="fs-mode">PASS ACTIVE · UNTIL ' + esc(fsDate(state.ai.pass.exp)) + '</span>';
-  if (mode === 'free') return '<span class="fs-mode">' + fsFreeLeft() + ' OF ' + FS_FREE_LIMIT + ' FREE LEFT · <a href="#" data-act="fspaywall">PASSES &amp; YOUR KEY</a></span>';
+  if (mode === 'free') return '<span class="fs-mode">' + fsFreeLeft() + ' OF ' + FS_FREE_LIMIT + ' FREE LEFT · <a href="#" data-act="fspaywall" title="Buy a time-limited pass for unlimited AI fit scores, or use your own Anthropic API key">PASSES &amp; YOUR KEY</a></span>';
   if (mode === 'bonus') return '<span class="fs-mode">' + grBonusLeft() + ' BONUS SCORE' + (grBonusLeft() === 1 ? '' : 'S') + ' LEFT (FROM A FRIEND) · <a href="#" data-act="fspaywall">PASSES</a></span>';
   return '<span class="fs-mode">FREE SCORES USED · <a href="#" data-act="fspaywall">GET A PASS OR USE YOUR KEY</a></span>';
 }
@@ -4799,7 +4917,7 @@ function openDrawer(id){
       '<div class="d-co"><b>' + esc(j.company) + '</b><span class="badge ' + j.remote + '">' + j.remote + '</span></div>' +
     '</div>' +
     '<div class="d-match">' +
-      '<div class="d-score"><label>MATCH</label><b>' + m.score + '</b><span>/100</span></div>' +
+      uxDrawerScoreHTML(m.score) +
       '<div class="d-meters">' +
         '<div class="mrow"><label>SKILLS</label><div class="meter' + (m.parts.skill >= .6 ? ' hi' : '') + '"><i style="width:' + pct(m.parts.skill) + '%"></i></div></div>' +
         '<div class="mrow"><label>PAY</label><div class="meter' + (m.parts.pay >= .6 ? ' hi' : '') + '"><i style="width:' + pct(m.parts.pay) + '%"></i></div></div>' +
@@ -4965,7 +5083,7 @@ function openAgent(list){
             '<div class="reasons">' + r.plus.map(x => '<span class="p">+ ' + esc(x) + '</span>').join('') + r.minus.map(x => '<span class="m">− ' + esc(x) + '</span>').join('') + '</div>' +
           '</div>' +
           '<div class="ag-right">' +
-            '<span class="pay">' + (fmtSalary(r.job) ? esc(fmtSalary(r.job)) : '<span class="dim">PAY N/A</span>') + '</span>' +
+            '<span class="pay">' + (fmtSalary(r.job) ? esc(fmtSalary(r.job)) : '<span class="dim" title="Pay not listed in the posting">PAY NOT LISTED</span>') + '</span>' +
             '<span><button class="btn mini" data-act="pintoggle" data-id="' + esc(r.job.id) + '">' + (state.board.has(r.job.id) ? 'UNPIN' : 'PIN') + '</button>' +
             '<button class="btn mini" data-act="web" data-id="' + esc(r.job.id) + '">↗</button></span>' +
           '</div>' +
@@ -5317,6 +5435,7 @@ function renderViews(){
   const srcRow = $('#sourceChips'), locRow = $('#locChips'), tagRow = $('#tagChips');
   renderSampleBar();   // hides itself outside the wire view
   renderGrowth();   // 22: hero · today card · career bar · bulk bar
+  renderUx();   // 23: compact sidebar card · first-run hint
   if (state.view === 'tailor' || state.view === 'people' || state.view === 'insights'){
     [toolbar, savedBar, strip, srcRow, locRow, tagRow].forEach(el => { if (el) el.hidden = true; });
     if (wire){ wire.innerHTML = ''; wire.hidden = true; }
@@ -5369,7 +5488,7 @@ function renderStats(){
   B('stCount', e => e.textContent = state.jobs.length.toLocaleString('en-US'));
   const ok = SRC.filter(s => state.sourcesStatus[s.id] && state.sourcesStatus[s.id].ok).length;
   B('stSources', e => e.textContent = state.offlineMode ? 'OFFLINE' : ok + '/' + SRC.length);
-  B('stFeeds', e => e.textContent = allFeeds().length);
+  B('stFeeds', e => { const up = uxFeedsUp(); e.textContent = (state.offlineMode || up === null) ? String(allFeeds().length) : up + '/' + allFeeds().length; });   // 23: feeds that answered / all feeds
   B('feedCount', e => e.textContent = allFeeds().length + ' FEEDS · ' + SRC.length + ' SOURCE FAMILIES');
   B('edNo', e => e.textContent = '№' + Math.floor(Date.now() / 864e5));
 }
@@ -5378,14 +5497,7 @@ function renderSourcesRow(){
   if (!el) return;
   if (state.view !== 'wire' || !state.jobs.length){ el.hidden = true; return; }
   el.hidden = false;
-  const SRC = AS();
-  const counts = {};
-  state.jobs.forEach(j => counts[j.source] = (counts[j.source] || 0) + 1);
-  el.innerHTML = '<span class="tlabel">SOURCES</span>' + SRC.map(s => {
-    const st = state.sourcesStatus[s.id] || {};
-    const dot = st.ok ? 'ok' : (st.feeds ? 'bad' : '');
-    return '<button class="chip ' + (state.filters.sources.has(s.id) ? 'on' : '') + '" data-src="' + s.id + '"><i class="sdot ' + dot + '"></i>' + s.label + ' <span class="cnt">' + (counts[s.id] || 0) + '</span></button>';
-  }).join('') + (state.offlineMode ? '<span class="chip"><i class="sdot bad"></i>OFFLINE SNAPSHOT</span>' : '');
+  el.innerHTML = uxSourceChipsHTML() + (state.offlineMode ? '<span class="chip"><i class="sdot bad"></i>OFFLINE SNAPSHOT</span>' : '');
 }
 function renderLocChips(){
   const el = $('#locChips');
@@ -5483,7 +5595,7 @@ function syncToolbarFromState(){
   const trEl = $('#togRemote'); if (trEl) trEl.classList.toggle('on', f.remoteOnly);
   const tf = $('#togFloor'); if (tf){ tf.classList.toggle('on', f.floorOnly); tf.classList.toggle('dis', !state.profile.minSalary); }
   const tg = $('#togGhost'); if (tg) tg.classList.toggle('on', !!f.hideGhost);
-  const ss = $('#selSort'); if (ss) ss.value = f.sort;
+  const ss = $('#selSort'); if (ss) ss.value = uxSortKey();
   const sn = $('#selSen'); if (sn) sn.value = f.seniority;
 }
 function renderAll(){
@@ -5502,6 +5614,7 @@ function renderAll(){
 function bindEvents(){
   bindFitScore();   // AI fit score (15b)
   bindGrowth();   // 22: hero, onboarding, today, report, PWA, hired, AI writing, sync, referrals, bulk, shortcuts
+  bindUx();   // 23
   B('bulkTog', e => e.onclick = () => grBulkToggle());
   B('syncBtn', e => e.onclick = () => sync());
   B('tabWire', e => e.onclick = () => { state.view = 'wire'; renderAll(); });
@@ -7563,6 +7676,276 @@ function growthAfterSync(){
   renderGrowth();
   grNotifyMatches();
   grSaveNotifyPlan();
+}
+
+/* ============ 23 · UX — compact first-run sidebar · touch-friendly row actions · fair source retention ·
+                  plain-language tooltips · first-run hint · unscored state ============
+   UI preferences only (sidebar open/closed, hint dismissed, sort picked, empty sources shown). They stay in this
+   browser under hirewire.ux.v1: not in backups, not in encrypted sync, never sent anywhere. */
+LS.ux = 'hirewire.ux.v1';
+const UX_DEFAULTS = { v:1, side:'closed', hintDone:false, sortPicked:false, showEmptySrc:false };
+let UX = Object.assign({}, UX_DEFAULTS);
+function loadUx(){
+  const u = lsGet(LS.ux);
+  UX = Object.assign({}, UX_DEFAULTS, (u && typeof u === 'object') ? u : {});
+  if (UX.side !== 'open') UX.side = 'closed';
+}
+function saveUx(){ lsSet(LS.ux, UX); }
+
+/* ---- 23.1 · fair retention: every source family keeps a fair share before the rest fills by recency ----
+   The wire used to keep the newest 500 postings overall, so big ATS families (Greenhouse: thousands of postings)
+   pushed smaller ones (Remotive, Lever, Workable…) to zero. Now: total cap 800; each family first keeps its newest
+   min(its count, 40) (40 shrinks if there are ever so many families that 40 × families > the cap). */
+const WIRE_CAP = 800, WIRE_FAIR_MIN = 40;
+function uxFairCap(list, cap, fairMin){
+  cap = cap || WIRE_CAP; fairMin = fairMin || WIRE_FAIR_MIN;
+  const sorted = list.slice().sort((a, b) => b.postedAt - a.postedAt);
+  if (sorted.length <= cap) return sorted;
+  const fam = {};
+  sorted.forEach(j => { (fam[j.source] = fam[j.source] || []).push(j); });
+  const names = Object.keys(fam);
+  const quota = Math.max(1, Math.min(fairMin, Math.floor(cap / names.length)));
+  const keep = new Set();
+  names.forEach(n => fam[n].slice(0, quota).forEach(j => keep.add(j)));
+  for (const j of sorted){ if (keep.size >= cap) break; keep.add(j); }
+  return sorted.filter(j => keep.has(j));
+}
+
+/* ---- 23.2 · no profile → no fake score: "—" instead of a flat 45, and Newest first ---- */
+const UX_UNSCORED_TIP = 'Set your profile to score';
+function uxUnscored(){ return profileIsEmpty(state.profile); }
+function uxSortKey(){ return (state.filters.sort === 'match' && uxUnscored() && !UX.sortPicked) ? 'newest' : state.filters.sort; }
+function uxScoreBoxHTML(score){
+  if (uxUnscored()) return '<div class="scorebox unscored" title="' + UX_UNSCORED_TIP + '"><span class="ticks" aria-hidden="true">' + ticksHTML(0) + '</span>' +
+    '<span class="scorenum" aria-label="No match score yet. ' + UX_UNSCORED_TIP + '.">—</span></div>';
+  return '<div class="scorebox' + (score >= 75 ? ' hi' : '') + '" title="Match score ' + score + '/100: your skills, pay against your floor, freshness, remote">' +
+    '<span class="ticks" aria-hidden="true">' + ticksHTML(score) + '</span><span class="scorenum" aria-label="Match score ' + score + ' of 100">' + score + '</span></div>';
+}
+function uxDrawerScoreHTML(score){
+  if (uxUnscored()) return '<div class="d-score unscored" title="' + UX_UNSCORED_TIP + '"><label>MATCH</label><b>—</b><span>SET YOUR PROFILE TO SCORE</span></div>';
+  return '<div class="d-score"><label>MATCH</label><b>' + score + '</b><span>/100</span></div>';
+}
+
+/* ---- 23.3 · row actions: compact icon buttons, always reachable, labelled ---- */
+function uxActsHTML(j, pinned){
+  const b = state.board.get(j.id), t = esc(tr(j.title, 60));
+  const ib = (act, icon, label, cls, extra) => '<button class="btn ib' + (cls ? ' ' + cls : '') + '" data-act="' + act + '" title="' + label + '" aria-label="' + label + ' — ' + t + '"' + (extra || '') + '><span aria-hidden="true">' + icon + '</span></button>';
+  const applied = (pinned && b && b.status !== 'saved')
+    ? '<button class="btn ib applied" disabled title="On your board: ' + esc(b.status) + '"><span aria-hidden="true">✓</span> ' + esc(b.status.toUpperCase()) + '</button>'
+    : ib('markapplied', '✓', 'Mark applied (a) — schedules a follow-up');
+  return '<div class="acts">' +
+    ib('fsrow', 'AI', 'AI fit — score this posting against your CV') + applied +
+    ib('pintoggle', pinned ? '★' : '☆', pinned ? 'Unpin — remove from My Board' : 'Pin — save to My Board', pinned ? 'on' : '', ' aria-pressed="' + (pinned ? 'true' : 'false') + '"') +
+    ib('web', '↗', 'Open posting') + '</div>';
+}
+
+/* ---- 23.4 · source chips: counts on the wire, empty families folded behind "+N EMPTY" ---- */
+function uxFeedsUp(){
+  const SRC = AS(); let up = 0, seen = false;
+  SRC.forEach(s => { const st = state.sourcesStatus[s.id]; if (st && st.feeds){ seen = true; up += st.feeds - (st.failed || 0); } });
+  return seen ? up : null;
+}
+function uxSourceChipsHTML(){
+  const SRC = AS(), counts = {};
+  state.jobs.forEach(j => { counts[j.source] = (counts[j.source] || 0) + 1; });
+  let empty = 0;
+  const chips = SRC.map(s => {
+    const st = state.sourcesStatus[s.id] || {}, n = counts[s.id] || 0, on = state.filters.sources.has(s.id);
+    if (!n && !on && !UX.showEmptySrc){ empty++; return ''; }
+    const dot = st.ok ? 'ok' : (st.feeds ? 'bad' : '');
+    const tip = n + ' posting' + (n === 1 ? '' : 's') + ' on the wire' + (st.ok ? ' · ' + st.count + ' fetched on the last sync' + (st.failed ? ' · ' + st.failed + ' feed' + (st.failed === 1 ? '' : 's') + ' down' : '') : (st.feeds ? ' · feeds failed on the last sync' : ''));
+    return '<button class="chip ' + (on ? 'on' : '') + (n ? '' : ' empty') + '" data-src="' + s.id + '" title="' + esc(tip) + '"><i class="sdot ' + dot + '"></i>' + s.label + ' <span class="cnt">' + n + '</span></button>';
+  }).join('');
+  const emptyN = SRC.filter(s => !counts[s.id] && !state.filters.sources.has(s.id)).length;
+  const tog = emptyN ? '<button class="chip uxempty" data-uxsrc="1" aria-expanded="' + (UX.showEmptySrc ? 'true' : 'false') + '" title="Sources with no postings on the wire right now (feed down, or nothing new)">' +
+    (UX.showEmptySrc ? 'HIDE EMPTY' : '+' + empty + ' EMPTY') + '</button>' : '';
+  return '<span class="tlabel" title="Source families. A chip counts the postings kept on the wire: up to ' + WIRE_CAP + ' in total, with a fair share (up to ' + WIRE_FAIR_MIN + ') for every source">SOURCES</span>' + chips + tog;
+}
+
+/* ---- 23.5 · sidebar: one compact card first, everything else behind Settings ---- */
+function uxSideOpen(){ return UX.side === 'open'; }
+function uxSetSide(open, focusSel){
+  UX.side = open ? 'open' : 'closed'; saveUx(); renderUxSide(true);
+  if (focusSel){ const f = document.querySelector(focusSel); if (f){ try { if (f.scrollIntoView) f.scrollIntoView({ block:'center' }); f.focus(); } catch(e){} } }
+}
+function uxSkillChipsHTML(max){
+  const s = state.profile.skills, show = max ? s.slice(0, max) : s;
+  return show.map(x => '<span class="chip">' + esc(x) + '<span class="rm" data-k="skills" data-v="' + esc(x) + '" role="button" aria-label="Remove ' + esc(x) + '">×</span></span>').join('') +
+    (max && s.length > max ? '<span class="chip dim">+' + (s.length - max) + '</span>' : '');
+}
+function uxToggleHTML(){
+  const open = uxSideOpen();
+  return '<button class="btn ux-tog" id="uxSideTog" data-uxact="side" aria-expanded="' + open + '" aria-controls="uxMore" title="Full profile, AI fit score passes, encrypted sync, notifications, your own job API keys, agent brief and the scoring formula">' +
+    (open ? 'HIDE SETTINGS ▴' : 'SETTINGS &amp; MORE ▾') + '</button>';
+}
+function renderUxSide(force){
+  const el = document.getElementById('uxStart'), more = document.getElementById('uxMore');
+  if (!el) return;
+  const p = state.profile, empty = profileIsEmpty(p), open = uxSideOpen();
+  if (more) more.hidden = !open;
+  const side = document.querySelector('.side'); if (side) side.classList.toggle('ux-open', open);
+  const sig = [empty, open, p.name, p.skills.join('|'), p.minSalary, p.currency, p.blacklist.length, p.locBlocks.length].join('#');
+  if (!force && el.dataset.sig === sig) return;
+  const act = document.activeElement, refocus = act && el.contains(act) ? act.id : '';
+  el.dataset.sig = sig;
+  if (empty){
+    el.innerHTML = '<h2 class="plabel">Get matched</h2>' +
+      '<p class="ux-lede">Paste your CV or add 3 skills — every posting gets a match score. It all runs in this browser.</p>' +
+      '<div class="fld"><label for="uxCv">Paste your CV</label><textarea class="input" id="uxCv" placeholder="Paste your résumé / CV text…"></textarea>' +
+        '<button class="btn red" data-uxact="cv">SCORE MY WIRE</button></div>' +
+      '<p class="ux-or"><span>or</span></p>' +
+      '<div class="fld"><label for="uxSkill">Add 3 skills — Enter after each</label><div class="chips" id="uxSkillChips">' + uxSkillChipsHTML() + '</div>' +
+        '<input class="input sm" id="uxSkill" placeholder="e.g. product manager + Enter" autocomplete="off"></div>' +
+      '<div class="fld"><label for="uxName">Name — optional, for follow-up emails</label><input class="input sm" id="uxName" placeholder="e.g. Burt Munroe" value="' + esc(p.name || '') + '"></div>' +
+      uxToggleHTML();
+  } else {
+    const bits = [];
+    if (p.minSalary) bits.push('FLOOR ' + esc(fmtCur(p.minSalary, p.currency)));
+    if (p.blacklist.length) bits.push(p.blacklist.length + ' BLOCKED WORD' + (p.blacklist.length === 1 ? '' : 'S'));
+    if (p.locBlocks.length) bits.push(p.locBlocks.length + ' BLOCKED PLACE' + (p.locBlocks.length === 1 ? '' : 'S'));
+    const need = Math.max(0, 3 - p.skills.length);
+    el.innerHTML = '<h2 class="plabel">Your profile</h2>' +
+      (p.name ? '<p class="ux-name">' + esc(p.name) + '</p>' : '') +
+      '<div class="chips ux-sumchips" id="uxSkillChips">' + (p.skills.length ? uxSkillChipsHTML(10) : '<span class="dim ux-small">NO SKILLS YET</span>') + '</div>' +
+      '<input class="input sm" id="uxSkill" placeholder="add skill + Enter" autocomplete="off" aria-label="Add a skill">' +
+      (need ? '<p class="ux-small ux-need">Add ' + need + ' more skill' + (need === 1 ? '' : 's') + ' for sharper scores.</p>' : '') +
+      (bits.length ? '<p class="ux-small">' + bits.join(' · ') + '</p>' : '') +
+      '<div class="btnrow ux-sumbtns">' + (open ? '' : '<button class="btn" data-uxact="edit">EDIT PROFILE</button>') + '</div>' +
+      uxToggleHTML();
+  }
+  if (refocus){ const f = document.getElementById(refocus); if (f) try { f.focus(); } catch(e){} }
+}
+function uxAddSkills(list){
+  let added = 0;
+  list.forEach(v => { v = String(v || '').trim().toLowerCase(); if (v && v.length <= 60 && state.profile.skills.indexOf(v) < 0){ state.profile.skills.push(v); added++; } });
+  if (added){ saveProfile(); state.visible = 40; renderAll(); }
+  return added;
+}
+function uxCvExtract(){
+  const cv = document.getElementById('uxCv'); if (!cv) return;
+  const text = cv.value;
+  if (!text.trim()){ toast('PASTE YOUR CV TEXT FIRST'); cv.focus(); return; }
+  const found = extractSkillsFromCV(text);
+  if (!found.length){ toast('NO KNOWN SKILLS FOUND — ADD 3 SKILLS BELOW'); const s = document.getElementById('uxSkill'); if (s) s.focus(); return; }
+  state.profile.skills = Array.from(new Set(found.concat(state.profile.skills))).slice(0, 16);
+  cv.value = '';
+  saveProfile(); state.visible = 40; renderAll();
+  toast('PROFILE SET — ' + found.length + ' SKILLS: ' + found.slice(0, 5).join(', ') + ' · YOUR WIRE IS SCORED');
+  hwTrack('ux_cv_extract');
+}
+
+/* ---- 23.6 · plain-language tooltips + accessible descriptions for the HireWire lexicon ---- */
+const UX_GLOSS = {
+  tabWire:['The Wire', 'Every live posting from ' + FEED_TOTAL() + ' public job feeds, scored against your profile.'],
+  tabBoard:['My Board', 'Postings you saved, and where each application stands: saved, applied, screen, interview, offer.'],
+  tabTailor:['Tailor', 'Paste a job posting to see which of its keywords your CV is missing.'],
+  tabPeople:['People', 'Recruiters and contacts you are talking to, with reminders to follow up.'],
+  tabInsights:['Insights', 'Your funnel, weekly report, follow-ups due, salary check and ghost-job check.'],
+  togRemote:['Remote', 'Only show remote postings.'],
+  togFloor:['≥ Floor', 'Only show postings whose listed pay meets your salary floor. Set a floor under Settings first.'],
+  togGhost:['Hide ghosts', 'Hide postings with a HIGH ghost-job risk: likely stale, reposted or not really hiring. A heuristic, not proof.'],
+  selSort:['Sort', 'Match puts your best-scoring postings first; Newest puts the latest first.'],
+  saveSearchBtn:['Save search', 'Save these filters as a one-click search that counts new postings for you.'],
+  bulkTog:['Select', 'Select several postings to save, hide or mark applied in one go (shortcut: x).'],
+  fsManageBtn:['Passes & your key', 'Buy a time-limited pass for unlimited AI fit scores, or use your own Anthropic API key. 3 scores are free.'],
+  conTab:['Console', 'A command line for power users: filter, save, export and run the agent by typing (shortcut: ` or Ctrl+K).'],
+  edLine:['Edition', 'Edition number = days since 1 January 1970. The wire re-syncs every hour while this tab is open.'],
+  syncBtn:['Sync now', 'Fetch the latest postings from every feed now. Otherwise it happens automatically every hour.'],
+  stSourcesStat:['Sources up', 'Source families with at least one feed that answered on the last sync.'],
+  stFeedsStat:['Feeds up', 'Individual job feeds (company boards and job sites) that answered on the last sync, out of all feeds.'],
+  stCountStat:['On the wire', 'Postings kept in this browser: up to ' + WIRE_CAP + ', with a fair share for every source.'],
+  stNextStat:['Next sync', 'Countdown to the next automatic hourly refresh.'],
+};
+function uxGloss(){
+  const box = document.getElementById('uxGloss'); if (!box) return;
+  if (!box.childElementCount) box.innerHTML = Object.keys(UX_GLOSS).map(id => '<span id="uxd-' + id + '">' + esc(UX_GLOSS[id][1]) + '</span>').join('');
+  Object.keys(UX_GLOSS).forEach(id => {
+    const el = document.getElementById(id); if (!el) return;
+    el.setAttribute('title', UX_GLOSS[id][0] + ' — ' + UX_GLOSS[id][1]);
+    el.setAttribute('aria-describedby', 'uxd-' + id);
+  });
+}
+
+/* ---- 23.7 · first-run hint: 3 steps, inline (never a modal), shown once, never on top of the hero/onboarding ---- */
+function uxFiltered(){
+  const f = state.filters;
+  return !!(f.q || f.sources.size || f.tags.size || f.locs.size || (f.seniority && f.seniority !== 'any') || f.hideGhost || f.floorOnly && floorUsd());
+}
+function uxHintVisible(){
+  if (UX.hintDone || state.view !== 'wire') return false;
+  if (heroVisible() || todayVisible()) return false;
+  const gm = document.getElementById('growthModal'); if (gm && gm.classList.contains('open')) return false;
+  return !grReal().length;
+}
+function renderUxHint(){
+  const el = document.getElementById('uxHint'); if (!el) return;
+  if (!UX.hintDone && grReal().length){ UX.hintDone = true; saveUx(); }   // step 3 done for real → never show again
+  if (!uxHintVisible()){ el.hidden = true; el.innerHTML = ''; return; }
+  el.hidden = false;
+  const s1 = !profileIsEmpty(state.profile), s2 = uxFiltered(), s3 = state.board.size > 0;
+  const step = (n, done, h, p, btn) => '<li class="' + (done ? 'done' : '') + '"><b aria-hidden="true">' + (done ? '✓' : n) + '</b><div><strong>' + h + (done ? '<span class="sr"> — done</span>' : '') + '</strong><span>' + p + '</span>' + (btn || '') + '</div></li>';
+  el.innerHTML = '<button class="hero-x" data-uxact="hintx" aria-label="Hide these tips">×</button>' +
+    '<ol>' +
+      step(1, s1, 'Set your profile', 'Paste your CV or add 3 skills, and every posting gets a match score.',
+        s1 ? '' : '<span class="ux-hbtns"><button class="btn mini" data-uxact="hintprofile">SET PROFILE</button><button class="btn mini" data-act="sample">TRY SAMPLE JOBS</button></span>') +
+      step(2, s2, 'Filter the wire', 'Type in the filter box, or tap a source, place or tag chip.', s2 ? '' : '<span class="ux-hbtns"><button class="btn mini" data-uxact="hintfilter">FILTER</button></span>') +
+      step(3, s3, 'Save to your board', 'Press ☆ on a row, or Save to pipeline in a posting, to track it on My Board.') +
+    '</ol>';
+}
+
+/* ---- 23.8 · render + events ---- */
+function renderUx(){ renderUxSide(false); renderUxHint(); }
+function bindUx(){
+  uxGloss();
+  const st = document.getElementById('uxStart');
+  if (st){
+    st.addEventListener('click', ev => {
+      const a = ev.target.closest('[data-uxact]'); if (!a) return;
+      const k = a.dataset.uxact;
+      if (k === 'side'){ uxSetSide(!uxSideOpen()); hwTrack('ux_settings_' + (uxSideOpen() ? 'open' : 'close')); }
+      else if (k === 'edit') uxSetSide(true, '#skillInput');
+      else if (k === 'cv') uxCvExtract();
+    });
+    st.addEventListener('keydown', ev => {
+      if (ev.target.id !== 'uxSkill' || ev.key !== 'Enter') return;
+      ev.preventDefault();
+      const parts = ev.target.value.split(',');
+      ev.target.value = '';
+      const n = uxAddSkills(parts);
+      if (n){ const left = Math.max(0, 3 - state.profile.skills.length); toast(left ? 'SKILL ADDED — ' + left + ' MORE FOR SHARPER SCORES' : 'SKILL ADDED — YOUR WIRE IS SCORED'); }
+      const f = document.getElementById('uxSkill'); if (f) try { f.focus(); } catch(e){}
+    });
+    st.addEventListener('change', ev => {
+      if (ev.target.id !== 'uxName') return;
+      state.profile.name = ev.target.value.trim().slice(0, 80);
+      saveProfile(); renderAll();
+      toast(state.profile.name ? 'NAME SAVED — USED IN FOLLOW-UPS' : 'NAME CLEARED');
+    });
+  }
+  const hint = document.getElementById('uxHint');
+  if (hint) hint.addEventListener('click', ev => {
+    const a = ev.target.closest('[data-uxact]');
+    if (a){
+      const k = a.dataset.uxact;
+      if (k === 'hintx'){ UX.hintDone = true; saveUx(); renderUxHint(); hwTrack('ux_hint_dismiss'); }
+      else if (k === 'hintprofile'){ const f = document.getElementById('uxCv') || document.getElementById('uxSkill'); if (f){ try { if (f.scrollIntoView) f.scrollIntoView({ block:'center' }); f.focus(); } catch(e){} } }
+      else if (k === 'hintfilter'){ const q = document.getElementById('qInput'); if (q){ try { if (q.scrollIntoView) q.scrollIntoView({ block:'center' }); q.focus(); } catch(e){} } }
+      return;
+    }
+    if (ev.target.closest('[data-act="sample"]')){ loadSampleJobs(); }
+  });
+  const jump = document.getElementById('uxProfileJump');
+  if (jump) jump.addEventListener('click', () => {
+    const f = document.getElementById('uxCv') || document.getElementById('uxSkill') || document.getElementById('uxStart');
+    if (f){ try { if (f.scrollIntoView) f.scrollIntoView({ block:'center' }); if (f.focus) f.focus(); } catch(e){} }
+  });
+  const sc = document.getElementById('sourceChips');
+  if (sc) sc.addEventListener('click', ev => {
+    if (!ev.target.closest('[data-uxsrc]')) return;
+    UX.showEmptySrc = !UX.showEmptySrc; saveUx(); renderSourcesRow();
+  });
+  const ss = document.getElementById('selSort');
+  if (ss) ss.addEventListener('change', () => { if (!UX.sortPicked){ UX.sortPicked = true; saveUx(); } });
 }
 
 /* ============ 21 · CLOCK, SCHEDULER & BOOT ============ */
