@@ -7,7 +7,7 @@
    • Periodic Background Sync (where the browser supports it, e.g. installed Chrome/Edge): reads the follow-up
      due dates the page left in its IndexedDB mirror and shows at most one notification a day. Nothing is fetched. */
 'use strict';
-const VERSION = 'hw-shell-v1';
+const VERSION = 'hw-shell-v2';   // v2 (2026-10-15, growth plays): new pages.css rules + resume-privacy-check.js
 const PREFIX = 'hw-shell-';
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
 const STATIC_RE = /\.(?:png|jpe?g|gif|svg|webp|ico|css|js|webmanifest|woff2?|txt|xml)$/i;
