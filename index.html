@@ -706,6 +706,39 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
   .con-tab{bottom:12px;padding:7px 10px;font-size:9px}
 }
 @media print{ .uxhint,#uxStart,.ux-tog{display:none!important} }
+/* ===== 24 · growth plays: fair-questions section (objections), hero link, print attribution ===== */
+.hero-faq{margin-top:12px;font-size:10px;letter-spacing:.06em}
+.hero-faq a{color:var(--ink2);text-decoration:underline;text-underline-offset:3px}
+.hero-faq a:hover{color:var(--red)}
+.fairqs{margin:34px 0 26px;padding-top:22px;border-top:3px double var(--ink)}
+.fq-kick{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:600}
+.fq-h{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:clamp(26px,3.4vw,38px);line-height:1.05;margin:8px 0 8px}
+.fq-h:focus{outline:none}
+.fq-dek{font-size:11.5px;line-height:1.7;color:var(--ink2);max-width:52em;margin-bottom:14px}
+.fq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 28px;border-top:1px solid var(--line)}
+.fq-list details{border-bottom:1px solid var(--line);min-width:0}
+.fq-list summary{cursor:pointer;list-style:none;padding:13px 26px 13px 0;position:relative;font-size:12px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.fq-list summary::-webkit-details-marker{display:none}
+.fq-list summary::after{content:'+';position:absolute;right:2px;top:11px;font-size:15px;font-weight:400;color:var(--red)}
+.fq-list details[open] summary::after{content:'−'}
+.fq-list summary:hover{color:var(--red)}
+.fq-list .fq-a{padding:0 0 14px;font-size:11.5px;line-height:1.7;color:var(--ink);overflow-wrap:anywhere}
+.fq-list .fq-a p+p{margin-top:8px}
+.fq-list .fq-a a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.fq-list .fq-a a:hover{color:var(--red)}
+.fq-check{border-left:2px solid var(--green);padding:6px 0 6px 10px;background:rgba(61,107,53,.06);font-size:10.5px;color:var(--ink2)}
+.fq-check b{color:var(--green);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:9px;margin-right:4px}
+.fq-foot{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-top:12px;line-height:1.8}
+.fq-foot a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
+@media (max-width:760px){
+  .fq-list{grid-template-columns:minmax(0,1fr)}
+  .fairqs{margin-top:26px}
+}
+@media print{
+  .fairqs,.hero-faq{display:none!important}
+  body::after{content:"Exported from HireWire \2014  free, local-first job tracker \00B7  https://hirewire.fyi";display:block;margin-top:18px;padding-top:8px;border-top:1px solid #999;font-size:9px;letter-spacing:.08em;color:#555}
+}
+
 </style>
 </head>
 <body>
@@ -906,7 +939,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
       <section class="panel" id="sponsorPanel" hidden>
         <h2 class="plabel">Supported by</h2>
         <div id="sponsorSide"></div>
-        <p class="fine" id="sponsorFine">Slots are hand-sold. No ad trackers and no click tracking — HireWire cannot see clicks, sponsors cannot see you.</p>
+        <p class="fine" id="sponsorFine">Slots are hand-sold. No ad trackers and no click tracking — HireWire cannot see clicks, sponsors cannot see you. <a href="/sponsor.html">About sponsoring</a></p>
       </section>
     </aside>
 
@@ -967,6 +1000,45 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 
       <ol class="wire" id="wire"></ol>
       <button class="btn more" id="moreBtn" hidden></button>
+      <!-- 24: objections, answered plainly. No reviews or testimonials exist yet, so every answer says how to check it yourself. -->
+      <section class="fairqs" id="fairqs" aria-labelledby="fairqsH">
+        <p class="fq-kick">Before you trust a new tool</p>
+        <h2 class="fq-h" id="fairqsH">Fair questions, plain answers</h2>
+        <p class="fq-dek">HireWire is new and has no reviews to show yet, so here is what you can verify yourself instead. The site is served from a public GitHub repository (<a href="https://github.com/gauravj91/hirewire" target="_blank" rel="noopener">gauravj91/hirewire</a>): every line that runs in your browser can be read.</p>
+        <div class="fq-list">
+          <details data-fq="free"><summary>Is it really free? How do you make money?</summary><div class="fq-a">
+            <p>The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of <b>€9 for 7 days</b> or <b>€19 for 30 days</b>, or <b>€29 Pass Plus</b> (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. <b>No subscription</b>: nothing renews. The other plan is a hand-sold, clearly labelled <a href="/sponsor.html">sponsor card</a>.</p>
+            <p class="fq-check"><b>Check it</b>Settings &amp; more → AI fit score → Passes &amp; your key lists every price; Stripe’s checkout page shows a one-time payment.</p>
+          </div></details>
+          <details data-fq="data"><summary>Where is my data?</summary><div class="fq-a">
+            <p>In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request, and isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold.</p>
+            <p class="fq-check"><b>Check it</b>DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. <a href="/privacy.html">Privacy, in plain language</a>.</p>
+          </div></details>
+          <details data-fq="browsers"><summary>What if I switch browsers, or Safari wipes it?</summary><div class="fq-a">
+            <p>Data lives per browser, so a new browser starts empty. Settings &amp; more → <b>Backup</b> saves one .json file (profile, pipeline, people, settings) and <b>Restore</b> loads it anywhere. Safari can delete site data after 7 days without a visit, so HireWire asks the browser for persistent storage and reminds you to back up once your last backup is 6 days old. With a pass, encrypted sync does this for you.</p>
+            <p class="fq-check"><b>Check it</b>Settings &amp; more shows “Last backup: …” and where your data is stored.</p>
+          </div></details>
+          <details data-fq="jobs"><summary>Are the jobs real and fresh?</summary><div class="fq-a">
+            <p>They come from 55 official public feeds, fetched by your own browser and refreshed hourly while HireWire is open: job boards’ public APIs plus companies’ own Greenhouse, Ashby, Lever, SmartRecruiters, Personio, Workable and Recruitee career boards, including German and EU employers such as N26, Celonis, HelloFresh, Trade Republic, Delivery Hero, SIXT and Bosch. Every posting gets a ghost-job risk flag (age, reposts, talent-pool wording, no pay…) and “Hide ghosts” filters the worst. The flag is a heuristic, not proof.</p>
+            <p class="fq-check"><b>Check it</b>The header shows how many feeds answered (FEEDS UP); every posting’s ↗ opens the original ad.</p>
+          </div></details>
+          <details data-fq="score"><summary>Why should I trust the match score?</summary><div class="fq-a">
+            <p>You don’t have to take it on trust: the formula is published. Base 32 · +13 per skill of yours in the title · +7 in tags or description · +12 if pay meets your floor, −18 below, −3 if unstated · up to +9 for freshness, −8 if stale · +4 remote · −28 per blocked word. It runs in your browser on your profile, and nobody can pay to rank higher; sponsor cards are separate and labelled. The optional AI fit score is separate too, and shows its reasons and fixes.</p>
+            <p class="fq-check"><b>Check it</b>Settings &amp; more → “How the score works”, or the <a href="/guide.html#match-score">guide</a>.</p>
+          </div></details>
+          <details data-fq="analytics"><summary>Do you track me?</summary><div class="fq-a">
+            <p>No ad trackers. This app page counts anonymous feature use with PostHog (US): autocapture, automatic pageviews, session recording, surveys and performance capture are all off. It sends named events only (like “export” or a stage name), never job titles, companies, searches, skills, your CV, notes or salary, and never sponsor clicks. URLs are cut before any ? or #. No cookies: a random ID is kept in this browser. If your browser sends Do Not Track, the PostHog script isn’t loaded at all. Like any web request, PostHog sees your IP address. The guide, tool and German pages load no analytics.</p>
+            <p class="fq-check"><b>Check it</b>The footer link “No ad trackers · anonymous feature counts” lists what’s counted; DevTools → Network, filter “posthog”.</p>
+          </div></details>
+          <details data-fq="who"><summary>Who is behind it?</summary><div class="fq-a">
+            <p>Gaurav Jindal, a solo maker in Berlin. Questions, bugs and corrections: <a href="mailto:hey@hirewire.fyi">hey@hirewire.fyi</a>, or the CONTACT GAURAV button in the footer.</p>
+          </div></details>
+          <details data-fq="limits"><summary>What can’t it do?</summary><div class="fq-a">
+            <p>Only postings from the feeds can be saved: no manual job entry, and no import from other trackers or spreadsheets yet. The app’s interface is in English (with <a href="/de/" lang="de">German guides</a>). Pay is compared with static, approximate exchange rates.</p>
+          </div></details>
+        </div>
+        <p class="fq-foot"><a href="/guide.html#faq">More in the guide &amp; FAQ</a> · <a href="/resume-privacy-check.html">Resume privacy check</a> · <a href="/privacy.html">Privacy</a></p>
+      </section>
     </main>
   </div>
 
@@ -977,6 +1049,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
   </footer>
   <!-- Crawlable footer nav to the static guide/comparison pages (plain <a> tags, no JS needed) -->
   <nav class="footnav" aria-label="Guides and comparisons">
+    <a href="#fairqs" data-fqgo="">Fair questions</a>
     <a href="/guide.html">Guide</a>
     <a href="/privacy.html">Privacy</a>
     <a href="/best-browser-job-tracker.html">Best browser job tracker</a>
@@ -988,6 +1061,8 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a>
     <a href="/guides/bulk-import-recruiter-job-posts.html">Bulk-import recruiter job posts</a>
     <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker</a>
+    <a href="/resume-privacy-check.html">Resume privacy check</a>
+    <a href="/sponsor.html">Sponsor HireWire</a>
   </nav>
 </div>
 
@@ -2499,16 +2574,16 @@ function sponsorWireHTML(sp){
 function buildICS(){
   const evs = boardArr().filter(b => b.next && b.next.date);
   const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
-  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HireWire//EN', 'CALSCALE:GREGORIAN'];
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HireWire//EN', 'CALSCALE:GREGORIAN', 'X-WR-CALNAME:HireWire', 'X-WR-CALDESC:' + icsEsc(HW_EXPORTED_BY)];
   evs.forEach(b => {
     const sum = ((b.next.label || 'Event') + ' — ' + b.job.company + ' (' + b.job.title + ')').replace(/([,;\\])/g, '\\$1');
     lines.push('BEGIN:VEVENT', 'UID:' + b.job.id.replace(/[^a-z0-9]/gi, '-') + '@hirewire', 'DTSTAMP:' + stamp,
       'DTSTART;VALUE=DATE:' + b.next.date.replace(/-/g, ''), 'SUMMARY:' + sum);
-    if (b.job.url) lines.push('DESCRIPTION:' + b.job.url.replace(/([,;\\])/g, '\\$1'));
+    lines.push('DESCRIPTION:' + icsEsc((b.job.url && b.job.url !== '#' ? b.job.url + '\n\n' : '') + HW_EXPORTED_BY));   // 24: + attribution
     lines.push('END:VEVENT');
   });
   lines.push('END:VCALENDAR');
-  return lines.join('\r\n');
+  return lines.map(icsFold).join('\r\n') + '\r\n';   // 24: folded to 75 octets like the follow-up .ics
 }
 function exportICS(){
   const evs = boardArr().filter(b => b.next && b.next.date);
@@ -2553,6 +2628,7 @@ function buildDigest(){
     acts.forEach(a => L.push('- ' + new Date(a.t).toISOString().slice(0, 10) + ' · ' + a.co + ' — ' + a.text));
   }
   if (!acts.length && !matches.length) L.push('_Quiet week — nothing new. The wire refreshes hourly; your saved searches keep counting._');
+  L.push('', '---', '_' + HW_EXPORTED_BY + '_');   // 24: attribution footer
   return L.join('\n');
 }
 function renderInsights(){
@@ -3210,13 +3286,13 @@ function fuEventLines(b, n){
   const d = isoDay(n.due).replace(/-/g, ''), d2 = isoDay(addDays(n.due, 1)).replace(/-/g, '');
   const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
   const sum = 'Follow up: ' + b.job.company + ' — ' + b.job.title;
-  const desc = FU_KINDS[n.kind] + ' email for ' + b.job.title + ' at ' + b.job.company + '. Drafts: HireWire → Insights → Follow-ups.' + (b.job.url && b.job.url !== '#' ? '\n' + b.job.url : '');
+  const desc = FU_KINDS[n.kind] + ' email for ' + b.job.title + ' at ' + b.job.company + '. Drafts: HireWire → Insights → Follow-ups.' + (b.job.url && b.job.url !== '#' ? '\n' + b.job.url : '') + '\n\n' + HW_EXPORTED_BY;   // 24: + attribution
   return ['BEGIN:VEVENT', 'UID:hw-fu-' + String(b.job.id).replace(/[^a-z0-9]/gi, '-') + '-' + n.count + '@hirewire.fyi', 'DTSTAMP:' + stamp,
     'DTSTART;VALUE=DATE:' + d, 'DTEND;VALUE=DATE:' + d2, 'SUMMARY:' + icsEsc(sum), 'DESCRIPTION:' + icsEsc(desc), 'TRANSP:TRANSPARENT',
     'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + icsEsc(sum), 'TRIGGER;RELATED=START:PT9H', 'END:VALARM', 'END:VEVENT'];
 }
 function fuICS(items){
-  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HireWire//Follow-ups//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+  const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//HireWire//Follow-ups//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:HireWire follow-ups', 'X-WR-CALDESC:' + icsEsc(HW_EXPORTED_BY)];
   items.forEach(x => { if (x.n && x.n.due) fuEventLines(x.b, x.n).forEach(l => L.push(l)); });
   L.push('END:VCALENDAR');
   return L.map(icsFold).join('\r\n') + '\r\n';
@@ -3626,7 +3702,8 @@ function doAgentRun(){
 function briefList(){
   return (state.lastRun && state.lastRun.list && state.lastRun.list.length) ? state.lastRun.list : rankAll().slice(0, 25);
 }
-const HW_ATTRIBUTION = 'Powered by HireWire — hirewire.fyi';
+const HW_EXPORTED_BY = 'Exported from HireWire — free, local-first job tracker · https://hirewire.fyi';   // 24: one attribution line for every export
+const HW_ATTRIBUTION = HW_EXPORTED_BY;   // markdown footer (brief viewer, copy, .md export, digest, prep sheet)
 const HW_GENERATOR = 'HireWire — https://hirewire.fyi';   // top-level "generator" field in JSON exports/backups
 function buildBrief(list){
   const p = state.profile, L = [];
@@ -3701,6 +3778,7 @@ function doExport(fmt, target){
   } else if (fmt === 'json'){
     fname = 'hirewire-' + name + '-' + stamp + '.json';
     const out = {
+      _exportedBy:HW_EXPORTED_BY,   // 24: attribution; ignored by every reader
       generator:HW_GENERATOR, generatedAt:new Date().toISOString(), target:name, product:'HireWire', profile:state.profile,
       items:items.map(r => ({ title:r.job.title, company:r.job.company, source:r.job.source, url:r.job.url,
         postedAt:new Date(r.job.postedAt).toISOString(), salary:fmtSalary(r.job) || null,
@@ -3714,12 +3792,13 @@ function doExport(fmt, target){
     items.forEach(r => rows.push([r.job.title, r.job.company, r.job.source, r.job.remote, r.job.location,
       new Date(r.job.postedAt).toISOString(), fmtSalary(r.job), r.score, r.status || '', r.note || '', r.job.url].map(cell).join(',')));
     // No attribution row in CSV on purpose: a trailing comment line would be read as a bogus data row by Excel/Sheets/pandas.
+    // (24: re-checked for the export-attribution play — the file name "hirewire-…" is the only attribution CSV gets.)
     download(fname, rows.join('\n'), 'text/csv');
   }
   toast('DOWNLOADED ' + fname + ' — CHECK YOUR DOWNLOADS FOLDER');
 }
 function doBackup(){
-  const payload = buildBackupPayload();   // 22.11 — same JSON the encrypted sync uploads (after encrypting it)
+  const payload = Object.assign({ _exportedBy:HW_EXPORTED_BY }, buildBackupPayload());   // 22.11 — same JSON the encrypted sync uploads; 24: + attribution (restore ignores it)
   download('hirewire-backup-' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(payload, null, 2), 'application/json');
   state.meta.lastBackupAt = Date.now();
   state.stickyBanner = false;
@@ -3784,6 +3863,7 @@ function buildPrep(id){
    'Questions for us (prepare two using the topics above).',
    'Timeline and next steps.'].forEach((q, i) => L.push((i + 1) + '. ' + q));
   if (!j.description) L.push('', '_This posting\u2019s full text wasn\u2019t available — paste it into the Tailor tab for a sharper topic list._');
+  L.push('', '---', '_' + HW_EXPORTED_BY + '_');   // 24: attribution footer
   return L.join('\n');
 }
 
@@ -5615,6 +5695,7 @@ function bindEvents(){
   bindFitScore();   // AI fit score (15b)
   bindGrowth();   // 22: hero, onboarding, today, report, PWA, hired, AI writing, sync, referrals, bulk, shortcuts
   bindUx();   // 23
+  bindPlays();   // 24: fair-questions links
   B('bulkTog', e => e.onclick = () => grBulkToggle());
   B('syncBtn', e => e.onclick = () => sync());
   B('tabWire', e => e.onclick = () => { state.view = 'wire'; renderAll(); });
@@ -6187,7 +6268,8 @@ function renderHero(){
     '<p class="hero-sub">' + esc(HERO_SUB) + '</p>' +
     '<div class="hero-cta"><button class="btn red hero-main" data-act="heromain">SEE MY MATCHES</button>' +
     '<button class="btn" data-act="herosample">TRY WITH SAMPLE JOBS</button></div>' +
-    '<p class="hero-proof"><span>No signup</span><span>Your CV stays on your device</span><span>Free forever, optional AI pass</span></p>';
+    '<p class="hero-proof"><span>No signup</span><span>Your CV stays on your device</span><span>Free forever, optional AI pass</span></p>' +
+    '<p class="hero-faq"><a href="#fairqs" data-fqgo="">Free? Where’s my data? Tracking? Plain answers ↓</a></p>';   // 24
   if (!GR.heroSeen){ GR.heroSeen = true; hwTrack('hero_view_' + G.bucket); }
 }
 
@@ -7946,6 +8028,33 @@ function bindUx(){
   });
   const ss = document.getElementById('selSort');
   if (ss) ss.addEventListener('change', () => { if (!UX.sortPicked){ UX.sortPicked = true; saveUx(); } });
+}
+
+
+/* ============ 24 · GROWTH PLAYS — fair-questions section (objections, plain answers) ============
+   Static HTML lives in the page (#fairqs); this only wires the hero/footer links to it and counts opens
+   (name-only event, like every other hwTrack call). See repo/CHANGES-plays.md. */
+function fairqsOpen(which){
+  const sec = document.getElementById('fairqs'); if (!sec) return;
+  const d = which ? sec.querySelector('details[data-fq="' + which + '"]') : null;
+  if (d) d.open = true;
+  try { sec.scrollIntoView({ behavior:'smooth', block:'start' }); } catch(e){ try { sec.scrollIntoView(); } catch(_){} }
+  const s = sec.querySelector(d ? 'details[data-fq="' + which + '"] summary' : 'h2');
+  if (s){ if (!s.hasAttribute('tabindex') && s.tagName === 'H2') s.setAttribute('tabindex', '-1'); try { s.focus({ preventScroll:true }); } catch(e){} }
+}
+function bindPlays(){
+  document.addEventListener('click', ev => {
+    const a = ev.target.closest && ev.target.closest('[data-fqgo]');
+    if (!a) return;
+    ev.preventDefault();
+    fairqsOpen(a.getAttribute('data-fqgo') || '');
+    hwTrack('fair_questions_jump');
+  });
+  const sec = document.getElementById('fairqs');
+  if (sec) sec.addEventListener('toggle', ev => {
+    const d = ev.target;
+    if (d && d.tagName === 'DETAILS' && d.open && d.dataset.fq) hwTrack('fair_question_open', { kind:d.dataset.fq });
+  }, true);
 }
 
 /* ============ 21 · CLOCK, SCHEDULER & BOOT ============ */
