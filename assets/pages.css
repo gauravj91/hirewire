@@ -174,3 +174,23 @@ aside.side .btn{width:100%;text-align:center;margin-bottom:22px}
 .mock p{color:var(--ink2);font-size:12px;line-height:1.55;margin:0 0 10px}
 .mock .btn{font-size:10px;padding:6px 10px}
 @media (max-width:520px){ .facts{grid-template-columns:minmax(0,1fr)} }
+/* ---- legal pages (legal-draft, 2026-10-15): append to repo/assets/pages.css ---- */
+/* footer legal line: always visible (also on phones and in print, unlike .foot nav) */
+.foot nav.legal{display:flex;flex-wrap:wrap;gap:6px 14px;margin:0 0 12px;padding-top:10px;border-top:1px solid var(--line2)}
+.foot nav.legal a{color:var(--ink);font-weight:600}
+@media print{ .foot nav.legal{display:flex} }
+/* withdrawal function: <details> whose <summary> is the "Withdraw from contract" button */
+.wd{margin:0 0 24px}
+.wd>summary{list-style:none;display:inline-block;cursor:pointer}
+.wd>summary::-webkit-details-marker{display:none}
+.wd[open]>summary{margin-bottom:12px}
+.wd-form label{display:block;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.wd-form input,.wd-form textarea{margin-top:6px;text-transform:none;letter-spacing:normal;font-weight:400}
+.wd-form textarea{min-height:0}
+/* withdrawal function: status / receipt (assets/withdraw.js) */
+.wd-status{margin:12px 0 0;padding:10px 12px;border:1.5px solid var(--ink);font-size:12px;line-height:1.5}
+.wd-status.err{border-color:var(--red);color:var(--red)}
+.wd-status.busy{opacity:.75}
+.wd-status table.wd-receipt{border-collapse:collapse;margin:6px 0}
+.wd-status table.wd-receipt th{text-align:left;padding:2px 12px 2px 0;font-weight:600;vertical-align:top}
+.wd-status table.wd-receipt td{padding:2px 0;white-space:pre-wrap}
