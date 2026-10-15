@@ -372,8 +372,11 @@ body:has(#drawer.open), body:has(.agent.open){overflow:hidden}
 .footnav{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0 0 30px;margin-top:-16px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
 .footnav a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
 .footnav a:hover{color:var(--red)}
-.footnav.legal{margin-top:-22px;padding-bottom:8px}
+.footnav.legal{margin-top:-14px;padding-bottom:10px}
 .footnav.legal a{color:var(--ink);font-weight:600}
+/* 15 Oct 2026 footer fix: the guides row used to keep its own margin-top:-16px under the legal row, so the two rows overlapped
+   at every width. The row after the legal links now starts below it. */
+.footnav.legal + .footnav{margin-top:0}
 @media print{ .footnav,.samplebar{display:none!important} }
 /* ===== AI FIT SCORE (drawer box · sidebar status · access modal) ===== */
 .drawer{overflow-y:auto}
@@ -1004,7 +1007,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
       <section class="fairqs" id="fairqs" aria-labelledby="fairqsH">
         <p class="fq-kick">Before you trust a new tool</p>
         <h2 class="fq-h" id="fairqsH">Fair questions, plain answers</h2>
-        <p class="fq-dek">HireWire is new and has no reviews to show yet, so here is what you can verify yourself instead. The site is served from a public GitHub repository (<a href="https://github.com/gauravj91/hirewire" target="_blank" rel="noopener">gauravj91/hirewire</a>): every line that runs in your browser can be read.</p>
+        <p class="fq-dek">HireWire is new and has no reviews to show yet, so here is what you can verify yourself instead. Each answer says how to check it in your own browser.</p>
         <div class="fq-list">
           <details data-fq="free"><summary>Is it really free? How do you make money?</summary><div class="fq-a">
             <p>The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of <b>€9 for 7 days</b> or <b>€19 for 30 days</b>, or <b>€29 Pass Plus</b> (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. <b>No subscription</b>: nothing renews. The other plan is a hand-sold, clearly labelled <a href="/sponsor.html">sponsor card</a>.</p>
@@ -1032,6 +1035,10 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
           </div></details>
           <details data-fq="who"><summary>Who is behind it?</summary><div class="fq-a">
             <p>Gaurav Jindal, a solo maker in Berlin. Questions, bugs and corrections: <a href="mailto:hey@hirewire.fyi">hey@hirewire.fyi</a>, or the CONTACT GAURAV button in the footer.</p>
+          </div></details>
+          <details data-fq="chatgpt"><summary>Why not just paste jobs into ChatGPT?</summary><div class="fq-a">
+            <p>You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you ask for an AI fit score. Free, or a week of AI scores for €9 instead of a monthly chatbot subscription.</p>
+            <p class="fq-check"><b>Use both</b>ChatGPT to polish your cover letter, HireWire to decide which jobs deserve one.</p>
           </div></details>
           <details data-fq="limits"><summary>What can’t it do?</summary><div class="fq-a">
             <p>Only postings from the feeds can be saved: no manual job entry, and no import from other trackers or spreadsheets yet. The app’s interface is in English (with <a href="/de/" lang="de">German guides</a>). Pay is compared with static, approximate exchange rates.</p>
@@ -1930,7 +1937,10 @@ function loadState(){
 
 /* ============ 4 · SYNC ENGINE ============ */
 function normCompany(c){ return String(c || '').toLowerCase().replace(/\b(inc|llc|ltd|gmbh|corp|corporation|co|company|plc|sa|ag|bv|pty|the)\b/g, '').replace(/[^a-z0-9]/g, ''); }
-function normTitle(t){ return String(t || '').toLowerCase().replace(/\b(senior|sr|junior|jr|staff|principal|lead|ii|iii)\b/g, '').replace(/[^a-z0-9]/g, ''); }
+// Gender markers common in German postings — "(m/w/d)", "(f/m/x)", "(w/m/d)", "(all genders)", "m/w/d" — are ignored, so the
+// same role posted on two boards (one with the marker, one without) de-duplicates.
+const GENDER_MARK = /\(\s*(?:[mwfdxi*]\s*[\/|,]\s*){1,3}[mwfdxi*]\s*\)|\(\s*(?:all genders?|alle geschlechter|gn\*?)\s*\)|\b[mwf]\s*\/\s*[wmf]\s*\/\s*[dxi]\b/gi;
+function normTitle(t){ return String(t || '').replace(GENDER_MARK, ' ').toLowerCase().replace(/\b(senior|sr|junior|jr|staff|principal|lead|ii|iii)\b/g, '').replace(/[^a-z0-9]/g, ''); }
 function dedupe(list){
   const m = new Map(), seenFuzzy = new Set();
   for (const j of list){
