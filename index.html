@@ -36,9 +36,7 @@
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="HireWire">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
 :root{
   --paper:#F6F1E6; --paper2:#EFE8D7; --ink:#17130C; --ink2:#6A6250;
@@ -374,6 +372,8 @@ body:has(#drawer.open), body:has(.agent.open){overflow:hidden}
 .footnav{display:flex;flex-wrap:wrap;gap:6px 16px;padding:0 0 30px;margin-top:-16px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
 .footnav a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
 .footnav a:hover{color:var(--red)}
+.footnav.legal{margin-top:-22px;padding-bottom:8px}
+.footnav.legal a{color:var(--ink);font-weight:600}
 @media print{ .footnav,.samplebar{display:none!important} }
 /* ===== AI FIT SCORE (drawer box · sidebar status · access modal) ===== */
 .drawer{overflow-y:auto}
@@ -1027,7 +1027,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
             <p class="fq-check"><b>Check it</b>Settings &amp; more → “How the score works”, or the <a href="/guide.html#match-score">guide</a>.</p>
           </div></details>
           <details data-fq="analytics"><summary>Do you track me?</summary><div class="fq-a">
-            <p>No ad trackers. This app page counts anonymous feature use with PostHog (US): autocapture, automatic pageviews, session recording, surveys and performance capture are all off. It sends named events only (like “export” or a stage name), never job titles, companies, searches, skills, your CV, notes or salary, and never sponsor clicks. URLs are cut before any ? or #. No cookies: a random ID is kept in this browser. If your browser sends Do Not Track, the PostHog script isn’t loaded at all. Like any web request, PostHog sees your IP address. The guide, tool and German pages load no analytics.</p>
+            <p>No ad trackers. This app page counts anonymous feature use with PostHog (US): autocapture, automatic pageviews, session recording, surveys and performance capture are all off. It sends named events only (like “export” or a stage name), never job titles, companies, searches, skills, your CV, notes or salary, and never sponsor clicks. URLs are cut before any ? or #. No cookies: a random ID is kept in this browser. It is off unless you say yes in the small banner, and nothing from PostHog is loaded before that; change it any time with “Analytics” in the footer. Do Not Track or Global Privacy Control count as no. Like any web request, PostHog sees your IP address. The guide, tool and German pages load no analytics.</p>
             <p class="fq-check"><b>Check it</b>The footer link “No ad trackers · anonymous feature counts” lists what’s counted; DevTools → Network, filter “posthog”.</p>
           </div></details>
           <details data-fq="who"><summary>Who is behind it?</summary><div class="fq-a">
@@ -1048,10 +1048,12 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <span>PRESS <b>/</b> TO SEARCH · <b>?</b> FOR SHORTCUTS · <b>`</b> OR <b>CTRL+K</b> FOR CONSOLE</span>
   </footer>
   <!-- Crawlable footer nav to the static guide/comparison pages (plain <a> tags, no JS needed) -->
+  <nav class="footnav legal" aria-label="Legal">
+    <a href="/privacy.html">Privacy</a>
+  </nav>
   <nav class="footnav" aria-label="Guides and comparisons">
     <a href="#fairqs" data-fqgo="">Fair questions</a>
     <a href="/guide.html">Guide</a>
-    <a href="/privacy.html">Privacy</a>
     <a href="/best-browser-job-tracker.html">Best browser job tracker</a>
     <a href="/hirewire-vs-jobstracker.html">HireWire vs JobsTracker</a>
     <a href="/hirewire-vs-jobstracker-app.html">HireWire vs JobsTracker (.app)</a>
@@ -3873,7 +3875,10 @@ function buildPrep(id){
    Job Search Pass (Stripe, no account), or the user's own Anthropic key (BYOK, browser → Anthropic).
    Backend: hirewire-api (Vercel). The CV is sent only when the user presses Score, for that request. */
 /* ---- EDIT: where hirewire-api is deployed ---- */
-const API_BASE = 'https://hirewire-api.vercel.app';
+// API host: ONE flag, generated from work/growth-src/site_config.py (API_TARGET). 'vercel' until the Workers cutover.
+const HW_API_HOSTS = { vercel: 'https://hirewire-api.vercel.app', workers: 'https://hirewire-api.hirewire.workers.dev' };
+const HW_API_TARGET = 'workers';
+const API_BASE = HW_API_HOSTS[HW_API_TARGET];
 const FS_FREE_LIMIT = 3;                          // free scores per browser
 const FS_PRICES = { '7d':'€9', '30d':'€19', 'plus30':'€29' };     // display only — the charge comes from the Stripe price IDs on the server
 const FS_PLAN_LABEL = { '7d':'7-DAY PASS', '30d':'30-DAY PASS', 'plus30':'PASS PLUS' };
@@ -4089,6 +4094,11 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
 
   var GEN_KINDS = ['cover_letter', 'interview_prep', 'negotiation', 'tailored_cv'];
   var GEN_MAX_CV_CHARS = 30000;
+  // Per-kind CV caps below GEN_MAX_CV_CHARS. tailored_cv returns a full rewritten CV that is grounding-checked against the
+  // input, so its CPU cost grows with CV length on both sides; 15,000 chars keeps the worst case under ~8 ms CPU on the
+  // Cloudflare Workers Free plan (10 ms limit; see hirewire-api/workers/cpu-results.json).
+  var GEN_MAX_CV_CHARS_BY_KIND = { tailored_cv: 15000 };
+  function genMaxCvChars(kind) { return GEN_MAX_CV_CHARS_BY_KIND[kind] || GEN_MAX_CV_CHARS; }
   var GEN_MAX_JD_CHARS = 20000;
   var GEN_MAX_NOTES_CHARS = 2000;
   var GEN_MAX_TOKENS = { cover_letter: 4000, interview_prep: 8000, negotiation: 4000, tailored_cv: 16000 };
@@ -4191,7 +4201,8 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
     if (typeof body.cv !== 'string' || !body.job || typeof body.job !== 'object') return { ok: false, code: 'missing_fields' };
     var cv = body.cv.trim();
     if (cv.length < 200) return { ok: false, code: 'cv_too_short' };
-    if (cv.length > GEN_MAX_CV_CHARS) return { ok: false, code: 'cv_too_long', max: GEN_MAX_CV_CHARS };
+    var maxCv = genMaxCvChars(kind);
+    if (cv.length > maxCv) return { ok: false, code: 'cv_too_long', max: maxCv };
     var j = body.job;
     var title = str(j.title), desc = str(j.description);
     if (!title) return { ok: false, code: 'jd_missing_title' };
@@ -4530,7 +4541,7 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
     checkInputs: checkInputs, buildUserMessage: buildUserMessage, buildRequestBody: buildRequestBody,
     validateResult: validateResult, parseApiResponse: parseApiResponse,
     // Pass Plus AI writing
-    GEN_KINDS: GEN_KINDS, GEN_MAX_CV_CHARS: GEN_MAX_CV_CHARS, GEN_MAX_JD_CHARS: GEN_MAX_JD_CHARS, GEN_MAX_NOTES_CHARS: GEN_MAX_NOTES_CHARS,
+    GEN_KINDS: GEN_KINDS, GEN_MAX_CV_CHARS: GEN_MAX_CV_CHARS, GEN_MAX_CV_CHARS_BY_KIND: GEN_MAX_CV_CHARS_BY_KIND, genMaxCvChars: genMaxCvChars, GEN_MAX_JD_CHARS: GEN_MAX_JD_CHARS, GEN_MAX_NOTES_CHARS: GEN_MAX_NOTES_CHARS,
     GEN_MAX_TOKENS: GEN_MAX_TOKENS, GEN_SCHEMAS: GEN_SCHEMAS, COVER_LETTER_MAX_WORDS: COVER_LETTER_MAX_WORDS,
     genSystemPrompt: genSystemPrompt, checkGenerateInputs: checkGenerateInputs, buildGenerateUserMessage: buildGenerateUserMessage,
     buildGenerateRequestBody: buildGenerateRequestBody, validateGenerateResult: validateGenerateResult,
@@ -6133,14 +6144,14 @@ function bindEvents(){
    Everything here is local-first like the rest of HireWire. Network calls only happen when the user
    asks for them: encrypted sync (opt-in, needs a pass, end-to-end encrypted before upload), AI writing
    (Pass Plus → hirewire-api → Google Gemini, or own key → Anthropic), referral codes (random device id + code,
-   nothing else). Analytics: event NAMES only through hwTrack(), which does nothing under Do Not Track. */
+   nothing else). Analytics: event NAMES only through hwTrack(), which does nothing until the visitor opts in. */
 LS.growth = 'hirewire.growth.v1';       // visit days, goal, hero bucket, career mode, referral/bonus, notify prefs
 LS.sync = 'hirewire.sync.v1';           // encrypted-sync key + rev (never in backups)
 LS.aiw = 'hirewire.aiwrite.v1';         // AI-written drafts per job (local only, never in backups or sync)
 LS.notifyPlan = 'hirewire.notifyplan.v1';   // tiny schedule the service worker reads for background follow-up reminders
 
-/* ---- 22.0 · analytics bridge: event names only (+ a few enum props). The PostHog add-on drains the queue;
-   under Do Not Track it never loads, so these stay in memory and are dropped. ---- */
+/* ---- 22.0 · analytics bridge: event names only (+ a few enum props). The PostHog add-on drains the queue
+   once the visitor opts in; without consent (or under DNT/GPC) it never loads, so these stay in memory and are dropped. ---- */
 window.__hwq = window.__hwq || [];
 function hwTrack(name, props){
   try {
@@ -7012,6 +7023,8 @@ async function aiwGenerate(kind, id, opts){
   if (mode === 'locked') throw { code:'plus_required' };
   const input = aiwInput(kind, j, opts || {});
   if (!input.cv || input.cv.length < 200) throw { code:'need_cv' };
+  const maxCv = FSC && typeof FSC.genMaxCvChars === 'function' ? FSC.genMaxCvChars(kind) : (kind === 'tailored_cv' ? 15000 : 30000);
+  if (String(input.cv).trim().length > maxCv) throw { code:'cv_too_long', max:maxCv };
   let out;
   if (mode === 'byok'){
     const core = FSC && typeof FSC.buildGenerateRequestBody === 'function';
@@ -7024,7 +7037,7 @@ async function aiwGenerate(kind, id, opts){
     out = { markdown:p.markdown, warnings:Array.isArray(p.warnings) ? p.warnings.map(String).slice(0, 12) : [], sections:Array.isArray(p.sections) ? p.sections : null };
   } else {
     const r = await fsApi('/api/generate', Object.assign({ kind:kind }, input), 120000, { headers:{ Authorization:'Bearer ' + state.ai.pass.token } });
-    if (r.status !== 200 || !r.data || typeof r.data.markdown !== 'string') throw { code:(r.data && r.data.error) || ('http_' + r.status) };
+    if (r.status !== 200 || !r.data || typeof r.data.markdown !== 'string') throw { code:(r.data && r.data.error) || ('http_' + r.status), max:r.data && r.data.max };
     out = { markdown:String(r.data.markdown).slice(0, 30000), warnings:Array.isArray(r.data.warnings) ? r.data.warnings.map(String).slice(0, 12) : [],
       sections:Array.isArray(r.data.sections) ? r.data.sections : null };
   }
@@ -7193,7 +7206,12 @@ const AIW_ERR = { need_cv:'Paste your CV first (200+ characters) — it is only 
   offer_required:'Enter the offered base salary first.', bad_offer:'The offer amount doesn’t look right — check the base salary.',
   generate_daily_cap:'You reached today’s fair-use limit for AI writing (60 a day). It resets tomorrow.', notes_too_long:'Your notes are too long (max 2,000 characters).',
   model_output_invalid:'The AI returned an unusable answer — try again. Nothing was used up.', model_refused:'The AI declined this one.', no_job:'This posting is gone.' };
-const aiwErrMsg = e => AIW_ERR[e && e.code] || fsErrMsg(e);
+function aiwCvTooLong(e){
+  const m = (e && e.max) || 30000, n = m.toLocaleString('en-US');
+  return m < 30000 ? 'Your CV is over ' + n + ' characters. The tailored CV rewrites your whole CV, so it takes up to ' + n + ' — cut older roles or long lists and try again.'
+    : 'Your CV is over ' + n + ' characters — trim it and try again.';
+}
+const aiwErrMsg = e => (e && e.code === 'cv_too_long') ? aiwCvTooLong(e) : (AIW_ERR[e && e.code] || fsErrMsg(e));
 function openAiWrite(id, kind){
   const j = byId(id); if (!j) return;
   GR.aiw = { id:id, kind:kind, busy:false, err:null, tone:(GR.aiw && GR.aiw.tone) || '', language:(GR.aiw && GR.aiw.language) || '' };
@@ -7372,6 +7390,8 @@ function syncNoteChange(k){
   SYNC.timer = setTimeout(() => { syncPush(false); }, 4000);
 }
 function syncSetStatus(s){ SYNC.status = s; renderSyncPanel(); }
+const SYNC_MAX_BLOB = 1048576;   // server cap (hirewire-api: 1 MB of base64url); checked here first so we never upload a blob that would bounce
+const SYNC_TOO_BIG = 'YOUR BACKUP IS OVER THE 1 MB SYNC LIMIT — ARCHIVE OR DELETE OLD JOBS, THEN IT SYNCS AGAIN. YOUR DATA IS SAFE ON THIS DEVICE';
 async function syncPush(force, prevOverride){
   if (!SY.on || !SY.confirmed || SYNC.busy) return null;
   if (!fsPassActive()){ syncSetStatus('PAUSED — KEEPING DEVICES IN SYNC NEEDS AN ACTIVE PASS'); return null; }
@@ -7380,6 +7400,7 @@ async function syncPush(force, prevOverride){
     const ck = await syncKey();
     const blob = await syncEncrypt(ck, buildBackupPayload());
     const prev = prevOverride != null ? prevOverride : (SY.rev || 0);
+    if (blob.length > SYNC_MAX_BLOB){ syncSetStatus(SYNC_TOO_BIG); toast('SYNC PAUSED — BACKUP OVER 1 MB (ARCHIVE OLD JOBS)'); return 'too_large'; }
     const r = await syncApi('PUT', { id:SY.id, blob:blob, rev:prev + 1, prevRev:prev });
     if (r.status === 200 && r.data && r.data.rev != null){
       SY.rev = r.data.rev; SY.updatedAt = r.data.updatedAt || Date.now(); SY.dirty = false; SY.lastOk = Date.now(); saveSync();
@@ -7395,8 +7416,8 @@ async function syncPush(force, prevOverride){
 function syncErrText(r){
   const c = (r.data && r.data.error) || (r.status ? 'http_' + r.status : 'network');
   return { sync_unavailable:'SYNC IS TEMPORARILY UNAVAILABLE — YOUR DATA IS SAFE HERE', network:'OFFLINE — WILL SYNC WHEN YOU’RE BACK', pass_expired:'PAUSED — YOUR PASS EXPIRED',
-    invalid_token:'PAUSED — PASS NOT RECOGNISED (RESTORE IT)', missing_token:'PAUSED — NEEDS AN ACTIVE PASS', too_large:'TOO MUCH DATA TO SYNC (OVER THE SIZE LIMIT)',
-    rate_limited:'SYNCING TOO OFTEN — WILL TRY AGAIN LATER', body_too_large:'TOO MUCH DATA TO SYNC (OVER THE SIZE LIMIT)' }[c] || ('SYNC FAILED (' + c + ')');
+    invalid_token:'PAUSED — PASS NOT RECOGNISED (RESTORE IT)', missing_token:'PAUSED — NEEDS AN ACTIVE PASS', too_large:SYNC_TOO_BIG,
+    rate_limited:'SYNCING TOO OFTEN — WILL TRY AGAIN LATER', body_too_large:SYNC_TOO_BIG }[c] || ('SYNC FAILED (' + c + ')');
 }
 async function syncApplyRemote(data){
   const ck = await syncKey();
@@ -8249,7 +8270,8 @@ boot();
 <script>
 /* ============ HIREWIRE ANALYTICS — privacy-first PostHog add-on ============
    Named feature events only. No autocapture, no recordings, no cookies (PostHog keeps a random ID in localStorage).
-   Off entirely under Do Not Track. URLs are scrubbed of query strings and #fragments before sending
+   OPT-IN ONLY (§ 25 TDDDG): PostHog is not loaded, and stores nothing, until the visitor says yes in the consent banner.
+   Do Not Track / Global Privacy Control count as a standing no (no banner). The footer "Analytics" link changes or revokes it. URLs are scrubbed of query strings and #fragments before sending
    (the extension's #hw-add= payload, ?ref= invite codes and ?pass_session= must never reach PostHog).
    Safe by default: until you paste a real PostHog key below, this block
    loads nothing and sends nothing.                                          */
@@ -8268,7 +8290,7 @@ boot();
   if (!CFG.enabled) return;
   if (location.protocol === 'file:') return;
   if (CFG.onlyHosts.length && !CFG.onlyHosts.includes(location.hostname)) return;
-  if (navigator.doNotTrack == '1' || window.doNotTrack == '1') return;
+  const BROWSER_NO = navigator.doNotTrack == '1' || window.doNotTrack == '1' || navigator.globalPrivacyControl === true;
   if (!CFG.key || /YOUR_KEY/i.test(CFG.key)){
     console.info('HireWire analytics: paste your PostHog key in the ANALYTICS block to enable it.');
     return;
@@ -8281,36 +8303,56 @@ boot();
     return props;
   }
 
-  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=s;void 0!==a?e[a]=u:e.people=u;for(var c=["capture","identify","people.set","people.set_once","register","register_once","unregister","alias","reset"],l=0;l<c.length;l++)g(e,c[l]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  /* ---- consent: opt-in ---- */
+  const CONSENT_KEY = 'hw_analytics_consent';     // 'granted' | 'denied'; absent = not asked yet
+  function consentGet(){ if (BROWSER_NO) return 'denied'; try { return localStorage.getItem(CONSENT_KEY); } catch(e){ return null; } }
+  function consentSet(v){ try { localStorage.setItem(CONSENT_KEY, v); } catch(e){} }
+  let started = false;
+  // Loads PostHog. Only ever called after an explicit yes (banner button, or a yes stored earlier in this browser).
+  function startAnalytics(){
+    if (started || BROWSER_NO) return;
+    started = true;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=s;void 0!==a?e[a]=u:e.people=u;for(var c=["capture","identify","people.set","people.set_once","register","register_once","unregister","alias","reset"],l=0;l<c.length;l++)g(e,c[l]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
 
-  posthog.init(CFG.key, {
-    api_host: CFG.host,
-    autocapture: false,
-    capture_pageview: false,
-    disable_session_recording: true,
-    disable_surveys: true,
-    capture_performance: false,
-    persistence: 'localStorage',
-    sanitize_properties: scrub
-  });
+    posthog.init(CFG.key, {
+      api_host: CFG.host,
+      autocapture: false,
+      capture_pageview: false,
+      disable_session_recording: true,
+      disable_surveys: true,
+      capture_performance: false,
+      persistence: 'localStorage',
+      sanitize_properties: scrub
+    });
 
-  function mode(){
-    try { localStorage.setItem('__hw_p','1'); localStorage.removeItem('__hw_p'); return 'local'; }
-    catch(e){ return 'memory'; }
+    function mode(){
+      try { localStorage.setItem('__hw_p','1'); localStorage.removeItem('__hw_p'); return 'local'; }
+      catch(e){ return 'memory'; }
+    }
+    posthog.register({ hw_edition: 1 });
+    posthog.capture('page_load', { storage_mode: mode() });
+    window.HWAnalytics = { fire:fire };   // section 22's hwTrack() drains into this
+    (window.__hwq || []).splice(0).forEach(e => fire(e[0], e[1]));
   }
-  posthog.register({ hw_edition: 1 });
-  posthog.capture('page_load', { storage_mode: mode() });
+  // Revoke: stop capturing, forget PostHog's random ID and queue, drop the script. Events go nowhere afterwards.
+  function stopAnalytics(){
+    const ph = window.posthog;
+    try { if (ph && typeof ph.opt_out_capturing === 'function') ph.opt_out_capturing(); } catch(e){}
+    try { if (ph && typeof ph.reset === 'function') ph.reset(); } catch(e){}
+    try { Object.keys(localStorage).forEach(k => { if (/^ph_|^__ph/.test(k)) localStorage.removeItem(k); }); } catch(e){}
+    try { document.querySelectorAll('script[src*="posthog"]').forEach(s => s.parentNode.removeChild(s)); } catch(e){}
+    started = false; window.HWAnalytics = undefined; window.__hwq = [];
+  }
 
   const PROP_OK = { tab:1, format:1, stage:1, storage_mode:1, plan:1, step:1, kind:1, tier:1 };   // enum-only props; nothing else is ever sent
   function fire(name, props){
+    if (!started) return;
     try {
       const clean = {};
       Object.keys(props || {}).forEach(k => { const v = props[k]; if (PROP_OK[k] && typeof v === 'string' && v.length <= 24 && /^[a-z0-9_]+$/i.test(v)) clean[k] = v; });
       posthog.capture(String(name).replace(/[^a-z0-9_]/gi, '').slice(0, 48), clean);
     } catch(e){}
   }
-  window.HWAnalytics = { fire:fire };   // section 22's hwTrack() drains into this
-  (window.__hwq || []).splice(0).forEach(e => fire(e[0], e[1]));
 
   const ACT = { pintoggle:'pin_toggle', web:'open_posting', remove:'pipeline_remove',
     reset:'filters_reset', ghostinfo:'ghost_info', nudge:'nudge_open',
@@ -8371,14 +8413,57 @@ boot();
     if (e.target.closest('#hwContact [data-copy]')) fire('contact_copy');
   }, true);
 
+
+  /* ---- consent banner (EN/DE) + footer settings link ---- */
+  const DE = /^de\b/i.test(document.documentElement.lang || '') || /^de\b/i.test(navigator.language || '');
+  const TXT = DE ? {
+    q:'HireWire verbessern?', body:'Mit deiner Zustimmung zählen wir anonym, welche Funktionen genutzt werden (PostHog, USA): nur Ereignisnamen, nie deine Jobs, dein Lebenslauf oder deine Suchen. Keine Cookies. Ohne Zustimmung wird nichts geladen.',
+    yes:'Ja, zählen', no:'Nein danke', more:'Details', on:'STATISTIK: AN · ÄNDERN', off:'STATISTIK: AUS · ÄNDERN', browser:'STATISTIK: AUS (BROWSER-EINSTELLUNG)',
+    saidYes:'DANKE — ANONYME STATISTIK IST AN. ÄNDERN: „STATISTIK“ UNTEN.', saidNo:'OK — KEINE STATISTIK. ÄNDERN: „STATISTIK“ UNTEN.'
+  } : {
+    q:'Help improve HireWire?', body:'With your OK we count which features are used, anonymously, with PostHog (US): event names only, never your jobs, CV or searches. No cookies. Nothing is loaded unless you say yes.',
+    yes:'Yes, count', no:'No thanks', more:'Details', on:'ANALYTICS: ON · CHANGE', off:'ANALYTICS: OFF · CHANGE', browser:'ANALYTICS: OFF (BROWSER SETTING)',
+    saidYes:'THANKS — ANONYMOUS FEATURE COUNTS ARE ON. CHANGE ANY TIME: “ANALYTICS” IN THE FOOTER.', saidNo:'OK — NO ANALYTICS. CHANGE ANY TIME: “ANALYTICS” IN THE FOOTER.'
+  };
+  function note(msg){ try { if (typeof toast === 'function') toast(msg); } catch(e){} }
+  function closeBanner(){ const b = document.getElementById('hwConsent'); if (b) b.parentNode.removeChild(b); }
+  function choose(v){
+    consentSet(v); closeBanner();
+    if (v === 'granted') startAnalytics(); else stopAnalytics();
+    paintLink(); note(v === 'granted' ? TXT.saidYes : TXT.saidNo);
+  }
+  function showBanner(){
+    if (BROWSER_NO || document.getElementById('hwConsent') || !document.body) return;
+    if (!document.getElementById('hwConsentCss')){
+      const st = document.createElement('style'); st.id = 'hwConsentCss';
+      st.textContent = '.hwcons{position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:560px;margin:0 auto;background:var(--paper,#F6F1E6);color:var(--ink,#111);border:1.5px solid var(--ink,#111);box-shadow:4px 4px 0 var(--ink,#111);padding:12px 14px;font:12px/1.5 "IBM Plex Mono",ui-monospace,monospace}' +
+        '.hwcons b{display:block;font-size:12px;letter-spacing:.06em;margin-bottom:4px}.hwcons p{margin:0 0 10px}.hwcons .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}' +
+        '.hwcons button{font:inherit;font-weight:600;padding:6px 12px;border:1.5px solid var(--ink,#111);background:transparent;color:inherit;cursor:pointer;min-width:110px}' +
+        '.hwcons a{color:inherit;text-decoration:underline;text-underline-offset:2px;margin-left:auto}@media print{.hwcons{display:none!important}}';
+      document.head.appendChild(st);
+    }
+    const b = document.createElement('section');
+    b.id = 'hwConsent'; b.className = 'hwcons'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-live', 'polite'); b.setAttribute('aria-label', TXT.q);
+    b.innerHTML = '<b>' + TXT.q + '</b><p>' + TXT.body + '</p><div class="row"><button type="button" data-consent="granted">' + TXT.yes + '</button>' +
+      '<button type="button" data-consent="denied">' + TXT.no + '</button><a href="/privacy.html#analytics">' + TXT.more + '</a></div>';
+    b.addEventListener('click', function(ev){ const t = ev.target.closest('[data-consent]'); if (t) choose(t.getAttribute('data-consent')); });
+    document.body.appendChild(b);
+  }
+  function paintLink(){
+    const a = document.getElementById('hwPrivLink'); if (a) a.textContent = BROWSER_NO ? TXT.browser : (consentGet() === 'granted' ? TXT.on : TXT.off);
+  }
+  window.HWConsent = { get:consentGet, grant:function(){ choose('granted'); }, deny:function(){ choose('denied'); }, open:showBanner };
+
   function disclosure(){
     const foot = document.querySelector('.foot');
     if (!foot || document.getElementById('hwPrivLink')) return;
     const s = document.createElement('span');
-    s.innerHTML = '<a href="#" id="hwPrivLink" style="color:inherit;text-decoration:underline;text-underline-offset:2px">NO AD TRACKERS · ANONYMOUS FEATURE COUNTS (OFF WITH DO NOT TRACK)</a>';
+    s.innerHTML = '<a href="#" id="hwPrivLink" style="color:inherit;text-decoration:underline;text-underline-offset:2px">ANALYTICS: OFF · CHANGE</a>';
     foot.appendChild(s);
+    paintLink();
     s.querySelector('a').onclick = function(ev){
       ev.preventDefault();
+      if (!BROWSER_NO){ showBanner(); return; }
       alert('What HireWire counts (anonymous, cookieless, per-device random ID):\n' +
             '• Which pages and tabs are opened\n' +
             '• Which features are used (sync, pin, agent run, exports…)\n' +
@@ -8388,12 +8473,18 @@ boot();
             '• Job titles, companies, searches, skills\n' +
             '• Your CV, notes, contacts, or salary floor\n' +
             '• Sponsor card clicks\n\n' +
-            'How: PostHog (US), no cookies, a random ID kept in this browser, no session recording, URLs stripped of anything after ? or #. Like any web request, PostHog sees your IP address. Turn on Do Not Track in your browser and nothing is sent at all.\n\n' +
+            'How: only if you say yes in the banner. Then PostHog (US), no cookies, a random ID kept in this browser, no session recording, URLs stripped of anything after ? or #. Like any web request, PostHog sees your IP address. Your browser sends Do Not Track or Global Privacy Control, so it stays off.\n\n' +
             'No ad trackers. No data sold — ever.');
     };
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', disclosure);
-  else disclosure();
+  function boot(){
+    disclosure();
+    const c = consentGet();
+    if (c === 'granted') startAnalytics();          // a yes given earlier in this browser
+    else if (c === null && !BROWSER_NO) showBanner();   // not asked yet: ask, load nothing
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 </body>
