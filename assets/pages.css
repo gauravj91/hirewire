@@ -140,3 +140,37 @@ aside.side .btn{width:100%;text-align:center;margin-bottom:22px}
   .stats b{font-size:24px}
   .tool .row>.btn{width:100%;text-align:center}
 }
+
+/* ---- growth plays (2026-10-15): resume privacy check quiz, sponsor page ---- */
+.quiz fieldset{border:0;border-bottom:1px solid var(--line2);padding:0 0 14px;margin:0 0 14px;min-width:0}
+.quiz legend{font-weight:600;font-size:14px;line-height:1.5;padding:0;margin:0 0 8px;overflow-wrap:anywhere}
+.quiz .qn{display:block;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+.quiz .qo{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.5;padding:6px 8px;margin:0 -8px;cursor:pointer}
+.quiz .qo:hover{background:var(--paper)}
+.quiz .qo span{min-width:0;overflow-wrap:anywhere}
+.tool.quiz input[type=radio]{width:16px;height:16px;flex:none;margin:3px 0 0;padding:0;accent-color:var(--red)}
+.quiz fieldset.qmiss legend{color:var(--red)}
+.quiz fieldset.qmiss{border-left:3px solid var(--red);padding-left:10px}
+.result:focus{outline:none}
+.rpc-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.rpc-badge{display:inline-block;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:4px 12px;color:var(--paper);background:var(--ink)}
+.lvl0 .rpc-badge{background:var(--green)}
+.lvl1 .rpc-badge{background:var(--amber)}
+.lvl2 .rpc-badge{background:var(--red)}
+.rpc-num{font-size:12.5px;color:var(--ink2)}
+.rpc-bar{height:8px;border:1px solid var(--ink);background:var(--paper);margin:4px 0 12px}
+.rpc-bar i{display:block;height:100%;background:var(--ink)}
+.rpc-fixes{margin:6px 0 4px 1.3em}
+.rpc-fixes li{margin:0 0 10px}
+.rpc-fixes li b{display:block;font-size:12.5px;color:var(--ink2);font-weight:600}
+.rpc-fixes li span{display:block}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--ink);border:1px solid var(--ink);margin:0 0 22px}
+.facts>div{background:var(--paper);padding:12px 14px;min-width:0}
+.facts .lbl{display:block;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);margin:0 0 4px}
+.facts p{margin:0;font-size:13.5px;line-height:1.55}
+.mock{border:1px dashed var(--line2);background:var(--paper2);padding:12px 14px;margin:0 0 18px;max-width:320px;font-size:12px}
+.mock .slab{display:inline-block;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--line2);padding:1px 6px}
+.mock h4{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:20px;margin:8px 0 4px;line-height:1.2}
+.mock p{color:var(--ink2);font-size:12px;line-height:1.55;margin:0 0 10px}
+.mock .btn{font-size:10px;padding:6px 10px}
+@media (max-width:520px){ .facts{grid-template-columns:minmax(0,1fr)} }
