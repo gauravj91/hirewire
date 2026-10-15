@@ -163,7 +163,7 @@
 <thead><tr><th>Wer</th><th>Wann</th><th>Was</th></tr></thead>
 <tbody>
 <tr><th>Öffentliche Job-Feeds (z. B. Remotive, Arbeitnow, Greenhouse, Lever)</th><td>beim Laden und stündlich</td><td>eine normale Anfrage: IP-Adresse und Browser-Angaben, keine Profildaten</td></tr>
-<tr><th>HireWires Bewertungsfunktion (Vercel) und Anthropic (Claude)</th><td>nur beim Klick auf „Score with AI“</td><td>Lebenslauf-Text und die eine Anzeige, ggf. dein Pass-Token. Nicht gespeichert, nicht geloggt</td></tr>
+<tr><th>HireWires Bewertungsfunktion (Vercel) und Google (Gemini-API, kostenpflichtige Stufe)</th><td>nur beim Klick auf „Score with AI“</td><td>Lebenslauf-Text und die eine Anzeige, ggf. dein Pass-Token. Von HireWire nicht gespeichert, nicht geloggt. Google nutzt die Anfragen laut <a href="https://ai.google.dev/gemini-api/terms" rel="noopener">Gemini-API-Bedingungen</a> nicht zur Verbesserung seiner Produkte und protokolliert sie nur begrenzte Zeit zur Missbrauchserkennung</td></tr>
 <tr><th>Stripe</th><td>nur beim Kauf eines Passes</td><td>was du auf der Stripe-Bezahlseite eingibst. HireWire sieht deine Karte nie</td></tr>
 <tr><th>PostHog (Statistik, US-Server)</th><td>in der App, außer bei „Do Not Track“</td><td>Namen genutzter Funktionen, nie Jobtitel, Suchen, Skills, Lebenslauf, Notizen oder Gehalt</td></tr>
 <tr><th>Google Fonts</th><td>beim Laden</td><td>die Schriftanfrage (IP-Adresse, Browser)</td></tr>
@@ -176,9 +176,9 @@
 
 <h2>Optionale Funktionen</h2>
 <ul>
-<li><b>KI-Fit-Score:</b> Lebenslauf und Anzeige gehen nur auf Klick an HireWires Funktion und weiter an Anthropic, werden nicht gespeichert. Mit eigenem Anthropic-Schlüssel gehen sie direkt von deinem Browser an Anthropic.</li>
+<li><b>KI-Fit-Score:</b> Lebenslauf und Anzeige gehen nur auf Klick an HireWires Funktion und weiter an Googles Gemini-API, werden nicht gespeichert. Mit eigenem Anthropic-Schlüssel gehen sie direkt von deinem Browser an Anthropic.</li>
 <li><b>Chrome-Erweiterung</b> <span class="soon">bald verfügbar</span>: liest nur die angezeigte Stellenanzeige und erst beim Klick. Kein Tracking, keine Statistik.</li>
-<li><b>Pass Plus (KI-Texte)</b>: optionaler Pass (29 € für 30 Tage) oder eigener Anthropic-Schlüssel. Lebenslauf, Anzeige und deine Optionen (bei Verhandlungsskripten auch die Angebotszahlen) gehen nur beim Klick auf „Generate“ an HireWires API bzw. direkt an Anthropic, ohne Speicherung. Die Entwürfe bleiben in deinem Browser.</li>
+<li><b>Pass Plus (KI-Texte)</b>: optionaler Pass (29 € für 30 Tage) oder eigener Anthropic-Schlüssel. Lebenslauf, Anzeige und deine Optionen (bei Verhandlungsskripten auch die Angebotszahlen) gehen nur beim Klick auf „Generate“ an HireWires API (weiter an Googles Gemini-API) bzw. mit eigenem Schlüssel direkt an Anthropic, ohne Speicherung. Die Entwürfe bleiben in deinem Browser.</li>
 <li><b>Verschlüsselte Synchronisierung</b>: kommt mit jedem Pass. Deine Daten werden auf deinem Gerät mit AES-256-GCM verschlüsselt; den Schlüssel (Wiederherstellungscode) hast nur du. Der Server speichert nur den verschlüsselten Datenblock, eine aus dem Schlüssel abgeleitete ID, eine Revisionsnummer und einen Zeitstempel, für 180 Tage nach dem letzten Upload. Du kannst ihn jederzeit löschen.</li>
 <li><b>Empfehlungscodes</b>: Code aus einer zufälligen Geräte-ID; gespeichert werden nur Zähler (400 Tage), keine Namen oder E-Mail-Adressen.</li>
 <li><b>Installierbare App</b>: Die Dateien der App werden für den Offline-Start auf deinem Gerät zwischengespeichert, ohne persönliche Daten. Benachrichtigungen (optional) erzeugt dein Browser selbst, es gibt keinen Push-Server.</li>
