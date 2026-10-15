@@ -13,6 +13,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/ghost-job-checker.html"/>
   </url>
   <url><loc>https://hirewire.fyi/salary-checker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hirewire.fyi/resume-privacy-check.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/resume-privacy-check.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/lebenslauf-datenschutz-check.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/resume-privacy-check.html"/>
+  </url>
+  <url><loc>https://hirewire.fyi/sponsor.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://hirewire.fyi/best-browser-job-tracker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://hirewire.fyi/are-free-job-trackers-safe.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://hirewire.fyi/job-tracker-vs-spreadsheet.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -39,5 +45,10 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/privacy.html"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/datenschutz.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/privacy.html"/>
+  </url>
+  <url><loc>https://hirewire.fyi/de/lebenslauf-datenschutz-check.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/resume-privacy-check.html"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/lebenslauf-datenschutz-check.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/resume-privacy-check.html"/>
   </url>
 </urlset>
