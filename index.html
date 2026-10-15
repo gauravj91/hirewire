@@ -1049,7 +1049,10 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
   </footer>
   <!-- Crawlable footer nav to the static guide/comparison pages (plain <a> tags, no JS needed) -->
   <nav class="footnav legal" aria-label="Legal">
+    <a href="/terms.html">Terms</a>
     <a href="/privacy.html">Privacy</a>
+    <a href="/withdrawal.html#withdraw-function">Withdraw from contract</a>
+    <a href="/imprint.html">Imprint</a>
   </nav>
   <nav class="footnav" aria-label="Guides and comparisons">
     <a href="#fairqs" data-fqgo="">Fair questions</a>
@@ -4852,7 +4855,8 @@ function openFsModal(reason, prefillSid){
   if (reason === 'sync') sub = 'ENCRYPTED SYNC IS INCLUDED WITH ANY PASS';
   let status = '';
   if (active) status = '<div class="fs-status">' + (fsTier() === 'plus' ? 'PASS PLUS' : (a.pass.plan === '30d' ? '30-DAY PASS' : '7-DAY PASS')) + ' ACTIVE UNTIL <b>' + esc(fsDate(a.pass.exp)) + '</b>' +
-    (a.pass.sid ? '<br>YOUR PASS ID — KEEP IT TO RESTORE ON ANOTHER DEVICE: <code>' + esc(a.pass.sid) + '</code> <button class="btn mini" data-act="fscopyid">COPY</button>' : '') + '</div>';
+    (a.pass.sid ? '<br>YOUR PASS ID — KEEP IT TO RESTORE ON ANOTHER DEVICE: <code>' + esc(a.pass.sid) + '</code> <button class="btn mini" data-act="fscopyid">COPY</button>' : '') +
+        '<br><a href="/withdrawal.html#withdraw-function" style="color:inherit;font-weight:600">Withdraw from contract</a></div>';
   else if (a.byokKey) status = '<div class="fs-status">USING YOUR OWN ANTHROPIC KEY (…' + esc(a.byokKey.slice(-4)) + ') — UNLIMITED</div>';
   else if (a.pass) status = '<div class="fs-status">YOUR PASS EXPIRED ' + esc(fsDate(a.pass.exp)) + '</div>';
   else status = '<div class="fs-status">' + fsFreeLeft() + ' OF ' + FS_FREE_LIMIT + ' FREE SCORES LEFT IN THIS BROWSER</div>';
