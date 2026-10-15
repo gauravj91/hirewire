@@ -821,7 +821,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
         <h2 class="plabel">AI fit score</h2>
         <p class="fsside" id="fsStatus">—</p>
         <div class="btnrow"><button class="btn" id="fsManageBtn">PASSES &amp; YOUR KEY</button></div>
-        <p class="fine">Open any posting and press Score with AI: Claude rates your CV against it from 0 to 10 and lists the fixes that would raise it. 3 free per browser. Your CV is only sent when you press Score, for that one request, and is never stored by HireWire. <a href="/privacy.html#ai-fit-score">Details</a></p>
+        <p class="fine">Open any posting and press Score with AI: an AI model (Google Gemini) rates your CV against it from 0 to 10 and lists the fixes that would raise it. 3 free per browser. Your CV is only sent when you press Score, for that one request, and is never stored by HireWire. <a href="/privacy.html#ai-fit-score">Details</a></p>
         <div id="refBox" class="refbox"></div>
       </section>
 
@@ -1011,7 +1011,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
             <p class="fq-check"><b>Check it</b>Settings &amp; more → AI fit score → Passes &amp; your key lists every price; Stripe’s checkout page shows a one-time payment.</p>
           </div></details>
           <details data-fq="data"><summary>Where is my data?</summary><div class="fq-a">
-            <p>In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request, and isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold.</p>
+            <p>In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold.</p>
             <p class="fq-check"><b>Check it</b>DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. <a href="/privacy.html">Privacy, in plain language</a>.</p>
           </div></details>
           <details data-fq="browsers"><summary>What if I switch browsers, or Safari wipes it?</summary><div class="fq-a">
@@ -3867,7 +3867,8 @@ function buildPrep(id){
   return L.join('\n');
 }
 
-/* ============ 15b · AI FIT SCORE — Claude scores your CV vs a posting + ranked fix list ============
+/* ============ 15b · AI FIT SCORE — an LLM scores your CV vs a posting + ranked fix list ============
+   Server path: hirewire-api → Google Gemini API. Own-key (BYOK) path: browser → Anthropic (Claude).
    Three ways in: 3 free scores per browser (server also limits per network per day), a one-time
    Job Search Pass (Stripe, no account), or the user's own Anthropic key (BYOK, browser → Anthropic).
    Backend: hirewire-api (Vercel). The CV is sent only when the user presses Score, for that request. */
@@ -3876,7 +3877,7 @@ const API_BASE = 'https://hirewire-api.vercel.app';
 const FS_FREE_LIMIT = 3;                          // free scores per browser
 const FS_PRICES = { '7d':'€9', '30d':'€19', 'plus30':'€29' };     // display only — the charge comes from the Stripe price IDs on the server
 const FS_PLAN_LABEL = { '7d':'7-DAY PASS', '30d':'30-DAY PASS', 'plus30':'PASS PLUS' };
-const FS_BYOK_MODEL = 'claude-haiku-5-5';         // model for the BYOK path (server path uses ANTHROPIC_MODEL)
+const FS_BYOK_MODEL = 'claude-haiku-5-5';         // model for the BYOK path (server path: Gemini, GEMINI_MODEL in hirewire-api)
 const FS_CACHE_MAX = 200;                         // cached results kept per browser
 /* FITSCORE-CORE:BEGIN — generated from hirewire-api/lib/core.js; do not edit here */
 /* FITSCORE-CORE v1 — shared by the server (hirewire-api/lib/core.js) and the browser (index.html, BYOK path).
@@ -4607,9 +4608,9 @@ const FS_ERR = {
   pass_expired:'Your Job Search Pass has expired.',
   invalid_token:'Your pass was not recognised — restore it with your pass ID.',
   pass_daily_cap:'Fair-use limit for today reached (100 scores per pass per day). It resets tomorrow.',
-  upstream_busy:'Claude is busy right now — try again in a minute. Nothing was used up.',
-  upstream_timeout:'Claude took too long — try again. Nothing was used up.',
-  upstream_unreachable:'Claude could not be reached — try again. Nothing was used up.',
+  upstream_busy:'The AI service is busy right now — try again in a minute. Nothing was used up.',
+  upstream_timeout:'The AI service took too long — try again. Nothing was used up.',
+  upstream_unreachable:'The AI service could not be reached — try again. Nothing was used up.',
   upstream_error:'Scoring failed upstream — try again. Nothing was used up.',
   model_output_invalid:'The AI returned an unusable answer — try again. Nothing was used up.',
   model_refused:'The AI declined to score this one. Nothing was used up.',
@@ -4747,7 +4748,7 @@ function fsModeChip(mode){
 function fsPrivacyLine(mode){
   return mode === 'byok'
     ? 'Your CV and this posting go straight from this browser to Anthropic with your own key. HireWire never sees them.'
-    : 'Pressing score sends your CV and this posting to HireWire’s scoring function and on to Anthropic (Claude) for this one request. HireWire does not store or log them.';
+    : 'Pressing score sends your CV and this posting to HireWire’s scoring function and on to Google’s Gemini API for this one request. HireWire does not store or log them.';
 }
 function fsFixHTML(f, i, cv){
   const grounded = !f.cv_evidence || fsInCv(f.cv_evidence, cv);
@@ -4786,9 +4787,9 @@ function fsResultHTML(rec, cv){
 function fsBoxHTML(j){
   const id = j.id, rec = state.fit[id], busy = state.fsBusy[id], er = state.fsErr[id], mode = fsMode();
   const cv = fsCvText();
-  let h = '<label>AI fit score — your CV vs this posting <span class="fs-beta">CLAUDE</span></label>';
+  let h = '<label>AI fit score — your CV vs this posting <span class="fs-beta">' + (mode === 'byok' ? 'CLAUDE' : 'GEMINI') + '</span></label>';
   if (busy) h += '<div class="fs-busy" role="status"><span class="fs-spin"></span>' +
-    (fsDescPending(j) ? 'FETCHING THE FULL DESCRIPTION FIRST…' : 'SCORING WITH CLAUDE… USUALLY 5–20 SECONDS') + '</div>';
+    (fsDescPending(j) ? 'FETCHING THE FULL DESCRIPTION FIRST…' : 'SCORING WITH ' + (mode === 'byok' ? 'CLAUDE' : 'GEMINI') + '… USUALLY 5–20 SECONDS') + '</div>';
   else if (rec) h += fsResultHTML(rec, cv);
   if (er && !busy) h += '<p class="fs-err" role="alert">' + esc(fsErrMsg(er)) + '</p>';
   if (!busy){
@@ -6131,7 +6132,7 @@ function bindEvents(){
                   Pass Plus writing · encrypted sync · referrals · bulk + shortcuts ============
    Everything here is local-first like the rest of HireWire. Network calls only happen when the user
    asks for them: encrypted sync (opt-in, needs a pass, end-to-end encrypted before upload), AI writing
-   (Pass Plus → hirewire-api → Anthropic, or own key → Anthropic), referral codes (random device id + code,
+   (Pass Plus → hirewire-api → Google Gemini, or own key → Anthropic), referral codes (random device id + code,
    nothing else). Analytics: event NAMES only through hwTrack(), which does nothing under Do Not Track. */
 LS.growth = 'hirewire.growth.v1';       // visit days, goal, hero bucket, career mode, referral/bonus, notify prefs
 LS.sync = 'hirewire.sync.v1';           // encrypted-sync key + rev (never in backups)
@@ -6928,7 +6929,7 @@ function grKey(e){
 }
 
 /* ---- 22.10 · Pass Plus: "Write with AI" — cover letter · interview prep · tailored CV · negotiation ----
-   Access: own Anthropic key (browser → Anthropic, free) → Pass Plus (hirewire-api /api/generate, Bearer token) → otherwise
+   Access: own Anthropic key (browser → Anthropic, free) → Pass Plus (hirewire-api /api/generate → Google Gemini, Bearer token) → otherwise
    an upgrade prompt plus the local, non-AI alternative where one exists. Model text is never inserted as HTML:
    mdToHtml() escapes everything first and only adds a fixed set of tags. */
 const AIW_KINDS = { cover_letter:'Cover letter', interview_prep:'Interview prep', tailored_cv:'Tailored CV', negotiation:'Negotiation script' };
@@ -7232,9 +7233,9 @@ function renderAiWrite(){
     body += '<div class="aiw-opts"><label>Tone<select class="input sm" id="aiwTone">' + [['', 'formal (default)'], ['warm', 'warm']].map(t => '<option value="' + t[0] + '"' + (u.tone === t[0] ? ' selected' : '') + '>' + t[1] + '</option>').join('') + '</select></label>' +
       '<label>Language<select class="input sm" id="aiwLang">' + [['', 'same as the posting'], ['en', 'English'], ['de', 'Deutsch']].map(t => '<option value="' + t[0] + '"' + (u.language === t[0] ? ' selected' : '') + '>' + t[1] + '</option>').join('') + '</select></label>' +
       '<button class="btn red" data-act="aiwgo"' + (u.busy ? ' disabled' : '') + '>' + (u.busy ? 'WRITING…' : (rec ? 'WRITE AGAIN' : 'WRITE IT')) + '</button></div>' +
-      '<p class="fine">' + (acc === 'byok' ? 'Your CV and this posting go straight from this browser to Anthropic with your own key.' : 'Your CV and this posting go to HireWire’s writing function and on to Anthropic for this one request. HireWire does not store them.') +
+      '<p class="fine">' + (acc === 'byok' ? 'Your CV and this posting go straight from this browser to Anthropic with your own key.' : 'Your CV and this posting go to HireWire’s writing function and on to Google’s Gemini API for this one request. HireWire does not store them.') +
       ' <a href="/privacy.html#ai-fit-score" target="_blank" rel="noopener">Details</a></p>';
-    if (u.busy) body += '<div class="fs-busy" role="status"><span class="fs-spin"></span>WRITING WITH CLAUDE… USUALLY 10–40 SECONDS</div>';
+    if (u.busy) body += '<div class="fs-busy" role="status"><span class="fs-spin"></span>WRITING WITH ' + (acc === 'byok' ? 'CLAUDE' : 'GEMINI') + '… USUALLY 10–40 SECONDS</div>';
     if (u.err) body += '<p class="fs-err" role="alert">' + esc(aiwErrMsg(u.err)) + '</p>';
     if (rec && !u.busy){
       if (rec.warnings && rec.warnings.length) body += '<ul class="aiw-warn">' + rec.warnings.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>';
