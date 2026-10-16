@@ -8564,7 +8564,6 @@ boot();
     closeBtn.addEventListener('click', close);
     ov.addEventListener('mousedown', function(e){ ov.__downOnBackdrop = (e.target === ov); });
     ov.addEventListener('click', function(e){ if (e.target === ov && ov.__downOnBackdrop !== false) close(); });
-    ov.addEventListener('keydown', onKey);
     // focus trap with sentinels, so Tab still walks through the video's own (shadow-DOM) controls natively
     Array.prototype.forEach.call(ov.querySelectorAll('.hwdemo-trap'), function(t){
       t.addEventListener('focus', function(){ var f = focusables(); if (!f.length) return box.focus(); (t.getAttribute('data-trap') === 'start' ? f[f.length - 1] : f[0]).focus(); });
@@ -8591,6 +8590,7 @@ boot();
     ov.hidden = false;
     document.documentElement.classList.add('hwdemo-open');
     document.addEventListener('focusin', onFocusIn, true);
+    document.addEventListener('keydown', onKey, true);   // capture on document: Esc works wherever focus sits (video controls, body)
     try { closeBtn.focus(); } catch(e){}
     try { if (typeof window.hwTrack === 'function') window.hwTrack('demo_video_open', { file:p.k }); } catch(e){}
   }
@@ -8600,6 +8600,7 @@ boot();
     ov.hidden = true;
     document.documentElement.classList.remove('hwdemo-open');
     document.removeEventListener('focusin', onFocusIn, true);
+    document.removeEventListener('keydown', onKey, true);
     var o = opener; opener = null;
     if (o && typeof o.focus === 'function' && document.contains(o)){ try { o.focus(); } catch(e){} }
   }
