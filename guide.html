@@ -20,6 +20,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/pages.css">
+<style>
+.demo-inline{margin:0 0 26px}
+.demo-inline h2{margin-top:0}
+video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#17130C;border:1px solid var(--ink)}
+.demo-note{font-size:12px;color:var(--ink2);margin:8px 0 0}
+@media (max-width:600px){ video.demo-video{aspect-ratio:9/16;width:auto;max-width:100%;height:min(80vh,640px);margin:0 auto} }
+@media print{ .demo-inline{display:none} }
+</style>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -187,6 +195,7 @@
  ]
 }
 </script>
+<script src="/assets/demo-video.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -219,6 +228,18 @@
 <li>You save postings to a <b>pipeline</b> (saved → applied → screen → interview → offer → archived) with notes, contacts and next dates.</li>
 <li>Everything is stored <b>in your browser</b> (localStorage, mirrored to IndexedDB). One JSON file backs it all up.</li>
 </ul></div>
+
+<section class="demo-inline" id="see-it-in-action" aria-labelledby="demo-h">
+<h2 id="demo-h">See it in action</h2>
+<video class="demo-video" data-demo-inline="" controls playsinline preload="none" width="1280" height="720"
+ poster="/assets/video/hirewire-demo-16x9-poster.jpg" data-poster-narrow="/assets/video/hirewire-demo-9x16-poster.jpg"
+ aria-label="HireWire demo video, about 90 seconds, captions burned in, no sound">
+<source src="/assets/video/hirewire-demo-16x9.mp4" type="video/mp4" media="(min-width: 601px)">
+<source src="/assets/video/hirewire-demo-9x16.mp4" type="video/mp4">
+<a href="/assets/video/hirewire-demo-16x9.mp4">Download the demo video (MP4)</a>
+</video>
+<p class="demo-note">A real screen recording of the live app: the wire, ghost-job risk, the salary check, the pipeline and the optional AI fit score. No sound needed; captions are burned in.</p>
+</section>
 
 <h2>1. The wire: where postings come from</h2>
 <p>When the page loads, your browser requests public job APIs directly. There is no HireWire server in between. The 55 feeds are:</p>
