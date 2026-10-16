@@ -7,7 +7,8 @@
      video pauses on close. Browsers without showModal get the same behaviour from a fixed overlay fallback.
    • Nothing video-related exists in the DOM until the first click: zero video (and poster) bytes before it.
    • The <video> uses controls, playsinline, preload="none" and a poster; no autoplay.
-     max-width 600px → 9:16 file, otherwise 16:9 (re-checked on every open).
+     max-width 600px → 9:16 file, otherwise 16:9 (re-checked on every open). Reopening resumes where it was paused,
+     except after the video ended: then it restarts from 0:00.
    • Inline players ([data-demo-inline], guide) pick their file with <source media>; this only swaps the poster
      on narrow screens. */
 (function(){
@@ -85,6 +86,7 @@
       vid.setAttribute('poster', p.poster);
       vid.setAttribute('src', p.src); vid.setAttribute('data-file', p.k);
     }
+    if (vid.ended){ try { vid.currentTime = 0; } catch(e){} }   // reopened after the end: start again from 0:00 (otherwise resume)
     if (native){ try { dlg.showModal(); } catch(e){ dlg.setAttribute('open', ''); } } else dlg.setAttribute('open', '');
     document.documentElement.classList.add('hwdemo-open');
     document.addEventListener('focusin', onFocusIn, true);
