@@ -9,6 +9,9 @@
 <title>HireWire — Free Private Job Application Tracker &amp; Job Feed Aggregator</title>
 <meta name="description" content="HireWire pulls 55 live job feeds onto one wire, scores every posting against your skills and salary floor, and tracks your pipeline from saved to offer. Free, no account, and your CV stays in your browser unless you ask for an optional AI fit score.">
 <link rel="canonical" href="https://hirewire.fyi/">
+<link rel="alternate" hreflang="en" href="https://hirewire.fyi/">
+<link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/">
+<link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HireWire">
 <meta property="og:title" content="HireWire — The Job Wire">
@@ -17,15 +20,170 @@
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "HireWire",
-  "url": "https://hirewire.fyi/",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Any modern browser",
-  "description": "Free, private job-search tool: aggregates 55 job feeds, scores postings against your profile, and tracks your application pipeline — entirely in your browser, with no account.",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "featureList": "Job feed aggregation, Match scoring, Application pipeline tracker, Ghost-job detection, Agent briefs for AI coding assistants, Local-only data storage"
+ "@context": "https://schema.org",
+ "@type": "WebApplication",
+ "@id": "https://hirewire.fyi/#app",
+ "name": "HireWire",
+ "url": "https://hirewire.fyi/",
+ "inLanguage": "en",
+ "applicationCategory": "BusinessApplication",
+ "operatingSystem": "Any modern browser",
+ "description": "Free, private job-search tool: aggregates 55 job feeds, scores postings against your profile, and tracks your application pipeline — entirely in your browser, with no account.",
+ "publisher": {
+  "@id": "https://hirewire.fyi/#org"
+ },
+ "offers": [
+  {
+   "@type": "Offer",
+   "name": "HireWire (free)",
+   "price": "0",
+   "priceCurrency": "EUR",
+   "description": "Job feeds, match scores, tracker, ghost-job flags, salary check, reminders, exports and backups. No account. Includes 3 free AI fit scores.",
+   "url": "https://hirewire.fyi/",
+   "availability": "https://schema.org/InStock"
+  },
+  {
+   "@type": "Offer",
+   "name": "Job Search Pass, 7 days",
+   "price": "9",
+   "priceCurrency": "EUR",
+   "description": "One-time payment, no subscription: AI fit scores for 7 days.",
+   "url": "https://hirewire.fyi/",
+   "availability": "https://schema.org/InStock"
+  },
+  {
+   "@type": "Offer",
+   "name": "Job Search Pass, 30 days",
+   "price": "19",
+   "priceCurrency": "EUR",
+   "description": "One-time payment, no subscription: AI fit scores for 30 days, includes encrypted sync.",
+   "url": "https://hirewire.fyi/",
+   "availability": "https://schema.org/InStock"
+  },
+  {
+   "@type": "Offer",
+   "name": "Pass Plus, 30 days",
+   "price": "29",
+   "priceCurrency": "EUR",
+   "description": "One-time payment, no subscription: everything in the 30-day pass plus AI writing (cover letter, interview prep, tailored CV, negotiation script).",
+   "url": "https://hirewire.fyi/",
+   "availability": "https://schema.org/InStock"
+  }
+ ],
+ "featureList": "Job feed aggregation (55 public feeds), Transparent match scoring, Application pipeline tracker, Ghost-job detection, Salary reality check, Follow-up reminders, Optional AI fit score, Agent briefs for AI coding assistants, Local-only data storage"
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "@id": "https://hirewire.fyi/#org",
+ "name": "HireWire",
+ "alternateName": "hirewire.fyi",
+ "url": "https://hirewire.fyi/",
+ "logo": {
+  "@type": "ImageObject",
+  "url": "https://hirewire.fyi/icons/icon-512.png",
+  "width": 512,
+  "height": 512
+ },
+ "email": "hey@hirewire.fyi",
+ "founder": {
+  "@type": "Person",
+  "name": "Gaurav Jindal"
+ },
+ "foundingLocation": {
+  "@type": "Place",
+  "name": "Berlin, Germany"
+ },
+ "sameAs": [
+  "https://github.com/gauravj91/hirewire",
+  "https://alternativeto.net/software/hirewire/",
+  "https://www.saashub.com/hirewire-fyi",
+  "https://uneed.best/tool/hirewire"
+ ]
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "@id": "https://hirewire.fyi/#faq",
+ "inLanguage": "en",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is it really free? How do you make money?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of €9 for 7 days or €19 for 30 days, or €29 Pass Plus (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. No subscription: nothing renews. The other plan is a hand-sold, clearly labelled sponsor card. Check it: Settings & more → AI fit score → Passes & your key lists every price; Stripe’s checkout page shows a one-time payment."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where is my data?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold. Check it: DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. Privacy, in plain language."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What if I switch browsers, or Safari wipes it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Data lives per browser, so a new browser starts empty. Settings & more → Backup saves one .json file (profile, pipeline, people, settings) and Restore loads it anywhere. Safari can delete site data after 7 days without a visit, so HireWire asks the browser for persistent storage and reminds you to back up once your last backup is 6 days old. With a pass, encrypted sync does this for you. Check it: Settings & more shows “Last backup: …” and where your data is stored."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are the jobs real and fresh?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "They come from 55 official public feeds, fetched by your own browser and refreshed hourly while HireWire is open: job boards’ public APIs plus companies’ own Greenhouse, Ashby, Lever, SmartRecruiters, Personio, Workable and Recruitee career boards, including German and EU employers such as N26, Celonis, HelloFresh, Trade Republic, Delivery Hero, SIXT and Bosch. Every posting gets a ghost-job risk flag (age, reposts, talent-pool wording, no pay…) and “Hide ghosts” filters the worst. The flag is a heuristic, not proof. Check it: The header shows how many feeds answered (FEEDS UP); every posting’s ↗ opens the original ad."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why should I trust the match score?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "You don’t have to take it on trust: the formula is published. Base 32 · +13 per skill of yours in the title · +7 in tags or description · +12 if pay meets your floor, −18 below, −3 if unstated · up to +9 for freshness, −8 if stale · +4 remote · −28 per blocked word. It runs in your browser on your profile, and nobody can pay to rank higher; sponsor cards are separate and labelled. The optional AI fit score is separate too, and shows its reasons and fixes. Check it: Settings & more → “How the score works”, or the guide."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do you track me?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No ad trackers. This app page counts anonymous feature use with PostHog (US): autocapture, automatic pageviews, session recording, surveys and performance capture are all off. It sends named events only (like “export” or a stage name), never job titles, companies, searches, skills, your CV, notes or salary, and never sponsor clicks. URLs are cut before any ? or #. No cookies: a random ID is kept in this browser. It is off unless you say yes in the small banner, and nothing from PostHog is loaded before that; change it any time with “Analytics” in the footer. Do Not Track or Global Privacy Control count as no. Like any web request, PostHog sees your IP address. The guide, tool and German pages load no analytics. Check it: The footer link “No ad trackers · anonymous feature counts” lists what’s counted; DevTools → Network, filter “posthog”."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Who is behind it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Gaurav Jindal, a solo maker in Berlin. Questions, bugs and corrections: hey@hirewire.fyi, or the CONTACT GAURAV button in the footer."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not just paste jobs into ChatGPT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you ask for an AI fit score. Free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use both: ChatGPT to polish your cover letter, HireWire to decide which jobs deserve one."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What can’t it do?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only postings from the feeds can be saved: no manual job entry, and no import from other trackers or spreadsheets yet. The app’s interface is in English (with German guides). Pay is compared with static, approximate exchange rates."
+   }
+  }
+ ]
 }
 </script>
 <!-- ===== end SEO / AEO ===== -->
@@ -714,6 +872,12 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 .hero-cta .hero-demo:hover,.hero-cta .hero-demo:focus-visible{color:var(--red)}
 @media (max-width:600px){ .hero-cta{row-gap:6px} .hero-cta .hero-demo{margin-left:0} }
 @media print{ .hero-demo,.hwdemo{display:none!important} }
+/* ===== 28 · static "What is HireWire?" line in the masthead (crawlable, no JS). Desktop: a quiet note next to the name;
+   phones: one compact block under the name (≈60px), so the first-run hero moves down only a little. ===== */
+.mast-what{flex:1 1 260px;max-width:390px;margin:0 auto 10px 0;font-size:10.5px;line-height:1.5;color:var(--ink2);letter-spacing:0}
+.mast-what b{color:var(--ink);font-weight:600}
+@media (min-width:761px) and (max-width:1279px){ .mast-what{order:3;flex-basis:100%;max-width:none;margin:-6px 0 0} }
+@media (max-width:760px){ .mast-what{flex-basis:100%;max-width:none;margin:-2px 0 0;font-size:10px;line-height:1.45} }
 /* 16 Oct 2026 footer demo link: one more link re-wraps the guides row, and at 1366×768 its first line then ran under the
    fixed CONSOLE tab (bottom-right, 26–62px from the bottom; 12–42px on phones) when scrolled to the end. The last footer
    row now ends above the tab at every width. */
@@ -766,6 +930,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     </div>
     <div class="mast-main">
       <h1 class="mast-name">HireWire<span class="dot">.</span></h1>
+      <p class="mast-what" id="whatIs"><b>What is HireWire?</b> A free, local-first job feed aggregator and tracker: 55 public job feeds in one list, ranked by a transparent fit score. No account, and your data stays in your browser. Optional AI passes from €9.</p>
       <div class="mast-side">
         <div class="stat" id="stCountStat"><label>ON THE WIRE</label><b id="stCount">0</b></div>
         <div class="stat" id="stFeedsStat"><label>FEEDS UP</label><b id="stFeeds">—</b></div>
@@ -1086,6 +1251,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker</a>
     <a href="/resume-privacy-check.html">Resume privacy check</a>
     <a href="/sponsor.html">Sponsor HireWire</a>
+    <a href="/llms.txt" type="text/plain">llms.txt</a>
   </nav>
 </div>
 
