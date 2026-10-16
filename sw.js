@@ -2,23 +2,26 @@
    • Caches only same-origin files (the app shell: pages, icons, manifest, CSS). Cross-origin requests — job feeds,
      hirewire-api, Anthropic, Stripe, fonts, analytics — are never intercepted or cached; same-origin /api/ is bypassed too.
    • index.html and other pages: network-first (always fresh when online), cached copy when offline.
-   • Static files: stale-while-revalidate.
+   • Static files: stale-while-revalidate. Video/audio files and any Range request are never intercepted or cached.
    • Versioned cache; a new version waits until the page asks it to take over ("New version available — reload").
    • Periodic Background Sync (where the browser supports it, e.g. installed Chrome/Edge): reads the follow-up
      due dates the page left in its IndexedDB mirror and shows at most one notification a day. Nothing is fetched. */
 'use strict';
-const VERSION = 'hw-shell-v6';   // v6 (2026-10-15, 55 feeds, ChatGPT FAQ, footer overlap fix). v5 (2026-10-15, purchase confirmation email: terms/withdrawal/privacy copy). v4 (2026-10-15, legal pages live: terms, withdrawal, imprint; Stripe live). v3: Workers cutover, fonts, consent
+const VERSION = 'hw-shell-v7';   // v7 (2026-10-16, demo video: hero link + modal, guide section; video/range requests bypass the SW). v6 (2026-10-15, 55 feeds, ChatGPT FAQ, footer overlap fix). v5 (2026-10-15, purchase confirmation email: terms/withdrawal/privacy copy). v4 (2026-10-15, legal pages live: terms, withdrawal, imprint; Stripe live). v3: Workers cutover, fonts, consent
 const PREFIX = 'hw-shell-';
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
 const STATIC_RE = /\.(?:png|jpe?g|gif|svg|webp|ico|css|js|webmanifest|woff2?|txt|xml)$/i;
+const MEDIA_RE = /\.(?:mp4|m4v|webm|mov|ogv|mp3|m4a|ogg|wav)$/i;   // video/audio: never cached, never intercepted (Range requests stay native)
 
 /* pure routing decision — unit-tested in work/growth-test/sw.test.js */
-function swStrategy(reqUrl, method, origin, mode){
+function swStrategy(reqUrl, method, origin, mode, dest, hasRange){
   let u;
   try { u = new URL(reqUrl); } catch(e){ return 'bypass'; }
   if (method !== 'GET') return 'bypass';
+  if (hasRange || dest === 'video' || dest === 'audio') return 'bypass';   // media element + byte-range requests go straight to the network
   if (u.origin !== origin) return 'bypass';                       // feeds, API, Anthropic, Stripe, fonts, PostHog
   if (/^\/api\//.test(u.pathname) || u.pathname === '/sw.js') return 'bypass';
+  if (MEDIA_RE.test(u.pathname)) return 'bypass';                 // demo videos (assets/video/*.mp4) are never cached
   if (mode === 'navigate' || u.pathname === '/' || /\.html?$/i.test(u.pathname)) return 'network-first';
   if (STATIC_RE.test(u.pathname)) return 'swr';
   return 'bypass';                                                // anything else (e.g. .json data) is never cached
@@ -48,7 +51,7 @@ if (typeof module !== 'undefined' && module.exports){
   });
   self.addEventListener('fetch', event => {
     const req = event.request;
-    const how = swStrategy(req.url, req.method, self.location.origin, req.mode);
+    const how = swStrategy(req.url, req.method, self.location.origin, req.mode, req.destination, !!(req.headers && req.headers.has('range')));
     if (how === 'bypass') return;                                  // the browser handles it; nothing is cached
     if (how === 'network-first'){
       const key = swPageKey(req.url);
