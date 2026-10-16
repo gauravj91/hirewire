@@ -714,6 +714,11 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 .hero-cta .hero-demo:hover,.hero-cta .hero-demo:focus-visible{color:var(--red)}
 @media (max-width:600px){ .hero-cta{row-gap:6px} .hero-cta .hero-demo{margin-left:0} }
 @media print{ .hero-demo,.hwdemo{display:none!important} }
+/* 16 Oct 2026 footer demo link: one more link re-wraps the guides row, and at 1366×768 its first line then ran under the
+   fixed CONSOLE tab (bottom-right, 26–62px from the bottom; 12–42px on phones) when scrolled to the end. The last footer
+   row now ends above the tab at every width. */
+.footnav.legal + .footnav{padding-bottom:70px}
+@media (max-width:760px){ .footnav.legal + .footnav{padding-bottom:50px} }
 /* ===== 24 · growth plays: fair-questions section (objections), hero link, print attribution ===== */
 .hero-faq{margin-top:12px;font-size:10px;letter-spacing:.06em}
 .hero-faq a{color:var(--ink2);text-decoration:underline;text-underline-offset:3px}
@@ -1067,6 +1072,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <a href="/imprint.html">Imprint</a>
   </nav>
   <nav class="footnav" aria-label="Guides and comparisons">
+    <a class="foot-demo" href="/assets/video/hirewire-demo-16x9.mp4" data-demo-open="" aria-haspopup="dialog">▶ Demo video</a>
     <a href="#fairqs" data-fqgo="">Fair questions</a>
     <a href="/guide.html">Guide</a>
     <a href="/best-browser-job-tracker.html">Best browser job tracker</a>
@@ -8517,7 +8523,8 @@ boot();
      video pauses on close. Browsers without showModal get the same behaviour from a fixed overlay fallback.
    • Nothing video-related exists in the DOM until the first click: zero video (and poster) bytes before it.
    • The <video> uses controls, playsinline, preload="none" and a poster; no autoplay.
-     max-width 600px → 9:16 file, otherwise 16:9 (re-checked on every open).
+     max-width 600px → 9:16 file, otherwise 16:9 (re-checked on every open). Reopening resumes where it was paused,
+     except after the video ended: then it restarts from 0:00.
    • Inline players ([data-demo-inline], guide) pick their file with <source media>; this only swaps the poster
      on narrow screens. */
 (function(){
@@ -8595,6 +8602,7 @@ boot();
       vid.setAttribute('poster', p.poster);
       vid.setAttribute('src', p.src); vid.setAttribute('data-file', p.k);
     }
+    if (vid.ended){ try { vid.currentTime = 0; } catch(e){} }   // reopened after the end: start again from 0:00 (otherwise resume)
     if (native){ try { dlg.showModal(); } catch(e){ dlg.setAttribute('open', ''); } } else dlg.setAttribute('open', '');
     document.documentElement.classList.add('hwdemo-open');
     document.addEventListener('focusin', onFocusIn, true);
