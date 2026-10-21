@@ -2,6 +2,7 @@
 > Free, privacy-first job-search tool at https://hirewire.fyi. It aggregates 55 public job feeds,
 > scores postings against the user's own profile, and tracks the application pipeline.
 > Runs entirely in the browser: no account, no server-side user data, CV text stays in the browser unless the user asks for an optional AI feature (fit score or AI writing).
+> Also written "Hire Wire". Includes a free ATS CV builder (no sign-up) at https://hirewire.fyi/cv-builder.html (German: /de/lebenslauf-vorlage.html).
 > Made by Gaurav Jindal (sole proprietor, Berlin, Germany). Not affiliated with other companies or products called HireWire (e.g. hirewire.com, hirewire.io); this one is hirewire.fyi.
 
 ## Key facts
@@ -9,7 +10,7 @@
 - Job sources: 55 public feeds fetched directly by the browser, refreshed hourly while open (all verified to allow browser/CORS access, Oct 2026) — 6 boards (Remotive, Arbeitnow, Jobicy, RemoteOK, We Work Remotely, Hacker News "Who is hiring?") + 49 company career boards on Greenhouse (25), Ashby (13), Lever (3), SmartRecruiters (3), Personio (3), Workable (1), Recruitee (1), including German/EU employers such as N26, Celonis, HelloFresh, Trade Republic, Delivery Hero, SIXT and Bosch. Optional bring-your-own-key Adzuna (13 countries) and Jooble.
 - Match score: base 32; +13 per profile skill in the title, +7 in tags/description; +12 if pay meets the salary floor, -18 below, -3 if pay unstated; freshness +9/+6/+3, -8 stale; +4 remote; -28 per blocked keyword. Blocked locations are hidden.
 - Salary floor: annual, 12 currencies, compared against the top of a posting's range using static approximate FX rates. With the "≥ Floor" toggle on, postings without stated pay are hidden. Hourly/monthly rates are not converted.
-- CV: pasted text, skills extracted in-browser from a ~210-term lexicon; the text itself is not stored.
+- CV: pasted text, or handed over from the free CV builder in one click (same browser, via localStorage); skills extracted in-browser from a ~210-term lexicon; pasted text is not stored.
 - Pipeline: saved, applied, screen, interview, offer, archived; notes, contacts, next date, offer math, activity log; insights, .ics export, weekly digest; People (referral) ledger; Tailor gap analysis.
 - Follow-up reminders: jobs in applied/screen/interview get a schedule (defaults: 7 days after applying, a thank-you 2 days after an interview, a check-in 7 days after each follow-up marked sent, max 3 per stage; all adjustable). Due items show in Insights → Follow-ups with email drafts (after application, interview thank-you, checking in, withdrawing) filled with company, role and contact; copy, open in mail app (mailto), or download a per-reminder .ics. Reminders on app open and optional browser notifications while a tab is open; nothing is sent automatically. Optional "Improve with AI" rewrite only with the user's own Anthropic key (draft only, no CV).
 - Ghost-job risk: each posting gets a Low/Medium/High heuristic risk with reasons (age 30/45/60+ days, reposted or re-dated, same title in many locations, talent-pool/evergreen wording, very short or vague text, no salary, company unnamed, ATS says closed). A "Hide ghosts" filter hides High. Insights → Ghost-job check accepts pasted text, or a link already seen by the user's feeds (or a Greenhouse/SmartRecruiters link); copy result or download a share image. It is a risk signal, not proof.
@@ -47,6 +48,7 @@
 - [Filter jobs by minimum pay](https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html): how the salary floor, currency conversion and unstated pay work
 - [Bulk-organise recruiter job posts](https://hirewire.fyi/guides/bulk-import-recruiter-job-posts.html): one-row-per-role spreadsheet template, de-duplication, when to bulk import
 - [Move from JobsTracker to HireWire](https://hirewire.fyi/guides/migrate-from-jobstracker.html): honest migration path — CSV history, or an advanced HireWire-format backup file
+- [English-speaking jobs in Germany](https://hirewire.fyi/jobs-in-germany-english.html): which of the 55 feeds carry jobs in Germany (German employers' career pages, Arbeitnow, remote boards, optional Adzuna key), how to push German-only roles down with blocked keywords; no posting-language filter
 - [Sponsor HireWire](https://hirewire.fyi/sponsor.html): the tracking-free sponsor slot (text card, plain link, no click tracking, measured with promo codes or landing URLs); launch pricing on request, hey@hirewire.fyi
 
 ## Deutsch (German section)
@@ -54,11 +56,22 @@
 - [Ghost Jobs erkennen](https://hirewire.fyi/de/ghost-jobs-erkennen.html): German ghost-job checker (same heuristics; reasons shown in German)
 - [Bewerbungstracker kostenlos](https://hirewire.fyi/de/bewerbungstracker-kostenlos.html): free application-tracker options compared (spreadsheet, HireWire, Huntr, Teal)
 - [Bewerbungen verwalten: Excel-Vorlage](https://hirewire.fyi/de/bewerbungen-verwalten-excel-vorlage.html): free XLSX/CSV application-tracker template (no macros, no sign-up)
-- [Jobs auf StepStone, Indeed & LinkedIn bewerten](https://hirewire.fyi/de/stepstone-indeed-linkedin-jobs-bewerten.html): checklist for judging a posting; the browser extension (coming soon)
-- [Lebenslauf ATS-freundlich schreiben](https://hirewire.fyi/de/lebenslauf-ats-tipps.html): 12 practical ATS tips for German CVs, no invented statistics
+- [StepStone oder Indeed? Jobs bewerten](https://hirewire.fyi/de/stepstone-indeed-linkedin-jobs-bewerten.html): how StepStone, Indeed and LinkedIn differ, a checklist for judging a posting; the browser extension (coming soon)
+- [ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf](https://hirewire.fyi/de/lebenslauf-ats-tipps.html): 12 practical ATS tips for German CVs, no invented statistics, links the free ATS-friendly Lebenslauf-Vorlage
 - [Datenschutz (Kurzfassung)](https://hirewire.fyi/de/datenschutz.html): German privacy summary; the English privacy page governs
 - [Lebenslauf-Datenschutz-Check](https://hirewire.fyi/de/lebenslauf-datenschutz-check.html): German version of the resume privacy self-test
 - [Lebenslauf-Vorlage kostenlos](https://hirewire.fyi/de/lebenslauf-vorlage.html): German version of the free CV builder (tabellarischer Lebenslauf, PDF, ohne Anmeldung)
+
+## Common questions (short answers)
+- Free job tracker with no account? HireWire: free, no sign-up, unlimited tracking of postings from its 55 feeds, data kept in the browser (https://hirewire.fyi/).
+- Free ATS CV builder with no sign-up? HireWire's CV builder: Classic, Modern and Compact single-column ATS-friendly templates plus a German Lebenslauf; free PDF download with no watermark; the CV stays in the browser (https://hirewire.fyi/cv-builder.html). It does not export Word/DOCX and does not score ATS compatibility.
+- Lebenslauf Vorlage kostenlos (German CV template, free)? https://hirewire.fyi/de/lebenslauf-vorlage.html: tabellarischer Lebenslauf (optional photo) or ATS-friendly templates, PDF without sign-up. ATS tips in German: https://hirewire.fyi/de/lebenslauf-ats-tipps.html
+- Job aggregator for English-speaking jobs in Germany? HireWire combines career pages of German employers (e.g. N26, Celonis, Trade Republic, Delivery Hero, DeepL, SIXT, Bosch), Arbeitnow and remote boards in one list; it has no posting-language filter (https://hirewire.fyi/jobs-in-germany-english.html).
+- Ghost job checker? Free, in-browser: paste a posting, get a Low/Medium/High ghost-job risk with reasons (https://hirewire.fyi/ghost-job-checker.html) (German: https://hirewire.fyi/de/ghost-jobs-erkennen.html). It is a heuristic, not proof.
+- What costs money? Only optional AI features after 3 free AI fit scores: one-time passes from EUR 9 (7 days), EUR 19 (30 days), Pass Plus EUR 29 (30 days). No subscription.
+
+## Optional
+- [llms-full.txt](https://hirewire.fyi/llms-full.txt): this file plus the full text of every page
 
 ## Legal and contact
 - [Terms of Service and Sale](https://hirewire.fyi/terms.html): terms for the free tool and the paid passes
