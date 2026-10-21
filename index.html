@@ -8652,7 +8652,20 @@ boot();
     saidYes:'THANKS — ANONYMOUS FEATURE COUNTS ARE ON. CHANGE ANY TIME: “ANALYTICS” IN THE FOOTER.', saidNo:'OK — NO ANALYTICS. CHANGE ANY TIME: “ANALYTICS” IN THE FOOTER.'
   };
   function note(msg){ try { if (typeof toast === 'function') toast(msg); } catch(e){} }
-  function closeBanner(){ const b = document.getElementById('hwConsent'); if (b) b.parentNode.removeChild(b); }
+  // Reserve the bar's height at the bottom of the page (and of fixed overlays) while it is shown; release it when it goes.
+  let consentRO = null;
+  function reserveSpace(){
+    const b = document.getElementById('hwConsent'), root = document.documentElement;
+    const h = b ? Math.ceil(b.getBoundingClientRect().height) : 0;
+    root.style.setProperty('--hw-consent-h', h + 'px');
+    root.classList.toggle('hw-consent-on', !!b);
+  }
+  function closeBanner(){
+    const b = document.getElementById('hwConsent'); if (b) b.parentNode.removeChild(b);
+    if (consentRO){ try { consentRO.disconnect(); } catch(e){} consentRO = null; }
+    window.removeEventListener('resize', reserveSpace);
+    reserveSpace();
+  }
   function choose(v){
     consentSet(v); closeBanner();
     if (v === 'granted') startAnalytics(); else stopAnalytics();
@@ -8662,18 +8675,31 @@ boot();
     if (BROWSER_NO || document.getElementById('hwConsent') || !document.body) return;
     if (!document.getElementById('hwConsentCss')){
       const st = document.createElement('style'); st.id = 'hwConsentCss';
-      st.textContent = '.hwcons{position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;max-width:560px;margin:0 auto;background:var(--paper,#F6F1E6);color:var(--ink,#111);border:1.5px solid var(--ink,#111);box-shadow:4px 4px 0 var(--ink,#111);padding:12px 14px;font:12px/1.5 "IBM Plex Mono",ui-monospace,monospace}' +
-        '.hwcons b{display:block;font-size:12px;letter-spacing:.06em;margin-bottom:4px}.hwcons p{margin:0 0 10px}.hwcons .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}' +
-        '.hwcons button{font:inherit;font-weight:600;padding:6px 12px;border:1.5px solid var(--ink,#111);background:transparent;color:inherit;cursor:pointer;min-width:110px}' +
-        '.hwcons a{color:inherit;text-decoration:underline;text-underline-offset:2px;margin-left:auto}@media print{.hwcons{display:none!important}}';
+      // 21 Oct 2026: compact full-width bar + reserved space. While it is shown, <html> gets .hw-consent-on and --hw-consent-h
+      // (the bar's measured height): the page gets that much bottom padding and fixed overlays (setup/onboarding modals,
+      // drawer, console, update bar) stop above it, so the bar never covers a button or the footer.
+      st.textContent = '.hwcons{position:fixed;left:0;right:0;bottom:0;z-index:9999;background:var(--paper,#F6F1E6);color:var(--ink,#111);border-top:1.5px solid var(--ink,#111);box-shadow:0 -3px 0 rgba(23,19,12,.10);padding:8px 16px;font:11px/1.45 "IBM Plex Mono",ui-monospace,monospace}' +
+        '.hwcons .hwc-in{max-width:1180px;padding:0;border:0;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}.hwcons .hwc-tx{flex:1 1 440px;min-width:0}' +
+        '.hwcons b{font-size:11px;letter-spacing:.06em;margin-right:6px}.hwcons p{display:inline;margin:0}.hwcons .hwc-row{padding:0;border:0;display:flex;gap:8px;align-items:center;flex:0 0 auto}' +
+        '.hwcons button{font:inherit;font-weight:600;padding:5px 12px;min-height:32px;border:1.5px solid var(--ink,#111);background:transparent;color:inherit;cursor:pointer;min-width:104px}' +
+        '.hwcons a{color:inherit;text-decoration:underline;text-underline-offset:2px}' +
+        '@media (max-width:640px){.hwcons{padding:7px 12px;font-size:10.5px;line-height:1.4}.hwcons .hwc-row{flex:1 1 100%}.hwcons .hwc-row button{flex:1 1 0;min-width:0}}' +
+        'html.hw-consent-on body{padding-bottom:var(--hw-consent-h,0px)}' +
+        'html.hw-consent-on .agent{padding-bottom:calc(4vh + var(--hw-consent-h,0px))}html.hw-consent-on .agent-card{max-height:calc(92vh - var(--hw-consent-h,0px))}' +
+        'html.hw-consent-on .drawer,html.hw-consent-on .console{bottom:var(--hw-consent-h,0px)}html.hw-consent-on .con-tab{bottom:calc(26px + var(--hw-consent-h,0px))}' +
+        'html.hw-consent-on .updbar{bottom:calc(22px + var(--hw-consent-h,0px))}' +
+        '@media print{.hwcons{display:none!important}html.hw-consent-on body{padding-bottom:0}}';
       document.head.appendChild(st);
     }
     const b = document.createElement('section');
     b.id = 'hwConsent'; b.className = 'hwcons'; b.setAttribute('role', 'dialog'); b.setAttribute('aria-live', 'polite'); b.setAttribute('aria-label', TXT.q);
-    b.innerHTML = '<b>' + TXT.q + '</b><p>' + TXT.body + '</p><div class="row"><button type="button" data-consent="granted">' + TXT.yes + '</button>' +
-      '<button type="button" data-consent="denied">' + TXT.no + '</button><a href="/privacy.html#analytics">' + TXT.more + '</a></div>';
+    b.innerHTML = '<div class="hwc-in"><div class="hwc-tx"><b>' + TXT.q + '</b><p>' + TXT.body + ' <a href="/privacy.html#analytics">' + TXT.more + '</a></p></div>' +
+      '<div class="hwc-row"><button type="button" data-consent="granted">' + TXT.yes + '</button><button type="button" data-consent="denied">' + TXT.no + '</button></div></div>';
     b.addEventListener('click', function(ev){ const t = ev.target.closest('[data-consent]'); if (t) choose(t.getAttribute('data-consent')); });
     document.body.appendChild(b);
+    reserveSpace();
+    if (typeof ResizeObserver === 'function'){ consentRO = new ResizeObserver(reserveSpace); consentRO.observe(b); }
+    window.addEventListener('resize', reserveSpace);
   }
   function paintLink(){
     const a = document.getElementById('hwPrivLink'); if (a) a.textContent = BROWSER_NO ? TXT.browser : (consentGet() === 'granted' ? TXT.on : TXT.off);
