@@ -991,6 +991,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
           <label>Paste CV text — extraction runs locally</label>
           <textarea class="input" id="cvInput" placeholder="Paste your résumé / CV here…"></textarea>
           <button class="btn" id="cvExtract">EXTRACT SKILLS</button>
+          <p class="fine">No CV yet? <a href="/cv-builder.html">Build one free</a>: no sign-up, PDF download, and it comes back here in one click.</p>
         </div>
       </section>
 
@@ -1250,6 +1251,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <a href="/guides/bulk-import-recruiter-job-posts.html">Bulk-import recruiter job posts</a>
     <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker</a>
     <a href="/resume-privacy-check.html">Resume privacy check</a>
+    <a href="/cv-builder.html">Free CV builder</a>
     <a href="/sponsor.html">Sponsor HireWire</a>
     <a href="/llms.txt" type="text/plain">llms.txt</a>
   </nav>
@@ -3760,6 +3762,36 @@ async function runGhostCheck(){
   if (state.view === 'insights' && state.insightsTab === 'ghost') renderViews();
 }
 
+/* ---- 29 · receiver for the free CV builder (/cv-builder.html, /de/lebenslauf-vorlage.html): /#hw-cv ----
+   Same origin, so the builder leaves the plain-text CV in localStorage (HW_CV_HANDOFF) and opens /#hw-cv. Read once, then
+   deleted; ignored when older than 30 minutes or shorter than 200 characters. Treated as untrusted text (hwClean). */
+const HW_CV_HANDOFF = 'hirewire.cvbuilder.handoff.v1';
+function hwCvReceive(){
+  let h = '';
+  try { h = String(window.location.hash || ''); } catch(e){}
+  if (h !== '#hw-cv') return null;
+  try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch(e){ try { window.location.hash = ''; } catch(_){} }
+  let d = null;
+  try { d = JSON.parse(window.localStorage.getItem(HW_CV_HANDOFF) || 'null'); } catch(e){}
+  try { window.localStorage.removeItem(HW_CV_HANDOFF); } catch(e){}
+  const text = d && d.v === 1 && typeof d.text === 'string' ? hwClean(d.text, 25000, true) : '';
+  if (!text || text.length < 200 || !(d.at > Date.now() - 30 * 60000)){ toast('NO CV FROM THE BUILDER FOUND — OPEN IT AGAIN AND PRESS “SCORE IT”'); return { ok:false }; }
+  state.ai.cv = text; state.ai.rememberCv = true; saveAi();
+  const found = extractSkillsFromCV(text);
+  hwTrack('cv_builder_handoff', { step: G.onboarded ? 'returning' : 'new' });
+  if (!G.onboarded && typeof renderOnboarding === 'function'){
+    GR.onb = { step:1, skills:found.slice(0, 16), role:hwClean(d.role, 60) || G.role || '', city:hwClean(d.city, 60) || G.city || '',
+      where:G.where || 'remote', floor:'', cur:state.profile.currency || 'EUR' };
+    renderOnboarding();
+    toast('CV LOADED FROM THE BUILDER — ' + found.length + ' SKILL' + (found.length === 1 ? '' : 'S') + ' FOUND · NOW PICK ROLE & PLACE');
+  } else {
+    state.profile.skills = Array.from(new Set(found.concat(state.profile.skills))).slice(0, 16);
+    saveProfile(); renderAll(); if (typeof renderFsStatus === 'function') renderFsStatus();
+    toast('CV LOADED FROM THE BUILDER — ' + found.length + ' SKILL' + (found.length === 1 ? '' : 'S') + ' · OPEN A POSTING AND PRESS SCORE WITH AI');
+  }
+  return { ok:true, skills:found };
+}
+
 /* ---- 13b.6 · receiver for the HireWire browser extension: /#hw-add=<base64url JSON> ----
    Payload {v:1, title, company, location, url, description, source, salary, savedAt}. Treated as untrusted text:
    size-capped, control characters stripped, rendered only through esc()/textContent like every other posting. */
@@ -5928,7 +5960,8 @@ function bindEvents(){
     saveSettings(); syncToolbarFromState(); renderViews();
     toast(state.filters.hideGhost ? 'HIDING HIGH GHOST-RISK POSTINGS (HEURISTIC)' : 'SHOWING ALL POSTINGS');
   });
-  window.addEventListener('hashchange', () => { if (String(location.hash).indexOf('#hw-add=') === 0) hwAddReceive(); });   // extension → already-open tab
+  window.addEventListener('hashchange', () => { if (String(location.hash).indexOf('#hw-add=') === 0) hwAddReceive(); });
+  window.addEventListener('hashchange', () => { if (String(location.hash) === '#hw-cv') hwCvReceive(); });   // 29   // extension → already-open tab
   B('selSen', e => e.onchange = ev => {
     state.filters.seniority = ev.target.value;
     saveSettings(); renderViews();
@@ -8299,6 +8332,7 @@ async function boot(){
     sync();
     fsHandleReturn();   // back from Stripe Checkout? (?pass_session=… / ?pass_cancel=1)
     growthBoot();   // 22: visit/streak, ?ref= invite claim, panels, notify plan, service worker, encrypted-sync pull
+    hwCvReceive();   // 29: CV handed over by /cv-builder.html (/#hw-cv)
     if (rec) toast('RECOVERED ' + rec + ' DATA STORE(S) FROM THE BROWSER DATABASE');
     fuRemind(true);   // in-app reminder (+ optional browser notification) for follow-ups due (13b)
     if (!STORE.ls){
