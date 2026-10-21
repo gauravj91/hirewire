@@ -16,7 +16,7 @@
 <meta property="og:title" content="HireWire: Jobsuche ohne Datenkrake">
 <meta property="og:description" content="HireWire sammelt Stellen aus 55 öffentlichen Job-Feeds, bewertet sie nach deinem Profil, erkennt Ghost Jobs und verwaltet deine Bewerbungen. Kostenlos, ohne Konto, deine Daten bleiben in deinem Browser.">
 <meta property="og:url" content="https://hirewire.fyi/de/">
-<meta property="article:modified_time" content="2026-10-16">
+<meta property="article:modified_time" content="2026-10-21">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HireWire: Jobsuche ohne Datenkrake">
 <meta name="twitter:description" content="HireWire sammelt Stellen aus 55 öffentlichen Job-Feeds, bewertet sie nach deinem Profil, erkennt Ghost Jobs und verwaltet deine Bewerbungen. Kostenlos, ohne Konto, deine Daten bleiben in deinem Browser.">
@@ -30,6 +30,7 @@
 .what-is{margin:0 0 22px;font-size:12px;line-height:1.55;color:var(--ink2)}
 .what-is b{color:var(--ink)}
 @media print{ .demo-link{display:none} }
+@media (max-width:600px){ .cvb-entry .muted{display:none} .cvb-entry{padding:12px 14px;gap:10px} }
 </style>
 <script type="application/ld+json">
 {
@@ -40,7 +41,7 @@
  "url": "https://hirewire.fyi/de/",
  "mainEntityOfPage": "https://hirewire.fyi/de/",
  "datePublished": "2026-10-15",
- "dateModified": "2026-10-16",
+ "dateModified": "2026-10-21",
  "inLanguage": "de",
  "author": {
   "@type": "Organization",
@@ -61,7 +62,7 @@
   "offers": {
    "@type": "Offer",
    "price": "0",
-   "priceCurrency": "USD"
+   "priceCurrency": "EUR"
   }
  }
 }
@@ -161,8 +162,10 @@
 <div class="kicker">HireWire auf Deutsch</div>
 <h1>Jobsuche ohne Datenkrake</h1>
 <p class="dek">HireWire findet Stellen für dich, bewertet sie nach deinem Profil und verwaltet deine Bewerbungen. Ohne Konto, ohne Abo, und deine Bewerbungsdaten liegen nicht auf unserem Server, sondern in deinem Browser.</p>
-<p class="byline">HireWire · zuletzt geprüft am 16.10.2026</p>
+<p class="byline">HireWire · zuletzt geprüft am 21.10.2026</p>
 
+<div class="dl cvb-entry"><p><b>Neu: Lebenslauf-Vorlage kostenlos</b><br><span class="muted">Tabellarischer Lebenslauf oder drei ATS-freundliche Vorlagen. PDF-Download ohne Anmeldung, ohne Wasserzeichen, dein Lebenslauf bleibt im Browser.</span></p>
+<a class="btn red" href="/de/lebenslauf-vorlage.html" data-cvb-entry="de-start">Lebenslauf erstellen →</a></div>
 <p class="demo-link"><a href="/assets/video/hirewire-demo-16x9.mp4" data-demo-open="" aria-haspopup="dialog">▶ 90-Sek.-Demo ansehen</a></p>
 <p class="what-is" id="was-ist-hirewire"><b>Was ist HireWire?</b> Ein kostenloser Job-Feed-Aggregator und Bewerbungstracker, der lokal in deinem Browser läuft: 55 öffentliche Job-Feeds in einer Liste, sortiert nach einem nachvollziehbaren Match-Score. Kein Konto, deine Daten bleiben in deinem Browser. Optionale KI-Pässe ab 9 €.</p>
 <div class="tldr"><h2>Kurz gesagt</h2><ul>
@@ -186,6 +189,7 @@
 <ul>
 <li><b>Stellen finden:</b> sechs Jobbörsen (darunter Arbeitnow mit Stellen in Europa, auch in Deutschland) und 49 Karriereseiten von Firmen wie Stripe, N26 oder Bosch. Mit einem kostenlosen Adzuna-Schlüssel kommen Stellen aus Deutschland und zwölf weiteren Ländern dazu.</li>
 <li><b>Bewerten:</b> ein nachvollziehbarer Match-Score aus Skills, Gehalt, Aktualität und Remote-Option, dazu Ghost-Job-Risiko und ein Gehalts-Check aus den Anzeigen in deinen Feeds.</li>
+<li><b>Lebenslauf:</b> eine kostenlose <a href="/de/lebenslauf-vorlage.html">Lebenslauf-Vorlage</a> (tabellarisch oder ATS-freundlich, PDF), die deinen Lebenslauf mit einem Klick an die App übergibt.</li>
 <li><b>Verwalten:</b> eine Pipeline von „gemerkt“ bis „Angebot“, mit Notizen, Kontakten, Terminen und Follow-up-Erinnerungen samt E-Mail-Entwurf (auf Englisch).</li>
 <li><b>Optional mit KI:</b> Googles KI-Modell Gemini bewertet deinen Lebenslauf für eine Stelle von 0 bis 10 und nennt die wichtigsten Verbesserungen. 3 Bewertungen sind kostenlos, danach gibt es einen einmaligen Pass (9 € für 7 Tage, 19 € für 30 Tage) ohne Abo. Pass Plus (29 € für 30 Tage) schreibt außerdem Anschreiben, Lebenslauf-Entwürfe, Gesprächsvorbereitung und Verhandlungsskripte.</li>
 <li><b>Auf mehreren Geräten:</b> Mit jedem Pass kannst du deine Daten Ende-zu-Ende-verschlüsselt synchronisieren. Den Schlüssel hast nur du.</li>
@@ -197,11 +201,12 @@
 <li>eine deutsche Oberfläche: Die App ist auf Englisch.</li>
 <li>Stellen von StepStone, Indeed oder LinkedIn übernehmen: Eine Browser-Erweiterung dafür ist gebaut, aber <span class="soon">bald verfügbar</span>. <a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html">Mehr dazu</a>.</li>
 <li>Bewerbungen von Hand eintragen: Getrackt werden Stellen aus den Feeds. Für alles andere hilft unsere <a href="/de/bewerbungen-verwalten-excel-vorlage.html">Excel-Vorlage</a>.</li>
-<li>einen Lebenslauf gestalten: Es gibt keinen Editor und keine Vorlagen. (KI-Entwürfe für Anschreiben und Lebenslauf gibt es mit dem optionalen Pass Plus.)</li>
+
 </ul>
 
 <h2>Kostenlose Tools und Ratgeber</h2>
 <ul>
+<li><a href="/de/lebenslauf-vorlage.html">Lebenslauf-Vorlage kostenlos</a>: tabellarisch oder ATS-freundlich ausfüllen, als PDF herunterladen, ohne Anmeldung.</li>
 <li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen</a>: Anzeige einfügen, Risiko sehen. Direkt im Browser.</li>
 <li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a>: welche Optionen es gibt und was sie mit deinen Daten machen.</li>
 <li><a href="/de/bewerbungen-verwalten-excel-vorlage.html">Bewerbungen verwalten mit Excel</a>: kostenlose Vorlage zum Herunterladen.</li>
@@ -220,10 +225,10 @@
 <div class="cta"><p><b>HireWire öffnen</b>Kostenlos, ohne Konto. Die App ist derzeit auf Englisch; diese Seiten erklären sie auf Deutsch.</p><a class="btn red" href="/">HireWire öffnen →</a></div>
 <h2>Weiterlesen</h2>
 <ul>
+<li><a href="/de/lebenslauf-vorlage.html">Lebenslauf-Vorlage kostenlos</a></li>
 <li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
 <li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
-<li><a href="/de/datenschutz.html">Datenschutz (Kurzfassung)</a></li>
-<li><a href="/de/bewerbungen-verwalten-excel-vorlage.html">Bewerbungen verwalten: Excel-Vorlage</a></li>
+<li><a href="/de/lebenslauf-ats-tipps.html">ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf</a></li>
 </ul>
 </article>
 <aside class="side" aria-label="Mehr von HireWire">
@@ -235,8 +240,8 @@
 <li><a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a></li>
 <li><a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a></li>
 <li><a href="/de/bewerbungen-verwalten-excel-vorlage.html">Bewerbungen verwalten: Excel-Vorlage</a></li>
-<li><a href="/de/lebenslauf-ats-tipps.html">Lebenslauf ATS-freundlich schreiben</a></li>
-<li><a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a></li>
+<li><a href="/de/lebenslauf-ats-tipps.html">ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf</a></li>
+<li><a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html">StepStone oder Indeed? Jobs bewerten</a></li>
 <li><a href="/de/lebenslauf-datenschutz-check.html">Lebenslauf-Datenschutz-Check</a></li>
 <li><a href="/de/datenschutz.html">Datenschutz (Kurzfassung)</a></li>
 </ul>
@@ -267,6 +272,7 @@
 <a href="/guides/filter-jobs-by-minimum-pay.html" lang="en">Filter jobs by minimum pay</a>
 <a href="/guides/bulk-import-recruiter-job-posts.html" lang="en">Organise recruiter job posts in bulk</a>
 <a href="/guides/migrate-from-jobstracker.html" lang="en">Move from JobsTracker to HireWire</a>
+<a href="/jobs-in-germany-english.html" lang="en">English-speaking jobs in Germany</a>
 <span class="fg">Vergleiche</span>
 <a href="/best-browser-job-tracker.html" lang="en">Best free browser-based job tracker</a>
 <a href="/teal-alternative.html" lang="en">Teal job tracker alternative</a>
@@ -281,15 +287,15 @@
 <a href="/de/ghost-jobs-erkennen.html">Ghost Jobs erkennen (Prüf-Tool)</a>
 <a href="/de/bewerbungstracker-kostenlos.html">Bewerbungstracker kostenlos</a>
 <a href="/de/bewerbungen-verwalten-excel-vorlage.html">Bewerbungen verwalten: Excel-Vorlage</a>
-<a href="/de/lebenslauf-ats-tipps.html">Lebenslauf ATS-freundlich schreiben</a>
-<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html">Jobs auf StepStone, Indeed &amp; LinkedIn bewerten</a>
+<a href="/de/lebenslauf-ats-tipps.html">ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf</a>
+<a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html">StepStone oder Indeed? Jobs bewerten</a>
 <a href="/de/lebenslauf-datenschutz-check.html">Lebenslauf-Datenschutz-Check</a>
 <a href="/de/datenschutz.html">Datenschutz (Kurzfassung)</a>
 <span class="fg">Über HireWire</span>
 <a href="/sponsor.html" lang="en">Sponsor HireWire</a>
 </nav>
 <nav class="legal" aria-label="Rechtliches"><a href="/terms.html">Nutzungsbedingungen</a> · <a href="/de/datenschutz.html">Datenschutz</a> · <a href="/de/widerruf.html#widerrufsfunktion">Vertrag widerrufen</a> · <a href="/de/impressum.html">Impressum</a></nav>
-<span>HIREWIRE — JEDE STELLE, EINE PIPELINE, ALLES LOKAL. Vergleiche geben öffentliche Angaben vom 16.10.2026 wieder; Korrekturen gern über den Kontakt-Button in der App.</span>
+<span>HIREWIRE — JEDE STELLE, EINE PIPELINE, ALLES LOKAL. Vergleiche geben öffentliche Angaben vom 21.10.2026 wieder; Korrekturen gern über den Kontakt-Button in der App.</span>
 </footer>
 </div>
 </body>
