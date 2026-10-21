@@ -6,8 +6,8 @@
 <meta name="referrer" content="no-referrer">
 
 <!-- ===== SEO / AEO — EDIT https://hirewire.fyi/.com (3 places in this head) ===== -->
-<title>HireWire — Free Private Job Application Tracker &amp; Job Feed Aggregator</title>
-<meta name="description" content="HireWire pulls 55 live job feeds onto one wire, scores every posting against your skills and salary floor, and tracks your pipeline from saved to offer. Free, no account, and your CV stays in your browser unless you ask for an optional AI fit score.">
+<title>HireWire — Free Private Job Tracker &amp; Job Feed Aggregator</title>
+<meta name="description" content="Free job feed aggregator and application tracker: 55 live job feeds in one list, fit scores, ghost-job flags and a free ATS CV builder. No account; your data stays in your browser.">
 <link rel="canonical" href="https://hirewire.fyi/">
 <link rel="alternate" hreflang="en" href="https://hirewire.fyi/">
 <link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HireWire">
 <meta property="og:title" content="HireWire — The Job Wire">
-<meta property="og:description" content="Every posting, one wire, one pipeline. Free and private — your CV stays in your browser unless you ask for an AI fit score.">
+<meta property="og:description" content="Every posting, one wire, one pipeline: 55 job feeds, fit scores, a tracker and a free ATS CV builder. Free, no account — your CV stays in your browser unless you ask for an AI fit score.">
 <meta property="og:url" content="https://hirewire.fyi/">
 <meta name="twitter:card" content="summary">
 <script type="application/ld+json">
@@ -24,8 +24,13 @@
  "@type": "WebApplication",
  "@id": "https://hirewire.fyi/#app",
  "name": "HireWire",
+ "alternateName": [
+  "Hire Wire",
+  "HireWire job tracker"
+ ],
  "url": "https://hirewire.fyi/",
  "inLanguage": "en",
+ "isAccessibleForFree": true,
  "applicationCategory": "BusinessApplication",
  "operatingSystem": "Any modern browser",
  "description": "Free, private job-search tool: aggregates 55 job feeds, scores postings against your profile, and tracks your application pipeline — entirely in your browser, with no account.",
@@ -70,7 +75,21 @@
    "availability": "https://schema.org/InStock"
   }
  ],
- "featureList": "Job feed aggregation (55 public feeds), Transparent match scoring, Application pipeline tracker, Ghost-job detection, Salary reality check, Follow-up reminders, Optional AI fit score, Agent briefs for AI coding assistants, Local-only data storage"
+ "featureList": "Job feed aggregation (55 public feeds), Transparent match scoring, Application pipeline tracker, Ghost-job detection, Salary reality check, Follow-up reminders, Optional AI fit score, Agent briefs for AI coding assistants, Local-only data storage, Free ATS CV builder with no sign-up (/cv-builder.html)",
+ "hasPart": [
+  {
+   "@type": "WebApplication",
+   "name": "HireWire CV builder",
+   "url": "https://hirewire.fyi/cv-builder.html",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any modern browser",
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+   }
+  }
+ ]
 }
 </script>
 <script type="application/ld+json">
@@ -79,7 +98,10 @@
  "@type": "Organization",
  "@id": "https://hirewire.fyi/#org",
  "name": "HireWire",
- "alternateName": "hirewire.fyi",
+ "alternateName": [
+  "Hire Wire",
+  "hirewire.fyi"
+ ],
  "url": "https://hirewire.fyi/",
  "logo": {
   "@type": "ImageObject",
@@ -916,6 +938,13 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
   body::after{content:"Exported from HireWire \2014  free, local-first job tracker \00B7  https://hirewire.fyi";display:block;margin-top:18px;padding-top:8px;border-top:1px solid #999;font-size:9px;letter-spacing:.08em;color:#555}
 }
 
+/* ===== 30 · CV builder entry points: hero secondary CTA + masthead chip ===== */
+.hero-cta a.btn{text-decoration:none;color:var(--ink);display:inline-flex;align-items:center}
+.hero-cta a.btn:hover,.hero-cta a.btn:focus-visible{background:var(--ink);color:var(--paper)}
+.mast-cvb{display:inline-block;margin:4px 0 0;padding:2px 8px;border:1px solid var(--red);color:var(--red);font-weight:600;
+  letter-spacing:.04em;text-decoration:none;white-space:nowrap;line-height:1.4}
+.mast-cvb:hover,.mast-cvb:focus-visible{background:var(--red);color:var(--paper)}
+@media print{ .mast-cvb,.hero-cvb{display:none!important} }
 </style>
 </head>
 <body>
@@ -930,7 +959,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     </div>
     <div class="mast-main">
       <h1 class="mast-name">HireWire<span class="dot">.</span></h1>
-      <p class="mast-what" id="whatIs"><b>What is HireWire?</b> A free, local-first job feed aggregator and tracker: 55 public job feeds in one list, ranked by a transparent fit score. No account, and your data stays in your browser. Optional AI passes from €9.</p>
+      <p class="mast-what" id="whatIs"><b>What is HireWire?</b> A free, local-first job feed aggregator and tracker: 55 public job feeds in one list, ranked by a transparent fit score. No account, and your data stays in your browser. Optional AI passes from €9. <a class="mast-cvb" href="/cv-builder.html" data-cvb-entry="mast">Free ATS CV builder →</a></p>
       <div class="mast-side">
         <div class="stat" id="stCountStat"><label>ON THE WIRE</label><b id="stCount">0</b></div>
         <div class="stat" id="stFeedsStat"><label>FEEDS UP</label><b id="stFeeds">—</b></div>
@@ -6503,6 +6532,7 @@ function renderHero(){
     '<h2 class="hero-h">' + esc(HERO_HEADLINES[G.bucket]) + '</h2>' +
     '<p class="hero-sub">' + esc(HERO_SUB) + '</p>' +
     '<div class="hero-cta"><button class="btn red hero-main" data-act="heromain">SEE MY MATCHES</button>' +
+    '<a class="btn hero-cvb" href="/cv-builder.html" data-cvb-entry="hero">BUILD A FREE ATS CV</a>' +   // 30
     '<button class="btn" data-act="herosample">TRY WITH SAMPLE JOBS</button>' +
     '<a class="hero-demo" href="/assets/video/hirewire-demo-16x9.mp4" data-demo-open="" aria-haspopup="dialog">▶ Watch the 90-sec demo</a></div>' +   // 27
     '<p class="hero-proof"><span>No signup</span><span>Your CV stays on your device</span><span>Free forever, optional AI pass</span></p>' +
@@ -8333,6 +8363,10 @@ async function boot(){
     fsHandleReturn();   // back from Stripe Checkout? (?pass_session=… / ?pass_cancel=1)
     growthBoot();   // 22: visit/streak, ?ref= invite claim, panels, notify plan, service worker, encrypted-sync pull
     hwCvReceive();   // 29: CV handed over by /cv-builder.html (/#hw-cv)
+    document.addEventListener('click', ev => {   // 30: CV builder entry clicks (hero / masthead chip)
+      const a = ev.target && ev.target.closest ? ev.target.closest('[data-cvb-entry]') : null;
+      if (a) hwTrack('cvb_entry', { kind:a.getAttribute('data-cvb-entry') === 'hero' ? 'hero' : 'mast' });
+    }, true);
     if (rec) toast('RECOVERED ' + rec + ' DATA STORE(S) FROM THE BROWSER DATABASE');
     fuRemind(true);   // in-app reminder (+ optional browser notification) for follow-ups due (13b)
     if (!STORE.ls){
