@@ -7,7 +7,7 @@
    • Periodic Background Sync (where the browser supports it, e.g. installed Chrome/Edge): reads the follow-up
      due dates the page left in its IndexedDB mirror and shows at most one notification a day. Nothing is fetched. */
 'use strict';
-const VERSION = 'hw-shell-v9';   // v9 (2026-10-16, homepage JSON-LD/hreflang, static "What is HireWire?" intro, llms.txt footer link). v8 (2026-10-16, permanent footer "▶ Demo video" link; modal restarts after the end). v7 (2026-10-16, demo video: hero link + modal, guide section; video/range requests bypass the SW). v6 (2026-10-15, 55 feeds, ChatGPT FAQ, footer overlap fix). v5 (2026-10-15, purchase confirmation email: terms/withdrawal/privacy copy). v4 (2026-10-15, legal pages live: terms, withdrawal, imprint; Stripe live). v3: Workers cutover, fonts, consent
+const VERSION = 'hw-shell-v10';   // v10 (2026-10-21, free CV builder /cv-builder.html + /de/lebenslauf-vorlage.html, app #hw-cv hand-off, footer links). v9 (2026-10-16, homepage JSON-LD/hreflang, static "What is HireWire?" intro, llms.txt footer link). v8 (2026-10-16, permanent footer "▶ Demo video" link; modal restarts after the end). v7 (2026-10-16, demo video: hero link + modal, guide section; video/range requests bypass the SW). v6 (2026-10-15, 55 feeds, ChatGPT FAQ, footer overlap fix). v5 (2026-10-15, purchase confirmation email: terms/withdrawal/privacy copy). v4 (2026-10-15, legal pages live: terms, withdrawal, imprint; Stripe live). v3: Workers cutover, fonts, consent
 const PREFIX = 'hw-shell-';
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
 const STATIC_RE = /\.(?:png|jpe?g|gif|svg|webp|ico|css|js|webmanifest|woff2?|txt|xml)$/i;
