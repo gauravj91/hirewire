@@ -267,6 +267,15 @@
 <li><b>The drafts</b> are kept only in this browser (the last 60 jobs), and are left out of backups and sync. Word (.docx) export is built in your browser; PDF uses your browser’s print dialog.</li>
 </ul>
 
+<h2 id="reach-out">Reach out drafts</h2>
+<p><i>Reach out</i> drafts a short email, a LinkedIn note and a follow-up to the hiring contact for a posting. The first draft in each browser is free; after that it comes with any pass, or is free with your own Anthropic API key. Nothing is sent until you press <i>Generate</i>. Then:</p>
+<ul>
+<li><b>What is sent:</b> your CV text, the posting’s title, company and description, the language and tone you chose, and, only if you typed them, the contact’s name and role. The contact’s <b>email address is never sent</b>; it only fills the mail link in your browser. A contact suggested from the posting is found by your browser in the posting text; HireWire doesn’t look anyone up.</li>
+<li><b>Where it goes:</b> over HTTPS to HireWire’s API and on to Google’s Gemini API (paid tier) for that one request, or with your own key straight from your browser to Anthropic. The API doesn’t write your CV, the posting, the contact’s name or the draft to a database, a file or its logs.</li>
+<li><b>Counters:</b> with a pass, drafts are counted per pass per day (keyed by the end of your pass ID). The free draft is counted per network per day using a keyed hash of your IP address, never the IP itself, and inside the same daily limit as free fit scores. Counters expire after 2 days.</li>
+<li><b>In your browser:</b> the drafts (the last 60 jobs), whether you have used your free draft, and on a saved job the date you reached out and the follow-up draft. Backups and sync carry only the date, the channel and the language, never the draft text. Opening your mail app or copying a draft is done by your browser; HireWire never sends email.</li>
+</ul>
+
 <h2 id="sync">Encrypted sync</h2>
 <p>Sync is optional and comes with any pass (restoring on another device works without one). It copies your HireWire data between your devices without HireWire being able to read it:</p>
 <ul>
@@ -439,6 +448,7 @@
 <li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
 <li><a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a></li>
 <li><a href="/jobs-in-germany-english.html">English-speaking jobs in Germany</a></li>
+<li><a href="/cold-email-hiring-manager.html">Cold email to a hiring manager (template)</a></li>
 </ul>
 <h2>Comparisons</h2>
 <ul>
@@ -477,6 +487,7 @@
 <a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
 <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
 <a href="/jobs-in-germany-english.html">English-speaking jobs in Germany</a>
+<a href="/cold-email-hiring-manager.html">Cold email to a hiring manager (template)</a>
 <span class="fg">Comparisons</span>
 <a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
 <a href="/teal-alternative.html">Teal job tracker alternative</a>
@@ -492,6 +503,7 @@
 <a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
 <a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
 <a href="/de/lebenslauf-ats-tipps.html" lang="de">ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf</a>
+<a href="/de/initiativbewerbung-anschreiben.html" lang="de">Initiativbewerbung: Anschreiben-Vorlage</a>
 <a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">StepStone oder Indeed? Jobs bewerten</a>
 <a href="/de/lebenslauf-datenschutz-check.html" lang="de">Lebenslauf-Datenschutz-Check</a>
 <a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
