@@ -41,6 +41,7 @@
   <url><loc>https://hirewire.fyi/guides/bulk-import-recruiter-job-posts.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://hirewire.fyi/guides/migrate-from-jobstracker.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://hirewire.fyi/jobs-in-germany-english.html</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hirewire.fyi/cold-email-hiring-manager.html</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://hirewire.fyi/de/</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/"/>
@@ -70,6 +71,7 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/lebenslauf-vorlage.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/cv-builder.html"/>
   </url>
+  <url><loc>https://hirewire.fyi/de/initiativbewerbung-anschreiben.html</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://hirewire.fyi/terms.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://hirewire.fyi/withdrawal.html</loc><lastmod>2026-10-15</lastmod><changefreq>monthly</changefreq><priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://hirewire.fyi/withdrawal.html"/>
