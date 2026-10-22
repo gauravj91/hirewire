@@ -13,10 +13,15 @@
 <meta property="og:title" content="HireWire Guide &amp; FAQ">
 <meta property="og:description" content="How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.">
 <meta property="og:url" content="https://hirewire.fyi/guide.html">
-<meta property="article:modified_time" content="2026-10-15">
-<meta name="twitter:card" content="summary">
+<meta property="article:modified_time" content="2026-10-22">
+<meta property="og:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HireWire: free job feed aggregator and tracker. 55 job feeds, fit scores, ghost-job check, free ATS CV builder, AI outreach drafts.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HireWire Guide &amp; FAQ">
 <meta name="twitter:description" content="How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.">
+<meta name="twitter:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/pages.css">
@@ -36,8 +41,8 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
  "description": "How HireWire works: 55 public job feeds on one wire, match scoring against your skills and salary floor, a pipeline board, agent briefs and JSON backups. Who it suits, how it compares to a spreadsheet, and its privacy model.",
  "url": "https://hirewire.fyi/guide.html",
  "mainEntityOfPage": "https://hirewire.fyi/guide.html",
- "datePublished": "2026-10-15",
- "dateModified": "2026-10-15",
+ "datePublished": "2026-10-22",
+ "dateModified": "2026-10-22",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,7 +202,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
    "name": "Why not just paste jobs into ChatGPT?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "You can, for one job. HireWire is built for the other 200. It finds the jobs: 55 public feeds and company boards in one list, with no copying and pasting. It screens every posting automatically and for free (your skills, salary floor, blocked words and locations, plus ghost-job and salary flags), while a chatbot only sees the job you hand it. It remembers: saved, applied, interview and offer live on one board with follow-up reminders and exports, not in old chat threads. It’s private by default: no account, your board and CV stay in your browser, and text leaves your device only when you ask for an AI fit score. And it’s cheaper for a job hunt: free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use ChatGPT to polish your cover letter; use HireWire to decide which jobs deserve one."
+    "text": "You can, for one job. HireWire is built for the other 200. It finds the jobs: 55 public feeds and company boards in one list, with no copying and pasting. It screens every posting automatically and for free (your skills, salary floor, blocked words and locations, plus ghost-job and salary flags), while a chatbot only sees the job you hand it. It remembers: saved, applied, interview and offer live on one board with follow-up reminders and exports, not in old chat threads. It’s private by default: no account, your board and CV stay in your browser, and text leaves your device only when you press an AI button (fit score, Reach out or Write with AI). And it’s cheaper for a job hunt: free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use ChatGPT to polish your cover letter; use HireWire to decide which jobs deserve one."
    }
   }
  ]
@@ -229,7 +234,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <div class="kicker">Guide &amp; FAQ</div>
 <h1>How HireWire works</h1>
 <p class="dek">A free job feed aggregator and application tracker that runs in your browser. No account, no server-side copy of your search.</p>
-<p class="byline">HireWire · last reviewed 2026-10-15</p>
+<p class="byline">HireWire · last reviewed 2026-10-22</p>
 
 <div class="tldr"><h2>In short</h2><ul>
 <li>HireWire pulls <b>55 public job feeds</b> into one list (“the wire”), refreshing hourly while the tab is open.</li>
@@ -268,7 +273,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <p class="note">HireWire tracks postings that came through the wire. There is no form for adding a job by hand, so a role a recruiter emails you directly cannot be added unless it also appears on one of the feeds.</p>
 
 <h2>4. Working with AI agents</h2>
-<p><b>Run agent</b> scores the wire and builds a Markdown brief: your profile, the top-scored shortlist with links, and a task for a coding agent such as Claude Code, Cursor or Codex CLI. You can copy it, or download the shortlist or pipeline as <code>.md</code>, <code>.json</code> or <code>.csv</code>. Results pasted back as <code>rank | company | fit | blocker</code> rows are matched to your pipeline by company name and logged. HireWire doesn’t send the brief to any AI service; you choose where it goes. (The optional AI fit score and AI writing are separate, and only run when you press their buttons: they send your CV and that posting through HireWire’s function to Google’s Gemini API, or straight to Anthropic if you use your own key. <a href="/privacy.html#ai-fit-score">Details</a>)</p>
+<p><b>Run agent</b> scores the wire and builds a Markdown brief: your profile, the top-scored shortlist with links, and a task for a coding agent such as Claude Code, Cursor or Codex CLI. You can copy it, or download the shortlist or pipeline as <code>.md</code>, <code>.json</code> or <code>.csv</code>. Results pasted back as <code>rank | company | fit | blocker</code> rows are matched to your pipeline by company name and logged. HireWire doesn’t send the brief to any AI service; you choose where it goes. (The optional AI fit score, Reach out drafts and AI writing are separate, and only run when you press their buttons: they send your CV and that posting through HireWire’s function to Google’s Gemini API, or straight to Anthropic if you use your own key. <a href="/privacy.html#ai-fit-score">Details</a>)</p>
 
 <h2 id="ghost-jobs">5. Ghost-job risk</h2>
 <p>Some postings stay up long after the role is filled, or were never a real opening (“talent pool” ads, endless reposts). HireWire gives every posting a <b>ghost-job risk</b> of Low, Medium or High, with the reasons listed in the posting’s detail view. It is a <b>heuristic risk signal, not proof</b>: real jobs can trip it and ghost jobs can pass it.</p>
@@ -315,7 +320,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <details><summary>How do referral links work?</summary><div><p>Share your link from the app: a friend who opens it gets 3 free AI fit scores, and you get 3 for each friend who uses it (up to 10 friends). No names or emails are involved; HireWire only counts claims against a code derived from a random device ID. <a href="/privacy.html#referrals">Details</a>.</p></div></details>
 <details><summary>What happens when I get an offer or get hired?</summary><div><p>Mark a job as <i>offer</i> and HireWire helps you compare offers (base, bonus, equity, remote, commute and vacation, weighted the way you choose) and prepare a negotiation using the salary data in your feeds. When you accept, <b>Career mode</b> archives your search board (nothing is deleted) and gives you one weekly look at roles that pay clearly more than your new salary, by default 15% more.</p></div></details>
 <details><summary>Can I add jobs from LinkedIn or a recruiter email?</summary><div><p>Not currently. You can only save postings that appear on the wire. For off-wire roles, keep a spreadsheet alongside. The <a href="/guides/bulk-import-recruiter-job-posts.html">recruiter posts guide</a> sets one up.</p></div></details>
-<details><summary>Why not just paste jobs into ChatGPT?</summary><div><p>You can, for one job. HireWire is built for the other 200. It finds the jobs: 55 public feeds and company boards in one list, with no copying and pasting. It screens every posting automatically and for free (your skills, salary floor, blocked words and locations, plus ghost-job and salary flags), while a chatbot only sees the job you hand it. It remembers: saved, applied, interview and offer live on one board with follow-up reminders and exports, not in old chat threads. It’s private by default: no account, your board and CV stay in your browser, and text leaves your device only when you ask for an AI fit score. And it’s cheaper for a job hunt: free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use ChatGPT to polish your cover letter; use HireWire to decide which jobs deserve one.</p></div></details>
+<details><summary>Why not just paste jobs into ChatGPT?</summary><div><p>You can, for one job. HireWire is built for the other 200. It finds the jobs: 55 public feeds and company boards in one list, with no copying and pasting. It screens every posting automatically and for free (your skills, salary floor, blocked words and locations, plus ghost-job and salary flags), while a chatbot only sees the job you hand it. It remembers: saved, applied, interview and offer live on one board with follow-up reminders and exports, not in old chat threads. It’s private by default: no account, your board and CV stay in your browser, and text leaves your device only when you press an AI button (fit score, Reach out or Write with AI). And it’s cheaper for a job hunt: free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use ChatGPT to polish your cover letter; use HireWire to decide which jobs deserve one.</p></div></details>
 </div>
 <div class="cta"><p><b>Open HireWire</b>Free, no account. Your profile, CV text and pipeline stay in this browser.</p><a class="btn red" href="/">Open HireWire →</a></div>
 <h2>Related</h2>
@@ -409,7 +414,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <a href="/sponsor.html">Sponsor HireWire</a>
 </nav>
 <nav class="legal" aria-label="Legal"><a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/withdrawal.html#withdraw-function">Withdraw from contract</a> · <a href="/imprint.html">Imprint</a></nav>
-<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-15; corrections welcome via the contact button in the app.</span>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-22; corrections welcome via the contact button in the app.</span>
 </footer>
 </div>
 </body>
