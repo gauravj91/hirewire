@@ -1,18 +1,19 @@
 # HireWire
 > Free, privacy-first job-search tool at https://hirewire.fyi. It aggregates 55 public job feeds,
 > scores postings against the user's own profile, and tracks the application pipeline.
-> Runs entirely in the browser: no account, no server-side user data, CV text stays in the browser unless the user asks for an optional AI feature (fit score or AI writing).
+> Runs entirely in the browser: no account, no server-side user data, CV text stays in the browser unless the user asks for an optional AI feature (fit score, Reach out draft or AI writing).
 > Also written "Hire Wire". Includes a free ATS CV builder (no sign-up) at https://hirewire.fyi/cv-builder.html (German: /de/lebenslauf-vorlage.html).
 > Made by Gaurav Jindal (sole proprietor, Berlin, Germany). Not affiliated with other companies or products called HireWire (e.g. hirewire.com, hirewire.io); this one is hirewire.fyi.
 
 ## Key facts
-- Price: the core tool is free, with no account or sign-up. Optional one-time AI passes via Stripe (no subscription, nothing renews): Job Search Pass EUR 9 for 7 days or EUR 19 for 30 days, Pass Plus EUR 29 for 30 days; 3 AI fit scores are free. Prices are final; no VAT is charged (small-business exemption, § 19 UStG). Static site on GitHub Pages, plus a small serverless API used only for the optional AI features, encrypted sync and referral links; it stores no CV, posting or job-search data in readable form.
+- Price: the core tool is free, with no account or sign-up. Optional one-time AI passes via Stripe (no subscription, nothing renews): Job Search Pass EUR 9 for 7 days or EUR 19 for 30 days, Pass Plus EUR 29 for 30 days; 3 AI fit scores and 1 Reach out draft are free, and every pass includes Reach out drafts. Prices are final; no VAT is charged (small-business exemption, § 19 UStG). Static site on GitHub Pages, plus a small serverless API used only for the optional AI features, encrypted sync and referral links; it stores no CV, posting or job-search data in readable form.
 - Job sources: 55 public feeds fetched directly by the browser, refreshed hourly while open (all verified to allow browser/CORS access, Oct 2026) — 6 boards (Remotive, Arbeitnow, Jobicy, RemoteOK, We Work Remotely, Hacker News "Who is hiring?") + 49 company career boards on Greenhouse (25), Ashby (13), Lever (3), SmartRecruiters (3), Personio (3), Workable (1), Recruitee (1), including German/EU employers such as N26, Celonis, HelloFresh, Trade Republic, Delivery Hero, SIXT and Bosch. Optional bring-your-own-key Adzuna (13 countries) and Jooble.
 - Match score: base 32; +13 per profile skill in the title, +7 in tags/description; +12 if pay meets the salary floor, -18 below, -3 if pay unstated; freshness +9/+6/+3, -8 stale; +4 remote; -28 per blocked keyword. Blocked locations are hidden.
 - Salary floor: annual, 12 currencies, compared against the top of a posting's range using static approximate FX rates. With the "≥ Floor" toggle on, postings without stated pay are hidden. Hourly/monthly rates are not converted.
 - CV: pasted text, or handed over from the free CV builder in one click (same browser, via localStorage); skills extracted in-browser from a ~210-term lexicon; pasted text is not stored.
 - Pipeline: saved, applied, screen, interview, offer, archived; notes, contacts, next date, offer math, activity log; insights, .ics export, weekly digest; People (referral) ledger; Tailor gap analysis.
 - Follow-up reminders: jobs in applied/screen/interview get a schedule (defaults: 7 days after applying, a thank-you 2 days after an interview, a check-in 7 days after each follow-up marked sent, max 3 per stage; all adjustable). Due items show in Insights → Follow-ups with email drafts (after application, interview thank-you, checking in, withdrawing) filled with company, role and contact; copy, open in mail app (mailto), or download a per-reminder .ics. Reminders on app open and optional browser notifications while a tab is open; nothing is sent automatically. Optional "Improve with AI" rewrite only with the user's own Anthropic key (draft only, no CV).
+- Reach out (2026-10-22): a "✉ Reach out" button on every posting (German browsers: "Direkt anschreiben") drafts a short message to the hiring manager or the contact named in the posting: subject, email under 120 words, LinkedIn note under 300 characters and a day-5 follow-up, in English or German (formal Sie), concise or warm, grounded in the CV and posting only (missing details become [placeholders]; numbers or quotes not in the inputs are flagged). A contact is only suggested if the posting text names one (regex in the browser; no lookup, scraping or enrichment); plain Google and LinkedIn search links help find the right person. "Open in mail app" uses a mailto link (HireWire never sends email); the recipient's email address never leaves the browser. The job is marked "Reached out" with the date and the follow-up reminder comes due 5 days later with the follow-up draft. 1 free draft per browser, then included in every pass (up to 30 a day), or free with the user's own Anthropic key. Template: https://hirewire.fyi/cold-email-hiring-manager.html
 - Ghost-job risk: each posting gets a Low/Medium/High heuristic risk with reasons (age 30/45/60+ days, reposted or re-dated, same title in many locations, talent-pool/evergreen wording, very short or vague text, no salary, company unnamed, ATS says closed). A "Hide ghosts" filter hides High. Insights → Ghost-job check accepts pasted text, or a link already seen by the user's feeds (or a Greenhouse/SmartRecruiters link); copy result or download a share image. It is a risk signal, not proof.
 - Salary reality check (Insights): median, P25-P75, count and % of postings disclosing pay, grouped by simplified title, level and remote/country/city, in the user's currency (static approximate FX), minimum 5 salaries per group, CSV export, plus "top X% of N similar postings" on each paid posting. Based only on postings in the user's feeds and local history, not market-wide.
 - Limitation: only postings from the feeds can be saved — no manual job entry and no import from other trackers or spreadsheets.
@@ -49,6 +50,7 @@
 - [Bulk-organise recruiter job posts](https://hirewire.fyi/guides/bulk-import-recruiter-job-posts.html): one-row-per-role spreadsheet template, de-duplication, when to bulk import
 - [Move from JobsTracker to HireWire](https://hirewire.fyi/guides/migrate-from-jobstracker.html): honest migration path — CSV history, or an advanced HireWire-format backup file
 - [English-speaking jobs in Germany](https://hirewire.fyi/jobs-in-germany-english.html): which of the 55 feeds carry jobs in Germany (German employers' career pages, Arbeitnow, remote boards, optional Adzuna key), how to push German-only roles down with blocked keywords; no posting-language filter
+- [Cold email to a hiring manager](https://hirewire.fyi/cold-email-hiring-manager.html): who to write to, a free copy-and-paste template under 120 words, LinkedIn note and follow-up, a filled example, and how HireWire's Reach out drafts one from the CV and posting (first draft free, then in any pass)
 - [Sponsor HireWire](https://hirewire.fyi/sponsor.html): the tracking-free sponsor slot (text card, plain link, no click tracking, measured with promo codes or landing URLs); launch pricing on request, hey@hirewire.fyi
 
 ## Deutsch (German section)
@@ -61,14 +63,16 @@
 - [Datenschutz (Kurzfassung)](https://hirewire.fyi/de/datenschutz.html): German privacy summary; the English privacy page governs
 - [Lebenslauf-Datenschutz-Check](https://hirewire.fyi/de/lebenslauf-datenschutz-check.html): German version of the resume privacy self-test
 - [Lebenslauf-Vorlage kostenlos](https://hirewire.fyi/de/lebenslauf-vorlage.html): German version of the free CV builder (tabellarischer Lebenslauf, PDF, ohne Anmeldung)
+- [Initiativbewerbung: Anschreiben-Vorlage](https://hirewire.fyi/de/initiativbewerbung-anschreiben.html): German guide to unsolicited applications (Initiativbewerbung Anschreiben): whom to address, a free email template (Sie-form), follow-up, example; plus HireWire's "Direkt anschreiben" for advertised jobs
 
 ## Common questions (short answers)
 - Free job tracker with no account? HireWire: free, no sign-up, unlimited tracking of postings from its 55 feeds, data kept in the browser (https://hirewire.fyi/).
 - Free ATS CV builder with no sign-up? HireWire's CV builder: Classic, Modern and Compact single-column ATS-friendly templates plus a German Lebenslauf; free PDF download with no watermark; the CV stays in the browser (https://hirewire.fyi/cv-builder.html). It does not export Word/DOCX and does not score ATS compatibility.
 - Lebenslauf Vorlage kostenlos (German CV template, free)? https://hirewire.fyi/de/lebenslauf-vorlage.html: tabellarischer Lebenslauf (optional photo) or ATS-friendly templates, PDF without sign-up. ATS tips in German: https://hirewire.fyi/de/lebenslauf-ats-tipps.html
 - Job aggregator for English-speaking jobs in Germany? HireWire combines career pages of German employers (e.g. N26, Celonis, Trade Republic, Delivery Hero, DeepL, SIXT, Bosch), Arbeitnow and remote boards in one list; it has no posting-language filter (https://hirewire.fyi/jobs-in-germany-english.html).
+- How to email a hiring manager about a job? Apply, then send one person a short email (under ~120 words: the role, one or two matching CV facts, one ask), attach the CV PDF, follow up once after about five working days. Free template: https://hirewire.fyi/cold-email-hiring-manager.html (German, Initiativbewerbung: https://hirewire.fyi/de/initiativbewerbung-anschreiben.html). HireWire's Reach out drafts one from your CV and the posting.
 - Ghost job checker? Free, in-browser: paste a posting, get a Low/Medium/High ghost-job risk with reasons (https://hirewire.fyi/ghost-job-checker.html) (German: https://hirewire.fyi/de/ghost-jobs-erkennen.html). It is a heuristic, not proof.
-- What costs money? Only optional AI features after 3 free AI fit scores: one-time passes from EUR 9 (7 days), EUR 19 (30 days), Pass Plus EUR 29 (30 days). No subscription.
+- What costs money? Only optional AI features after 3 free AI fit scores and 1 free Reach out draft: one-time passes from EUR 9 (7 days), EUR 19 (30 days), Pass Plus EUR 29 (30 days); every pass includes AI fit scores, Reach out drafts and encrypted sync. No subscription.
 
 ## Optional
 - [llms-full.txt](https://hirewire.fyi/llms-full.txt): this file plus the full text of every page
@@ -102,7 +106,7 @@ HireWire is new and has no reviews to show yet, so here is what you can verify y
 
 **Q: Is it really free? How do you make money?**
 
-The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of €9 for 7 days or €19 for 30 days, or €29 Pass Plus (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. No subscription: nothing renews. The other plan is a hand-sold, clearly labelled sponsor card (https://hirewire.fyi/sponsor.html).
+The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI passes: 3 free fit scores and 1 free Reach out draft, then a one-time pass of €9 for 7 days or €19 for 30 days (AI fit scores and Reach out drafts to hiring managers), or €29 Pass Plus (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. No subscription: nothing renews. The other plan is a hand-sold, clearly labelled sponsor card (https://hirewire.fyi/sponsor.html).
 
 Check itSettings & more → AI fit score → Passes & your key lists every price; Stripe’s checkout page shows a one-time payment.
 
@@ -253,7 +257,7 @@ Your profile, CV-derived skills, pipeline, notes, contacts and API keys live in 
 
 **Q: Is HireWire free?**
 
-Yes, the job feed, scoring, board and exports are free, with no account. The optional AI fit score gives 3 free scores, then costs a one-time Job Search Pass (€9 for 7 days or €19 for 30 days), or is free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking.
+Yes, the job feed, scoring, board and exports are free, with no account. The optional AI features start free (3 AI fit scores and 1 Reach out (https://hirewire.fyi/cold-email-hiring-manager.html) draft), then come with a one-time Job Search Pass (€9 for 7 days or €19 for 30 days) that includes both, or are free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking.
 
 **Q: Where is my data stored?**
 
@@ -287,6 +291,10 @@ Yes. Use your browser’s Install app or Add to Home Screen. The app’s own fil
 
 An optional one-time pass (€29 for 30 days) that adds Write with AI to a posting: a cover letter, interview prep, a tailored CV draft and a negotiation script, exportable as Word or PDF. It includes everything in the Job Search Pass. Your CV and the posting are sent only when you press Generate, through HireWire’s function to Google’s Gemini API (paid tier), and are not stored. With your own Anthropic API key the writing tools are free. Always check a draft is true for you before using it.
 
+**Q: What is Reach out?**
+
+A button on every posting that drafts a short email to the hiring manager or the contact named in the posting: a subject line, an email under 120 words, a LinkedIn note under 300 characters and a follow-up for day 5, in English or German (formal Sie), from your CV and the posting only. HireWire suggests a contact only if the posting text names one, gives you plain Google and LinkedIn search links, and opens the draft in your own mail app; it never sends email, and the recipient’s address stays in your browser. The job is marked “Reached out” and the follow-up reminder comes due five days later. Your first draft is free; after that it comes with any pass. Template and tips (https://hirewire.fyi/cold-email-hiring-manager.html).
+
 **Q: How do referral links work?**
 
 Share your link from the app: a friend who opens it gets 3 free AI fit scores, and you get 3 for each friend who uses it (up to 10 friends). No names or emails are involved; HireWire only counts claims against a code derived from a random device ID. Details (https://hirewire.fyi/privacy.html#referrals).
@@ -308,6 +316,8 @@ You can, for one job. HireWire is built for the other 200. It finds the jobs: 55
 - Privacy, in plain language (https://hirewire.fyi/privacy.html)
 
 - Job tracker vs spreadsheet (https://hirewire.fyi/job-tracker-vs-spreadsheet.html)
+
+- Cold email to a hiring manager (template) (https://hirewire.fyi/cold-email-hiring-manager.html)
 
 - Filter jobs by minimum pay (https://hirewire.fyi/guides/filter-jobs-by-minimum-pay.html)
 
@@ -497,6 +507,18 @@ Pass Plus is an optional paid pass (€29 for 30 days, one-time, via Stripe) tha
 - Fair-use counter: the API counts generations per pass per day, keyed by the end of your pass ID. Those counters expire after 2 days.
 
 - The drafts are kept only in this browser (the last 60 jobs), and are left out of backups and sync. Word (.docx) export is built in your browser; PDF uses your browser’s print dialog.
+
+## Reach out drafts
+
+Reach out drafts a short email, a LinkedIn note and a follow-up to the hiring contact for a posting. The first draft in each browser is free; after that it comes with any pass, or is free with your own Anthropic API key. Nothing is sent until you press Generate. Then:
+
+- What is sent: your CV text, the posting’s title, company and description, the language and tone you chose, and, only if you typed them, the contact’s name and role. The contact’s email address is never sent; it only fills the mail link in your browser. A contact suggested from the posting is found by your browser in the posting text; HireWire doesn’t look anyone up.
+
+- Where it goes: over HTTPS to HireWire’s API and on to Google’s Gemini API (paid tier) for that one request, or with your own key straight from your browser to Anthropic. The API doesn’t write your CV, the posting, the contact’s name or the draft to a database, a file or its logs.
+
+- Counters: with a pass, drafts are counted per pass per day (keyed by the end of your pass ID). The free draft is counted per network per day using a keyed hash of your IP address, never the IP itself, and inside the same daily limit as free fit scores. Counters expire after 2 days.
+
+- In your browser: the drafts (the last 60 jobs), whether you have used your free draft, and on a saved job the date you reached out and the follow-up draft. Backups and sync carry only the date, the channel and the language, never the draft text. Opening your mail app or copying a draft is done by your browser; HireWire never sends email.
 
 ## Encrypted sync
 
@@ -1075,6 +1097,8 @@ Yes: Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.ht
 ## Related
 
 - Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.html)
+
+- Cold email to a hiring manager (template) (https://hirewire.fyi/cold-email-hiring-manager.html)
 
 - Resume privacy check (free self-test) (https://hirewire.fyi/resume-privacy-check.html)
 
@@ -2444,7 +2468,7 @@ No. HireWire has no accounts. Your profile, saved jobs and notes stay in your br
 
 **Q: Is it free?**
 
-Yes. The feeds, ranking, tracker, ghost-job and salary checks and the CV builder are free. Only the optional AI fit score is paid after 3 free scores: a one-time pass from €9, no subscription.
+Yes. The feeds, ranking, tracker, ghost-job and salary checks and the CV builder are free. Only the optional AI features are paid, after 3 free fit scores and 1 free Reach out draft: a one-time pass from €9 covers both, no subscription.
 
 **Q: Does HireWire include StepStone, Indeed or LinkedIn jobs?**
 
@@ -2458,11 +2482,176 @@ Yes. Several feeds are remote job boards; set “remote” in your profile and u
 
 - Free CV builder (no sign-up) (https://hirewire.fyi/cv-builder.html)
 
+- Cold email to a hiring manager (template) (https://hirewire.fyi/cold-email-hiring-manager.html)
+
 - HireWire auf Deutsch (https://hirewire.fyi/de/)
 
 - Ghost-job checker (free tool) (https://hirewire.fyi/ghost-job-checker.html)
 
 - Guide & FAQ (https://hirewire.fyi/guide.html)
+
+---
+
+URL: https://hirewire.fyi/cold-email-hiring-manager.html
+Title: Cold Email to a Hiring Manager: Free Template, Example & Follow-up | HireWire
+
+Guide · Applying
+
+# How to cold email a hiring manager (free template)
+
+A short, specific email to the person who owns the role can get your application read by someone who can act on it. Here is who to write to, what to say in under 120 words, and when to follow up.
+
+HireWire · last reviewed 2026-10-22
+
+## Short answer
+
+- Apply first, then email one person. The hiring manager for the team, or the contact named in the posting.
+
+- Under 120 words: the role, the one or two facts from your CV that match the posting best, and one small ask (a short call, or the right person to talk to).
+
+- Attach your CV as a PDF, use a subject line that names the role, and follow up once, about five working days later.
+
+- Only claim what your CV shows. A specific true sentence beats a long list of adjectives.
+
+## Who to write to
+
+- The posting itself. Many postings, especially German ones, name a contact (“Your contact: …”, “Ihr Ansprechpartner: …”) and often give an email address. If there is one, use it.
+
+- The team’s lead. For a backend role that is usually the engineering manager or head of engineering; for marketing, the head of marketing. The company’s team or “about us” page often lists them.
+
+- LinkedIn people search for the company plus the title (for example “Acme Engineering Manager”). Send a connection note if you can’t find an email.
+
+- A recruiter is fine too if no hiring manager is visible. Write to one person, not five.
+
+Keep it one-to-one and relevant to a real opening. Don’t add people to mailing lists or send the same email to a whole team.
+
+## Free cold email template
+
+Copy it, replace every [bracket], and delete any line you can’t fill truthfully.
+
+Subject: [Role title] at [Company]: [your strongest matching proof point]
+
+Hi [First name],
+
+I'm applying for the [Role title] role at [Company]. The posting asks for [requirement 1] and [requirement 2]; in my current role at [Employer] I [one concrete thing you did that matches], and [second proof point, with a real number if you have one].
+
+My CV is attached. Would you be open to a 15-minute call, or could you point me to the right person on the team?
+
+Best regards,
+[Your name]
+[Phone] · [LinkedIn URL]
+
+### LinkedIn connection note (under 300 characters)
+
+Hi [First name], I applied for the [Role title] role at [Company]. I [one proof point that matches the posting]. I'd be glad to connect and answer any questions about my background.
+
+### Follow-up, about five working days later
+
+Subject: Re: [Role title] at [Company]
+
+Hi [First name],
+
+I wanted to follow up on my note from [day] about the [Role title] role. I'm still very interested and happy to share more about [proof point]. Would a short call next week work?
+
+Best regards,
+[Your name]
+
+## A filled-in example
+
+An example for a backend role. The names are made up; every claim in it comes from the candidate’s CV.
+
+Subject: Senior Backend Engineer at Acme: Postgres performance work
+
+Hi Erika,
+
+I'm applying for the Senior Backend Engineer role at Acme. The posting asks for TypeScript/Node services and PostgreSQL tuning; at my current company I improved Postgres query performance for the billing service and built the Apollo API layer for our mobile app.
+
+My CV is attached. Would you be open to a 15-minute call, or could you point me to the right person on the team?
+
+Best regards,
+Pat Example
+
+## What makes these emails work
+
+- A subject that names the role. “Senior Backend Engineer at Acme: Postgres performance” is easy to forward; “Opportunity” is easy to ignore.
+
+- Proof, not adjectives. Pick the two requirements in the posting you match best and name the CV fact for each. If you have a real number, use it; if you don’t, leave the number out rather than guess.
+
+- One ask. A short call, or the name of the right person. Not both, not a paragraph.
+
+- Short. Under 120 words reads on a phone in one screen.
+
+- One follow-up. If there’s no reply after about five working days, send one short nudge. After that, move on.
+
+## Common mistakes
+
+- Retelling your whole CV in the email.
+
+- Claiming skills the posting asks for that your CV doesn’t show.
+
+- Guessing someone’s gender in the greeting. Use their name as written.
+
+- Forgetting the attachment, or sending a Word file with odd formatting. A PDF is safest; the free CV builder (https://hirewire.fyi/cv-builder.html) makes one.
+
+- Following up three times in a week.
+
+## Let HireWire draft it from your CV and the posting
+
+In HireWire (https://hirewire.fyi/), open any posting and press ✉ Reach out:
+
+- If the posting names a contact or an email address, HireWire shows it as a suggestion. It reads only the posting text in your browser; it doesn’t look anyone up.
+
+- Two plain helper links: a Google search for the company’s careers or team page, and a LinkedIn people search for a likely hiring-manager title.
+
+- Choose English or German (German drafts use the formal Sie) and a concise or warm tone. You get a subject line, an email under 120 words, a LinkedIn note under 300 characters and a follow-up for day 5.
+
+- Drafts are grounded in your CV and the posting with the same checks as HireWire’s other AI writing: missing details become [placeholders], and a number or quote that isn’t in your CV or the posting is flagged.
+
+- Open in mail app starts the email in your own mail program (HireWire never sends anything), or copy each part. The recipient’s email address stays in your browser.
+
+- The job is marked Reached out with the date, and the follow-up reminder comes due five days later with the follow-up draft ready.
+
+Price: your first draft is free in each browser. After that, Reach out is included in every pass: €9 for 7 days, €19 for 30 days or €29 Pass Plus, one-time, no subscription (fair use: up to 30 drafts a day). With your own Anthropic API key it is free.
+
+## FAQ
+
+**Q: Is it OK to email a hiring manager directly?**
+
+Yes, if it is short, relevant to a real opening and sent to one person. Apply through the official route as well, so your application is in their system, and mention that you did.
+
+**Q: How long should a cold email to a hiring manager be?**
+
+Under about 120 words: the role, one or two matching facts from your CV, and one ask. Anything longer usually belongs in the CV or a cover letter.
+
+**Q: When should I follow up?**
+
+About five working days after your first email, once. Keep it to two or three sentences and refer back to your first message.
+
+**Q: Should I attach my CV?**
+
+Yes, as a PDF. A mail link can’t attach files, so attach it yourself before you press send. If you don’t have a PDF yet, the free CV builder (https://hirewire.fyi/cv-builder.html) exports one with real, selectable text.
+
+**Q: Email or LinkedIn?**
+
+Email if you have an address, because it is easier to forward. Otherwise a LinkedIn connection note of up to 300 characters with the same one or two facts.
+
+**Q: Does HireWire send the email for me?**
+
+No. HireWire writes the draft and opens it in your own mail app, or you copy it. It never sends email, and it doesn’t scrape or look up contact details.
+
+**Q: Is it free?**
+
+Your first Reach out draft is free in each browser. After that it comes with any HireWire pass (from €9 for 7 days, one-time), or it is free with your own Anthropic API key. The template on this page is free to copy.
+
+## Related
+
+- Free CV builder (no sign-up) (https://hirewire.fyi/cv-builder.html)
+
+- English-speaking jobs in Germany (https://hirewire.fyi/jobs-in-germany-english.html)
+
+- Guide & FAQ (https://hirewire.fyi/guide.html)
+
+- Initiativbewerbung: Anschreiben-Vorlage (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html)
 
 ---
 
@@ -2520,7 +2709,7 @@ Alle Details stehen in der Datenschutz-Kurzfassung (https://hirewire.fyi/de/date
 
 - Verwalten: eine Pipeline von „gemerkt“ bis „Angebot“, mit Notizen, Kontakten, Terminen und Follow-up-Erinnerungen samt E-Mail-Entwurf (auf Englisch).
 
-- Optional mit KI: Googles KI-Modell Gemini bewertet deinen Lebenslauf für eine Stelle von 0 bis 10 und nennt die wichtigsten Verbesserungen. 3 Bewertungen sind kostenlos, danach gibt es einen einmaligen Pass (9 € für 7 Tage, 19 € für 30 Tage) ohne Abo. Pass Plus (29 € für 30 Tage) schreibt außerdem Anschreiben, Lebenslauf-Entwürfe, Gesprächsvorbereitung und Verhandlungsskripte.
+- Optional mit KI: Googles KI-Modell Gemini bewertet deinen Lebenslauf für eine Stelle von 0 bis 10 und nennt die wichtigsten Verbesserungen. 3 Bewertungen sind kostenlos, danach gibt es einen einmaligen Pass (9 € für 7 Tage, 19 € für 30 Tage) ohne Abo. Jeder Pass enthält auch „Direkt anschreiben“ (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html): ein kurzer Entwurf für eine E-Mail an die Ansprechperson einer Stelle, in der Sie-Form (der erste ist kostenlos). Pass Plus (29 € für 30 Tage) schreibt außerdem Anschreiben, Lebenslauf-Entwürfe, Gesprächsvorbereitung und Verhandlungsskripte.
 
 - Auf mehreren Geräten: Mit jedem Pass kannst du deine Daten Ende-zu-Ende-verschlüsselt synchronisieren. Den Schlüssel hast nur du.
 
@@ -2573,6 +2762,8 @@ Für eine Stelle geht das. HireWire ist für die anderen 200 gebaut. Es findet d
 ## Weiterlesen
 
 - Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.html)
+
+- Initiativbewerbung: Anschreiben-Vorlage (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html)
 
 - Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html)
 
@@ -3070,6 +3261,8 @@ Den gesamten Text der PDF kopieren und in einen einfachen Texteditor einfügen. 
 
 - Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.html)
 
+- Initiativbewerbung: Anschreiben-Vorlage (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html)
+
 - Lebenslauf-Datenschutz-Check (https://hirewire.fyi/de/lebenslauf-datenschutz-check.html)
 
 - StepStone oder Indeed? Jobs bewerten (https://hirewire.fyi/de/stepstone-indeed-linkedin-jobs-bewerten.html)
@@ -3132,6 +3325,8 @@ Der Ghost-Job-Check (https://hirewire.fyi/de/ghost-jobs-erkennen.html) prüft de
 ## Optionale Funktionen
 
 - KI-Fit-Score: Lebenslauf und Anzeige gehen nur auf Klick an HireWires Funktion und weiter an Googles Gemini-API, werden nicht gespeichert. Mit eigenem Anthropic-Schlüssel gehen sie direkt von deinem Browser an Anthropic.
+
+- Direkt anschreiben (Reach out): Lebenslauf, Anzeige und – falls du sie einträgst – Name und Funktion der Ansprechperson gehen nur beim Klick auf „Generate“ an HireWires API (weiter an Googles Gemini-API) bzw. mit eigenem Schlüssel direkt an Anthropic, ohne Speicherung und ohne Protokoll. Die E-Mail-Adresse der Person wird nie gesendet; sie füllt nur den Mail-Link in deinem Browser. Für den kostenlosen Entwurf zählt die API pro Netzwerk und Tag mit einem verschlüsselten Hash der IP-Adresse (2 Tage gespeichert). Entwürfe bleiben in deinem Browser.
 
 - Chrome-Erweiterung bald verfügbar: liest nur die angezeigte Stellenanzeige und erst beim Klick. Kein Tracking, keine Statistik.
 
@@ -3339,11 +3534,180 @@ Ja. Stell „Sprache des Lebenslaufs“ auf English, dann erscheinen englische �
 
 - ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf (https://hirewire.fyi/de/lebenslauf-ats-tipps.html)
 
+- Initiativbewerbung: Anschreiben-Vorlage (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html)
+
 - Lebenslauf-Datenschutz-Check (https://hirewire.fyi/de/lebenslauf-datenschutz-check.html)
 
 - Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html)
 
 - HireWire auf Deutsch (https://hirewire.fyi/de/)
+
+---
+
+URL: https://hirewire.fyi/de/initiativbewerbung-anschreiben.html
+Title: Initiativbewerbung Anschreiben: Vorlage, Beispiel & Tipps (kostenlos) | HireWire
+
+Ratgeber · Bewerbung
+
+# Initiativbewerbung: Anschreiben mit Vorlage und Beispiel
+
+Bei einer Initiativbewerbung bewirbst du dich, ohne dass es eine passende Stellenanzeige gibt. Damit sie gelesen wird, muss sie bei der richtigen Person landen, kurz sein und zeigen, was du konkret beitragen kannst. Hier ist eine kostenlose Vorlage.
+
+HireWire · zuletzt geprüft am 22.10.2026
+
+## Kurz gesagt
+
+- Schreib an eine Person, nicht an „Sehr geehrte Damen und Herren“: die Teamleitung des Bereichs oder die Recruiting-Ansprechperson.
+
+- Kurz und konkret: warum dieses Unternehmen, welche Rolle du dir vorstellst, ein bis zwei Nachweise aus deinem Lebenslauf, eine klare Bitte.
+
+- Lebenslauf als PDF anhängen, Betreff mit der Wunschposition, und nach etwa einer Woche einmal nachfassen.
+
+- Schreib nur, was dein Lebenslauf belegt.
+
+## An wen schickst du die Initiativbewerbung?
+
+- Die Teamleitung des Bereichs, in dem du arbeiten willst. Sie kann am ehesten sagen, ob Bedarf besteht. Namen stehen oft auf der Team- oder „Über uns“-Seite der Firma.
+
+- Recruiting oder HR, wenn keine Teamleitung erkennbar ist. Manche Karriereseiten nennen eine Ansprechperson für Initiativbewerbungen oder haben ein eigenes Formular. Dann nutze das.
+
+- LinkedIn oder XING: Suche nach Firma plus Funktion (zum Beispiel „Acme Head of Engineering“) und schick eine kurze Kontaktanfrage, wenn du keine E-Mail-Adresse findest.
+
+Schreib persönlich an eine Person und bleib beim Thema Bewerbung. Keine Serienmail an ein ganzes Team, keine Newsletter-Listen.
+
+## Was in das Anschreiben gehört
+
+- Betreff: „Initiativbewerbung als [Position]“ plus dein stärkster Punkt.
+
+- Einstieg: ein konkreter Grund für genau dieses Unternehmen, kein Lob ohne Inhalt.
+
+- Wunschrolle: so konkret wie möglich. „Irgendetwas im Marketing“ macht es der Firma schwer.
+
+- Nachweis: ein oder zwei Leistungen aus deinem Lebenslauf, die zu ihrer Arbeit passen; echte Zahlen nur, wenn du sie hast.
+
+- Rahmen: frühester Starttermin; Gehaltsvorstellung nur, wenn du sie nennen willst.
+
+- Bitte: ein kurzes Telefonat oder der Name der richtigen Ansprechperson.
+
+Als E-Mail reichen 120 bis 200 Wörter. Ein klassisches Anschreiben als PDF sollte höchstens eine Seite haben.
+
+## Kostenlose Vorlage: Initiativbewerbung per E-Mail
+
+Kopieren, jede [Klammer] ersetzen, und jede Zeile streichen, die du nicht ehrlich füllen kannst. Die Vorlage siezt den Arbeitgeber, wie in deutschen Bewerbungen üblich.
+
+Betreff: Initiativbewerbung als [Wunschposition] – [Ihr stärkster Punkt in 3–5 Wörtern]
+
+Guten Tag [Vorname Nachname],
+
+[Ein Satz, warum genau dieses Unternehmen: ein Produkt, ein Projekt, eine Nachricht – etwas Konkretes.] Deshalb bewerbe ich mich initiativ als [Wunschposition] in Ihrem Team [Abteilung].
+
+In meiner aktuellen Position bei [Arbeitgeber] [eine konkrete Leistung, die zu Ihrer Arbeit passt]. Außerdem [zweiter Nachweis, mit einer echten Zahl, falls vorhanden].
+
+Meinen Lebenslauf finden Sie im Anhang. Ich könnte ab [Datum] starten. Hätten Sie Zeit für ein kurzes Telefonat, oder können Sie mir sagen, wer bei Ihnen der richtige Ansprechpartner ist?
+
+Mit freundlichen Grüßen
+[Dein Name]
+[Telefon] · [LinkedIn-Profil]
+
+### Nachfassen, nach etwa einer Woche
+
+Betreff: Re: Initiativbewerbung als [Wunschposition]
+
+Guten Tag [Vorname Nachname],
+
+ich wollte kurz an meine E-Mail vom [Datum] anknüpfen. Ich interessiere mich weiterhin sehr für eine Mitarbeit als [Wunschposition] und erzähle Ihnen gern mehr über [Nachweis]. Passt Ihnen nächste Woche ein kurzes Telefonat?
+
+Mit freundlichen Grüßen
+[Dein Name]
+
+## Beispiel
+
+Ein Beispiel für eine Backend-Rolle. Namen und Firma sind ausgedacht; jede Aussage stammt aus dem Lebenslauf der Person.
+
+Betreff: Initiativbewerbung als Backend-Entwickler – Erfahrung mit PostgreSQL-Optimierung
+
+Guten Tag Erika Mustermann,
+
+Ihr Blogbeitrag über die Migration Ihrer Abrechnung auf PostgreSQL hat mich neugierig gemacht. Deshalb bewerbe ich mich initiativ als Backend-Entwickler in Ihrem Plattform-Team.
+
+In meiner aktuellen Position habe ich die Performance der PostgreSQL-Abfragen unseres Abrechnungsdienstes verbessert und die API-Schicht für unsere Mobile-App mit Apollo gebaut.
+
+Meinen Lebenslauf finden Sie im Anhang. Ich könnte ab dem 1. Februar starten. Hätten Sie Zeit für ein kurzes Telefonat?
+
+Mit freundlichen Grüßen
+Pat Beispiel
+
+## Häufige Fehler
+
+- „Sehr geehrte Damen und Herren“, obwohl ein Name auffindbar war.
+
+- Den ganzen Lebenslauf noch einmal nacherzählen.
+
+- Keine konkrete Wunschrolle nennen.
+
+- Fähigkeiten behaupten, die der Lebenslauf nicht zeigt.
+
+- Anhang vergessen. Der Lebenslauf gehört als PDF dazu; die kostenlose Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html) erstellt eines.
+
+- Mehrmals pro Woche nachhaken.
+
+## Gibt es doch eine Stelle? Direkt anschreiben mit HireWire
+
+Wenn du eine passende Stellenanzeige gefunden hast, lohnt sich zusätzlich zur Bewerbung eine kurze Nachricht an die Ansprechperson. In der HireWire-App (https://hirewire.fyi/) (Oberfläche auf Englisch) öffnest du die Anzeige und klickst auf ✉ Direkt anschreiben (bei deutscher Browsersprache; sonst „Reach out“):
+
+- Nennt die Anzeige einen Ansprechpartner („Ihr Ansprechpartner: Frau …“) oder eine E-Mail-Adresse, zeigt HireWire das als Vorschlag. Gelesen wird nur der Anzeigentext in deinem Browser; niemand wird nachgeschlagen.
+
+- Zwei einfache Such-Links: Google nach der Karriere- oder Teamseite der Firma und eine LinkedIn-Personensuche.
+
+- Auf Deutsch schreibt HireWire in der Sie-Form, wahlweise knapp oder herzlicher: Betreff, E-Mail (bis 120 Wörter), LinkedIn-Notiz (bis 300 Zeichen) und eine Nachfass-Mail für Tag 5.
+
+- Der Entwurf stützt sich nur auf deinen Lebenslauf und die Anzeige. Fehlende Angaben werden zu [Platzhaltern], und Zahlen oder Zitate, die dort nicht stehen, werden markiert.
+
+- „Open in mail app“ öffnet die Mail in deinem eigenen Mailprogramm; HireWire verschickt nichts. Die E-Mail-Adresse der Person bleibt in deinem Browser.
+
+- Die Stelle wird als „Reached out“ mit Datum markiert, und nach 5 Tagen erinnert dich HireWire ans Nachfassen, mit fertigem Entwurf.
+
+Preis: Der erste Entwurf ist pro Browser kostenlos. Danach ist „Direkt anschreiben“ in jedem Pass enthalten: 9 € für 7 Tage, 19 € für 30 Tage oder 29 € Pass Plus, einmalig, ohne Abo (faire Nutzung: bis zu 30 Entwürfe am Tag). Mit eigenem Anthropic-API-Schlüssel ist es kostenlos. Für Initiativbewerbungen ohne Anzeige nutzt du die Vorlage oben.
+
+## Häufige Fragen
+
+**Q: Was ist eine Initiativbewerbung?**
+
+Eine Bewerbung bei einem Unternehmen, ohne dass es eine passende ausgeschriebene Stelle gibt. Du schlägst selbst vor, in welcher Rolle du beitragen kannst.
+
+**Q: Wie lang sollte das Anschreiben einer Initiativbewerbung sein?**
+
+Als E-Mail etwa 120 bis 200 Wörter, als klassisches Anschreiben höchstens eine Seite. Wichtiger als die Länge: ein konkreter Grund für das Unternehmen, eine konkrete Wunschrolle und ein bis zwei Nachweise.
+
+**Q: An wen richte ich die Initiativbewerbung?**
+
+Am besten an die Teamleitung des Bereichs, in dem du arbeiten willst, sonst an die Recruiting-Ansprechperson. Wenn die Karriereseite ein Formular für Initiativbewerbungen hat, nutze es.
+
+**Q: Per E-Mail oder per Post?**
+
+Heute fast immer per E-Mail oder über das Bewerbungsportal der Firma. Den Lebenslauf hängst du als PDF an.
+
+**Q: Wann sollte ich nachfassen?**
+
+Nach etwa einer Woche, einmal, mit zwei oder drei Sätzen. Kommt danach keine Antwort, ist das auch eine Antwort.
+
+**Q: Muss ich eine Gehaltsvorstellung angeben?**
+
+Bei einer Initiativbewerbung nicht. Wenn du sie nennen willst, gib eine Spanne als Jahresbrutto an.
+
+**Q: Schreibt HireWire mein Anschreiben?**
+
+Für ausgeschriebene Stellen aus deinem Job-Feed: ja, mit „Direkt anschreiben“ (Reach out) einen kurzen Entwurf aus deinem Lebenslauf und der Anzeige, den du prüfst und selbst verschickst. Der erste Entwurf ist kostenlos, danach ist es in jedem Pass enthalten (ab 9 € für 7 Tage, einmalig). Für Initiativbewerbungen ohne Anzeige nimm die Vorlage auf dieser Seite.
+
+## Weiterlesen
+
+- Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.html)
+
+- ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf (https://hirewire.fyi/de/lebenslauf-ats-tipps.html)
+
+- Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html)
+
+- Cold email to a hiring manager (template) (https://hirewire.fyi/cold-email-hiring-manager.html)
 
 ---
 
@@ -3438,7 +3802,7 @@ If you seriously or repeatedly break these rules, we may block a pass or your ac
 
 | Pass | Price | Runs for | Includes |
 
-| Job Search Pass, 7 days | €9 | 7 days from payment | AI fit scores on any posting (beyond the free ones), encrypted sync between your devices |
+| Job Search Pass, 7 days | €9 | 7 days from payment | AI fit scores on any posting (beyond the free ones), Reach out drafts (a short email, LinkedIn note and follow-up to a hiring contact; beyond the free one), encrypted sync between your devices |
 
 | Job Search Pass, 30 days | €19 | 30 days from payment | Same as the 7-day pass |
 
@@ -3448,13 +3812,13 @@ If you seriously or repeatedly break these rules, we may block a pass or your ac
 
 - The clock starts at payment, not at first use, and runs continuously for 7 or 30 days.
 
-- Fair-use limits protect the service from abuse and keep prices low. Currently: up to 100 AI fit scores per pass per day, up to 60 Write with AI generations per Pass Plus per day, and reasonable limits on sync. Normal job searching won’t come near them. We may adjust them, but never below a level that lets you use the pass normally.
+- Fair-use limits protect the service from abuse and keep prices low. Currently: up to 100 AI fit scores per pass per day, up to 60 Write with AI generations per Pass Plus per day, up to 30 Reach out drafts per pass per day, and reasonable limits on sync. Normal job searching won’t come near them. We may adjust them, but never below a level that lets you use the pass normally.
 
-- Free scores and referral bonuses (extra free scores for inviting friends) have no cash value, can’t be exchanged or transferred, and expire as shown in the app (referral bonuses after 90 days).
+- Free scores, the free Reach out draft and referral bonuses (extra free scores for inviting friends) have no cash value, can’t be exchanged or transferred, and expire as shown in the app (referral bonuses after 90 days).
 
 - Using your own Anthropic API key unlocks AI features without a pass. You then pay Anthropic directly under your agreement with them; we are not part of that contract.
 
-- We may improve or change features. During a pass you have paid for, we won’t remove its main features (scoring; writing for Pass Plus). If we must, we refund the unused part.
+- We may improve or change features. During a pass you have paid for, we won’t remove its main features (scoring and Reach out drafts; writing for Pass Plus). If we must, we refund the unused part.
 
 ## 8. Prices, taxes and payment
 
