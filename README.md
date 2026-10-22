@@ -3,7 +3,7 @@
 **A free, local-first job feed aggregator and application tracker that runs in your browser.**
 Live at **[hirewire.fyi](https://hirewire.fyi/)** · [90-second demo video](https://hirewire.fyi/guide.html#see-it-in-action) · [Guide & FAQ](https://hirewire.fyi/guide.html) · [Deutsch](https://hirewire.fyi/de/)
 
-HireWire pulls 55 public job feeds into one list, ranks every posting with a match score you can read, and tracks your applications from saved to offer. There's no account, and your profile, CV text and pipeline stay in your browser. Optional AI features (a fit score and AI writing) are sold as one-time passes from €9.
+HireWire pulls 55 public job feeds into one list, ranks every posting with a match score you can read, and tracks your applications from saved to offer. There's no account, and your profile, CV text and pipeline stay in your browser. It also has a free ATS CV builder, and optional AI features (a fit score, **Reach out** drafts to the hiring manager, and AI writing) sold as one-time passes from €9.
 
 > Not to be confused with other products called HireWire (hirewire.com, hirewire.io and others). This is hirewire.fyi, made by Gaurav Jindal in Berlin.
 
@@ -13,11 +13,13 @@ HireWire pulls 55 public job feeds into one list, ranks every posting with a mat
 - **Transparent match score.** The formula is published: base 32, +13 per skill of yours in the title, +7 in tags or description, +12 if pay meets your floor (−18 below, −3 if unstated), up to +9 for freshness (−8 if stale), +4 remote, −28 per blocked word. Nobody can pay to rank higher.
 - **Pipeline tracker.** Saved → applied → screen → interview → offer, with notes, contacts, next dates, follow-up reminders with email drafts, calendar (.ics) export, insights and offer comparison.
 - **Ghost-job risk.** Every posting gets a Low/Medium/High heuristic flag with reasons (age, reposts, talent-pool wording, no pay…), plus "Hide ghosts". It's a risk signal, not proof.
+- **Free ATS CV builder** ([cv-builder.html](https://hirewire.fyi/cv-builder.html), German: [Lebenslauf-Vorlage](https://hirewire.fyi/de/lebenslauf-vorlage.html)). Three single-column, ATS-friendly templates plus a German tabular Lebenslauf, PDF with real text via the browser's print dialog, no sign-up, no watermark. The CV is saved only in your browser; one click hands it to the app for job matching.
+- **Reach out (AI outreach drafts).** On any posting, drafts a short email to the hiring manager or the contact named in the posting (under 120 words), a LinkedIn note (under 300 characters) and a day-5 follow-up, in English or German, from your CV and the posting only. It opens in your own mail app; HireWire never sends email, and the contact's address stays in your browser. The job is marked "Reached out" and the follow-up reminder comes due on day 5. 1 free draft, then included in every pass. [Cold email template](https://hirewire.fyi/cold-email-hiring-manager.html) · [Initiativbewerbung (DE)](https://hirewire.fyi/de/initiativbewerbung-anschreiben.html)
 - **Salary reality check.** Median and P25–P75 pay from the postings in your own feeds, in your currency.
 - **Agent briefs.** Export your profile and scored shortlist as Markdown, JSON or CSV for Claude Code, Cursor or Codex CLI.
 - **Installable (PWA)**, works offline once loaded; local notifications only (no push server).
-- **Optional AI (paid or own key).** 3 free AI fit scores, then a one-time pass: €9 for 7 days, €19 for 30 days, or €29 Pass Plus for 30 days (adds cover letters, interview prep, a tailored CV draft and a negotiation script). No subscription. Or use your own Anthropic API key for free from HireWire.
-- **Free tools:** [ghost job checker](https://hirewire.fyi/ghost-job-checker.html), [salary checker](https://hirewire.fyi/salary-checker.html), [resume privacy check](https://hirewire.fyi/resume-privacy-check.html).
+- **Optional AI (paid or own key).** 3 free AI fit scores and 1 free Reach out draft, then a one-time pass: €9 for 7 days or €19 for 30 days (AI fit scores + Reach out drafts), or €29 Pass Plus for 30 days (adds cover letters, interview prep, a tailored CV draft and a negotiation script). No subscription. Or use your own Anthropic API key for free from HireWire.
+- **Free tools:** [ATS CV builder](https://hirewire.fyi/cv-builder.html), [ghost job checker](https://hirewire.fyi/ghost-job-checker.html), [salary checker](https://hirewire.fyi/salary-checker.html), [resume privacy check](https://hirewire.fyi/resume-privacy-check.html).
 
 Limits, honestly: only postings from the feeds can be saved (no manual job entry and no import from other trackers yet), the app's interface is in English, and the feeds lean towards remote and tech roles.
 
@@ -53,7 +55,7 @@ Job feeds load straight from their public APIs. The optional AI features call Hi
 
 ## What's in this repo
 
-The static site served on GitHub Pages at hirewire.fyi: the app (`index.html`, `sw.js`, `manifest.webmanifest`), the guide, comparison, tool and German pages, `assets/` (fonts, scripts, demo videos), `sitemap.xml`, `robots.txt` and `llms.txt`. The serverless API behind the optional AI features is not in this repository. Each deploy pings [IndexNow](https://www.indexnow.org/) with the sitemap URLs.
+The static site served on GitHub Pages at hirewire.fyi: the app (`index.html`, `sw.js`, `manifest.webmanifest`), the guide, comparison, tool and German pages, `assets/` (fonts, scripts, demo videos), `sitemap.xml`, `robots.txt`, `llms.txt` and `llms-full.txt`. The serverless API behind the optional AI features is not in this repository. Each deploy pings [IndexNow](https://www.indexnow.org/) with the sitemap URLs.
 
 ## Contact
 
