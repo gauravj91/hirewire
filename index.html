@@ -6,18 +6,26 @@
 <meta name="referrer" content="no-referrer">
 
 <!-- ===== SEO / AEO — EDIT https://hirewire.fyi/.com (3 places in this head) ===== -->
-<title>HireWire — Free Private Job Tracker &amp; Job Feed Aggregator</title>
-<meta name="description" content="Free job feed aggregator and application tracker: 55 live job feeds in one list, fit scores, ghost-job flags and a free ATS CV builder. No account; your data stays in your browser.">
+<title>HireWire — Free Job Aggregator, Tracker &amp; ATS CV Builder</title>
+<meta name="description" content="Free job aggregator + tracker: 55 job feeds, fit scores, ghost-job checks, a free ATS CV builder and AI outreach drafts. No account; data stays in your browser.">
 <link rel="canonical" href="https://hirewire.fyi/">
 <link rel="alternate" hreflang="en" href="https://hirewire.fyi/">
 <link rel="alternate" hreflang="de" href="https://hirewire.fyi/de/">
 <link rel="alternate" hreflang="x-default" href="https://hirewire.fyi/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HireWire">
-<meta property="og:title" content="HireWire — The Job Wire">
-<meta property="og:description" content="Every posting, one wire, one pipeline: 55 job feeds, fit scores, a tracker and a free ATS CV builder. Free, no account — your CV stays in your browser unless you ask for an AI fit score.">
+<meta property="og:title" content="HireWire — free job aggregator, tracker and ATS CV builder">
+<meta property="og:description" content="55 job feeds in one list, fit scores, ghost-job checks, a pipeline tracker, a free ATS CV builder and AI drafts to email the hiring manager. Free, no account; your data stays in your browser.">
 <meta property="og:url" content="https://hirewire.fyi/">
-<meta name="twitter:card" content="summary">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HireWire: free job feed aggregator and tracker. 55 job feeds, fit scores, ghost-job check, free ATS CV builder, AI outreach drafts.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HireWire — free job aggregator, tracker and ATS CV builder">
+<meta name="twitter:description" content="55 job feeds in one list, fit scores, ghost-job checks, a pipeline tracker, a free ATS CV builder and AI drafts to email the hiring manager. Free, no account; your data stays in your browser.">
+<meta name="twitter:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -33,7 +41,7 @@
  "isAccessibleForFree": true,
  "applicationCategory": "BusinessApplication",
  "operatingSystem": "Any modern browser",
- "description": "Free, private job-search tool: aggregates 55 job feeds, scores postings against your profile, and tracks your application pipeline — entirely in your browser, with no account.",
+ "description": "Free, private job-search tool: aggregates 55 job feeds, scores postings against your profile, flags likely ghost jobs and tracks your application pipeline — entirely in your browser, with no account. Includes a free ATS CV builder and optional AI fit scores and Reach out drafts (a short cold email to the hiring manager), sold as one-time passes from €9.",
  "publisher": {
   "@id": "https://hirewire.fyi/#org"
  },
@@ -43,7 +51,7 @@
    "name": "HireWire (free)",
    "price": "0",
    "priceCurrency": "EUR",
-   "description": "Job feeds, match scores, tracker, ghost-job flags, salary check, reminders, exports and backups. No account. Includes 3 free AI fit scores.",
+   "description": "Job feeds, match scores, tracker, ghost-job flags, salary check, reminders, exports, backups and the ATS CV builder. No account. Includes 3 free AI fit scores and 1 free Reach out draft.",
    "url": "https://hirewire.fyi/",
    "availability": "https://schema.org/InStock"
   },
@@ -75,7 +83,19 @@
    "availability": "https://schema.org/InStock"
   }
  ],
- "featureList": "Job feed aggregation (55 public feeds), Transparent match scoring, Application pipeline tracker, Ghost-job detection, Salary reality check, Follow-up reminders, Optional AI fit score, Agent briefs for AI coding assistants, Local-only data storage, Free ATS CV builder with no sign-up (/cv-builder.html)",
+ "featureList": [
+  "Job feed aggregator: 55 public job feeds in one list, refreshed hourly",
+  "Transparent match score (skills, salary floor, freshness, remote)",
+  "Optional AI fit score 0-10 with ranked fixes (3 free)",
+  "Ghost-job check: Low/Medium/High risk with reasons",
+  "Salary reality check from the postings in your feeds",
+  "Application pipeline tracker with follow-up reminders and email drafts",
+  "Free ATS CV builder with no sign-up: 3 ATS-friendly templates + German Lebenslauf, PDF (/cv-builder.html)",
+  "Reach out: AI cold email to the hiring manager, LinkedIn note and day-5 follow-up, opened in your own mail app (1 free, then included in every pass)",
+  "AI writing with Pass Plus: cover letter, interview prep, tailored CV draft, negotiation script",
+  "Agent briefs for AI coding assistants (Claude Code, Cursor, Codex CLI)",
+  "Local-only data storage: no account, data stays in your browser"
+ ],
  "hasPart": [
   {
    "@type": "WebApplication",
@@ -123,7 +143,8 @@
   "https://alternativeto.net/software/hirewire/",
   "https://www.saashub.com/hirewire-fyi",
   "https://uneed.best/tool/hirewire"
- ]
+ ],
+ "description": "HireWire (hirewire.fyi) makes a free, local-first job feed aggregator and application tracker with a free ATS CV builder and optional one-time AI passes (fit scores, Reach out drafts to hiring managers, AI writing). Made by Gaurav Jindal in Berlin, Germany."
 }
 </script>
 <script type="application/ld+json">
@@ -146,7 +167,7 @@
    "name": "Where is my data?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold. Check it: DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. Privacy, in plain language."
+    "text": "In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI, Write with AI or Generate in Reach out, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold. Check it: DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. Privacy, in plain language."
    }
   },
   {
@@ -194,7 +215,23 @@
    "name": "Why not just paste jobs into ChatGPT?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you ask for an AI fit score. Free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use both: ChatGPT to polish your cover letter, HireWire to decide which jobs deserve one."
+    "text": "You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you press an AI button (fit score, Reach out or Write with AI). Free, or a week of AI scores for €9 instead of a monthly chatbot subscription. Use both: ChatGPT to polish your cover letter, HireWire to decide which jobs deserve one."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can it build my CV?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, free: the CV builder has three single-column, ATS-friendly templates (Classic, Modern, Compact) and a German tabular Lebenslauf. You download a PDF with real, selectable text through your browser’s print dialog, with no sign-up and no watermark. The CV is saved only in this browser, and one click hands it to HireWire to match it against live jobs. It doesn’t export Word files and doesn’t write the CV for you. Check it: Open the CV builder with DevTools → Network: typing sends nothing, and your draft sits under Local storage."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can it help me email the hiring manager?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes: ✉ Reach out on any posting drafts a short email to the hiring manager or the contact named in the posting (under 120 words), a LinkedIn note and a follow-up for day 5, in English or German, from your CV and the posting only. HireWire never sends anything: the draft opens in your own mail app, and the contact’s email address stays in your browser. The job is marked “Reached out” and the follow-up reminder comes due five days later. Your first draft is free; after that it is included in every pass. Template and tips. Check it: Open a posting → ✉ Reach out with DevTools → Network: one request when you press Generate, and the contact’s email isn’t in it."
    }
   },
   {
@@ -1248,7 +1285,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
             <p class="fq-check"><b>Check it</b>Settings &amp; more → AI fit score → Passes &amp; your key lists every price; Stripe’s checkout page shows a one-time payment.</p>
           </div></details>
           <details data-fq="data"><summary>Where is my data?</summary><div class="fq-a">
-            <p>In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI or Write with AI, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold.</p>
+            <p>In this browser: localStorage, mirrored to IndexedDB so a wiped store can be rebuilt. There’s no account and no HireWire database of your profile, CV text or pipeline. Your CV leaves the browser only when you press Score with AI, Write with AI or Generate in Reach out, for that one request: through HireWire’s function to Google’s Gemini API (paid tier: Google doesn’t use those prompts to improve its products), or straight to Anthropic if you use your own key. It isn’t stored by HireWire. Optional encrypted sync (included with any pass) uploads only ciphertext, encrypted on your device with a recovery code only you hold.</p>
             <p class="fq-check"><b>Check it</b>DevTools → Application shows the data under Local storage and IndexedDB “hirewire-kv”; the Network tab shows a sync talks only to public job feeds. <a href="/privacy.html">Privacy, in plain language</a>.</p>
           </div></details>
           <details data-fq="browsers"><summary>What if I switch browsers, or Safari wipes it?</summary><div class="fq-a">
@@ -1271,8 +1308,16 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
             <p>Gaurav Jindal, a solo maker in Berlin. Questions, bugs and corrections: <a href="mailto:hey@hirewire.fyi">hey@hirewire.fyi</a>, or the CONTACT GAURAV button in the footer.</p>
           </div></details>
           <details data-fq="chatgpt"><summary>Why not just paste jobs into ChatGPT?</summary><div class="fq-a">
-            <p>You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you ask for an AI fit score. Free, or a week of AI scores for €9 instead of a monthly chatbot subscription.</p>
+            <p>You can, for one job. HireWire is built for the other 200: it pulls 55 public feeds into one list, screens every posting automatically and for free (skills, salary floor, blocked words, ghost-job and salary flags), and keeps your pipeline, reminders and exports on one board instead of in old chat threads. No account, and your board and CV stay in your browser; text leaves your device only when you press an AI button (fit score, Reach out or Write with AI). Free, or a week of AI scores for €9 instead of a monthly chatbot subscription.</p>
             <p class="fq-check"><b>Use both</b>ChatGPT to polish your cover letter, HireWire to decide which jobs deserve one.</p>
+          </div></details>
+          <details data-fq="cvb"><summary>Can it build my CV?</summary><div class="fq-a">
+            <p>Yes, free: the <a href="/cv-builder.html">CV builder</a> has three single-column, ATS-friendly templates (Classic, Modern, Compact) and a German tabular Lebenslauf. You download a PDF with real, selectable text through your browser’s print dialog, with no sign-up and no watermark. The CV is saved only in this browser, and one click hands it to HireWire to match it against live jobs. It doesn’t export Word files and doesn’t write the CV for you.</p>
+            <p class="fq-check"><b>Check it</b>Open the CV builder with DevTools → Network: typing sends nothing, and your draft sits under Local storage.</p>
+          </div></details>
+          <details data-fq="reach"><summary>Can it help me email the hiring manager?</summary><div class="fq-a">
+            <p>Yes: <b>✉ Reach out</b> on any posting drafts a short email to the hiring manager or the contact named in the posting (under 120 words), a LinkedIn note and a follow-up for day 5, in English or German, from your CV and the posting only. HireWire never sends anything: the draft opens in your own mail app, and the contact’s email address stays in your browser. The job is marked “Reached out” and the follow-up reminder comes due five days later. Your first draft is free; after that it is included in every pass. <a href="/cold-email-hiring-manager.html">Template and tips</a>.</p>
+            <p class="fq-check"><b>Check it</b>Open a posting → ✉ Reach out with DevTools → Network: one request when you press Generate, and the contact’s email isn’t in it.</p>
           </div></details>
           <details data-fq="limits"><summary>What can’t it do?</summary><div class="fq-a">
             <p>Only postings from the feeds can be saved: no manual job entry, and no import from other trackers or spreadsheets yet. The app’s interface is in English (with <a href="/de/" lang="de">German guides</a>). Pay is compared with static, approximate exchange rates.</p>
