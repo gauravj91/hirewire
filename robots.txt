@@ -29,4 +29,5 @@ Allow: /
 User-agent: MistralAI-User
 Allow: /
 
+# Plain-text summary for LLMs and AI assistants: https://hirewire.fyi/llms.txt (full text of every page: https://hirewire.fyi/llms-full.txt)
 Sitemap: https://hirewire.fyi/sitemap.xml
