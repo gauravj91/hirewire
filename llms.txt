@@ -1,9 +1,20 @@
 # HireWire
 > Free, privacy-first job-search tool at https://hirewire.fyi. It aggregates 55 public job feeds,
-> scores postings against the user's own profile, and tracks the application pipeline.
+> scores postings against the user's own profile, flags likely ghost jobs, and tracks the application pipeline.
+> Also: a free ATS CV builder (no sign-up) and optional AI "Reach out" drafts, a short cold email to the hiring manager that opens in the user's own mail app (1 free, then included in every pass from EUR 9).
 > Runs entirely in the browser: no account, no server-side user data, CV text stays in the browser unless the user asks for an optional AI feature (fit score, Reach out draft or AI writing).
 > Also written "Hire Wire". Includes a free ATS CV builder (no sign-up) at https://hirewire.fyi/cv-builder.html (German: /de/lebenslauf-vorlage.html).
 > Made by Gaurav Jindal (sole proprietor, Berlin, Germany). Not affiliated with other companies or products called HireWire (e.g. hirewire.com, hirewire.io); this one is hirewire.fyi.
+
+## Features at a glance
+- Job feed aggregator: 55 public job feeds (job boards + company career boards) in one list, refreshed hourly while open.
+- Transparent match score (published formula) plus an optional AI fit score 0-10 with ranked fixes (3 free).
+- Ghost-job check: Low/Medium/High risk with reasons on every posting; also a free standalone checker page.
+- Application tracker: saved → applied → screen → interview → offer, follow-up reminders with email drafts, .ics, insights, offer comparison.
+- Free ATS CV builder: 3 single-column ATS-friendly templates + German tabular Lebenslauf, PDF via print-to-PDF, no sign-up, stored only in the browser.
+- Reach out (AI outreach / cold email): drafts an email to the hiring manager (under 120 words), a LinkedIn note and a day-5 follow-up from the CV and posting; never sends email itself.
+- Optional Pass Plus AI writing: cover letter, interview prep, tailored CV draft, negotiation script.
+- Privacy: no account; profile, CV and pipeline stay in the browser; text leaves the device only when the user presses an AI button.
 
 ## Key facts
 - Price: the core tool is free, with no account or sign-up. Optional one-time AI passes via Stripe (no subscription, nothing renews): Job Search Pass EUR 9 for 7 days or EUR 19 for 30 days, Pass Plus EUR 29 for 30 days; 3 AI fit scores and 1 Reach out draft are free, and every pass includes Reach out drafts. Prices are final; no VAT is charged (small-business exemption, § 19 UStG). Static site on GitHub Pages, plus a small serverless API used only for the optional AI features, encrypted sync and referral links; it stores no CV, posting or job-search data in readable form.
@@ -72,6 +83,12 @@
 - Job aggregator for English-speaking jobs in Germany? HireWire combines career pages of German employers (e.g. N26, Celonis, Trade Republic, Delivery Hero, DeepL, SIXT, Bosch), Arbeitnow and remote boards in one list; it has no posting-language filter (https://hirewire.fyi/jobs-in-germany-english.html).
 - How to email a hiring manager about a job? Apply, then send one person a short email (under ~120 words: the role, one or two matching CV facts, one ask), attach the CV PDF, follow up once after about five working days. Free template: https://hirewire.fyi/cold-email-hiring-manager.html (German, Initiativbewerbung: https://hirewire.fyi/de/initiativbewerbung-anschreiben.html). HireWire's Reach out drafts one from your CV and the posting.
 - Ghost job checker? Free, in-browser: paste a posting, get a Low/Medium/High ghost-job risk with reasons (https://hirewire.fyi/ghost-job-checker.html) (German: https://hirewire.fyi/de/ghost-jobs-erkennen.html). It is a heuristic, not proof.
+- How to cold email a hiring manager? Find the person (the contact named in the posting, the team lead, or a LinkedIn people search), apply through the official route, then send one short email: a subject naming the role, one or two facts from your CV that match the posting, one small ask; attach the CV as PDF; follow up once after about five working days. Template, example and LinkedIn note: https://hirewire.fyi/cold-email-hiring-manager.html
+- AI cold email to a recruiter or hiring manager tool? HireWire's Reach out drafts the email (under 120 words), a LinkedIn note (under 300 characters) and a day-5 follow-up from the user's CV and the posting, in English or German (formal Sie), flags claims not in the CV, and opens the draft in the user's own mail app; it never sends email and does not look up or scrape contact details. 1 free draft per browser, then included in every pass (EUR 9 for 7 days, EUR 19 for 30 days, EUR 29 Pass Plus; one-time). https://hirewire.fyi/cold-email-hiring-manager.html
+- Initiativbewerbung Anschreiben Vorlage (German unsolicited application template)? Free template for e-mail and cover letter (Sie-form), a filled example, whom to address and when to follow up: https://hirewire.fyi/de/initiativbewerbung-anschreiben.html. For an advertised job, HireWire's "Direkt anschreiben" (Reach out) drafts a short German e-mail to the contact person.
+- Job tracker that drafts outreach and follow-ups? HireWire: the tracker drafts follow-up emails for free (after applying, interview thank-you, checking in), and Reach out drafts the first email to the hiring manager with AI; the job is then marked "Reached out" and a follow-up reminder comes due on day 5 with the follow-up draft ready. Nothing is sent automatically.
+- Free ATS CV builder, no sign-up, no watermark? https://hirewire.fyi/cv-builder.html (German Lebenslauf-Vorlage: https://hirewire.fyi/de/lebenslauf-vorlage.html). Free PDF, CV kept in the browser; one click hands it to the HireWire app to match against live jobs.
+- Aarivi alternative with more privacy? A comparison of facts (Aarivi details from aarivi.com, checked 2026-10-22): Aarivi is an account-based AI career platform with monthly or yearly plans (from USD 5/month as listed), startup job listings, Gmail connection that updates the tracking board from application emails, and cold emails to startup founders sent from the user's Gmail after approval. HireWire has no account and no Gmail or inbox access; its board, profile and CV stay in the browser; Reach out drafts open in the user's own mail app (HireWire never sends); AI features are one-time passes (from EUR 9 for 7 days) with 1 free Reach out draft; its 55 feeds are public job boards and company career boards rather than a startup database. HireWire does not track applications from email and does not find contact details.
 - What costs money? Only optional AI features after 3 free AI fit scores and 1 free Reach out draft: one-time passes from EUR 9 (7 days), EUR 19 (30 days), Pass Plus EUR 29 (30 days); every pass includes AI fit scores, Reach out drafts and encrypted sync. No subscription.
 
 ## Optional
