@@ -52,7 +52,7 @@
    "name": "Job Search Pass, 7 days",
    "price": "9",
    "priceCurrency": "EUR",
-   "description": "One-time payment, no subscription: AI fit scores for 7 days.",
+   "description": "One-time payment, no subscription: AI fit scores and Reach out drafts to hiring managers for 7 days.",
    "url": "https://hirewire.fyi/",
    "availability": "https://schema.org/InStock"
   },
@@ -61,7 +61,7 @@
    "name": "Job Search Pass, 30 days",
    "price": "19",
    "priceCurrency": "EUR",
-   "description": "One-time payment, no subscription: AI fit scores for 30 days, includes encrypted sync.",
+   "description": "One-time payment, no subscription: AI fit scores and Reach out drafts for 30 days, includes encrypted sync.",
    "url": "https://hirewire.fyi/",
    "availability": "https://schema.org/InStock"
   },
@@ -138,7 +138,7 @@
    "name": "Is it really free? How do you make money?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of €9 for 7 days or €19 for 30 days, or €29 Pass Plus (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. No subscription: nothing renews. The other plan is a hand-sold, clearly labelled sponsor card. Check it: Settings & more → AI fit score → Passes & your key lists every price; Stripe’s checkout page shows a one-time payment."
+    "text": "The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI passes: 3 free fit scores and 1 free Reach out draft, then a one-time pass of €9 for 7 days or €19 for 30 days (AI fit scores and Reach out drafts to hiring managers), or €29 Pass Plus (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. No subscription: nothing renews. The other plan is a hand-sold, clearly labelled sponsor card. Check it: Settings & more → AI fit score → Passes & your key lists every price; Stripe’s checkout page shows a one-time payment."
    }
   },
   {
@@ -945,6 +945,35 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
   letter-spacing:.04em;text-decoration:none;white-space:nowrap;line-height:1.4}
 .mast-cvb:hover,.mast-cvb:focus-visible{background:var(--red);color:var(--paper)}
 @media print{ .mast-cvb,.hero-cvb{display:none!important} }
+/* ===== 31 · Reach out (drawer button + #outModal) ===== */
+#outModal{z-index:75}
+.out-sec .btn{margin:0 6px 6px 0}
+.out-sec .out-has{font-size:9px;letter-spacing:.14em;align-self:center}
+.out-done{margin:6px 0 0;font-size:9.5px;letter-spacing:.12em;color:var(--green,#2f6f3e);font-weight:600}
+.out-card{width:min(760px,100%)}
+.out-sug{display:flex;gap:10px;align-items:center;justify-content:space-between;border:1px dashed var(--ink2);padding:8px 12px;margin:0 0 12px;font-size:11px;line-height:1.5}
+.out-sug .btn{flex:none}
+.out-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.out-grid .input{width:100%;margin-top:4px;box-sizing:border-box}
+.out-links{font-size:10.5px;line-height:1.7;margin:2px 0 12px;overflow-wrap:anywhere}
+.out-links a{color:var(--ink);text-underline-offset:2px}
+.out-opts{margin:4px 0 6px}
+.out-opts label{display:flex;flex-direction:column;gap:4px}
+.out-seg{display:inline-flex;gap:0}
+.out-seg .tog{margin:0}
+.out-seg .tog + .tog{border-left:0}
+.out-seg .tog.on{background:var(--ink);color:var(--paper)}
+.out-block{border-top:1px solid var(--rule,rgba(23,19,12,.18));padding:10px 0 4px}
+.out-bh{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.out-bh .aiw-h{margin:0}
+.out-text{font-size:12px;line-height:1.6;margin:6px 0 0;white-space:normal;overflow-wrap:anywhere}
+.out-cv{border:1px solid var(--ink);padding:8px 12px;font-size:11px;line-height:1.6;margin:12px 0 6px}
+.out-cv a{color:var(--red)}
+@media (max-width:700px){
+  .out-grid{grid-template-columns:1fr}
+  .out-sug{flex-direction:column;align-items:flex-start}
+}
+@media print{ #outModal,.out-sec{display:none!important} }
 </style>
 </head>
 <body>
@@ -1215,7 +1244,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
         <p class="fq-dek">HireWire is new and has no reviews to show yet, so here is what you can verify yourself instead. Each answer says how to check it in your own browser.</p>
         <div class="fq-list">
           <details data-fq="free"><summary>Is it really free? How do you make money?</summary><div class="fq-a">
-            <p>The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI fit score: 3 free scores, then a one-time pass of <b>€9 for 7 days</b> or <b>€19 for 30 days</b>, or <b>€29 Pass Plus</b> (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. <b>No subscription</b>: nothing renews. The other plan is a hand-sold, clearly labelled <a href="/sponsor.html">sponsor card</a>.</p>
+            <p>The job feed, match scores, tracker, ghost-job flags, salary check, follow-up reminders, exports and backups are free, with no account. Money comes from the optional AI passes: 3 free fit scores and 1 free Reach out draft, then a one-time pass of <b>€9 for 7 days</b> or <b>€19 for 30 days</b> (AI fit scores and Reach out drafts to hiring managers), or <b>€29 Pass Plus</b> (30 days, adds AI cover letters, interview prep, a tailored CV and a negotiation script). Or paste your own Anthropic key and it’s free from HireWire: Anthropic bills you directly, roughly $0.002 per score. <b>No subscription</b>: nothing renews. The other plan is a hand-sold, clearly labelled <a href="/sponsor.html">sponsor card</a>.</p>
             <p class="fq-check"><b>Check it</b>Settings &amp; more → AI fit score → Passes &amp; your key lists every price; Stripe’s checkout page shows a one-time payment.</p>
           </div></details>
           <details data-fq="data"><summary>Where is my data?</summary><div class="fq-a">
@@ -1281,6 +1310,8 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
     <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker</a>
     <a href="/resume-privacy-check.html">Resume privacy check</a>
     <a href="/cv-builder.html">Free CV builder</a>
+    <a href="/cold-email-hiring-manager.html">Cold email to a hiring manager</a>
+    <a href="/de/initiativbewerbung-anschreiben.html" lang="de">Initiativbewerbung Anschreiben</a>
     <a href="/sponsor.html">Sponsor HireWire</a>
     <a href="/llms.txt" type="text/plain">llms.txt</a>
   </nav>
@@ -1293,6 +1324,7 @@ kbd{font-family:inherit;border:1px solid var(--ink);border-bottom-width:2px;padd
 <section class="agent" id="fsModal" role="dialog" aria-modal="true" aria-label="AI fit score access"></section>
 <section class="agent" id="growthModal" role="dialog" aria-modal="true" aria-label="HireWire"></section>
 <section class="agent" id="aiwModal" role="dialog" aria-modal="true" aria-label="Write with AI"></section>
+<section class="agent" id="outModal" role="dialog" aria-modal="true" aria-label="Reach out"></section>
 <div class="updbar" id="updBar" role="status" hidden></div>
 <div id="uxGloss" hidden></div>
 
@@ -2076,6 +2108,7 @@ function saveBoard(){
     contacts:b.contacts || [], log:(b.log || []).slice(-50), comp:b.comp || {base:null,bonus:null,equity:null},
     next:b.next || null, stageTs:b.stageTs || {}, appliedAt:b.appliedAt || null, fu:b.fu || { sent:[] },
     offer:b.offer || null, offerSeen:b.offerSeen || null, accepted:b.accepted || null,   // 22.8: offer compare extras + hired flow
+    reach:b.reach || null,   // 31: reached out (date, channel, AI follow-up draft)
   })));
 }
 function saveSettings(){
@@ -2101,6 +2134,7 @@ function loadBoardArray(arr){
     if (e.status === 'applied' && !e.appliedAt) e.appliedAt = e.stageTs.applied || e.at;
     e.fu = (e.fu && typeof e.fu === 'object') ? e.fu : {};   // follow-up autopilot (13b): sent dates, snooze, pause
     e.fu.sent = Array.isArray(e.fu.sent) ? e.fu.sent.filter(t => typeof t === 'number').slice(-20) : [];
+    e.reach = outSanitizeReach(e.reach);   // 31
     state.board.set(e.job.id, e);
   });
 }
@@ -2140,6 +2174,7 @@ function loadState(){
   loadAi();   // AI fit score access + cached results (15b)
   loadFu();   // follow-up settings (13b)
   loadGrowth();   // 22: visits, goal, career mode, referral bonus, sync key, AI drafts
+  loadOutreach();   // 31: Reach out drafts + the one free draft per browser
   loadUx();   // 23: sidebar open/closed, first-run hint, sort picked, empty sources shown
 }
 
@@ -3423,7 +3458,7 @@ function salCSV(){
 /* ---- 13b.4 · follow-up autopilot ---- */
 const FU_DEFAULTS = { applied:7, interview:2, repeat:7, max:3, notify:false, lastNotified:'' };
 const FU_STAGES = ['applied', 'screen', 'interview'];
-const FU_KINDS = { application:'After application', thankyou:'Interview thank-you', checkin:'Checking in', withdraw:'Withdraw application' };
+const FU_KINDS = { application:'After application', outreach:'After reaching out', thankyou:'Interview thank-you', checkin:'Checking in', withdraw:'Withdraw application' };
 function loadFu(){
   const c = lsGet(LS.fu);
   state.fuCfg = Object.assign({}, FU_DEFAULTS);
@@ -3440,6 +3475,7 @@ function fuSetCfg(c){
 function saveFu(){ lsSet(LS.fu, state.fuCfg); }
 function fuNext(b, cfg, now){
   cfg = cfg || state.fuCfg; now = now || Date.now();
+  const ro = outFuNext(b, cfg, now); if (ro !== undefined) return ro;   // 31: reached out → nudge on day 5
   if (!b || FU_STAGES.indexOf(b.status) < 0) return null;
   const fu = b.fu || {};
   if (fu.off) return { off:true, stage:b.status };
@@ -3486,6 +3522,7 @@ function fuDraft(b, kind, contact){
     withdraw:{ s:'Withdrawing my application — ' + role,
       b:hi + '\n\nThank you for considering me for the ' + role + ' role at ' + co + '. After some reflection, I’d like to withdraw my application at this time.\n\nI appreciate the time you and the team have spent, and I hope our paths cross again.\n\nBest wishes,\n' + sig },
   };
+  if (kind === 'outreach') return outFuDraft(b, hi, sig);   // 31: the AI follow-up written with the first message
   const t = T[kind] || T.checkin;
   return { subject:t.s, body:t.b };
 }
@@ -3660,7 +3697,7 @@ function openFollowUp(id, kindOverride){
 }
 function openNudge(id){ openFollowUp(id); }   // ghost "NUDGE" buttons now open the follow-up composer
 function fuDrawerHTML(b){
-  if (!b || FU_STAGES.indexOf(b.status) < 0) return '';
+  if (!b || (FU_STAGES.indexOf(b.status) < 0 && !outFuApplies(b))) return '';
   const n = fuNext(b);
   let line;
   if (n.off) line = 'Paused for this job.';
@@ -4343,7 +4380,7 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
      parseGenerateResponse renders Markdown from the model's structured JSON and, when `input` is given, runs
      groundingCheck (numbers / quoted phrases / evidence not found in the CV or posting become warnings). */
 
-  var GEN_KINDS = ['cover_letter', 'interview_prep', 'negotiation', 'tailored_cv'];
+  var GEN_KINDS = ['cover_letter', 'interview_prep', 'negotiation', 'tailored_cv', 'outreach'];
   var GEN_MAX_CV_CHARS = 30000;
   // Per-kind CV caps below GEN_MAX_CV_CHARS. tailored_cv returns a full rewritten CV that is grounding-checked against the
   // input, so its CPU cost grows with CV length on both sides; 15,000 chars keeps the worst case under ~8 ms CPU on the
@@ -4352,10 +4389,17 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
   function genMaxCvChars(kind) { return GEN_MAX_CV_CHARS_BY_KIND[kind] || GEN_MAX_CV_CHARS; }
   var GEN_MAX_JD_CHARS = 20000;
   var GEN_MAX_NOTES_CHARS = 2000;
-  var GEN_MAX_TOKENS = { cover_letter: 4000, interview_prep: 8000, negotiation: 4000, tailored_cv: 16000 };
+  var GEN_MAX_TOKENS = { cover_letter: 4000, interview_prep: 8000, negotiation: 4000, tailored_cv: 16000, outreach: 2000 };
   var GEN_TONES = ['formal', 'warm'];
   var GEN_LANGUAGES = ['en', 'de', 'auto'];
   var COVER_LETTER_MAX_WORDS = 350;
+  // "Reach out" (kind outreach): a short direct email to a hiring manager / named contact, plus a LinkedIn note and a day-5 follow-up.
+  // Its own tones and languages (German always uses the formal "Sie"). The recipient email never goes to the server.
+  var OUTREACH_TONES = ['concise', 'warm'];
+  var OUTREACH_LANGUAGES = ['en', 'de'];
+  var OUTREACH_MAX_WORDS = 120;
+  var OUTREACH_FOLLOWUP_MAX_WORDS = 90;
+  var LINKEDIN_NOTE_MAX_CHARS = 300;
 
   var GEN_COMMON_PROMPT = [
     'You are the HireWire writing assistant. You write ONE document for ONE candidate applying to ONE job, using only the candidate CV, the job posting and the extra inputs you are given.',
@@ -4405,6 +4449,18 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       '- changes: every bullet or line you re-worded (not ones you only moved): original (verbatim from the CV), revised (verbatim as it appears in markdown), reason (short).',
       '- not_added: up to 8 requirements from the posting that you did NOT add because the CV does not show them.',
       '- notes: up to 3 short notes for the candidate. Empty list if none.'
+    ].join('\n'),
+    outreach: [
+      'Task: write a short, direct first message from the candidate to a person at the hiring company (a hiring manager or the contact named in the posting), plus a LinkedIn connection note and a follow-up.',
+      '- subject: a specific email subject line under 80 characters that names the role.',
+      '- body: the email body only (no subject line), greeting to sign-off, at most ' + OUTREACH_MAX_WORDS + ' words. Say which role it is about, give the one or two strongest CV facts that match the posting, and end with one low-pressure ask (a short call, or whether they are the right person). Mention that the CV is attached. No flattery, no generic filler, no claims about the company that are not in the posting.',
+      '- Greeting: if <extra> gives a recipient name, address that person by the name exactly as given and never guess their gender (in German use "Guten Tag <name exactly as given>," unless the name already includes Frau or Herr; in English use "Hi <first name>," for a warm tone or "Dear <name>," for a concise one). With no name, use a neutral greeting ("Hello," / "Guten Tag,"). If a recipient role is given, you may refer to it, but never invent the recipient\'s name, title or team.',
+      '- Sign with the candidate name if the CV states it, otherwise [Your name].',
+      '- linkedin_note: a LinkedIn connection request note of at most ' + LINKEDIN_NOTE_MAX_CHARS + ' characters including spaces, same facts, no links, no greeting longer than the name.',
+      '- followup: a polite follow-up email body (no subject line) to send about five working days later if there is no reply, at most ' + OUTREACH_FOLLOWUP_MAX_WORDS + ' words. Refer back to the first message, add nothing new that the CV does not support.',
+      '- German (when <instructions> say German): always use the formal "Sie" form ("Ihnen", "Ihr"), never "du".',
+      '- facts_used: every CV fact the messages rely on, each copied verbatim from the CV.',
+      '- notes: up to 3 short notes for the candidate (placeholders to fill, requirements you left out because the CV does not support them). Empty list if none.'
     ].join('\n')
   };
 
@@ -4437,7 +4493,8 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       kind: kindProp('tailored_cv'), markdown: S_STR,
       changes: { type: 'array', items: obj({ original: S_STR, revised: S_STR, reason: S_STR }) },
       not_added: S_STRS, notes: S_STRS
-    })
+    }),
+    outreach: obj({ kind: kindProp('outreach'), subject: S_STR, body: S_STR, linkedin_note: S_STR, followup: S_STR, facts_used: S_STRS, notes: S_STRS })
   };
 
   function genSystemPrompt(kind) { return GEN_COMMON_PROMPT + '\n\n' + GEN_KIND_PROMPTS[kind]; }
@@ -4463,10 +4520,25 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       description: desc, salary: str(j.salary).slice(0, 300) };
     var x = body.extra == null ? {} : body.extra;
     if (typeof x !== 'object' || Array.isArray(x)) return { ok: false, code: 'bad_extra' };
-    var tone = x.tone == null || x.tone === '' ? 'formal' : x.tone;
-    if (GEN_TONES.indexOf(tone) < 0) return { ok: false, code: 'bad_tone' };
-    var language = x.language == null || x.language === '' ? 'auto' : x.language;
-    if (GEN_LANGUAGES.indexOf(language) < 0) return { ok: false, code: 'bad_language' };
+    var isOut = kind === 'outreach';
+    // outreach also takes tone / lang / recipient at the top level of the body (CONTRACTS.md §6a); extra.* wins when both are sent
+    var toneIn = x.tone != null && x.tone !== '' ? x.tone : (isOut ? body.tone : null);
+    var langIn = x.language != null && x.language !== '' ? x.language : (isOut ? (body.lang != null ? body.lang : body.language) : null);
+    var tone = toneIn == null || toneIn === '' ? (isOut ? 'concise' : 'formal') : toneIn;
+    if ((isOut ? OUTREACH_TONES : GEN_TONES).indexOf(tone) < 0) return { ok: false, code: 'bad_tone' };
+    var language = langIn == null || langIn === '' ? (isOut ? 'en' : 'auto') : langIn;
+    if ((isOut ? OUTREACH_LANGUAGES : GEN_LANGUAGES).indexOf(language) < 0) return { ok: false, code: 'bad_language' };
+    var recipient = null;
+    if (isOut) {
+      var rc = x.recipient != null ? x.recipient : body.recipient;
+      if (rc != null) {
+        if (typeof rc !== 'object' || Array.isArray(rc)) return { ok: false, code: 'bad_recipient' };
+        if ((rc.name != null && typeof rc.name !== 'string') || (rc.role != null && typeof rc.role !== 'string')) return { ok: false, code: 'bad_recipient' };
+        var rn = str(rc.name), rr = str(rc.role);
+        if (rn.length > 120 || rr.length > 160) return { ok: false, code: 'bad_recipient' };
+        recipient = { name: rn, role: rr };
+      } else recipient = { name: '', role: '' };
+    }
     var notes = x.notes == null ? '' : x.notes;
     if (typeof notes !== 'string') return { ok: false, code: 'bad_notes' };
     notes = notes.trim();
@@ -4481,17 +4553,23 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       offer = { base: base, currency: cur, other: str(o.other).slice(0, 1000) };
     }
     if (kind === 'negotiation' && !offer) return { ok: false, code: 'offer_required' };
-    return { ok: true, kind: kind, cv: cv, job: job, extra: { tone: tone, language: language, offer: offer, notes: notes } };
+    var out = { ok: true, kind: kind, cv: cv, job: job, extra: { tone: tone, language: language, offer: offer, notes: notes } };
+    if (isOut) out.extra.recipient = recipient;
+    return out;
   }
 
   var stripGenTags = function (s) { return String(s == null ? '' : s).replace(/<\/?\s*(cv|job_posting|extra|instructions)\s*>/gi, ''); };
 
   function buildGenerateUserMessage(kind, input) {
     var j = input.job, x = input.extra || {};
-    var lang = x.language === 'de' ? 'Write in German.' : x.language === 'en' ? 'Write in English.'
+    var lang = x.language === 'de' ? 'Write in German.' + (kind === 'outreach' ? ' Use the formal "Sie" form throughout.' : '') : x.language === 'en' ? 'Write in English.'
       : 'Write in the language of the job posting.';
-    var tone = x.tone === 'warm' ? 'Tone: warm, personable and direct, still professional.' : 'Tone: formal and professional, concise.';
+    var tone = x.tone === 'warm' ? 'Tone: warm, personable and direct, still professional.'
+      : x.tone === 'concise' ? 'Tone: concise, plain and direct; short sentences, no filler.' : 'Tone: formal and professional, concise.';
     var extra = '';
+    if (x.recipient && (x.recipient.name || x.recipient.role)) {
+      extra += (x.recipient.name ? 'Recipient name: ' + stripGenTags(x.recipient.name) + '\n' : '') + (x.recipient.role ? 'Recipient role: ' + stripGenTags(x.recipient.role) + '\n' : '');
+    } else if (kind === 'outreach') extra += 'Recipient: unknown (use a neutral greeting)\n';
     if (x.offer) extra += 'Offer: base ' + x.offer.base + ' ' + x.offer.currency + (x.offer.other ? '\nOther parts of the offer: ' + stripGenTags(x.offer.other) : '') + '\n';
     if (x.notes) extra += 'Candidate notes: ' + stripGenTags(x.notes) + '\n';
     return '<job_posting>\nTitle: ' + stripGenTags(j.title) +
@@ -4612,6 +4690,28 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       markdown = joinSections(sections);
       data = { counter: { low: low, high: high, currency: currency, rationale: rationale, has_range: hasRange }, leverage: lev,
         script: script, email: { subject: subject, body: body } };
+    } else if (kind === 'outreach') {
+      var subj = md(o.subject, 300), obody = md(o.body, 4000), note = md(o.linkedin_note, 1500), fup = md(o.followup, 3000);
+      var ofacts = cleanList(o.facts_used == null ? [] : o.facts_used, 20, 400);
+      if (!subj || !obody || note === null || !fup || !ofacts) return { ok: false, error: 'bad_outreach' };
+      if (note.length > LINKEDIN_NOTE_MAX_CHARS) {
+        var cut = note.slice(0, LINKEDIN_NOTE_MAX_CHARS);
+        var endS = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('! '), cut.lastIndexOf('? '));
+        if (/[.!?]$/.test(cut)) endS = cut.length - 1;
+        note = endS > 120 ? cut.slice(0, endS + 1).trim() : cut.slice(0, Math.max(cut.lastIndexOf(' '), LINKEDIN_NOTE_MAX_CHARS - 1)).trim().replace(/[,;:\-]$/, '') + '\u2026';
+        if (note.length > LINKEDIN_NOTE_MAX_CHARS) note = note.slice(0, LINKEDIN_NOTE_MAX_CHARS - 1) + '\u2026';
+        warnings.push({ type: 'format', message: 'The LinkedIn note was longer than ' + LINKEDIN_NOTE_MAX_CHARS + ' characters and was shortened. Read it before you send it.' });
+      }
+      var owc = wordCount(obody), fwc = wordCount(fup);
+      if (owc > OUTREACH_MAX_WORDS) warnings.push({ type: 'over_word_limit', text: String(owc), message: 'The email has ' + owc + ' words (limit ' + OUTREACH_MAX_WORDS + '). Shorter emails get more replies.' });
+      if (fwc > OUTREACH_FOLLOWUP_MAX_WORDS + 30) warnings.push({ type: 'over_word_limit', text: String(fwc), message: 'The follow-up has ' + fwc + ' words; consider trimming it.' });
+      sections = [
+        { id: 'email', title: 'Email', markdown: '**Subject:** ' + subj + '\n\n' + obody },
+        { id: 'linkedin', title: 'LinkedIn note', markdown: note || '' },
+        { id: 'followup', title: 'Follow-up (day 5)', markdown: fup }
+      ];
+      markdown = joinSections(sections);
+      data = { subject: subj, body: obody, linkedin_note: note || '', followup: fup, facts_used: ofacts, word_count: owc, linkedin_chars: (note || '').length };
     } else {   // tailored_cv
       var cvmd = md(o.markdown, 60000);
       if (!cvmd) return { ok: false, error: 'bad_tailored_cv' };
@@ -4701,7 +4801,8 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
     if (!c.ok) return warnings;
     var j = c.job, x = c.extra || {};
     var sourceText = [c.cv, j.title, j.company, j.location, j.salary, j.description, x.notes,
-      x.offer ? x.offer.base + ' ' + x.offer.currency + ' ' + (x.offer.other || '') : ''].join('\n');
+      x.offer ? x.offer.base + ' ' + x.offer.currency + ' ' + (x.offer.other || '') : '',
+      x.recipient ? x.recipient.name + ' ' + x.recipient.role : ''].join('\n');
     var srcNorm = normText(sourceText), cvNorm = normText(c.cv);
     var srcNums = sourceNumberSet(sourceText);
     var seen = {};
@@ -4740,6 +4841,7 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
       if (wc > COVER_LETTER_MAX_WORDS) add({ type: 'over_word_limit', text: String(wc), message: 'The letter has ' + wc + ' words (limit ' + COVER_LETTER_MAX_WORDS + ').' });
     }
     if (result.kind === 'interview_prep') evidence(d.questions, 'cv_evidence');
+    if (result.kind === 'outreach') evidence(d.facts_used);
     if (result.kind === 'negotiation') evidence(d.leverage, 'cv_evidence');
     if (result.kind === 'tailored_cv') {
       var outNorm = normText((result.sections && result.sections[0] && result.sections[0].markdown) || result.markdown);
@@ -4794,6 +4896,8 @@ const FS_CACHE_MAX = 200;                         // cached results kept per bro
     // Pass Plus AI writing
     GEN_KINDS: GEN_KINDS, GEN_MAX_CV_CHARS: GEN_MAX_CV_CHARS, GEN_MAX_CV_CHARS_BY_KIND: GEN_MAX_CV_CHARS_BY_KIND, genMaxCvChars: genMaxCvChars, GEN_MAX_JD_CHARS: GEN_MAX_JD_CHARS, GEN_MAX_NOTES_CHARS: GEN_MAX_NOTES_CHARS,
     GEN_MAX_TOKENS: GEN_MAX_TOKENS, GEN_SCHEMAS: GEN_SCHEMAS, COVER_LETTER_MAX_WORDS: COVER_LETTER_MAX_WORDS,
+    OUTREACH_TONES: OUTREACH_TONES, OUTREACH_LANGUAGES: OUTREACH_LANGUAGES, OUTREACH_MAX_WORDS: OUTREACH_MAX_WORDS,
+    OUTREACH_FOLLOWUP_MAX_WORDS: OUTREACH_FOLLOWUP_MAX_WORDS, LINKEDIN_NOTE_MAX_CHARS: LINKEDIN_NOTE_MAX_CHARS,
     genSystemPrompt: genSystemPrompt, checkGenerateInputs: checkGenerateInputs, buildGenerateUserMessage: buildGenerateUserMessage,
     buildGenerateRequestBody: buildGenerateRequestBody, validateGenerateResult: validateGenerateResult,
     groundingCheck: groundingCheck, parseGenerateResponse: parseGenerateResponse
@@ -5101,6 +5205,7 @@ function openFsModal(reason, prefillSid){
   if (reason !== 'claimed' && reason !== 'claim_failed') hwTrack('paywall_view');
   if (reason === 'plus') sub = 'WRITING WITH AI — TAILORED CV, COVER LETTERS, INTERVIEW PREP, NEGOTIATION';
   if (reason === 'sync') sub = 'ENCRYPTED SYNC IS INCLUDED WITH ANY PASS';
+  if (reason === 'outreach') sub = 'REACH OUT DRAFTS ARE INCLUDED WITH EVERY PASS';
   let status = '';
   if (active) status = '<div class="fs-status">' + (fsTier() === 'plus' ? 'PASS PLUS' : (a.pass.plan === '30d' ? '30-DAY PASS' : '7-DAY PASS')) + ' ACTIVE UNTIL <b>' + esc(fsDate(a.pass.exp)) + '</b>' +
     (a.pass.sid ? '<br>YOUR PASS ID — KEEP IT TO RESTORE ON ANOTHER DEVICE: <code>' + esc(a.pass.sid) + '</code> <button class="btn mini" data-act="fscopyid">COPY</button>' : '') +
@@ -5116,10 +5221,10 @@ function openFsModal(reason, prefillSid){
       '<p class="ag-sub">' + esc(sub) + '</p></div><button class="d-x" data-act="fsclose" aria-label="Close">×</button></div>' +
     '<div class="ag-body fs-mbody">' + hook + status +
       '<div class="fs-plans">' +
-        plan('7d', '7-DAY PASS', 'Unlimited* AI fit scores for 7 days. One-time payment — no subscription, no account.', reason === 'limit' || reason === 'free_limit_ip') +
-        plan('30d', '30-DAY PASS', 'Unlimited* AI fit scores for 30 days — enough for a whole search. Includes encrypted sync. One-time payment.', false) +
+        plan('7d', '7-DAY PASS', 'Unlimited* AI fit scores and Reach out drafts to hiring managers for 7 days. One-time payment — no subscription, no account.', reason === 'limit' || reason === 'free_limit_ip' || reason === 'outreach') +
+        plan('30d', '30-DAY PASS', 'Unlimited* AI fit scores and Reach out drafts for 30 days — enough for a whole search. Includes encrypted sync. One-time payment.', false) +
         plan('plus30', 'PASS PLUS', '30 days of everything in the 30-day pass, plus writing with AI:', reason === 'plus',
-          '<ul><li>Tailored CV export (PDF / DOCX)</li><li>Cover letters</li><li>Interview prep from the posting</li><li>Negotiation script</li></ul>') +
+          '<ul><li>Tailored CV export (PDF / DOCX)</li><li>Cover letters</li><li>Interview prep from the posting</li><li>Negotiation script</li><li>Reach out drafts (as in every pass)</li></ul>') +
       '</div>' +
       '<div class="fs-own"><div><label class="tlabel">OR USE YOUR OWN CLAUDE KEY — FREE</label>' +
           '<p>Scores and AI writing go straight from this browser to Anthropic and they bill you (roughly $0.002 per score). The key stays in this browser.</p>' +
@@ -5271,6 +5376,7 @@ function openDrawer(id){
     (why ? '<div class="d-why">' + why + '</div>' : '') +
     '<div class="d-sec d-ghostbox" id="dGhost"><label>Ghost-job risk</label>' + ghostBoxHTML(gr) + '</div>' +   // 13b
     '<div class="d-sec fs" id="fsBox">' + fsBoxHTML(j) + '</div>' +   // AI fit score (15b)
+    outDrawerHTML(j) +   // 31: Reach out
     aiwDrawerHTML(j) +   // Write with AI (22.10)
     '<div class="d-meta">' +
       '<div><label>SALARY</label><span>' + esc(fmtSalary(j) || 'NOT DISCLOSED') + '</span></div>' +
@@ -6384,6 +6490,7 @@ function bindEvents(){
       else if ($('#fsModal') && $('#fsModal').classList.contains('open')) closeFsModal();
       else if ($('#growthModal') && $('#growthModal').classList.contains('open')){ if (GR.modalKind !== 'synccode') closeGrowthModal(); }
       else if ($('#aiwModal') && $('#aiwModal').classList.contains('open')) closeAiWrite();
+      else if ($('#outModal') && $('#outModal').classList.contains('open')) closeOutreach();
       else if ($('#agentModal') && $('#agentModal').classList.contains('open')) closeAgent();
       else if ($('#briefModal') && $('#briefModal').classList.contains('open')) closeViewer();
       else if ($('#drawer') && $('#drawer').classList.contains('open')) closeDrawer();
@@ -7495,7 +7602,7 @@ function renderAiWrite(){
   let body = '';
   if (acc === 'locked'){
     body += '<div class="aiw-up"><b>' + esc(AIW_KINDS[u.kind]) + ' with AI is part of Pass Plus.</b>' +
-      '<ul><li>Tailored CV export (PDF / DOCX)</li><li>Cover letters</li><li>Interview prep from the posting</li><li>Negotiation script</li><li>Plus everything in the 30-day pass: unlimited* AI fit scores</li></ul>' +
+      '<ul><li>Tailored CV export (PDF / DOCX)</li><li>Cover letters</li><li>Interview prep from the posting</li><li>Negotiation script</li><li>Plus everything in the 30-day pass: unlimited* AI fit scores and Reach out drafts</li></ul>' +
       '<div class="btnrow"><button class="btn red" data-act="aiwplus">GET PASS PLUS — ' + FS_PRICES.plus30 + ' / 30 DAYS</button><button class="btn" data-act="aiwoptions">ALL OPTIONS (INCL. YOUR OWN KEY)</button></div></div>';
     if (u.kind === 'interview_prep') body += '<p class="fine">Free alternative: the local prep sheet (no AI) — <button class="btn mini" data-act="aiwprep">OPEN PREP SHEET</button></p>';
     if (u.kind === 'negotiation'){ u.localMd = aiwLocalNegotiation(j); body += '<h3 class="aiw-h">Free template (no AI)</h3><div class="aiw-out md">' + mdToHtml(u.localMd) + '</div>'; }
@@ -7618,7 +7725,8 @@ function buildBackupPayload(){
     app:'HireWire', version:2, generator:HW_GENERATOR, exportedAt:new Date().toISOString(),   // restore ignores 'generator'
     profile:state.profile, byok:state.byok,
     board:boardArr().map(b => ({ id:b.job.id, job:b.job, status:b.status, note:b.note, at:b.at,
-      contacts:b.contacts, log:b.log, comp:b.comp, next:b.next, stageTs:b.stageTs, appliedAt:b.appliedAt, fu:b.fu, offer:b.offer || null, offerSeen:b.offerSeen || null, accepted:b.accepted || null })),
+      contacts:b.contacts, log:b.log, comp:b.comp, next:b.next, stageTs:b.stageTs, appliedAt:b.appliedAt, fu:b.fu, offer:b.offer || null, offerSeen:b.offerSeen || null, accepted:b.accepted || null,
+      reach:b.reach ? { at:b.reach.at, via:b.reach.via, lang:b.reach.lang } : null })),   // 31: date + channel only; AI drafts never leave this browser
     followupSettings:{ applied:state.fuCfg.applied, interview:state.fuCfg.interview, repeat:state.fuCfg.repeat, max:state.fuCfg.max },
     savedSearches:state.savedSearches, starBank:state.starBank, people:state.people,
     settings:{ remoteOnly:state.filters.remoteOnly, floorOnly:state.filters.floorOnly,
@@ -7985,6 +8093,10 @@ function bindGrowth(){
     });
     e.addEventListener('change', ev => { const t = ev.target; if (t && (t.dataset.oc || t.dataset.ocw)) grOfferEdit(t); });
   });
+  B('outModal', e => e.addEventListener('click', ev => {   // 31
+    if (ev.target === e){ closeOutreach(); return; }
+    const a = ev.target.closest('[data-act]'); if (a) outAction(a);
+  }));
   B('aiwModal', e => e.addEventListener('click', ev => {
     if (ev.target === e){ closeAiWrite(); return; }
     const a = ev.target.closest('[data-act]'); if (a) aiwAction(a.dataset.act);
@@ -7992,6 +8104,7 @@ function bindGrowth(){
   B('drawer', e => e.addEventListener('click', ev => {
     const a = ev.target.closest('[data-act]'); if (!a || !state.drawerId) return;
     if (a.dataset.act === 'aiw') openAiWrite(state.drawerId, a.dataset.kind);
+    else if (a.dataset.act === 'outopen') openOutreach(state.drawerId);
     else if (a.dataset.act === 'markapplied') grMarkApplied(state.drawerId, 'drawer');
     else if (a.dataset.act === 'hiredopen') openHired(state.drawerId);
   }));
@@ -8332,6 +8445,346 @@ function bindPlays(){
     const d = ev.target;
     if (d && d.tagName === 'DETAILS' && d.open && d.dataset.fq) hwTrack('fair_question_open', { kind:d.dataset.fq });
   }, true);
+}
+
+
+/* ============ 31 · "REACH OUT" — direct email to the hiring contact (2026-10-22) ============
+   Drawer button "✉ Reach out" (German browsers: "Direkt anschreiben") opens #outModal:
+   - a contact SUGGESTION detected locally from the posting text ("Ihr Ansprechpartner: Frau X", "Kontakt:", e-mails); nothing is looked up
+   - name / role / email fields (the email never leaves the browser: it only fills the mailto link) + two plain helper links
+     (Google search for the company's careers/team page, LinkedIn people search) — no scraping, no enrichment
+   - EN/DE (German = Sie) and concise/warm toggles → POST /api/generate kind "outreach" (CONTRACTS.md §6a)
+     access: any pass (either tier) → your own Anthropic key → ONE free draft per browser → paywall
+   - result: subject, email, LinkedIn note, day-5 follow-up, each with Copy; "Open in mail app" (mailto, ~1,800 encoded chars max,
+     otherwise copy); reminder to attach the CV PDF (/cv-builder.html)
+   - after mail/copy: the job gets b.reach {at, via, subject, followup} → "Reached out" + date, and the follow-up autopilot
+     (fuNext) nudges on day 5 with the AI follow-up as the draft.
+   Drafts stay in this browser (LS.outreach and b.reach.followup/subject in local storage; backups and sync carry only the
+   reach date, channel and language). Analytics: event names + enum props only (hwTrack). */
+LS.outreach = 'hirewire.outreach.v1';
+const OUT_FREE = 1;                 // free drafts per browser (the server also allows 2 per network per day as a backstop)
+const OUT_FU_DAYS = 5;              // follow-up nudge after reaching out
+const OUT_MAILTO_MAX = 1800;        // encoded mailto length above which we copy instead
+const OUT_DE_UI = /^de\b/i.test((typeof navigator !== 'undefined' && navigator.language) || '');
+const OUT_LABEL = OUT_DE_UI ? 'Direkt anschreiben' : 'Reach out';
+let OUTS = { freeUsed:0, drafts:{} };
+const OUTU = { id:null, busy:false, err:null, lang:'', tone:'concise', name:'', role:'', email:'', sugUsed:false };
+function loadOutreach(){
+  const o = lsGet(LS.outreach);
+  OUTS = { freeUsed:0, drafts:{} };
+  if (o && typeof o === 'object'){
+    OUTS.freeUsed = Math.max(0, Math.min(99, parseInt(o.freeUsed, 10) || 0));
+    if (o.drafts && typeof o.drafts === 'object' && !Array.isArray(o.drafts)) OUTS.drafts = o.drafts;
+  }
+}
+function saveOutreach(){
+  const ids = Object.keys(OUTS.drafts);
+  if (ids.length > 60) ids.sort((a, b) => (OUTS.drafts[a].at || 0) - (OUTS.drafts[b].at || 0)).slice(0, ids.length - 60).forEach(id => { delete OUTS.drafts[id]; });
+  lsSet(LS.outreach, OUTS);
+}
+function outAccess(){
+  if (fsPassActive()) return 'pass';
+  if (state.ai.byokKey) return 'byok';
+  if (OUTS.freeUsed < OUT_FREE) return 'free';
+  return 'locked';
+}
+
+/* ---- contact suggestion from the posting text (local regex only) ---- */
+const OUT_EMAIL_RE = /[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,24}/g;
+const OUT_LINE_RE = /(ihr(?:e)?\s+ansprechpartner(?:in)?|ansprechpartner(?:\*?in|in)?|ansprechperson|kontaktperson|kontakt|fragen\s+beantwortet(?:\s+ihnen)?|your\s+contact(?:\s+person)?|contact\s+person|hiring\s+manager|recruiter(?:in)?|questions\?\s*contact)\s*[:\-–—]?\s*([^\n]{0,160})/gi;
+const OUT_NAME_RE = /(?:^|[\s(,:])((?:Frau|Herr|Ms\.?|Mrs\.?|Mr\.?)\s+)?((?:(?:Dr|Prof)\.\s+)?[A-ZÄÖÜ][a-zäöüßéèáàíóúñ]+(?:-[A-ZÄÖÜ]?[a-zäöüßéèáàíóúñ]+)*(?:\s+(?:von\s+|van\s+|de\s+|zu\s+)?[A-ZÄÖÜ][a-zäöüßéèáàíóúñ]+(?:-[A-ZÄÖÜ]?[a-zäöüßéèáàíóúñ]+)*){1,2})/;
+const OUT_NOT_NAME = /^(Team|Talent|Human|People|Recruiting|Personal|Abteilung|Bewerbung|Unternehmen|Firma|Jobs?|Karriere|Careers?|Hiring|Senior|Junior|Head|Lead|Manager|Please|Bitte|Wir|Sie|Ihr|Ihre|Fragen|Kontakt|Contact|Telefon|Phone|Tel|Mobil|Email|E-Mail|Mail|Weitere|Gerne|Haben|Bei)\b/;
+const OUT_GENERIC_MAIL = /^(no-?reply|noreply|donotreply|privacy|datenschutz|dpo|gdpr|support|info@?$|newsletter|abuse|postmaster|webmaster)/i;
+function outDetectContact(text){
+  const t = String(text || '').replace(/\r/g, '').slice(0, 20000);
+  if (!t) return null;
+  const emails = (t.match(OUT_EMAIL_RE) || []).map(e => e.replace(/[.\-]+$/, '')).filter(e => !OUT_GENERIC_MAIL.test(e.split('@')[0]) && !/\.(png|jpe?g|gif|svg|webp)$/i.test(e));
+  let best = null;
+  OUT_LINE_RE.lastIndex = 0;
+  let m;
+  while ((m = OUT_LINE_RE.exec(t)) && !best){
+    const rest = m[2] || '';
+    const nm = rest.match(OUT_NAME_RE);
+    if (!nm || OUT_NOT_NAME.test(nm[2])) continue;
+    const sal = (nm[1] || '').trim();
+    const name = (sal ? sal + ' ' : '') + nm[2].trim();
+    let role = '';
+    const after = rest.slice(rest.indexOf(nm[2]) + nm[2].length);
+    const rm = after.match(/^\s*(?:\(([^)@\n]{3,60})\)|[,–—|-]\s*([^,@\n|]{3,60}))/);
+    if (rm) role = String(rm[1] || rm[2] || '').trim().replace(/[.;:]+$/, '');
+    if (/\d{3,}|tel\b|phone|telefon|@/i.test(role)) role = '';
+    const mail = (rest.match(OUT_EMAIL_RE) || [])[0] || '';
+    best = { name:name.slice(0, 80), role:role.slice(0, 80), email:mail && !OUT_GENERIC_MAIL.test(mail.split('@')[0]) ? mail : '' };
+  }
+  if (best && !best.email && emails.length){
+    const last = best.name.split(/\s+/).pop().toLowerCase().replace(/[^a-zäöüß]/g, '');
+    best.email = emails.find(e => last && e.toLowerCase().indexOf(last.slice(0, 5)) >= 0) || (emails.length === 1 ? emails[0] : '');
+  }
+  if (!best && emails.length) best = { name:'', role:'', email:emails[0] };
+  return best && (best.name || best.email) ? best : null;
+}
+function outRoleGuess(title){
+  const t = String(title || '').toLowerCase();
+  if (/data|analytics|machine learning|\bml\b|\bai\b/.test(t)) return 'Head of Data';
+  if (/engineer|developer|entwickler|software|devops|backend|frontend|full.?stack|sre|platform|informatik/.test(t)) return 'Engineering Manager';
+  if (/design|ux|ui\b/.test(t)) return 'Design Lead';
+  if (/product/.test(t)) return 'Head of Product';
+  if (/marketing|growth|seo|content/.test(t)) return 'Head of Marketing';
+  if (/sales|account exec|vertrieb|business development/.test(t)) return 'Head of Sales';
+  if (/finance|accounting|controller|buchhalt/.test(t)) return 'Head of Finance';
+  if (/hr\b|people|recruit|personal/.test(t)) return 'Head of People';
+  return 'Hiring Manager';
+}
+function outLinks(j){
+  const co = String(j.company || '').trim();
+  const g = 'https://www.google.com/search?q=' + encodeURIComponent('"' + co + '" careers OR team OR "about us"');
+  const li = 'https://www.linkedin.com/search/results/people/?keywords=' + encodeURIComponent(co + ' ' + outRoleGuess(j.title));
+  return { google:g, linkedin:li };
+}
+function outLooksGerman(text){
+  const m = String(text || '').slice(0, 6000).match(/\b(und|wir|Sie|für|mit|Ihre|Ihr|Aufgaben|Kenntnisse|Erfahrung|bieten|suchen|Bewerbung)\b/g);
+  return !!m && m.length >= 6;
+}
+
+/* ---- mailto (length-guarded) ---- */
+function outMailto(to, subject, body){
+  const url = fuMailto(to, subject, body);
+  return url.length <= OUT_MAILTO_MAX ? { url:url, full:true } : { url:fuMailto(to, subject, ''), full:false };
+}
+
+/* ---- "Reached out" + follow-up autopilot hook ---- */
+function outFuApplies(b){
+  if (!b || !b.reach || !(b.reach.at > 0)) return false;
+  if (b.status === 'saved') return true;   // reaching out is the step while a job is only saved
+  if (b.status !== 'applied') return false;  // screen / interview / offer: the usual stage rules
+  const anchor = (b.stageTs && b.stageTs.applied) || b.appliedAt || 0;
+  return b.reach.at >= anchor - 60000;       // reached out after applying → nudge from the outreach date
+}
+// Called first by fuNext(): returns undefined when the outreach rules don't apply (then the usual stage rules run).
+function outFuNext(b, cfg, now){
+  if (!outFuApplies(b)) return undefined;
+  const fu = b.fu || {}, at = b.reach.at;
+  if (fu.off) return { off:true, stage:b.status };
+  const sent = (fu.sent || []).filter(t => t >= at).sort((x, y) => x - y);
+  if (sent.length >= cfg.max) return { done:true, stage:b.status, count:sent.length, anchor:at, last:sent[sent.length - 1] };
+  let due, kind;
+  if (!sent.length){ due = addDays(dayStart(at), OUT_FU_DAYS); kind = 'outreach'; }
+  else { due = addDays(dayStart(sent[sent.length - 1]), cfg.repeat); kind = 'checkin'; }
+  if (fu.snooze && fu.snooze > due) due = dayStart(fu.snooze);
+  return { due:due, kind:kind, stage:b.status, count:sent.length, anchor:at, isDue:now >= due,
+    overdue:Math.max(0, Math.round((dayStart(now) - due) / 864e5)) };
+}
+function outFuDraft(b, hi, sig){
+  const j = b.job, r = b.reach || {}, d = OUTS.drafts[j.id] || {};
+  const fup = r.followup || d.followup, subj = r.subject || d.subject;
+  if (fup) return { subject:'Re: ' + (subj || j.title), body:String(fup) };
+  const when = r.at ? new Date(r.at).toLocaleDateString('en-GB', { day:'numeric', month:'long' }) : 'recently';
+  return { subject:'Re: ' + j.title + ' at ' + j.company,
+    body:hi + '\n\nI wrote to you on ' + when + ' about the ' + j.title + ' role at ' + j.company + '. I’m still very interested and would be glad to have a short call if that is useful.\n\nThank you,\n' + sig };
+}
+function outSanitizeReach(r){
+  if (!r || typeof r !== 'object' || !(typeof r.at === 'number' && r.at > 0)) return null;
+  return { at:r.at, via:/^(mail|copy|linkedin)$/.test(r.via) ? r.via : 'copy', subject:String(r.subject || '').slice(0, 200), followup:String(r.followup || '').slice(0, 3000),
+    lang:r.lang === 'de' ? 'de' : 'en' };
+}
+function outMarkReached(id, via){
+  const j = byId(id); if (!j) return;
+  const d = OUTS.drafts[id] || {};
+  const now = Date.now();
+  let b = state.board.get(id);
+  if (!b){
+    b = { job:j, status:'saved', note:'', at:now, contacts:[], log:[], comp:{ base:null, bonus:null, equity:null }, next:null,
+      stageTs:{ saved:now }, appliedAt:null, fu:{ sent:[] } };
+    state.board.set(id, b);
+    if (!state.persistAsked){ state.persistAsked = true; try { requestPersist(); } catch(e){} }
+  }
+  const sameDay = b.reach && dayStart(b.reach.at) === dayStart(now);
+  b.reach = { at:sameDay ? b.reach.at : now, via:via, subject:String(d.subject || '').slice(0, 200), followup:String(d.followup || '').slice(0, 3000), lang:d.lang === 'de' ? 'de' : 'en' };
+  const nm = (OUTU.name || '').trim(), em = (OUTU.email || '').trim();
+  if (nm && !(b.contacts || []).some(c => c && c.name === nm)){ b.contacts = (b.contacts || []).concat({ name:nm.slice(0, 80), email:(looksEmail(em) ? em : (OUTU.role || '')).slice(0, 120) }); }
+  if (!sameDay) logAdd(b, 'reached out (' + (via === 'mail' ? 'email' : via === 'linkedin' ? 'LinkedIn note copied' : 'draft copied') + ')');
+  b.at = now;
+  saveBoard(); renderAll();
+  if (state.drawerId === id){ const s = document.getElementById('dOut'); if (s) s.outerHTML = outDrawerHTML(j); }
+  const n = fuNext(b);
+  if (!sameDay){ toast('REACHED OUT — ' + tr(j.company, 24).toUpperCase() + (n && n.due ? ' · FOLLOW-UP ' + fmtDay(n.due) : '')); hwTrack('outreach_sent', { kind:via }); }
+  renderOutreach();
+}
+
+/* ---- drawer section ---- */
+function outDrawerHTML(j){
+  const b = state.board.get(j.id), r = b && b.reach;
+  let line = '';
+  if (r && r.at){
+    const n = fuNext(b);
+    line = '<p class="out-done">✓ REACHED OUT ' + esc(fmtDay(r.at)) + (n && n.kind === 'outreach' && n.due ? ' · FOLLOW-UP NUDGE ' + esc(fmtDay(n.due)) : '') + '</p>';
+  }
+  const acc = outAccess();
+  const tag = acc === 'pass' ? 'INCLUDED IN YOUR PASS' : acc === 'byok' ? 'YOUR KEY' : acc === 'free' ? '1 FREE DRAFT' : 'WITH ANY PASS';
+  return '<div class="d-sec out-sec" id="dOut"><label>Reach the hiring team <span class="fs-beta">' + tag + '</span></label>' +
+    '<div class="btnrow" style="margin:0"><button class="btn red" data-act="outopen">✉ ' + esc(OUT_LABEL).toUpperCase() + '</button>' +
+    (OUTS.drafts[j.id] ? '<span class="dim out-has">DRAFT READY</span>' : '') + '</div>' + line + '</div>';
+}
+
+/* ---- the panel ---- */
+function openOutreach(id){
+  const j = byId(id); if (!j) return;
+  const b = state.board.get(id), d = OUTS.drafts[id];
+  const det = outDetectContact(j.description);
+  const c0 = b && (b.contacts || [])[0];
+  Object.assign(OUTU, { id:id, busy:false, err:null, det:det, sugUsed:false,
+    lang:(d && d.lang) || (outLooksGerman(j.description) ? 'de' : (OUT_DE_UI && !j.description ? 'de' : 'en')),
+    tone:(d && d.tone) || OUTU.tone || 'concise',
+    name:(d && d.to && d.to.name) || (c0 && c0.name) || '', role:(d && d.to && d.to.role) || '', email:(c0 && looksEmail(c0.email) ? c0.email : '') });
+  hwTrack('outreach_open', { tier:outAccess() });
+  if (outAccess() === 'locked') hwTrack('outreach_paywall', { kind:'view' });
+  renderOutreach();
+}
+function outReadFields(){
+  const v = id => { const e = document.getElementById(id); return e ? e.value.trim() : null; };
+  const n = v('outName'), r = v('outRole'), e = v('outEmail');
+  if (n !== null) OUTU.name = n.slice(0, 120);
+  if (r !== null) OUTU.role = r.slice(0, 160);
+  if (e !== null) OUTU.email = e.slice(0, 254);
+}
+function outBlock(key, title, text, act){
+  return '<div class="out-block"><div class="out-bh"><h3 class="aiw-h">' + esc(title) + '</h3><button class="btn mini" data-act="outcopy" data-k="' + key + '">COPY</button></div>' +
+    '<div class="out-text">' + esc(text).replace(/\n/g, '<br>') + '</div></div>';
+}
+function renderOutreach(){
+  const m = document.getElementById('outModal'), u = OUTU; if (!m || !u.id) return;
+  const j = byId(u.id); if (!j){ closeOutreach(); return; }
+  const acc = outAccess(), d = OUTS.drafts[u.id], b = state.board.get(u.id);
+  const L = outLinks(j), cv = fsCvText();
+  let h = '';
+  if (u.det && !u.sugUsed){
+    const s = u.det;
+    h += '<div class="out-sug"><span><b>Found in the posting:</b> ' + esc([s.name, s.role].filter(Boolean).join(', ')) + (s.email ? (s.name ? ' · ' : '') + esc(s.email) : '') +
+      ' <span class="dim">— a suggestion, check it in the posting.</span></span><button class="btn mini" data-act="outsug">USE</button></div>';
+  }
+  h += '<div class="out-grid">' +
+    '<label class="aiw-f">Name <span class="dim">(optional)</span><input class="input" id="outName" maxlength="120" autocomplete="off" value="' + esc(u.name) + '" placeholder="e.g. Erika Mustermann"></label>' +
+    '<label class="aiw-f">Their role <span class="dim">(optional)</span><input class="input" id="outRole" maxlength="160" autocomplete="off" value="' + esc(u.role) + '" placeholder="e.g. ' + esc(outRoleGuess(j.title)) + '"></label>' +
+    '<label class="aiw-f">Email <span class="dim">(optional, stays in this browser)</span><input class="input" id="outEmail" type="email" maxlength="254" autocomplete="off" value="' + esc(u.email) + '" placeholder="name@company.com"></label>' +
+    '</div>';
+  h += '<p class="out-links">Find the right person: <a href="' + esc(L.google) + '" target="_blank" rel="noopener" data-act="outlink" data-k="google">' + esc(j.company) + ' careers / team page ↗</a>' +
+    ' · <a href="' + esc(L.linkedin) + '" target="_blank" rel="noopener" data-act="outlink" data-k="linkedin">LinkedIn: ' + esc(outRoleGuess(j.title)) + ' at ' + esc(tr(j.company, 30)) + ' ↗</a></p>';
+  if (!cv && acc !== 'locked') h += '<label class="aiw-f">Your CV — sent only for this request<textarea class="input" id="outCv" placeholder="Paste your CV / résumé text"></textarea></label>';
+  const seg = (key, opts, cur) => '<span class="out-seg" role="group">' + opts.map(o => '<button class="tog' + (cur === o[0] ? ' on' : '') + '" data-act="outset" data-k="' + key + '" data-v="' + o[0] + '" aria-pressed="' + (cur === o[0]) + '">' + o[1] + '</button>').join('') + '</span>';
+  if (acc === 'locked'){
+    h += '<div class="aiw-up"><b>You used your free Reach out draft.</b> Every pass includes Reach out drafts (up to 30 a day), plus AI fit scores:' +
+      '<div class="btnrow" style="margin-top:8px"><button class="btn red" data-act="outbuy">GET A 7-DAY PASS — ' + FS_PRICES['7d'] + '</button><button class="btn" data-act="outoptions">ALL OPTIONS (INCL. YOUR OWN KEY)</button></div></div>';
+  } else {
+    h += '<div class="aiw-opts out-opts"><label>Language ' + seg('lang', [['en', 'EN'], ['de', 'DE (Sie)']], u.lang) + '</label>' +
+      '<label>Tone ' + seg('tone', [['concise', 'CONCISE'], ['warm', 'WARM']], u.tone) + '</label>' +
+      '<button class="btn red" data-act="outgo"' + (u.busy ? ' disabled' : '') + '>' + (u.busy ? 'WRITING…' : (d ? 'WRITE AGAIN' : 'GENERATE')) + '</button></div>';
+    h += '<p class="fine">' + (acc === 'pass' ? 'Included with your pass.' : acc === 'byok' ? 'Uses your own Anthropic key, straight from this browser.' : 'Your first draft is free; after that, Reach out comes with any pass.') +
+      ' ' + (acc === 'byok' ? 'Your CV, the posting and the name/role go to Anthropic for this request.' : 'Your CV, the posting and the name/role go to HireWire’s writing function and on to Google’s Gemini API for this one request; HireWire stores none of it. The email address is never sent.') +
+      ' <a href="/privacy.html#ai-fit-score" target="_blank" rel="noopener">Details</a></p>';
+  }
+  if (u.busy) h += '<div class="fs-busy" role="status"><span class="fs-spin"></span>WRITING… USUALLY 5–30 SECONDS</div>';
+  if (u.err) h += '<p class="fs-err" role="alert">' + esc(outErrMsg(u.err)) + '</p>';
+  if (d && !u.busy){
+    if (d.warnings && d.warnings.length) h += '<ul class="aiw-warn">' + d.warnings.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>';
+    h += outBlock('subject', 'Subject', d.subject) + outBlock('body', 'Email', d.body) + outBlock('linkedin_note', 'LinkedIn note (' + String(d.linkedin_note || '').length + '/300)', d.linkedin_note) +
+      outBlock('followup', 'Follow-up — day ' + OUT_FU_DAYS, d.followup);
+    h += '<p class="out-cv">📎 <b>Attach your CV as a PDF</b> — mail links can’t attach files. No PDF yet? <a href="/cv-builder.html" target="_blank" rel="noopener">Make one free in the CV builder</a> (Print → Save as PDF).</p>';
+    h += '<p class="fs-meta">WRITTEN ' + esc(fsDate(d.at)) + ' · AI CAN BE WRONG — ONLY SEND WHAT IS TRUE FOR YOU.' + (b && b.reach ? ' · REACHED OUT ' + esc(fmtDay(b.reach.at)) : '') + '</p>';
+  }
+  m.innerHTML = '<div class="agent-card aiw-card out-card" role="dialog" aria-modal="true" aria-label="' + esc(OUT_LABEL) + '">' +
+    '<div class="ag-head"><div><h2 class="ag-title">' + esc(OUT_LABEL) + '<span class="dot">.</span></h2><p class="ag-sub">' + esc((j.company + ' · ' + tr(j.title, 50)).toUpperCase()) + '</p></div>' +
+    '<button class="d-x" data-act="outclose" aria-label="Close">×</button></div><div class="ag-body aiw-body">' + h + '</div>' +
+    '<div class="ag-foot">' + (d && !u.busy ? '<button class="btn red" data-act="outmail">OPEN IN MAIL APP</button><button class="btn" data-act="outcopyall">COPY EMAIL</button>' : '') +
+      '<button class="btn" data-act="outclose">CLOSE</button></div></div>';
+  m.classList.add('open');
+}
+function closeOutreach(){ const m = document.getElementById('outModal'); if (m){ m.classList.remove('open'); m.innerHTML = ''; } OUTU.id = null; }
+const OUT_ERR = {
+  need_cv:'Paste your CV first (200+ characters) — it is only sent for this one request.',
+  free_outreach_limit:'Free Reach out drafts from this network are used up for today. Any pass includes them.',
+  pass_required:'Reach out drafts need a pass right now.',
+  generate_daily_cap:'You reached today’s fair-use limit for Reach out drafts (30 a day). It resets tomorrow.',
+  bad_recipient:'The name or role is too long — shorten it.',
+  cv_too_long:'Your CV is over 30,000 characters — trim it and try again.',
+  jd_too_short:'This posting has no usable description yet — open the posting and paste its text into the AI fit score box first.',
+  model_output_invalid:'The AI returned an unusable answer — try again. Nothing was used up.',
+};
+function outErrMsg(e){ return OUT_ERR[e && e.code] || fsErrMsg(e); }
+async function outGenerate(){
+  const u = OUTU, j = byId(u.id); if (!j) throw { code:'no_job' };
+  const acc = outAccess();
+  if (acc === 'locked') throw { code:'pass_required' };
+  const cv = fsCvText();
+  if (!cv || cv.length < 200) throw { code:'need_cv' };
+  const input = { cv:cv, job:{ title:j.title, company:j.company, description:(j.description || '').trim().slice(0, 20000) },
+    recipient:{ name:u.name || '', role:u.role || '' }, lang:u.lang === 'de' ? 'de' : 'en', tone:u.tone === 'warm' ? 'warm' : 'concise' };
+  let out;
+  if (acc === 'byok'){
+    if (!FSC || typeof FSC.buildGenerateRequestBody !== 'function') throw { code:'model_output_invalid' };
+    let body; try { body = FSC.buildGenerateRequestBody('outreach', input, { effort:'low', model:FS_BYOK_MODEL }); } catch(err){ throw { code:(err && (err.code || err.message)) || 'bad_input' }; }
+    const p = FSC.parseGenerateResponse(await fsByokFetch(body, 90000), 'outreach', input);
+    if (!p || p.ok === false || !p.data) throw { code:(p && p.error === 'refusal') ? 'model_refused' : 'model_output_invalid' };
+    out = { subject:p.data.subject, body:p.data.body, linkedin_note:p.data.linkedin_note, followup:p.data.followup, warnings:p.warnings };
+  } else {
+    const opts = acc === 'pass' ? { headers:{ Authorization:'Bearer ' + state.ai.pass.token } } : null;
+    const r = await fsApi('/api/generate', Object.assign({ kind:'outreach' }, input), 90000, opts);
+    if (r.status !== 200 || !r.data || typeof r.data.body !== 'string') throw { code:(r.data && r.data.error) || ('http_' + r.status), max:r.data && r.data.max };
+    out = r.data;
+    if (acc === 'free'){ OUTS.freeUsed++; }
+  }
+  const s = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').slice(0, n);
+  OUTS.drafts[u.id] = { at:Date.now(), subject:s(out.subject, 300), body:s(out.body, 4000), linkedin_note:s(out.linkedin_note, 300), followup:s(out.followup, 3000),
+    warnings:Array.isArray(out.warnings) ? out.warnings.map(w => s(w, 300)).slice(0, 10) : [], lang:input.lang, tone:input.tone, mode:acc,
+    to:{ name:s(u.name, 120), role:s(u.role, 160) } };
+  saveOutreach();
+  hwTrack('outreach_generate', { tier:acc === 'pass' ? (fsTier() || 'pass') : acc });
+  return OUTS.drafts[u.id];
+}
+async function outAction(a){
+  const u = OUTU; if (!u.id) return;
+  const act = a.dataset.act, d = OUTS.drafts[u.id], j = byId(u.id);
+  if (act !== 'outclose') outReadFields();
+  if (act === 'outclose') closeOutreach();
+  else if (act === 'outsug'){ const s = u.det || {}; if (s.name) u.name = s.name; if (s.role) u.role = s.role; if (s.email) u.email = s.email; u.sugUsed = true; renderOutreach(); }
+  else if (act === 'outset'){ if (a.dataset.k === 'lang') u.lang = a.dataset.v === 'de' ? 'de' : 'en'; else u.tone = a.dataset.v === 'warm' ? 'warm' : 'concise'; renderOutreach(); }
+  else if (act === 'outlink') hwTrack('outreach_link', { kind:a.dataset.k === 'linkedin' ? 'linkedin' : 'google' });
+  else if (act === 'outbuy'){ hwTrack('outreach_paywall', { kind:'buy' }); fsBuy('7d'); }
+  else if (act === 'outoptions'){ openFsModal('outreach'); }
+  else if (act === 'outcopy' && d){
+    const k = a.dataset.k, txt = String(d[k] || '');
+    copyText(txt).then(ok => {
+      toast(ok ? (k === 'linkedin_note' ? 'LINKEDIN NOTE COPIED' : k.toUpperCase().replace('_', ' ') + ' COPIED') : 'CLIPBOARD BLOCKED — SELECT THE TEXT');
+      if (ok && (k === 'body' || k === 'linkedin_note')) outMarkReached(u.id, k === 'linkedin_note' ? 'linkedin' : 'copy');
+    });
+  }
+  else if (act === 'outcopyall' && d){
+    copyText('Subject: ' + d.subject + '\n\n' + d.body).then(ok => { toast(ok ? 'EMAIL COPIED — ATTACH YOUR CV PDF' : 'CLIPBOARD BLOCKED — SELECT THE TEXT'); if (ok) outMarkReached(u.id, 'copy'); });
+  }
+  else if (act === 'outmail' && d){
+    const mt = outMailto(u.email, d.subject, d.body);
+    if (!mt.full){
+      const ok = await copyText(d.body);
+      toast(ok ? 'TOO LONG FOR A MAIL LINK — EMAIL COPIED, PASTE IT INTO THE MESSAGE' : 'TOO LONG FOR A MAIL LINK — USE COPY');
+      if (!ok) return;
+    }
+    openExternal(mt.url);
+    outMarkReached(u.id, 'mail');
+  }
+  else if (act === 'outgo'){
+    const cvBox = document.getElementById('outCv');
+    if (cvBox && cvBox.value.trim()){ state.ai.cv = cvBox.value.trim().slice(0, 20000); saveAi(); }
+    u.busy = true; u.err = null; renderOutreach();
+    try { await outGenerate(); toast('DRAFT READY — READ IT BEFORE YOU SEND IT'); }
+    catch(e){
+      u.err = { code:(e && e.code) || 'network', msg:e && e.msg, max:e && e.max };
+      if (u.err.code === 'free_outreach_limit' || u.err.code === 'pass_required'){ OUTS.freeUsed = Math.max(OUTS.freeUsed, OUT_FREE); saveOutreach(); }
+      if (u.err.code === 'pass_expired' || u.err.code === 'invalid_token'){ if (u.err.code === 'invalid_token') state.ai.pass = null; saveAi(); }
+    } finally {
+      u.busy = false;
+      if (OUTU.id){ renderOutreach(); if (outAccess() === 'locked' && !OUTS.drafts[u.id]) { hwTrack('outreach_paywall', { kind:'view' }); } }
+      if (state.drawerId && j){ const s = document.getElementById('dOut'); if (s) s.outerHTML = outDrawerHTML(j); }
+    }
+  }
 }
 
 /* ============ 21 · CLOCK, SCHEDULER & BOOT ============ */
