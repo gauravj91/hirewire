@@ -93,7 +93,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
    "name": "Is HireWire free?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Yes, the job feed, scoring, board and exports are free, with no account. The optional AI fit score gives 3 free scores, then costs a one-time Job Search Pass (€9 for 7 days or €19 for 30 days), or is free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking."
+    "text": "Yes, the job feed, scoring, board and exports are free, with no account. The optional AI features start free (3 AI fit scores and 1 Reach out draft), then come with a one-time Job Search Pass (€9 for 7 days or €19 for 30 days) that includes both, or are free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking."
    }
   },
   {
@@ -158,6 +158,14 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
    "acceptedAnswer": {
     "@type": "Answer",
     "text": "An optional one-time pass (€29 for 30 days) that adds Write with AI to a posting: a cover letter, interview prep, a tailored CV draft and a negotiation script, exportable as Word or PDF. It includes everything in the Job Search Pass. Your CV and the posting are sent only when you press Generate, through HireWire’s function to Google’s Gemini API (paid tier), and are not stored. With your own Anthropic API key the writing tools are free. Always check a draft is true for you before using it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is Reach out?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A button on every posting that drafts a short email to the hiring manager or the contact named in the posting: a subject line, an email under 120 words, a LinkedIn note under 300 characters and a follow-up for day 5, in English or German (formal Sie ), from your CV and the posting only. HireWire suggests a contact only if the posting text names one, gives you plain Google and LinkedIn search links, and opens the draft in your own mail app; it never sends email, and the recipient’s address stays in your browser. The job is marked “Reached out” and the follow-up reminder comes due five days later. Your first draft is free; after that it comes with any pass. Template and tips ."
    }
   },
   {
@@ -294,7 +302,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 
 <h2 id="faq">FAQ</h2>
 <div class="faq">
-<details><summary>Is HireWire free?</summary><div><p>Yes, the job feed, scoring, board and exports are free, with no account. The optional AI fit score gives 3 free scores, then costs a one-time Job Search Pass (€9 for 7 days or €19 for 30 days), or is free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking.</p></div></details>
+<details><summary>Is HireWire free?</summary><div><p>Yes, the job feed, scoring, board and exports are free, with no account. The optional AI features start free (3 AI fit scores and 1 <a href="/cold-email-hiring-manager.html">Reach out</a> draft), then come with a one-time Job Search Pass (€9 for 7 days or €19 for 30 days) that includes both, or are free with your own Anthropic API key. AI writing (cover letters, interview prep, tailored CV drafts, negotiation scripts) is part of the optional Pass Plus (€29 for 30 days, one-time), or also free with your own key. The app can also show hand-sold sponsor slots, which have no click tracking.</p></div></details>
 <details><summary>Where is my data stored?</summary><div><p>In your browser’s localStorage, mirrored to IndexedDB so it can be recovered if localStorage is cleared. If storage is blocked, the app runs in memory-only mode and tells you so.</p></div></details>
 <details><summary>Can I use it on two devices?</summary><div><p>Yes, two ways. <b>Encrypted sync</b> comes with any pass: your data is encrypted on your device with a recovery code only you hold, and HireWire stores only the encrypted copy (deleted 180 days after the last upload, or when you turn sync off and delete it). Restoring on another device works without a pass. Or, free: use <b>Backup everything</b> on one device and <b>Restore</b> (or drop the .json on the page) on the other. A restore replaces the profile, pipeline and people on the device you restore to. <a href="/privacy.html#sync">How sync handles your data</a>.</p></div></details>
 <details><summary>Why did my data disappear in Safari?</summary><div><p>Safari can delete a site’s stored data after 7 days without a visit. Keep a fresh backup file. The app reminds you when your backup is out of date.</p></div></details>
@@ -303,6 +311,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <details><summary>How do follow-up reminders work?</summary><div><p>HireWire schedules a follow-up 7 days after you apply, a thank-you note 2 days after an interview, and a check-in 7 days after each follow-up you mark as sent (up to 3 per stage, all adjustable). It shows what is due when you open the app, can show a daily browser notification while it is open, and gives you a calendar file for each reminder. It drafts the emails, but you send them yourself.</p></div></details>
 <details><summary>Can I install HireWire as an app?</summary><div><p>Yes. Use your browser’s <i>Install app</i> or <i>Add to Home Screen</i>. The app’s own files are then cached on your device so it opens offline; your data stays in the same browser storage. If you allow notifications, your browser can show a daily alert for strong new matches while HireWire is open and, where it supports background sync, a reminder when follow-ups are due. There is no push server. <a href="/privacy.html#offline">Details</a>.</p></div></details>
 <details><summary>What is Pass Plus?</summary><div><p>An optional one-time pass (€29 for 30 days) that adds <b>Write with AI</b> to a posting: a cover letter, interview prep, a tailored CV draft and a negotiation script, exportable as Word or PDF. It includes everything in the Job Search Pass. Your CV and the posting are sent only when you press Generate, through HireWire’s function to Google’s Gemini API (paid tier), and are not stored. With your own Anthropic API key the writing tools are free. Always check a draft is true for you before using it.</p></div></details>
+<details><summary>What is Reach out?</summary><div><p>A button on every posting that drafts a short email to the hiring manager or the contact named in the posting: a subject line, an email under 120 words, a LinkedIn note under 300 characters and a follow-up for day 5, in English or German (formal <i>Sie</i>), from your CV and the posting only. HireWire suggests a contact only if the posting text names one, gives you plain Google and LinkedIn search links, and opens the draft in your own mail app; it never sends email, and the recipient’s address stays in your browser. The job is marked “Reached out” and the follow-up reminder comes due five days later. Your first draft is free; after that it comes with any pass. <a href="/cold-email-hiring-manager.html">Template and tips</a>.</p></div></details>
 <details><summary>How do referral links work?</summary><div><p>Share your link from the app: a friend who opens it gets 3 free AI fit scores, and you get 3 for each friend who uses it (up to 10 friends). No names or emails are involved; HireWire only counts claims against a code derived from a random device ID. <a href="/privacy.html#referrals">Details</a>.</p></div></details>
 <details><summary>What happens when I get an offer or get hired?</summary><div><p>Mark a job as <i>offer</i> and HireWire helps you compare offers (base, bonus, equity, remote, commute and vacation, weighted the way you choose) and prepare a negotiation using the salary data in your feeds. When you accept, <b>Career mode</b> archives your search board (nothing is deleted) and gives you one weekly look at roles that pay clearly more than your new salary, by default 15% more.</p></div></details>
 <details><summary>Can I add jobs from LinkedIn or a recruiter email?</summary><div><p>Not currently. You can only save postings that appear on the wire. For off-wire roles, keep a spreadsheet alongside. The <a href="/guides/bulk-import-recruiter-job-posts.html">recruiter posts guide</a> sets one up.</p></div></details>
@@ -313,6 +322,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <ul>
 <li><a href="/privacy.html">Privacy, in plain language</a></li>
 <li><a href="/job-tracker-vs-spreadsheet.html">Job tracker vs spreadsheet</a></li>
+<li><a href="/cold-email-hiring-manager.html">Cold email to a hiring manager (template)</a></li>
 <li><a href="/guides/filter-jobs-by-minimum-pay.html">Filter jobs by minimum pay</a></li>
 <li><a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a></li>
 </ul>
@@ -336,6 +346,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <li><a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a></li>
 <li><a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a></li>
 <li><a href="/jobs-in-germany-english.html">English-speaking jobs in Germany</a></li>
+<li><a href="/cold-email-hiring-manager.html">Cold email to a hiring manager (template)</a></li>
 </ul>
 <h2>Comparisons</h2>
 <ul>
@@ -374,6 +385,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <a href="/guides/bulk-import-recruiter-job-posts.html">Organise recruiter job posts in bulk</a>
 <a href="/guides/migrate-from-jobstracker.html">Move from JobsTracker to HireWire</a>
 <a href="/jobs-in-germany-english.html">English-speaking jobs in Germany</a>
+<a href="/cold-email-hiring-manager.html">Cold email to a hiring manager (template)</a>
 <span class="fg">Comparisons</span>
 <a href="/best-browser-job-tracker.html">Best free browser-based job tracker</a>
 <a href="/teal-alternative.html">Teal job tracker alternative</a>
@@ -389,6 +401,7 @@ video.demo-video{display:block;width:100%;height:auto;aspect-ratio:16/9;backgrou
 <a href="/de/bewerbungstracker-kostenlos.html" lang="de">Bewerbungstracker kostenlos</a>
 <a href="/de/bewerbungen-verwalten-excel-vorlage.html" lang="de">Bewerbungen verwalten: Excel-Vorlage</a>
 <a href="/de/lebenslauf-ats-tipps.html" lang="de">ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf</a>
+<a href="/de/initiativbewerbung-anschreiben.html" lang="de">Initiativbewerbung: Anschreiben-Vorlage</a>
 <a href="/de/stepstone-indeed-linkedin-jobs-bewerten.html" lang="de">StepStone oder Indeed? Jobs bewerten</a>
 <a href="/de/lebenslauf-datenschutz-check.html" lang="de">Lebenslauf-Datenschutz-Check</a>
 <a href="/de/datenschutz.html" lang="de">Datenschutz (Kurzfassung)</a>
