@@ -16,10 +16,15 @@
 <meta property="og:title" content="HireWire privacy, in plain language">
 <meta property="og:description" content="Plain-language privacy policy for HireWire, the browser-based job tracker: who is responsible, what stays in local browser storage, what the optional AI features and payments send, providers, international transfers, retention and your rights under GDPR, UK GDPR and US state laws.">
 <meta property="og:url" content="https://hirewire.fyi/privacy.html">
-<meta property="article:modified_time" content="2026-10-15">
-<meta name="twitter:card" content="summary">
+<meta property="article:modified_time" content="2026-10-22">
+<meta property="og:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HireWire: free job feed aggregator and tracker. 55 job feeds, fit scores, ghost-job check, free ATS CV builder, AI outreach drafts.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="HireWire privacy, in plain language">
 <meta name="twitter:description" content="Plain-language privacy policy for HireWire, the browser-based job tracker: who is responsible, what stays in local browser storage, what the optional AI features and payments send, providers, international transfers, retention and your rights under GDPR, UK GDPR and US state laws.">
+<meta name="twitter:image" content="https://hirewire.fyi/assets/og/hirewire-og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F6F1E6'/%3E%3Crect x='5' y='13' width='22' height='6' fill='%23C8371D'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <link rel="stylesheet" href="/assets/pages.css">
@@ -32,7 +37,7 @@
  "url": "https://hirewire.fyi/privacy.html",
  "mainEntityOfPage": "https://hirewire.fyi/privacy.html",
  "datePublished": "2026-10-14",
- "dateModified": "2026-10-15",
+ "dateModified": "2026-10-22",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -159,18 +164,18 @@
 <div class="kicker">Privacy</div>
 <h1>Privacy policy</h1>
 <p class="dek">Mostly, your data never leaves your browser. This page says exactly where it does, who is responsible, and what your rights are. It describes what the code at hirewire.fyi does, not marketing promises.</p>
-<p class="byline">HireWire · last reviewed 2026-10-15</p>
+<p class="byline">HireWire · last reviewed 2026-10-22</p>
 
 <div class="tldr"><h2>The short answer</h2><ul>
 <li><b>Who is responsible:</b> Gaurav Jindal, a sole proprietor in Germany (<a href="#controller">details</a>). Your rights are <a href="#your-rights">below</a>.</li>
 <li><b>No account.</b> HireWire has no sign-up, no login and no user database.</li>
 <li><b>Your job search stays on your device.</b> Profile, skills, salary floor, pipeline, notes, contacts and API keys are kept in this browser’s storage.</li>
-<li><b>Your CV is only sent if you ask for an AI fit score.</b> Skill extraction runs inside the page and the pasted text isn’t saved. The optional <a href="#ai-fit-score">AI fit score</a> sends your CV and one posting to Google’s Gemini API for that single request; HireWire doesn’t store or log them.</li>
+<li><b>Your CV is only sent if you ask for an AI feature.</b> Skill extraction runs inside the page and the pasted text isn’t saved. The optional <a href="#ai-fit-score">AI fit score</a>, <a href="#reach-out">Reach out</a> drafts and AI writing send your CV and one posting to Google’s Gemini API for that single request; HireWire doesn’t store or log them.</li>
 <li><b>Paid passes go through Stripe.</b> HireWire never sees your card number. Stripe keeps the payment record (your email, name, country, what you bought and when), which HireWire can see in its Stripe account and must keep for 8 to 10 years under German tax law. Your pass itself lives in your browser.</li>
 <li><b>Usage analytics only if you say yes.</b> If you opt in, the app page counts which features are used (PostHog). No cookies, no session recording. Off by default, and always off when your browser sends Do Not Track or Global Privacy Control.</li>
 <li><b>Back up.</b> Clearing site data, or Safari’s 7-day rule, can wipe your local data. One JSON file restores everything.</li>
 <li><b>The free tools</b> (ghost-job checker, salary checker) run in the page. The Chrome extension reads a job page only when you click its button.</li>
-<li><b>Optional extras:</b> AI writing (Pass Plus) sends your CV only when you press Generate. Encrypted sync uploads only data encrypted on your device with a key HireWire never sees.</li>
+<li><b>Optional extras:</b> AI writing (Pass Plus) and Reach out drafts send your CV only when you press Generate. Encrypted sync uploads only data encrypted on your device with a key HireWire never sees.</li>
 </ul></div>
 
 <h2>What stays on your device</h2>
@@ -199,9 +204,9 @@
 <tr><th>Adzuna / Jooble (only if you add a key)</th><td>On sync</td><td>Your API key and the search keywords (and, for Jooble, the location) you entered</td></tr>
 <tr><th>GitHub Pages (hosting of hirewire.fyi)</th><td>Every page load</td><td>A normal web request: your IP address, browser details and the page requested. GitHub keeps these in its server logs for security</td></tr>
 <tr><th>PostHog (analytics, US host)</th><td>Only if you opt in; see below</td><td>Named feature events, a random ID, browser metadata and your IP address</td></tr>
-<tr><th>HireWire API (hosted on Cloudflare Workers)</th><td>Only when you press Score with AI, buy or restore a pass (not used in own-key mode)</td><td>Your CV text, the posting’s title, company and description, your pass token if you have one, and your IP address. Processed and passed on, never stored or logged</td></tr>
-<tr><th>Google (Gemini API, paid tier)</th><td>When you press Score with AI (not used in own-key mode)</td><td>Your CV text and the posting, forwarded by the scoring function. Not used by Google to improve its products; logged by Google for a limited period for abuse detection</td></tr>
-<tr><th>Anthropic (Claude API)</th><td>Only with your own Anthropic key: when you press Score with AI, Write with AI, or Improve with AI on a follow-up email</td><td>Your CV text and the posting, sent directly from your browser with your key. Improve with AI sends only that email draft (no CV)</td></tr>
+<tr><th>HireWire API (hosted on Cloudflare Workers)</th><td>Only when you press Score with AI, press Generate (Write with AI or Reach out), or buy or restore a pass (not used in own-key mode)</td><td>Your CV text, the posting’s title, company and description, your pass token if you have one, and your IP address. Processed and passed on, never stored or logged</td></tr>
+<tr><th>Google (Gemini API, paid tier)</th><td>When you press Score with AI or Generate (Write with AI, Reach out) (not used in own-key mode)</td><td>Your CV text and the posting, forwarded by HireWire’s API. Not used by Google to improve its products; logged by Google for a limited period for abuse detection</td></tr>
+<tr><th>Anthropic (Claude API)</th><td>Only with your own Anthropic key: when you press Score with AI, Write with AI, Generate in Reach out, or Improve with AI on a follow-up email</td><td>Your CV text and the posting, sent directly from your browser with your key. Improve with AI sends only that email draft (no CV)</td></tr>
 <tr><th>Stripe</th><td>Only if you buy a pass</td><td>What you enter on Stripe’s checkout page (card, email, name, country). When your pass is activated, HireWire’s API asks Stripe whether the payment went through and uses only the payment status and the pass bought; it doesn’t store the rest. Right after the payment, Stripe also sends HireWire’s API the completed checkout (pass, price, pass ID, your name and email) so the API can email you your order confirmation through Resend; the API then keeps only a marker that the confirmation for that pass ID was sent (up to 400 days, so it is never sent twice), not your name or email. The payment record stays in HireWire’s Stripe account (see <a href="#retention">retention</a>)</td></tr>
 <tr><th>Web3Forms</th><td>Only if you press Send in the Contact dialog</td><td>Your message, plus optional counts (cached postings, saved jobs). Web3Forms forwards it to HireWire’s inbox</td></tr>
 <tr><th>HireWire’s email</th><td>If you email us, use the contact form, or ask for a refund or withdrawal</td><td>Your message and email address</td></tr>
@@ -511,7 +516,7 @@
 <a href="/sponsor.html">Sponsor HireWire</a>
 </nav>
 <nav class="legal" aria-label="Legal"><a href="/terms.html">Terms</a> · <a href="/privacy.html" aria-current="page">Privacy</a> · <a href="/withdrawal.html#withdraw-function">Withdraw from contract</a> · <a href="/imprint.html">Imprint</a></nav>
-<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-15; corrections welcome via the contact button in the app.</span>
+<span>HIREWIRE — EVERY POSTING, ONE PIPELINE, ALL LOCAL. Comparisons reflect public information checked on 2026-10-22; corrections welcome via the contact button in the app.</span>
 </footer>
 </div>
 </body>
