@@ -1065,6 +1065,8 @@ HireWire · last reviewed 2026-10-21
 
 You can switch templates at any time without retyping anything, and set the CV language (English or German headings and dates) and the paper size (A4 or US Letter) separately.
 
+Applying to a German-speaking employer? The German page, Lebenslauf-Vorlage kostenlos (https://hirewire.fyi/de/lebenslauf-vorlage.html), opens the same builder with the tabular Lebenslauf selected and explains in German how a Lebenslauf is structured: language levels (A1–C2), the photo question, length, signature, and how it differs from an English CV.
+
 ## Why these templates are ATS-friendly
 
 An applicant tracking system turns your PDF back into text before anyone reads it. Layouts that look clever to a person can come out scrambled. The three ATS templates follow the rules that keep the text clean:
@@ -2762,7 +2764,7 @@ Alle Details stehen in der Datenschutz-Kurzfassung (https://hirewire.fyi/de/date
 
 - Lebenslauf: eine kostenlose Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html) (tabellarisch oder ATS-freundlich, PDF), die deinen Lebenslauf mit einem Klick an die App übergibt.
 
-- Verwalten: eine Pipeline von „gemerkt“ bis „Angebot“, mit Notizen, Kontakten, Terminen und Follow-up-Erinnerungen samt E-Mail-Entwurf (auf Englisch).
+- Verwalten: eine Pipeline von „gemerkt“ bis „Angebot“, mit Notizen, Kontakten, Terminen und Follow-up-Erinnerungen samt E-Mail-Entwurf (auf Englisch). Wie das im Vergleich zu Excel, Huntr und Teal aussieht, zeigt Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html).
 
 - Optional mit KI: Googles KI-Modell Gemini bewertet deinen Lebenslauf für eine Stelle von 0 bis 10 und nennt die wichtigsten Verbesserungen. 3 Bewertungen sind kostenlos, danach gibt es einen einmaligen Pass (9 € für 7 Tage, 19 € für 30 Tage) ohne Abo. Jeder Pass enthält auch „Direkt anschreiben“ (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html): ein kurzer Entwurf für eine E-Mail an die Ansprechperson einer Stelle, in der Sie-Form (der erste ist kostenlos). Pass Plus (29 € für 30 Tage) schreibt außerdem Anschreiben, Lebenslauf-Entwürfe, Gesprächsvorbereitung und Verhandlungsskripte.
 
@@ -2893,6 +2895,8 @@ Eine Tabelle kann alles, was du ihr beibringst, und gehört dir. Der Preis ist H
 
 Huntr und Teal sind ausgereifte Plattformen mit Browser-Erweiterung, Lebenslauf-Editor und KI-Funktionen. Dafür legst du ein Konto an, und deine Jobsuche liegt auf deren Servern. Bei Huntr endet der kostenlose Plan bei 100 getrackten Jobs, bei Teal ist das Tracking kostenlos unbegrenzt, KI-Funktionen sind im Gratis-Plan aber begrenzt.
 
+Brauchst du nur einen Lebenslauf und kein Konto, geht das auch einzeln: Die kostenlose Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html) erstellt einen tabellarischen oder ATS-freundlichen Lebenslauf als PDF, direkt im Browser.
+
 ## HireWire: finden, bewerten, verwalten, ohne Konto
 
 HireWire ist eher Job-Radar als Formular: Es zeigt dir laufend Stellen aus 55 öffentlichen Quellen, sortiert nach deinem Profil, mit Ghost-Job-Risiko (https://hirewire.fyi/de/ghost-jobs-erkennen.html) und Gehalts-Check. Was dich interessiert, legst du in die Pipeline. Alles bleibt im Browser; eine JSON-Datei sichert den kompletten Stand.
@@ -2992,7 +2996,7 @@ Die Tabelle ist ehrlich und flexibel. Mühsam wird sie, wenn du viele Stellen si
 
 | Kosten | kostenlos | kostenlos; optionaler KI-Fit-Score: 3 frei, dann einmalig 9 € oder 19 € |
 
-Viele nutzen beides: HireWire für das Finden und Bewerten, die Tabelle für Bewerbungen, die über Kontakte oder Personalvermittler laufen.
+Viele nutzen beides: HireWire für das Finden und Bewerten, die Tabelle für Bewerbungen, die über Kontakte oder Personalvermittler laufen. Welche weiteren kostenlosen Wege es gibt (Notion, Huntr, Teal) und wo dabei deine Daten liegen, zeigt der Vergleich Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html). Den Lebenslauf für die Bewerbungen in deiner Tabelle erstellst du mit der kostenlosen Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html) als PDF.
 
 ## Häufige Fragen
 
@@ -3072,6 +3076,8 @@ Einige der stärksten Hinweise brauchen einen Verlauf: dieselbe Stelle bei derse
 - Mittel: ein paar weiche Hinweise. Kurz prüfen: Steht die Stelle auch auf der Karriereseite der Firma, und ist sie aktuell?
 
 - Hoch: mehrere Hinweise zusammen, oft Talent-Pool-Formulierungen. Steck weniger Zeit in ein maßgeschneidertes Anschreiben oder frag vorher kurz nach, ob die Stelle aktiv besetzt wird.
+
+Notiere dir das Ergebnis zusammen mit der Bewerbung: Wenn sich nach einigen Wochen nichts tut, siehst du schneller, ob es an der Anzeige lag. Wie du Bewerbungen kostenlos im Blick behältst, mit Tabelle, Cloud-Tool oder ohne Konto, vergleicht der Ratgeber Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html). Und wenn die Stelle echt wirkt, erstellst du den passenden Lebenslauf mit der kostenlosen Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html).
 
 ## Ergebnis teilen
 
@@ -3294,6 +3300,8 @@ Der wichtigste Hebel ist, deinen Lebenslauf für jede Stelle anzupassen. Das geh
 
 HireWire prüft kein Layout und simuliert kein bestimmtes ATS. Für das Format gilt Tipp 12. Die App ist auf Englisch.
 
+Wer seinen Lebenslauf für jede Stelle anpasst, hat bald mehrere Versionen im Umlauf. Halte fest, welche Version an welche Firma ging und wann du nachfassen willst; welche kostenlosen Werkzeuge sich dafür eignen, vergleicht Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html).
+
 ## Häufige Fragen
 
 **Q: Was ist ein ATS-Lebenslauf?**
@@ -3509,11 +3517,11 @@ Ja: Resume privacy check (https://hirewire.fyi/resume-privacy-check.html), mit d
 ---
 
 URL: https://hirewire.fyi/de/lebenslauf-vorlage.html
-Title: Lebenslauf Vorlage kostenlos: tabellarisch & ATS-freundlich, PDF ohne Anmeldung
+Title: Lebenslauf-Vorlage kostenlos (tabellarisch & ATS) + Anleitung
 
 Kostenloses Tool · Lebenslauf-Vorlage
 
-# Lebenslauf-Vorlage kostenlos
+# Lebenslauf-Vorlage kostenlos: ausfüllen und richtig aufbauen
 
 Formular ausfüllen, Vorlage wählen, PDF herunterladen. Ohne Konto, ohne Bezahlschranke beim Download, ohne Wasserzeichen. Dein Lebenslauf entsteht und bleibt in deinem Browser: Nichts wird an HireWire oder andere hochgeladen.
 
@@ -3529,35 +3537,113 @@ HireWire · zuletzt geprüft am 21.10.2026
 
 - Mit Jobs abgleichen (optional). „Mit echten Jobs abgleichen“ öffnet HireWire mit deinem Lebenslauf, liest deine Kenntnisse aus und sortiert Stellen nach Passung.
 
-## Aufbau eines tabellarischen Lebenslaufs
+## Lebenslauf schreiben: Aufbau, Form und typische Fehler
 
-Links stehen die Zeiträume, rechts die Angaben, die neueste Station zuerst (antichronologisch). Die Vorlage folgt diesem Aufbau:
+Die Vorlage nimmt dir das Layout ab, den Inhalt nicht. Dieser Leitfaden erklärt, was in einen deutschen Lebenslauf gehört, wie lang er sein sollte, wann ein Foto sinnvoll ist und worauf du achten solltest, wenn du bisher nur englische CVs oder Résumés geschrieben hast.
+
+### Aufbau eines tabellarischen Lebenslaufs
+
+In Deutschland ist der tabellarische Lebenslauf der Standard: links die Zeiträume, rechts die Angaben, die neueste Station zuerst (antichronologisch). Personaler wollen auf einen Blick sehen, was du gerade machst und wie du dorthin gekommen bist. Die Vorlage folgt diesem Aufbau:
 
 | Abschnitt | Was hineingehört |
 
-| Persönliche Daten | Name, Anschrift, Telefon, E-Mail. Geburtsdatum und Staatsangehörigkeit sind freiwillig. |
+| Persönliche Daten | Name, Anschrift, Telefon, E-Mail. Geburtsdatum, Geburtsort, Staatsangehörigkeit und Familienstand sind freiwillig. |
 
 | Kurzprofil | Zwei, drei Sätze: wer du bist, was du kannst, was du suchst (optional, aber hilfreich). |
 
-| Berufserfahrung | Zeitraum (MM/JJJJ), Position, Arbeitgeber, Ort und die wichtigsten Aufgaben und Erfolge. |
+| Berufserfahrung | Zeitraum (MM/JJJJ), Position, Arbeitgeber, Ort und die wichtigsten Aufgaben und Erfolge, neueste Stelle zuerst. |
 
 | Ausbildung | Studium, Berufsausbildung, Schulabschluss, mit Note, wenn sie gut ist. |
 
-| Kenntnisse | EDV, Fachkenntnisse, Führerschein; Sprachen mit Niveau (z. B. Englisch: C1 oder „verhandlungssicher“). |
+| Kenntnisse | EDV, Fachkenntnisse, Führerschein; Sprachen mit Niveau (siehe unten). |
 
 | Weitere Abschnitte | Zertifikate, Projekte, Ehrenamt, Interessen, wenn sie zur Stelle passen. |
 
 | Ort, Datum, Unterschrift | Klassischer Abschluss; bei Online-Bewerbungen optional und abschaltbar. |
 
-Ein bis zwei Seiten reichen fast immer. Die Vorschau zeigt die Seitenzahl und markiert, wo eine Seite umbricht.
+Persönliche Daten: Eine seriöse E-Mail-Adresse (Vor- und Nachname statt Spitzname) und eine Telefonnummer, unter der du tagsüber erreichbar bist, sind wichtiger als jede Zusatzangabe. Religion, Gesundheit oder die Berufe deiner Eltern gehören nicht in einen modernen Lebenslauf.
 
-## Bewerbungsfoto: ja oder nein?
+Berufserfahrung: Schreib zu jeder Station drei bis fünf Stichpunkte, die mit einem Verb beginnen („aufgebaut“, „verantwortet“, „eingeführt“). Erfolge wiegen mehr als Aufgaben: Was ist durch deine Arbeit besser, schneller oder günstiger geworden? Zahlen helfen, wenn du sie belegen kannst. Ältere oder fachfremde Stationen dürfen kürzer werden. Lücken von mehreren Monaten erklärst du knapp und sachlich, etwa mit „Elternzeit“, „Weiterbildung“ oder „berufliche Neuorientierung“.
 
-Seit dem Allgemeinen Gleichbehandlungsgesetz (AGG) von 2006 ist ein Foto keine Pflicht; Arbeitgeber fordern es meist nicht mehr ausdrücklich an, weil das als Hinweis auf Diskriminierung gewertet werden kann. Viele Bewerber legen trotzdem eines bei. Beides ist in Ordnung. Das Foto ist deshalb optional und erscheint nur in der Vorlage „Tabellarischer Lebenslauf“; für Bewerbungen nach Großbritannien oder in die USA lässt du es weg. Das Bild wird im Browser auf Passbildformat (3:4) zugeschnitten und nicht hochgeladen.
+Ausbildung: Mit Berufserfahrung genügen Abschluss, Hochschule oder Schule, Zeitraum und gegebenenfalls Schwerpunkt oder Abschlussnote. Berufseinsteiger dürfen hier ausführlicher sein: Abschlussarbeit, relevante Module, Praktika, Auslandssemester.
 
-## ATS-freundlich bewerben
+### Sprachkenntnisse richtig angeben
 
-Große Arbeitgeber lesen Bewerbungen oft zuerst mit einem Bewerbermanagementsystem ein. Die Vorlagen nutzen echte Schrift im PDF, gängige Überschriften und keine Grafiken oder Skill-Balken. Wenn ein Unternehmen spürbar automatisiert vorsortiert, nimm eine der einspaltigen Vorlagen. Mehr dazu im Ratgeber Lebenslauf ATS-freundlich schreiben (https://hirewire.fyi/de/lebenslauf-ats-tipps.html).
+Gib Sprachen am besten nach dem Gemeinsamen Europäischen Referenzrahmen (GER) an. Die Stufen sind europaweit bekannt und vergleichbarer als „gut“ oder „fließend“:
+
+| Stufe | Bedeutung | Übliche Umschreibung |
+
+| A1 / A2 | elementare Sprachverwendung | Grundkenntnisse |
+
+| B1 / B2 | selbstständige Sprachverwendung | gute Kenntnisse (B1), sehr gute Kenntnisse (B2) |
+
+| C1 | fachkundige Sprachkenntnisse | verhandlungssicher |
+
+| C2 | annähernd muttersprachliche Kenntnisse | exzellent, nahezu muttersprachlich |
+
+Die Umschreibungen sind verbreitet, aber nicht genormt; die GER-Stufe ist eindeutiger. Hast du ein Zertifikat (etwa Goethe, telc, TestDaF, IELTS oder Cambridge), nenn es mit Jahr. Deine Muttersprache führst du als „Muttersprache“ auf. Übertreib nicht: Im Vorstellungsgespräch wird eine angegebene Sprache oft spontan geprüft.
+
+### Bewerbungsfoto: ja oder nein?
+
+Seit dem Allgemeinen Gleichbehandlungsgesetz (AGG) von 2006 ist ein Foto keine Pflicht. Arbeitgeber fordern es meist nicht mehr ausdrücklich an, weil das als Hinweis auf Diskriminierung gewertet werden kann. Viele Bewerber legen trotzdem eines bei, und in traditionellen Branchen ist es weiterhin verbreitet. Beides ist in Ordnung. Wenn du ein Foto nutzt, dann ein aktuelles, professionelles Bild, kein Urlaubs- oder Automatenfoto. In der Vorlage ist das Foto deshalb optional und erscheint nur im „Tabellarischen Lebenslauf“; für Bewerbungen nach Großbritannien oder in die USA lässt du es weg. Das Bild wird im Browser auf Passbildformat (3:4) zugeschnitten und nicht hochgeladen.
+
+### Länge, Form, Ort, Datum und Unterschrift
+
+Ein bis zwei Seiten reichen fast immer: eine Seite für Berufseinsteiger, zwei für die meisten Berufserfahrenen. Mehr ist nur bei langen akademischen oder sehr spezialisierten Laufbahnen üblich. Kürze lieber alte Stationen, als die Schrift zu verkleinern. Die Vorschau zeigt die Seitenzahl und markiert, wo eine Seite umbricht.
+
+Ort, Datum und Unterschrift am Ende sind ein klassischer Abschluss, der bei Bewerbungen auf Papier erwartet wird. Bei Online-Bewerbungen und über Bewerberportale ist die Unterschrift nicht nötig; wenn du sie verwendest, sollte das Datum aktuell sein. Speichere den Lebenslauf als PDF mit einem eindeutigen Dateinamen wie „Lebenslauf_Vorname_Nachname.pdf“.
+
+### ATS-Tipps: damit die Software deinen Lebenslauf lesen kann
+
+Große Arbeitgeber lesen Bewerbungen oft zuerst mit einem Bewerbermanagementsystem (ATS) ein. Damit dabei nichts verloren geht:
+
+- Nutze gängige Überschriften wie „Berufserfahrung“, „Ausbildung“ und „Kenntnisse“ statt kreativer Titel.
+
+- Verzichte auf Skill-Balken, Icons, Textfelder und Grafiken; sie werden oft falsch oder gar nicht ausgelesen.
+
+- Übernimm Fachbegriffe aus der Stellenanzeige, sofern sie auf dich zutreffen, und schreib Abkürzungen einmal aus.
+
+- Lade ein PDF mit echtem Text hoch, keinen Scan.
+
+Die Vorlagen nutzen echte Schrift im PDF, gängige Überschriften und keine Grafiken. Wenn ein Unternehmen spürbar automatisiert vorsortiert, nimm eine der einspaltigen Vorlagen. Zwölf ausführliche Tipps stehen im Ratgeber ATS-Lebenslauf: Tipps für einen ATS-freundlichen Lebenslauf (https://hirewire.fyi/de/lebenslauf-ats-tipps.html).
+
+### Häufige Fehler im Lebenslauf
+
+- Ein Lebenslauf für alle Bewerbungen: Ohne Anpassung an die Stelle gehen die passenden Erfahrungen unter.
+
+- Uneinheitliche Datumsformate, Schriften oder Abstände.
+
+- Ungeklärte Lücken oder Zeiträume, die sich überschneiden, ohne dass klar wird, warum.
+
+- Aufgaben aufzählen statt Ergebnisse zeigen.
+
+- Tippfehler, besonders in Firmennamen, Berufsbezeichnungen und Fachbegriffen. Lass den Lebenslauf von jemandem gegenlesen.
+
+- Veraltete Angaben: eine alte Telefonnummer, eine nicht mehr genutzte E-Mail-Adresse oder ein Datum vom letzten Jahr unter der Unterschrift.
+
+### Deutscher Lebenslauf vs. englischer CV oder Résumé
+
+Wer aus dem Ausland kommt oder bisher international gearbeitet hat, kennt meist den britischen CV oder das amerikanische Résumé. Die Unterschiede sind kleiner als oft gedacht, aber sie fallen auf:
+
+| | Deutscher Lebenslauf | Englischer CV / US-Résumé |
+
+| Form | tabellarisch, Zeiträume links | einspaltiger Fließtext mit Stichpunkten |
+
+| Foto | freiwillig, noch verbreitet | in Großbritannien und den USA unüblich, meist weglassen |
+
+| Persönliche Angaben | Geburtsdatum und Staatsangehörigkeit freiwillig | in der Regel weglassen |
+
+| Länge | ein bis zwei Seiten | Résumé oft eine Seite, CV ein bis zwei Seiten |
+
+| Abschluss | Ort, Datum, Unterschrift (optional) | keine Unterschrift |
+
+| Zeugnisse | Arbeits- und Abschlusszeugnisse oft als Anlage | Referenzen auf Anfrage |
+
+Bewirbst du dich bei einem deutschen Unternehmen auf Deutsch, nimm den tabellarischen Lebenslauf. Bei internationalen Teams mit englischer Ausschreibung ist ein englischer CV ohne Foto meist die bessere Wahl. Für ausländische Abschlüsse hilft eine kurze Einordnung, etwa „Bachelor (entspricht B.Sc.)“; ob dein Abschluss in Deutschland anerkannt ist, klärt die zuständige Anerkennungsstelle. In der Vorlage wechselst du unter „Sprache des Lebenslaufs“ zwischen deutschen und englischen Überschriften, ohne neu zu tippen.
+
+### Nach dem Lebenslauf: Anschreiben und Überblick
+
+Für Bewerbungen ohne ausgeschriebene Stelle zeigt der Ratgeber Initiativbewerbung: Anschreiben mit Vorlage (https://hirewire.fyi/de/initiativbewerbung-anschreiben.html), wie du kurz und konkret anfragst. Sobald mehrere Bewerbungen gleichzeitig laufen, lohnt ein System für Status und Nachfass-Termine: Welche Optionen kostenlos sind und wo dabei deine Daten liegen, vergleicht Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html).
 
 ## Deine Daten bleiben bei dir
 
@@ -3583,7 +3669,19 @@ Nur im lokalen Speicher deines Browsers auf diesem Gerät, und nur solange In di
 
 **Q: Muss ein Lebenslauf unterschrieben sein?**
 
-Bei Online-Bewerbungen nicht. Ort, Datum und Unterschriftszeile sind ein klassischer Abschluss; du kannst sie in der Vorlage ein- oder ausschalten.
+Bei Online-Bewerbungen nicht. Ort, Datum und Unterschriftszeile sind ein klassischer Abschluss, vor allem bei Bewerbungen auf Papier; du kannst sie in der Vorlage ein- oder ausschalten.
+
+**Q: Wie lang darf ein Lebenslauf sein?**
+
+Ein bis zwei Seiten: eine für Berufseinsteiger, zwei für die meisten Berufserfahrenen. Kürze alte oder fachfremde Stationen, statt die Schrift zu verkleinern.
+
+**Q: Wie gebe ich Sprachkenntnisse im Lebenslauf an?**
+
+Am klarsten mit den GER-Stufen A1 bis C2, zum Beispiel „Englisch: C1“. Umschreibungen wie „verhandlungssicher“ (meist C1) sind verbreitet, aber nicht genormt. Zertifikate nennst du mit Jahr.
+
+**Q: Brauche ich als internationaler Bewerber einen deutschen Lebenslauf?**
+
+Für deutschsprachige Stellen bei deutschen Unternehmen ist der tabellarische Lebenslauf die sichere Wahl. Bei englischen Ausschreibungen und internationalen Teams genügt meist ein englischer CV ohne Foto. In der Vorlage wechselst du die Sprache der Überschriften mit einem Klick.
 
 **Q: Gibt es eine Word-Vorlage?**
 
@@ -3713,6 +3811,8 @@ Pat Beispiel
 - Anhang vergessen. Der Lebenslauf gehört als PDF dazu; die kostenlose Lebenslauf-Vorlage (https://hirewire.fyi/de/lebenslauf-vorlage.html) erstellt eines.
 
 - Mehrmals pro Woche nachhaken.
+
+- Den Überblick verlieren: Halte fest, wem du wann geschrieben hast und wann du nachfassen willst. Eine Tabelle reicht; weitere kostenlose Optionen vergleicht Bewerbungstracker kostenlos (https://hirewire.fyi/de/bewerbungstracker-kostenlos.html).
 
 ## Gibt es doch eine Stelle? Direkt anschreiben mit HireWire
 
