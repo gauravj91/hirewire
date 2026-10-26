@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # AI search and assistant crawlers are welcome (explicit for clarity; the rule above already allows them)
 User-agent: GPTBot
